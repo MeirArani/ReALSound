@@ -1,12 +1,9 @@
 import PySide6.QtCore
-from PongVideo import PongVideo
+from PongVideo.PongVideo import PongVideoTest
 
-print(PySide6.__version__)
+test = PongVideoTest(r"C:\Users\cloud\source\repos\CVPongDemo\PongDemoPy\Pong480.mp4")
 
-print(PySide6.QtCore.__version__)
+print(test.__dict__)
 
-print(vars(PongVideo))
 
-test = PongVideo.PongVideo(
-    r"C:\Users\cloud\source\repos\CVPongDemo\PongDemoPy\Pong480.mp4"
-)
+test.start("test")

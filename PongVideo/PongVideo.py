@@ -2,7 +2,7 @@ import numpy as np
 import cv2 as cv
 
 
-def PongVideo(video):
+class PongVideoTest:
     MOE = 2
     PADDLE_X_MOE = 18
     PADDLE_Y_MOE = 15
@@ -12,7 +12,7 @@ def PongVideo(video):
     PADDLE_MAX_WIDTH = 15
     OUT_OF_GAME_MIN_FRAMES = 2
 
-    def __init__(self):
+    def __init__(self, video):
         self.paused = False
         self.good_frame = False
         self.frame_state = 0
@@ -78,7 +78,8 @@ def PongVideo(video):
             test_points = candidates[
                 np.argwhere(
                     np.logical_xor(
-                        is_close(candidates, i)[:, 0], is_close(candidates, i)[:, 1]
+                        self.is_close(candidates, i)[:, 0],
+                        self.is_close(candidates, i)[:, 1],
                     )
                 ).flatten()
             ]
@@ -86,7 +87,7 @@ def PongVideo(video):
             # they also don't share X/Y values
             # (Since they're opposite corners of the rect)
             if test_points.shape[0] > 1 and not np.any(
-                is_close(test_points[:, 0], test_points[:, 1])
+                self.is_close(test_points[:, 0], test_points[:, 1])
             ):
                 if test_points.shape[0] > 2:
                     # test_points[np.argsort(
@@ -98,7 +99,7 @@ def PongVideo(video):
                 # They *aren't* close to our first point,
                 # which would be the opposite corner of the rectangle
                 # Aka our forth point that closes the rect
-                p4 = test_points[np.where(is_close(test_points, i) is not True)]
+                p4 = test_points[np.where(self.is_close(test_points, i) != True)]
                 # Make sure the X / Y in p4 are in the right order
                 if not np.any(p4[0] == test_points[:, 0]):
                     p4 = np.flip(p4)  # if not, swap X/Y values
@@ -116,17 +117,14 @@ def PongVideo(video):
                 # If it is, we had a rare misfire of alignments
                 # Build final result in correct order, based on maxes
                 if horz_rt < self.HORZ_MAX and vert_rt < self.VERT_MAX:
-                    result = (
-                        np.array(
-                            [
-                                [mins[0], mins[1]],
-                                [mins[0], maxes[1]],
-                                [maxes[0], mins[1]],
-                                [maxes[0], maxes[1]],
-                            ],
-                            dtype=np.int64,
-                        )
-                        and mins
+                    result = np.array(
+                        [
+                            [mins[0], mins[1]],
+                            [mins[0], maxes[1]],
+                            [maxes[0], mins[1]],
+                            [maxes[0], maxes[1]],
+                        ],
+                        dtype=np.int64,
                     )
                     # Add to the list of results at the closest empty slot
                     results[
@@ -137,7 +135,7 @@ def PongVideo(video):
                             np.all(
                                 np.any(
                                     np.logical_not(
-                                        is_close(result[:, None], candidates)
+                                        self.is_close(result[:, None], candidates)
                                     ),
                                     axis=2,
                                 ),
@@ -201,73 +199,71 @@ def PongVideo(video):
         )
         return results
 
-
-def detect_hit(self, objs):
-    if self.in_hit_check:
-        # If we hit the left paddle
-        if self.is_left_hit and np.all((objs[2] > self.hit_position)[:, 0]):
-            print("PLAYER 1 HIT")
-            self.in_hit_check = False
-            self.last_hit_check = -1
-            self.is_left_hit = False
-            self.hit_position = None
-        # If we hit the right paddle
-        elif not self.is_left_hit and np.all((objs[2] < self.hit_position)[:, 0]):
-            print("PLAYER 2 HIT")
-            self.in_hit_check = False
-            self.last_hit_check = -1
-            self.is_left_hit = False
-            self.hit_position = None
-        else:
-            self.last_hit_check += 1
-            if self.last_hit_check > self.hit_max_frames:
+    def detect_hit(self, objs):
+        if self.in_hit_check:
+            # If we hit the left paddle
+            if self.is_left_hit and np.all((objs[2] > self.hit_position)[:, 0]):
+                print("PLAYER 1 HIT")
                 self.in_hit_check = False
                 self.last_hit_check = -1
-                self.hit_position = None
                 self.is_left_hit = False
-                return
-    else:
-        # Make sure we're in the ballpark of the left paddle
-        if np.absolute(np.subtract(objs[0], objs[2]))[
-            :, 0
-        ].min() <= self.PADDLE_X_MOE and np.logical_and(
-            np.any(objs[2][:, 1] < objs[0][:, 1] + self.PADDLE_Y_MOE),
-            np.any(objs[2][:, 1] > objs[0][:, 1] - self.PADDLE_Y_MOE),
-        ):
-            self.in_hit_check = True
-            self.is_left_hit = True
-            self.hit_position = objs[2]  # Get ball position
-            self.last_hit_check = 0  # 0 frames since we started checking
-        # Make sure we're in the ballpark of the right paddle
-        elif np.absolute(np.subtract(objs[1], objs[2]))[
-            :, 0
-        ].min() <= self.PADDLE_X_MOE and np.logical_and(
-            np.any(objs[2][:, 1] < objs[1][:, 1] + self.PADDLE_Y_MOE),
-            np.any(objs[2][:, 1] > objs[1][:, 1] - self.PADDLE_Y_MOE),
-        ):
-            self.in_hit_check = True
-            self.is_left_hit = False
-            self.hit_position = objs[2]
-            self.last_hit_check = 0
+                self.hit_position = None
+            # If we hit the right paddle
+            elif not self.is_left_hit and np.all((objs[2] < self.hit_position)[:, 0]):
+                print("PLAYER 2 HIT")
+                self.in_hit_check = False
+                self.last_hit_check = -1
+                self.is_left_hit = False
+                self.hit_position = None
+            else:
+                self.last_hit_check += 1
+                if self.last_hit_check > self.hit_max_frames:
+                    self.in_hit_check = False
+                    self.last_hit_check = -1
+                    self.hit_position = None
+                    self.is_left_hit = False
+                    return
+        else:
+            # Make sure we're in the ballpark of the left paddle
+            if np.absolute(np.subtract(objs[0], objs[2]))[
+                :, 0
+            ].min() <= self.PADDLE_X_MOE and np.logical_and(
+                np.any(objs[2][:, 1] < objs[0][:, 1] + self.PADDLE_Y_MOE),
+                np.any(objs[2][:, 1] > objs[0][:, 1] - self.PADDLE_Y_MOE),
+            ):
+                self.in_hit_check = True
+                self.is_left_hit = True
+                self.hit_position = objs[2]  # Get ball position
+                self.last_hit_check = 0  # 0 frames since we started checking
+            # Make sure we're in the ballpark of the right paddle
+            elif np.absolute(np.subtract(objs[1], objs[2]))[
+                :, 0
+            ].min() <= self.PADDLE_X_MOE and np.logical_and(
+                np.any(objs[2][:, 1] < objs[1][:, 1] + self.PADDLE_Y_MOE),
+                np.any(objs[2][:, 1] > objs[1][:, 1] - self.PADDLE_Y_MOE),
+            ):
+                self.in_hit_check = True
+                self.is_left_hit = False
+                self.hit_position = objs[2]
+                self.last_hit_check = 0
 
-
-def detect_score(self, objs):
-    if (
-        np.all((objs[2] < objs[0] - self.GOAL_PIXEL_THRESH)[:, 0])
-        and self.frame_state == 3
-    ):
-        self.p2_score += 1
-        print("Player 2 GOAL!")
-        print("%s - %s" % (self.p1_score, self.p2_score))
-        return True
-    elif (
-        np.all((objs[2] > objs[1] + self.GOAL_PIXEL_THRESH)[:, 0])
-        and self.frame_state == 3
-    ):
-        self.p1_score += 1
-        print("Player 1 GOAL!")
-        print("%s - %s" % (self.p1_score, self.p2_score))
-        return True
+    def detect_score(self, objs):
+        if (
+            np.all((objs[2] < objs[0] - self.GOAL_PIXEL_THRESH)[:, 0])
+            and self.frame_state == 3
+        ):
+            self.p2_score += 1
+            print("Player 2 GOAL!")
+            print("%s - %s" % (self.p1_score, self.p2_score))
+            return True
+        elif (
+            np.all((objs[2] > objs[1] + self.GOAL_PIXEL_THRESH)[:, 0])
+            and self.frame_state == 3
+        ):
+            self.p1_score += 1
+            print("Player 1 GOAL!")
+            print("%s - %s" % (self.p1_score, self.p2_score))
+            return True
 
     def detect_state(self, objs):
         pass
@@ -275,8 +271,9 @@ def detect_score(self, objs):
     def corner_dist(self, obj1, obj2):
         pass
 
-    def start(self):
+    def start(self, window_name):
         show_circles = False
+
         cap = cv.VideoCapture(self.video)
         cap.set(cv.CAP_PROP_POS_FRAMES, self.START_FRAME)
 
@@ -286,16 +283,16 @@ def detect_score(self, objs):
         self.VERT_MAX = self.PADDLE_MAX_HEIGHT / self.cap_h
         self.HORZ_MAX = self.PADDLE_MAX_WIDTH / self.cap_w
 
-        cv.namedWindow(self.video)
+        cv.namedWindow("test")
 
         tracker = cv.TrackerMIL.create()
 
-        self.make_slid(0, 100, 2, "threshold", "test")
-        self.make_slid(1, 5, 2, "blocksize", "test")
-        self.make_slid(1, 4, 3, "ksize", "test")
-        self.make_slid(3, 6, 4, "k", "test")
-        self.make_slid(1, 25, 12, "numPoints", "test")
-        self.make_slid(1, 20, 3, "minDistance", "test")
+        self.make_slid(0, 100, 2, "threshold", window_name)
+        self.make_slid(1, 5, 2, "blocksize", window_name)
+        self.make_slid(1, 4, 3, "ksize", window_name)
+        self.make_slid(3, 6, 4, "k", window_name)
+        self.make_slid(1, 25, 12, "numPoints", window_name)
+        self.make_slid(1, 20, 3, "minDistance", window_name)
 
         last_good_objs = np.zeros((3, 4, 2), np.int64)
 
@@ -316,7 +313,9 @@ def detect_score(self, objs):
             )
             self.good_frame = False
 
-            self.threshold = self.get_UI_slider("threshold", root_wind="test") / 100
+            self.threshold = (
+                self.get_UI_slider("threshold", root_wind=window_name) / 100
+            )
 
             if not ret:
                 print("Frame is fucked")
@@ -324,9 +323,9 @@ def detect_score(self, objs):
             gray = cv.cvtColor(self.frame, cv.COLOR_BGR2GRAY)
             corners = cv.goodFeaturesToTrack(
                 gray,
-                self.get_UI_slider("numPoints", root_wind="test"),
-                self.get_UI_slider("threshold", root_wind="test") / 1000,
-                self.get_UI_slider("minDistance", root_wind="test"),
+                self.get_UI_slider("numPoints", root_wind=window_name),
+                self.get_UI_slider("threshold", root_wind=window_name) / 1000,
+                self.get_UI_slider("minDistance", root_wind=window_name),
             )
             groups = self.group_points(corners)
             objs = self.detect_objects(groups)
@@ -352,7 +351,7 @@ def detect_score(self, objs):
                 if self.last_good_objs[self.last_good_objs != 0].size == 24:
                     self.detect_hit(last_good_objs)
 
-                    if self.etect_score(self.last_good_objs):
+                    if self.detect_score(self.last_good_objs):
                         self.goal_scored = True
             if show_circles:
                 for i in corners:
@@ -372,15 +371,15 @@ def detect_score(self, objs):
                 cv.imwrite("test.png", gray)
                 print("Screenshotted!")
             elif key == ord("p"):
-                paused = not paused
+                self.paused = not self.paused
             elif key == ord("c"):
                 show_circles = not show_circles
-            while paused:
+            while self.paused:
                 key = 0xFF & cv.waitKey(1)
                 if key == ord("s"):
                     break
                 elif key == ord("p"):
-                    paused = not paused
+                    self.paused = not self.paused
                 elif key == ord("c"):
                     show_circles = not show_circles
         cap.release()
