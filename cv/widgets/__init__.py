@@ -22,9 +22,9 @@ class CVSlider(QHBoxLayout):
         self.label = QLabel(f"{settings["name"] or "_"}: {settings["value"]}")
 
         self.slider = QSlider(Qt.Orientation.Horizontal)
-        self.slider.setMinimum(settings["min"] if "min" in settings else 0)
-        self.slider.setMaximum(settings["max"] if "max" in settings else 10)
-        self.slider.setSingleStep(settings["step"] if "step" in settings else 1)
+        self.slider.setMinimum(settings["min"] if "min" in settings else 100)
+        self.slider.setMaximum(settings["max"])
+        self.slider.singleStep = settings["step"] if "step" in settings else 1
         self.slider.value = (
             settings["value"] if "value" in settings else self.slider.value
         )
