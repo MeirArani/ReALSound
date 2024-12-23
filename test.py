@@ -1,5 +1,5 @@
 import PySide6.QtCore
-from PongVideo.PongVideo import PongVideoTest
+from cv.PongVideo import PongVideoTest
 
 test = PongVideoTest(r"C:\Users\cloud\source\repos\CVPongDemo\PongDemoPy\Pong480.mp4")
 

@@ -12,7 +12,7 @@ from PySide6.QtWidgets import (
     QLabel,
     QHBoxLayout,
 )
-from cv.widgets import CVSlider
+from gui import widgets
 
 
 class CVControls(QDialog):
@@ -53,7 +53,7 @@ class CVControls(QDialog):
         self.controls = {}
 
         for control, settings in self.control_settings.items():
-            self.controls.update({settings["name"]: CVSlider(settings)})
+            self.controls.update({settings["name"]: widgets.CVSlider(settings)})
 
         self.cv_controls = QVBoxLayout()
         for control, cv_slider in self.controls.items():

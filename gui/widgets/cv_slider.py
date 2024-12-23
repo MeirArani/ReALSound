@@ -1,5 +1,5 @@
 import sys
-from PySide6.QtCore import Qt, Slot, QMargins
+from PySide6.QtCore import Qt, Slot, Signal
 from PySide6.QtWidgets import (
     QApplication,
     QDialog,
@@ -14,10 +14,12 @@ from PySide6.QtWidgets import (
 )
 
 
-class CVSlider(QHBoxLayout):
+class CVSliderWidget(QHBoxLayout):
+
+    moved = Signal()
 
     def __init__(self, settings, parent=None):
-        super(CVSlider, self).__init__(parent)
+        super(CVSliderWidget, self).__init__(parent)
 
         self.label = QLabel(f"{settings["name"] or "_"}: {settings["value"]}")
         self.label.setScaledContents(True)
