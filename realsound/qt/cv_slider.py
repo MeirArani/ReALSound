@@ -40,5 +40,5 @@ class CVSliderWidget(QHBoxLayout):
 
     @Slot(int)
     def on_move(self, val):
-        print("SOMETHING IS HAPPENING")
+        # print("SOMETHING IS HAPPENING")
         self.label.setText(f"{self.label.text().split(":")[0]}: {val}")
