@@ -1,0 +1,16 @@
+README.md
+pyproject.toml
+setup.cfg
+setup.py
+realsound.egg-info/PKG-INFO
+realsound.egg-info/SOURCES.txt
+realsound.egg-info/dependency_links.txt
+realsound.egg-info/requires.txt
+realsound.egg-info/top_level.txt
+realsound/config/__init__.py
+realsound/cv/PongVideo.py
+realsound/cv/__init__.py
+realsound/qt/__init__.py
+realsound/qt/cv_settings.py
+realsound/qt/cv_slider.py
+realsound/qt/manager.py
