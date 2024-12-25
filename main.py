@@ -1,5 +1,6 @@
 import importlib
-from realsound.qt import CVControls, CVSettingsListWidget
+from realsound.qt import CVSettingsListWidget
+from realsound.cv import PongVideoTest
 import sys
 from PySide6.QtWidgets import QApplication, QListView
 from importlib import resources
@@ -13,7 +14,11 @@ if __name__ == "__main__":
 
     # controls = CVControls()
     # controls.show()
-    controls = CVSettingsListWidget(config_name="cv_settings.json")
+    controls = CVSettingsListWidget(default_config="cv_settings.json")
+    video = PongVideoTest(
+        r"C:\Users\cloud\source\repos\CVPongDemo\PongDemoPy\Pong480.mp4", controls
+    )
     controls.show()
+    video.start()
     # run the main loop
     sys.exit(app.exec())

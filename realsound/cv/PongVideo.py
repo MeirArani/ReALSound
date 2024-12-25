@@ -12,7 +12,8 @@ class PongVideoTest:
     PADDLE_MAX_WIDTH = 15
     OUT_OF_GAME_MIN_FRAMES = 2
 
-    def __init__(self, video):
+    def __init__(self, video, settings):
+        self.qt_settings = settings
         self.paused = False
         self.good_frame = False
         self.frame_state = 0
@@ -271,10 +272,11 @@ class PongVideoTest:
     def corner_dist(self, obj1, obj2):
         pass
 
-    def start(self, window_name):
+    def start(self, window_name="Pong Demo"):
         show_circles = False
 
         cap = cv.VideoCapture(self.video)
+        print(cap)
         cap.set(cv.CAP_PROP_POS_FRAMES, self.START_FRAME)
 
         self.cap_w = cap.get(cv.CAP_PROP_FRAME_WIDTH)
@@ -283,7 +285,7 @@ class PongVideoTest:
         self.VERT_MAX = self.PADDLE_MAX_HEIGHT / self.cap_h
         self.HORZ_MAX = self.PADDLE_MAX_WIDTH / self.cap_w
 
-        cv.namedWindow("test")
+        cv.namedWindow(window_name)
 
         tracker = cv.TrackerMIL.create()
 
@@ -314,7 +316,9 @@ class PongVideoTest:
             self.good_frame = False
 
             self.threshold = (
-                self.get_UI_slider("threshold", root_wind=window_name) / 100
+                # self.get_UI_slider("threshold", root_wind=window_name) / 100
+                self.qt_settings.settings["thresh"].slider.value
+                / 100
             )
 
             if not ret:
@@ -323,9 +327,12 @@ class PongVideoTest:
             gray = cv.cvtColor(self.frame, cv.COLOR_BGR2GRAY)
             corners = cv.goodFeaturesToTrack(
                 gray,
-                self.get_UI_slider("numPoints", root_wind=window_name),
-                self.get_UI_slider("threshold", root_wind=window_name) / 1000,
-                self.get_UI_slider("minDistance", root_wind=window_name),
+                # self.get_UI_slider("numPoints", root_wind=window_name),
+                # self.get_UI_slider("threshold", root_wind=window_name) / 1000,
+                # self.get_UI_slider("minDistance", root_wind=window_name),
+                self.qt_settings.settings["points"].slider.value,
+                self.qt_settings.settings["thresh"].slider.value / 1000,
+                self.qt_settings.settings["distance"].slider.value,
             )
             groups = self.group_points(corners)
             objs = self.detect_objects(groups)

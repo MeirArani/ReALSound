@@ -20,7 +20,6 @@ class CVSliderWidget(QHBoxLayout):
 
     def __init__(self, settings, parent=None):
         super(CVSliderWidget, self).__init__(parent)
-
         self.label = QLabel(f"{settings["name"] or "_"}: {settings["value"]}")
         self.label.setScaledContents(True)
         # self.label.setContentsMargins(QMargins(10, 10, 10, 10))

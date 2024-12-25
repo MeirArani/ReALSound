@@ -9,16 +9,19 @@ from .cv_slider import CVSliderWidget
 
 
 class CVSettingsListWidget(QDialog):
-    def __init__(self, config_name=None, parent=None):
+    def __init__(self, default_config=None, parent=None):
         super().__init__(parent)
-        self.settings = json.loads(
-            resources.read_text(config, config_name)
+        self.defaults = json.loads(
+            resources.read_text(config, default_config)
         ) or json.loads(resources.read_text(config, "cv_settings.json").read_text())
 
         self.cv_settings = QVBoxLayout()
 
-        for control, settings in self.settings.items():
+        self.settings = {}
+
+        for control, settings in self.defaults.items():
             slider = CVSliderWidget(settings)
+            self.settings[control] = slider
             slider.slider.valueChanged.connect(
                 lambda value, name=control: self.update_settings(name, value)
             )
@@ -29,4 +32,5 @@ class CVSettingsListWidget(QDialog):
 
     def update_settings(self, control, value):
         print(f"{control}: {value}")
+        self.settings[control].slider.value = value
         pass
