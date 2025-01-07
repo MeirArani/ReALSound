@@ -9,8 +9,10 @@ from .cv_slider import CVSliderWidget
 
 
 class CVSettingsListWidget(QDialog):
-    def __init__(self, default_config=None, parent=None):
+    def __init__(self, default_config="cv_settings.json", parent=None):
         super().__init__(parent)
+
+        # Load options
         self.defaults = json.loads(
             resources.read_text(config, default_config)
         ) or json.loads(resources.read_text(config, "cv_settings.json").read_text())

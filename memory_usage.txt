@@ -1,0 +1,15 @@
+[ Top 10 memory consumers ]
+C:\Users\cloud\source\repos\ReALSound\realsound\qt\window\window_capture.py:226: size=31.6 MiB, count=1, average=31.6 MiB
+C:\Python312\Lib\linecache.py:137: size=199 KiB, count=2166, average=94 B
+C:\Users\cloud\source\repos\ReALSound\realsound\qt\window\window_capture.py:74: size=35.9 KiB, count=576, average=64 B
+C:\Python312\Lib\enum.py:264: size=23.6 KiB, count=350, average=69 B
+<frozen importlib._bootstrap_external>:753: size=18.1 KiB, count=182, average=102 B
+C:\Users\cloud\source\repos\ReALSound\realsound\qt\cv_slider.py:29: size=15.3 KiB, count=259, average=61 B
+C:\Users\cloud\source\repos\ReALSound\realsound\qt\window\window_capture.py:95: size=12.0 KiB, count=94, average=131 B
+C:\Python312\Lib\enum.py:583: size=11.6 KiB, count=36, average=331 B
+C:\Python312\Lib\enum.py:848: size=10.8 KiB, count=6, average=1851 B
+C:\Users\cloud\source\repos\ReALSound\realsound\qt\cv_slider.py:24: size=9744 B, count=180, average=54 B
+
+[ Detailed traceback for the top memory consumer ]
+  File "C:\Users\cloud\source\repos\ReALSound\realsound\qt\window\window_capture.py", line 226
+    bytes(bits), video_frame.width(), video_frame.height()

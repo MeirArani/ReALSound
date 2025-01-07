@@ -1,5 +1,4 @@
 Metadata-Version: 2.1
 Name: realsound
-Version: 1.0
-Requires-Dist: requests
-Requires-Dist: importlib-metadata; python_version < "3.10"
+Version: 0.0.1
+Requires-Dist: PySide6

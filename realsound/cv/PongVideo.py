@@ -365,6 +365,7 @@ class PongVideoTest:
                     x, y = i.ravel()
                     cv.circle(self.frame, (x, y), 3, 255, -1)
             cv.imshow("Frame testing", self.frame)
+            print(np.shape(self.frame))
             if not self.good_frame:
                 pass
                 # bad_frames.append(cap.get(cv.CAP_PROP_POS_FRAMES))

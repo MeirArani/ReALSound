@@ -1,3 +1,14 @@
+[project]
+name = "realsound"
+version = "0.0.1"
+dependencies = [
+    "PySide6"
+]
+
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["realsound*"]
+exclude = ["Thesis"]

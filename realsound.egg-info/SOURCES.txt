@@ -1,7 +1,6 @@
 README.md
 pyproject.toml
 setup.cfg
-setup.py
 realsound.egg-info/PKG-INFO
 realsound.egg-info/SOURCES.txt
 realsound.egg-info/dependency_links.txt
@@ -13,4 +12,8 @@ realsound/cv/__init__.py
 realsound/qt/__init__.py
 realsound/qt/cv_settings.py
 realsound/qt/cv_slider.py
-realsound/qt/manager.py
+realsound/qt/main_window.py
+realsound/qt/window/__init__.py
+realsound/qt/window/screenlistmodel.py
+realsound/qt/window/window_capture.py
+realsound/qt/window/windowlistmodel.py
