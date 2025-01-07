@@ -27,6 +27,9 @@ class CVSliderWidget(QHBoxLayout):
         # self.label.setContentsMargins(QMargins(10, 10, 10, 10))
 
         self.slider = QSlider(Qt.Orientation.Horizontal)
+        self.slider.value = (
+            settings["value"] if "value" in settings else self.slider.value
+        )
 
         self.slider.setMinimum(settings["min"] if "min" in settings else 100)
         self.slider.setMaximum(settings["max"])
@@ -34,10 +37,6 @@ class CVSliderWidget(QHBoxLayout):
         self.slider.setSingleStep(settings["step"] if "step" in settings else 1)
         self.slider.setTickInterval(settings["tick"] if "tick" in settings else 1)
         self.slider.setTickPosition(QSlider.TickPosition.TicksAbove)
-
-        self.slider.value = (
-            settings["value"] if "value" in settings else self.slider.value
-        )
 
         self.slider.valueChanged.connect(self.on_move)
 

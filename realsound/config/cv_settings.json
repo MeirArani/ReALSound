@@ -4,7 +4,7 @@
         "type": "Slider",
         "min": 0,
         "max": 100,
-        "value": 2,
+        "value": 50,
         "step": 1,
         "tick": 20
     },

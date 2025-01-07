@@ -2,7 +2,9 @@
 name = "realsound"
 version = "0.0.1"
 dependencies = [
-    "PySide6"
+    "PySide6",
+    "tensorflow",
+    "opencv-contrib-python",
 ]
 
 [build-system]
