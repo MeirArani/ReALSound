@@ -41,14 +41,26 @@
             "state": {
               "type": "excalidraw",
               "state": {
-                "file": "Excalidraw/Drawing 2025-01-08 14.53.25.excalidraw.md"
+                "file": "Excalidraw/Pong FSA.md"
               },
               "icon": "excalidraw-icon",
-              "title": "Drawing 2025-01-08 14.53.25.excalidraw"
+              "title": "Pong FSA"
+            }
+          },
+          {
+            "id": "0bef42105a6cbbbd",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "Excalidraw/Drawing 2025-01-08 16.10.17.excalidraw.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "Drawing 2025-01-08 16.10.17.excalidraw"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -201,11 +213,12 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "1c38c6c29abb046e",
+  "active": "0bef42105a6cbbbd",
   "lastOpenFiles": [
+    "Excalidraw/Pong FSA.md",
+    "Excalidraw/Drawing 2025-01-08 16.10.17.excalidraw.md",
     "2025-01-08.md",
     "Thesis Plans.md",
-    "Excalidraw/Drawing 2025-01-08 14.53.25.excalidraw.md",
     "Excalidraw",
     "2025-01-29.md",
     "2025-01-24.md",

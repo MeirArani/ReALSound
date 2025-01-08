@@ -1,2 +1,3 @@
 from .cv import CVSettingsListWidget, CVSliderWidget
-from .capture import WindowCaptureWidget
+from .capture import WindowCaptureWidget, WindowCaptureListWidget
+from .audio import AudioWidget

@@ -22,7 +22,7 @@ from realsound.cv import NewPong, PongVideoTest
 from realsound.cv.PongVideo import GameState
 from realsound.qt.cv import CVSettingsListWidget
 
-from realsound.qt.capture import WindowCaptureWidget
+from realsound.qt.capture import WindowCaptureWidget, WindowCaptureListWidget
 
 import numpy as np
 
@@ -30,32 +30,60 @@ import cv2 as cv
 
 from realsound.qt.cv import CVStatsWidget
 
+from realsound.qt.audio import AudioWidget
+
 
 class MainWindow(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.frame_counter = 0
-        self.settings_label = QLabel("CV Settings", self)
-        self.stats_label = QLabel("Stats", self)
+
         self.settings = CVSettingsListWidget(default_config="cv_settings.json")
-        self.screen_cap = WindowCaptureWidget()
-        # self.screen_cap.frame_updated.connect(self.get_new_frame)
 
         self.stats = CVStatsWidget()
 
-        self.main_layout = QGridLayout(self)
-        self.main_layout.addWidget(self.settings_label, 0, 0)
-        self.main_layout.addWidget(self.settings, 1, 0, 2, 1)
-        self.main_layout.addWidget(self.stats_label, 3, 0)
-        self.main_layout.addWidget(self.stats, 4, 0)
-        self.main_layout.addWidget(self.screen_cap, 0, 2, 8, 2)
+        self.audio_settings = AudioWidget()
 
-        self.main_layout.setColumnStretch(1, 1)
+        self.screen_cap = WindowCaptureWidget()
+
+        self.screen_list = WindowCaptureListWidget()
+
+        self.screen_list.update_window.connect(
+            self.screen_cap.on_current_window_selection_changed
+        )
+        self.screen_list.update_active_status.connect(
+            self.screen_cap.on_active_state_changed
+        )
+
+        self.screen_cap._window_capture.errorOccurred.connect(
+            self.screen_list.on_window_capture_error_occured
+        )
+
+        self.screen_cap._window_capture.setActive(True)
+
+        # self.screen_cap.frame_updated.connect(self.get_new_frame)
+
+        self.main_layout = QGridLayout(self)
+
+        # Col 1: CV Settings/WindowList
+        self.main_layout.addWidget(self.settings, 0, 0)
+
+        self.main_layout.addWidget(self.screen_list, 1, 0)
+
+        # Col 2: Window preview + Stats
+
+        self.main_layout.addWidget(self.screen_cap, 0, 1)
+
+        self.main_layout.addWidget(self.stats, 1, 1)
+
+        # Col 3: Audio Settings
+
+        self.main_layout.addWidget(self.audio_settings, 0, 2)
+
+        # self.main_layout.setColumnStretch(1, 1)
         # self.main_layout.setRowStretch(1, 1)
-        self.main_layout.setColumnMinimumWidth(0, 100)
-        self.main_layout.setColumnMinimumWidth(1, 100)
-        self.main_layout.setColumnMinimumWidth(2, 200)
-        self.main_layout.setColumnMinimumWidth(3, 500)
+        self.main_layout.setColumnMinimumWidth(0, 300)
+        # self.main_layout.setColumnMinimumWidth(1, 100)
 
         # self.cv_client = NewPong(self.settings)
 

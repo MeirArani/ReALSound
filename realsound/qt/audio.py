@@ -20,6 +20,7 @@ from PySide6.QtWidgets import (
     QFileDialog,
     QFormLayout,
     QHBoxLayout,
+    QGridLayout,
     QLineEdit,
     QPushButton,
     QSlider,
@@ -46,7 +47,8 @@ class AudioWidget(QWidget):
         super().__init__()
         self._file_dialog = None
         self.setMinimumSize(400, 300)
-        form = QFormLayout(self)
+
+        form = QFormLayout()
 
         file_layout = QHBoxLayout()
         self._file_edit = QLineEdit()
@@ -87,6 +89,12 @@ class AudioWidget(QWidget):
         self._reflection_gain.setRange(0, 500)
         self._reflection_gain.setValue(0)
         form.addRow("Reflection gain (0-5):", self._reflection_gain)
+
+        self.main_layout = QGridLayout(self)
+
+        self.main_layout.addLayout(form, 1, 0)
+        self.main_layout.setRowStretch(0, 1)
+        self.main_layout.setRowStretch(2, 1)
 
         self._mode = QComboBox()
         self._mode.addItem("Surround", QAudioEngine.Surround)
