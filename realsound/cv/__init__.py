@@ -1,3 +1,2 @@
-from .PongVideo import PongVideoTest
+from .PongVideo import PongVideoTest, GameState
 from .NewPong import NewPong
-from .NewPong import GameState

@@ -1,2 +1,2 @@
-from .cv_slider import CVSliderWidget
-from .cv_settings import CVSettingsListWidget
+from .cv import CVSettingsListWidget, CVSliderWidget
+from .capture import WindowCaptureWidget

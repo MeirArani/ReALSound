@@ -1,18 +1,27 @@
+from enum import IntEnum
+import time
 import numpy as np
-import cv2 as cv
+import cv2
+
+from PySide6.QtCore import Slot, Signal, QObject
 
 
-class PongVideoTest:
+class PongVideoTest(QObject):
     MOE = 2
     PADDLE_X_MOE = 18
     PADDLE_Y_MOE = 15
     GOAL_PIXEL_THRESH = 60
     PADDLE_MAX_HEIGHT = 40
-    START_FRAME = 0
+    START_FRAME = 80
     PADDLE_MAX_WIDTH = 15
     OUT_OF_GAME_MIN_FRAMES = 2
+    FRAME_RATE = 2
+    MAX_DELTA = 150
 
-    def __init__(self, video, settings):
+    frame_updated = Signal(np.ndarray, int)
+
+    def __init__(self, video, settings, parent=None):
+        super().__init__(parent)
         self.qt_settings = settings
         self.paused = False
         self.good_frame = False
@@ -29,6 +38,171 @@ class PongVideoTest:
         self.p1_score = 0
         self.p2_score = 0
         self.video = video
+        self.show_circles = False
+
+        self.cap = None
+        self.running = False
+
+        self.prev_time = 0
+
+        self.last_centers = None
+
+    def start(self, window_name="Pong Demo"):
+
+        # Init values
+        self.running = True
+        show_circles = False
+
+        # Init capture
+        self.cap = cv2.VideoCapture(self.video)
+        self.cap.set(cv2.CAP_PROP_POS_FRAMES, self.START_FRAME)
+
+        # Init Width/Height
+        self.cap_w = self.cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+        self.cap_h = self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+        self.VERT_MAX = self.PADDLE_MAX_HEIGHT / self.cap_h
+        self.HORZ_MAX = self.PADDLE_MAX_WIDTH / self.cap_w
+
+        self.last_good_objs = np.zeros((3, 4, 2), np.int64)
+
+        if not self.cap.isOpened():
+            print("Cannot open camera")
+            exit()
+
+        while self.running:
+
+            time_elapsed = time.time() - self.prev_time
+
+            if time_elapsed > 1 / self.FRAME_RATE:
+                pass
+
+            self.run_frame(self.cap)
+            # cv2.waitKey(0)
+
+            self.prev_time = time.time()
+
+            # capture, frame by frame (sick guitar riff)
+
+        self.cap.release()
+        print(self.bad_frames)
+        cv2.destroyAllWindows()
+
+    def run_frame(self, cap):
+        ret, frame = self.cap.read()
+
+        self.add_text(frame, "%r" % (self.cap.get(cv2.CAP_PROP_POS_FRAMES)), (450, 80))
+
+        self.good_frame = False
+
+        self.threshold = (
+            # self.get_UI_slider("threshold", root_wind=window_name) / 100
+            self.qt_settings.settings["thresh"].slider.value
+            / 100
+        )
+
+        if not ret:
+            print("Frame is fucked")
+            self.running = False
+
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        corners = cv2.goodFeaturesToTrack(
+            gray,
+            # self.get_UI_slider("numPoints", root_wind=window_name),
+            # self.get_UI_slider("threshold", root_wind=window_name) / 1000,
+            # self.get_UI_slider("minDistance", root_wind=window_name),
+            self.qt_settings.settings["points"].slider.value,
+            self.qt_settings.settings["thresh"].slider.value / 1000,
+            self.qt_settings.settings["distance"].slider.value,
+        )
+
+        groups = self.group_points(corners)
+        objs, centers = self.detect_objects(frame, groups)
+
+        if self.frame_state == GameState.MISSING_PADDLES:
+            self.out_of_game_frames += 1
+            if self.out_of_game_frames > self.OUT_OF_GAME_MIN_FRAMES:
+                print("OUT OF GAME!")
+        else:
+            self.out_of_game_frames = 0
+        if self.goal_scored and self.frame_state == GameState.MISSING_BALL:
+            pass
+        else:
+            if self.goal_scored:
+                print("GOAL!")
+                self.goal_scored = False
+
+            # Check if this is a good frame
+            if self.frame_state == GameState.MISSING_BALL:
+                self.last_good_objs[0] = objs[0]
+                self.last_good_objs[1] = objs[1]
+            else:
+                self.last_good_objs = objs
+
+            # If we need to detect a hit
+            if self.last_good_objs[self.last_good_objs != 0].size == 24:
+                self.detect_hit(self.last_good_objs)
+
+                if self.detect_score(self.last_good_objs):
+                    self.goal_scored = True
+
+        if self.show_circles:
+            show_circles(frame, corners)
+
+        self.add_text(frame, "%r" % (GameState(self.frame_state).name), (250, 80), 0.8)
+
+        self.update_ui(centers)
+
+        cv2.imshow("Frame testing", cv2.resize(frame, (1920, 1080)))
+        if not self.good_frame:
+            pass
+
+        key = 0xFF & cv2.waitKey(0)
+
+        if key == ord("q"):
+            self.running = False
+        elif key == ord("v"):
+            cv2.imwrite("test.png", gray)
+            print("Screenshotted!")
+        elif key == ord("p"):
+            self.paused = not self.paused
+        elif key == ord("c"):
+            show_circles = not show_circles
+        while self.paused:
+            key = 0xFF & cv2.waitKey(1)
+            if key == ord("s"):
+                break
+            elif key == ord("p"):
+                self.paused = not self.paused
+            elif key == ord("c"):
+                show_circles = not show_circles
+
+    def on_frame_update(self):
+        pass
+
+    @Slot()
+    def stop(self):
+        print("EXITED!")
+        self.running = False
+
+    def get_centers(self):
+        pass
+
+    def add_text(self, frame, text, pos, scale=1):
+        # Mark text
+        cv2.putText(
+            frame,
+            text,
+            pos,
+            cv2.FONT_HERSHEY_SIMPLEX,
+            1,
+            (0, 0, 255),
+            2,
+        )
+
+    def show_circles(self, frame, corners):
+        for i in corners:
+            x, y = i.ravel()
+            cv2.circle(frame, (x, y), 3, 255, -1)
 
     def make_slid(
         self,
@@ -39,21 +213,21 @@ class PongVideoTest:
         root_win_name: str,
         on_change_callback=lambda x: x,
     ):
-        cv.createTrackbar(slider_id, root_win_name, a_min, a_max, on_change_callback)
-        cv.setTrackbarPos(slider_id, root_win_name, curr)
+        cv2.createTrackbar(slider_id, root_win_name, a_min, a_max, on_change_callback)
+        cv2.setTrackbarPos(slider_id, root_win_name, curr)
         return slider_id
 
     def get_UI_slider(self, *ids, root_wind: str):
         """Gets a slider value, used for UI interactions"""
         try:
-            results = [cv.getTrackbarPos(idd, root_wind) for idd in ids]
+            results = [cv2.getTrackbarPos(idd, root_wind) for idd in ids]
             return results[0] if len(results) == 1 else results
         except Exception as e:
             print(f"Error in getting slider value - {str(e)}")
             return None
 
     def set_UI_slider(self, id_: str, value: int, root_wind: str):
-        cv.setTrackbarPos(id_, root_wind, value)
+        cv2.setTrackbarPos(id_, root_wind, value)
 
     def is_close(self, p1, p2):
         return abs(p1 - p2) <= self.MOE
@@ -150,7 +324,7 @@ class PongVideoTest:
             :, 0, :
         ]
 
-    def detect_objects(self, groups):
+    def detect_objects(self, frame, groups):
         # Four data points: detected, Ball, Paddle1 (left), Paddle2 (right)
         # detected encodes if the next three objects were detected
         # in a single number ranging from 0-7
@@ -160,45 +334,74 @@ class PongVideoTest:
         # 4 = Ball (100), 3 = Paddles (011), 2/1 = LP/RP (010/001)
         # The next indexes store the top left corner of the object
         # as well as its width and height
-        self.frame_state = 0
-        results = np.zeros((3, 4, 2))
+
         if len(groups) == 0:
-            return results
+            return np.zeros((3, 4, 2))
+
         w = groups[:, 2, 0] - groups[:, 0, 0]
         h = groups[:, 1, 1] - groups[:, 0, 1]
+
+        ball = groups[np.argwhere(h / w < 2)]
+        has_ball = np.any(ball) and len(ball) == 1
+
         paddles = groups[np.argwhere(h / w > 2)][:, 0, :]
         paddles = np.take_along_axis(paddles, np.argsort(paddles, axis=1), axis=1)
-        ball = groups[np.argwhere(h / w < 2)][:, 0, :]
-        if np.any(ball) and len(ball) == 1:
-            cv.rectangle(self.frame, ball[0][0], ball[0][3], (255, 0, 0), -1)
-            self.frame_state += 4
+        has_paddles = (np.any(paddles) and len(paddles) > 0) and len(paddles) == 2
+
+        results = np.zeros((3, 4, 2))
+        centers = np.zeros((3, 2))
+
+        if has_ball:
+            self.frame_state = GameState.ATTRACT
+
+            ball = ball.reshape((4, 2))
+
+            cv2.rectangle(frame, ball[0], ball[3], (255, 0, 0), -1)
+            self.frame_state += GameState.MISSING_PADDLES
+            print(f"After ball: {self.frame_state}")
             results[2] = ball
-        if np.any(paddles) and len(paddles) > 0:
-            if len(paddles) == 2:
-                cv.rectangle(self.frame, paddles[0][0], paddles[0][3], (0, 255, 0), -1)
-                cv.rectangle(self.frame, paddles[1][0], paddles[1][3], (0, 255, 0), -1)
-                self.frame_state += 3
-                if paddles[0][0][0] < self.cap_w / 2:
-                    results[0] = paddles[0]
-                    results[1] = paddles[1]
-                else:
-                    results[0] = paddles[1]
-                    results[1] = paddles[0]
-            elif len(paddles) == 1:
-                pass
+            centers[2] = (ball[0] + ball[2]) / 2
+
+        if not self.on_break() and has_paddles:
+            if not has_ball:
+                self.frame_state = GameState.ATTRACT
+            paddles = paddles.reshape(2, 4, 2)
+
+            # Draw Rectangles
+            cv2.rectangle(frame, paddles[0][0], paddles[0][3], (0, 255, 0), -1)
+            cv2.rectangle(frame, paddles[1][0], paddles[1][3], (0, 255, 0), -1)
+            self.frame_state += GameState.MISSING_BALL
+            print(f"After paddles: {self.frame_state}")
+            # Order paddles by direction (left first)
+            if paddles[0][0][0] < self.cap_w / 2:
+                results[0] = paddles[0]
+                results[1] = paddles[1]
+            else:
+                results[0] = paddles[1]
+                results[1] = paddles[0]
+
+            # Calc rectangle centers
+            centers[0] = (results[0][0] + results[0][3]) / 2
+            centers[1] = (results[1][0] + results[1][3]) / 2
+
         # We have paddle movement or paddle and ball movement
-        if self.frame_state in [3, 7]:
+        if self.frame_state in [GameState.MISSING_BALL, GameState.IN_GAME]:
             self.good_frame = True
-        cv.putText(
-            self.frame,
-            "%r" % (self.frame_state),
-            (300, 80),
-            cv.FONT_HERSHEY_SIMPLEX,
-            1,
-            (0, 0, 255),
-            2,
-        )
-        return results
+
+        # If this is our first calc
+        if self.last_centers is None:
+            self.last_centers = centers
+
+        if not self.on_break():
+            deltas = np.sum(np.abs(centers - self.last_centers), axis=1)
+            for i, delta in enumerate(deltas):
+                if delta > self.MAX_DELTA:
+                    print(
+                        f"BAD DELTA FOUND! Corrected object {i} from {centers[i]} to previous position {self.last_centers[i]}"
+                    )
+                    centers[i] = self.last_centers[i]
+            self.last_centers = centers
+        return results, centers
 
     def detect_hit(self, objs):
         if self.in_hit_check:
@@ -251,148 +454,38 @@ class PongVideoTest:
     def detect_score(self, objs):
         if (
             np.all((objs[2] < objs[0] - self.GOAL_PIXEL_THRESH)[:, 0])
-            and self.frame_state == 3
+            and self.frame_state == GameState.MISSING_BALL
         ):
             self.p2_score += 1
             print("Player 2 GOAL!")
             print("%s - %s" % (self.p1_score, self.p2_score))
+            self.frame_state = GameState.RIGHT_GOAL
             return True
         elif (
             np.all((objs[2] > objs[1] + self.GOAL_PIXEL_THRESH)[:, 0])
-            and self.frame_state == 3
+            and self.frame_state == GameState.MISSING_BALL
         ):
             self.p1_score += 1
             print("Player 1 GOAL!")
             print("%s - %s" % (self.p1_score, self.p2_score))
+            self.frame_state = GameState.LEFT_GOAL
             return True
 
-    def detect_state(self, objs):
-        pass
+    def on_break(self):
+        return self.frame_state in [GameState.LEFT_GOAL, GameState.RIGHT_GOAL]
 
-    def corner_dist(self, obj1, obj2):
-        pass
+    def update_ui(self, centers):
+        self.frame_updated.emit(centers, self.frame_state)
 
-    def start(self, window_name="Pong Demo"):
-        show_circles = False
 
-        cap = cv.VideoCapture(self.video)
-        print(cap)
-        cap.set(cv.CAP_PROP_POS_FRAMES, self.START_FRAME)
-
-        self.cap_w = cap.get(cv.CAP_PROP_FRAME_WIDTH)
-        self.cap_h = cap.get(cv.CAP_PROP_FRAME_HEIGHT)
-
-        self.VERT_MAX = self.PADDLE_MAX_HEIGHT / self.cap_h
-        self.HORZ_MAX = self.PADDLE_MAX_WIDTH / self.cap_w
-
-        cv.namedWindow(window_name)
-
-        tracker = cv.TrackerMIL.create()
-
-        self.make_slid(0, 100, 2, "threshold", window_name)
-        self.make_slid(1, 5, 2, "blocksize", window_name)
-        self.make_slid(1, 4, 3, "ksize", window_name)
-        self.make_slid(3, 6, 4, "k", window_name)
-        self.make_slid(1, 25, 12, "numPoints", window_name)
-        self.make_slid(1, 20, 3, "minDistance", window_name)
-
-        last_good_objs = np.zeros((3, 4, 2), np.int64)
-
-        if not cap.isOpened():
-            print("Cannot open camera")
-            exit()
-        while True:
-            # capture, frame by frame (sick guitar riff)
-            ret, self.frame = cap.read()
-            cv.putText(
-                self.frame,
-                "%r" % (cap.get(cv.CAP_PROP_POS_FRAMES)),
-                (450, 80),
-                cv.FONT_HERSHEY_SIMPLEX,
-                1,
-                (0, 0, 255),
-                2,
-            )
-            self.good_frame = False
-
-            self.threshold = (
-                # self.get_UI_slider("threshold", root_wind=window_name) / 100
-                self.qt_settings.settings["thresh"].slider.value
-                / 100
-            )
-
-            if not ret:
-                print("Frame is fucked")
-                break
-            gray = cv.cvtColor(self.frame, cv.COLOR_BGR2GRAY)
-            corners = cv.goodFeaturesToTrack(
-                gray,
-                # self.get_UI_slider("numPoints", root_wind=window_name),
-                # self.get_UI_slider("threshold", root_wind=window_name) / 1000,
-                # self.get_UI_slider("minDistance", root_wind=window_name),
-                self.qt_settings.settings["points"].slider.value,
-                self.qt_settings.settings["thresh"].slider.value / 1000,
-                self.qt_settings.settings["distance"].slider.value,
-            )
-            groups = self.group_points(corners)
-            objs = self.detect_objects(groups)
-            if self.frame_state == 4:
-                self.out_of_game_frames += 1
-                if self.out_of_game_frames > self.OUT_OF_GAME_MIN_FRAMES:
-                    print("OUT OF GAME!")
-            else:
-                self.out_of_game_frames = 0
-            if self.goal_scored and self.frame_state == 3:
-                pass
-                # print("WAITING....")
-            else:
-                if self.goal_scored:
-                    print("GO!")
-                    self.goal_scored = False
-                if self.frame_state == 3:
-                    self.last_good_objs[0] = objs[0]
-                    self.last_good_objs[1] = objs[1]
-                else:
-                    self.last_good_objs = objs
-
-                if self.last_good_objs[self.last_good_objs != 0].size == 24:
-                    self.detect_hit(last_good_objs)
-
-                    if self.detect_score(self.last_good_objs):
-                        self.goal_scored = True
-            if show_circles:
-                for i in corners:
-                    x, y = i.ravel()
-                    cv.circle(self.frame, (x, y), 3, 255, -1)
-            cv.imshow("Frame testing", self.frame)
-            print(np.shape(self.frame))
-            if not self.good_frame:
-                pass
-                # bad_frames.append(cap.get(cv.CAP_PROP_POS_FRAMES))
-                # print(cap.get(cv.CAP_PROP_POS_FRAMES))
-
-            key = 0xFF & cv.waitKey(1)
-
-            if key == ord("q"):
-                break
-            elif key == ord("v"):
-                cv.imwrite("test.png", gray)
-                print("Screenshotted!")
-            elif key == ord("p"):
-                self.paused = not self.paused
-            elif key == ord("c"):
-                show_circles = not show_circles
-            while self.paused:
-                key = 0xFF & cv.waitKey(1)
-                if key == ord("s"):
-                    break
-                elif key == ord("p"):
-                    self.paused = not self.paused
-                elif key == ord("c"):
-                    show_circles = not show_circles
-        cap.release()
-        print(self.bad_frames)
-        cv.destroyAllWindows()
-
-    def on_frame_update():
-        pass
+class GameState(IntEnum):
+    ATTRACT = 0
+    RIGHT_PADDLE = 1
+    LEFT_PADDLE = 2
+    MISSING_BALL = 3
+    MISSING_PADDLES = 4
+    BALL_RIGHT_PADDLE = 5
+    BALL_LEFT_PADDLE = 6
+    IN_GAME = 7
+    LEFT_GOAL = 8
+    RIGHT_GOAL = 9

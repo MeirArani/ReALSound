@@ -1,0 +1,6 @@
+- [ ] Explain Pong FSA
+	- [ ] And general game 'state' logic
+- [ ] Explain early renditions (Harris Corner detection)
+	- [ ] Explain initial hangups
+- [ ] Explain ML/CV concepts 
+- [ ] 

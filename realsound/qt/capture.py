@@ -2,13 +2,11 @@
 # SPDX-License-Identifier: LicenseRef-Qt-Commercial OR BSD-3-Clause
 from __future__ import annotations
 
-from enum import Enum, auto
 
 from PySide6.QtMultimediaWidgets import QVideoWidget
 from PySide6.QtMultimedia import (
     QCapturableWindow,
     QMediaCaptureSession,
-    QScreenCapture,
     QVideoFrame,
     QWindowCapture,
 )
@@ -21,18 +19,16 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 from PySide6.QtGui import QAction, QGuiApplication
-from PySide6.QtCore import QItemSelection, Qt, Slot, Signal
-import numpy as np
+from PySide6.QtCore import QItemSelection, Qt, Slot, Signal, QAbstractListModel
 
-from .screenlistmodel import ScreenListModel
-from .windowlistmodel import WindowListModel
+import numpy as np
 
 
 import time
 import cv2 as cv
 
 
-class ScreenCapturePreview(QWidget):
+class WindowCaptureWidget(QWidget):
 
     frame_updated = Signal(np.ndarray)
 
@@ -197,3 +193,36 @@ class ScreenCapturePreview(QWidget):
             video_frame.unmap()
             #### DANGER ZONE
             self.lasttime = time.time()
+
+    def stop(self):
+        self._window_capture.stop()
+
+
+class WindowListModel(QAbstractListModel):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self._window_list = QWindowCapture.capturableWindows()
+        self._window_list = [
+            window
+            for window in self._window_list
+            if "Window 0x" not in window.description()  # Remove blank handles
+        ]
+
+    def rowCount(self, QModelIndex):
+        return len(self._window_list)
+
+    def data(self, index, role):
+        if role == Qt.ItemDataRole.DisplayRole:
+            window = self._window_list[index.row()]
+            return window.description()
+        return None
+
+    def window(self, index):
+        return self._window_list[index.row()]
+
+    @Slot()
+    def populate(self):
+        self.beginResetModel()
+        self._window_list = QWindowCapture.capturableWindows()
+        self.endResetModel()
