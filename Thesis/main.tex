@@ -8,17 +8,22 @@
 \usepackage{hyperref} % Add a link to your document
 \usepackage{graphicx} % Add pictures to your document
 \usepackage{listings} % Source code formatting and highlighting
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{xspace}
+
+\newcommand{\rs}{ReAL Sound\xspace}
+
+
 % ---
 %
 \begin{document}
 
-
 %%% TITLE
 
 \author{Meir Arani \\ Kyushu University \\ Graduate School of Design} % The authors name
-\title{ReAL Sound: Outline of a Reusable Audification Library to Improve Game Accessibility for the Visually Impaired} % The title of the document
+\title{ReAL Sound: Outline of a Reusable Audification Library to Improve Game Accessibility for the Visually Impaired} 
 \date{\today{}} 
-\maketitle{} % Generates title
+\maketitle{} 
 
 %%% ABSTRACT
 
@@ -49,8 +54,154 @@
 %%% PROPOSAL
 
 \chapter{Real Sound}
+\paragraph{Introduction}
+In this chapter, I propose and outline the \textbf{\emph{\rs}} system: a \textbf{Re}-usable \textbf{A}udification \textbf{L}ibrary that abstracts the design of accessibility features for the visually impaired via the use of computer vision, spatial audio, and audification techniques.
+
 \section{Proposal} 
-\section{Outline}
+\paragraph{Introduction} 
+
+In this section, I propose \rs and justify its novelty and utility based on the literature review performed in the previous chapter.
+
+\subsubsection{\emph{What is \rs?}}
+\rs is a software concept that generalizes the creation of visual accessibility features for games. Using computer vision techniques and modern spatial audio technology, \rs aims to abstract the process of moment-to-moment analysis of a game's state as well as the generation of 3D spatial audio objects. Through this abstraction, implementors of /rs (as distinguished from \emph{users} of \rs---the visually impaired persons benefitting from the features) can sidestep many of the language, platform, and architecture specific headaches involved in the creation of game accessibility features, especially in the case of after-market games. 
+
+\rs achieves this generalization by abstracting the process into a few core steps for any given target game:
+
+\begin{description}
+    \item [Planning] The creation of simple 'rules' and 'definitions' which accurately describe the game.
+    \item [Training] The act of preparing computer vision techniques based on the \textbf{Planning} stage to analyze the game's current state data.
+    \item [Design] The creation of simple 'rules' and 'definitions' for translating the data analyzed in the \textbf{Training} phase into spatial audio objects. 
+    \item [Execution] The real-time marriage of the previous stages. Uses a computer vision model \textbf{trained} on the \textbf{planned} rules which translates the game's real-time visual data into spatial audio objects as \textbf{designed} by the implementor.    
+\end{description}
+
+With \rs, a implementor with only a moderate amount of technical knowledge  could feasibly add accessibility features to any target game---all with zero knowledge of the game's underlying source code or architecture.
+
+
+\subsubsection{\emph{Why is \rs?}}
+As discussed in the previous chapter, there is a well-established and ever-growing need for software interoperability and platform agnostic support, as well as a growing demand for improved software accessibility. Implementors of game accessibility features already face numerous game-specific challenges in the design process---as each game's bespoke nature demands equally unique accessibility design. The added barriers of specific architecture, engine, and language implementation have especially stymied the development of accessibility features in the gaming industry---where many development tools target a single architecture or operating system, are company specific, and are often used on a per-game basis. 
+
+\rs significantly streamlines these problems through abstraction---significantly simplifying this troubled implementation process. As a consequence, greater flexibility and more time are handed to feature designers---who are now better quipped to craft higher quality features at a faster clip.
+
+Moreover, the generalization process requires zero knowledge of the game's actual codebase, meaning games can be modified in the after-market by dedicated enthusiasts. As a consequence, the fan-driven movement of retrofitting of older titles with modern accessibility features becomes easier---allowing visually impaired persons access to a wealth of classic titles while costing modern developers zero resources. This is becoming especially crucial in modern times, as some estimates show that over 85\% of games are functionally abandoned---with no publisher or developer entity maintaining ownership \cite{Lewin_2023}. This fact effectively renders the vast majority of published games, \emph{'abandonware'} with little hope of official improvements by original developers \cite{Costikyan_2000}.
+
+\subsubsection{\emph{How is \rs?}}
+\rs is made possible through modern machine learning, computer vision, and spatial audio technologies. Using the latest computer vision techniques through libraries like OpenCV\cite{opencv_library}, even novice developers can implement object detection algorithms---which analyze visual input and return semantic information about the its contents---with ease. 
+
+\paragraph{The Modern AI Boom}
+
+On top of this, the recent 'boom' in AI technologies\cite{Knight_2023}\cite{Meredith_2023} has brought an equally intense focus to the development, improvement, and democratization of AI tools and systems\cite{Brynjolfsson_McAfee_2017}\cite{Heikkilä_2022}. Ecosystems like \emph{HuggingFace}\cite{Wiggers_2022} and projects like Google's \emph{TensorFlow}\cite{tensorflow2015-whitepaper} have dramatically changed the landscape of AI technology development---trivializing many tasks considered inaccessible to the common developer just a few years ago.
+
+\subparagraph{Agnostic Vision Requirements}
+
+Considering the ever-changing state of modern AI and computer vision technology, \rs does not specifically call for any one particular solution for its \textbf{Training} or \textbf{Execution} stages. Instead, \rs only requires the \emph{successful} real-time identification of in-game objects \textit{as defined by the implementor}. The means by which this goal is accomplished is left up to the implementor, and may be achieved by any available means. 
+
+Consequently, \rs does not technically demand the usage of AI \emph{at all.} Many well-proven pre-AI techniques---such as \emph{template matching}\cite{Brunelli2009-gh} and \emph{corner detection}\cite{Hildreth1980}---have proven to be successful in many simple use-cases. To demonstrate this, I will present an implementation of \rs using the one of the original corner detection algorithms---the \emph{Harris corner detector}\cite{Harris}, originally developed in 1986---in a later chapter. 
+
+\paragraph{Spatial Audio}
+Running alongside the AI boom has been a comparably smaller (yet not insignificant) boom of 3D and spatial audio technologies. As discussed in the previous chapter, many advances have been made in sonification, audification, and spatial audio techniques in recent years. This trend has given end-users an abundance of choice for low-cost, high quality audio playback devices with native spatial audio support--from in-ear monitors like the the Apple \emph{AirPods}\cite{ApplePods} to even computer monitors from major manufacturers like Dell\cite{Campbell_2025}. Future patents promise even greater advancements through techniques like automatic HRTF adjustments specific to the user's physiology\cite{Antti2024}.
+
+
+Many new software development libraries been developed to address this boom in consumer demand. Fan driven efforts like the \emph{Spatial\_Audio\_Framework}\cite{McCormack2024} as well as company-produced projects such as Valve Software's Steam Audio\cite{Valve}.
+
+
+
+
+
+\section{Structural Outline}
+\subsection{Overview}
+\subsubsection{Anatomy of a Game}
+\paragraph{Introduction}
+Here, I construct a semi-formal abstraction of video games using mathematics notation. Later, I will use these constructs to more rigidly define concepts.
+
+
+\paragraph{Game}
+A Game, lets call it $M$ (for \emph{meta}) can be modeled as the combination of three sets: a collection of meta attributes $A$, a series of in-game states, $G$, and a group of entities, $I$:
+
+$$
+M = \{A, G, I\}
+$$
+
+\subparagraph{Meta Attributes}
+The game's meta-attributes $M_A$ can be imagined as data that is preserved over an entire game session. This data can persist between state transitions and usually describes overarching information such as current playtime or the currently active game level. 
+
+\paragraph{Game State}
+Each state, $G_S$ (referred to interchangeably as \textit{game state} hereafter) is comprised of four components---internal state-attributes $A$, internal state-logic $L$, as well as conditions $C$ for inter-state transitions $T$.
+
+$$
+G_S = \{ A, L, C, T \}
+$$
+
+\subparagraph{State-Attributes}
+A state's attributes $A$ act similarly to the game's overarching meta attributes $M_A$, but on a per-state context. These attributes may store information such as the current time spent within the state or other data describing the state in specific. State data is lost upon transitioning to a different state.
+
+\subparagraph{Internal Logic}
+The state's internal logic $L$ defines all the behaviors and activities that are carried out \textit{within} the state. For example, a racing game may contain a \textbf{start} state---which contains logic for playing a special sound effect when the race is started, or routines to visually display the text \textit{'START!'} on-screen. 
+
+In abstract, $L$ can be imagined as a series of conditional requirements $L_C$ that yield specific actions $L_A$:
+
+$$L: L_C \longrightarrow L_A$$
+
+
+\subparagraph{Conditions}
+A state also contains conditional rules defining when to exit this state and transition to another. $C$ defines these rules as a set of boolean statements---which evaluate to either \texttt{true} or \texttt{false}.
+Take, for example, a sports game which transitions from a \textbf{match} state to a \textbf{finish} state after ten points are scored in the match. Imagine that the current match score is stored as an integer value through the state attribute $S$: 
+
+$$
+S: [0, 10],  S \in G_A
+$$
+
+Then there is a condition within $C$, lets call it $C_S$, which might look like this:
+
+$$
+C_S = S\geq10 
+$$
+
+When $C_S$ evaluates to true (i.e., when the match score has reached ten points), the state will transition transition to the \textbf{finish} state.
+
+\subparagraph{Transitions}
+The transition function $T$ defines the mapping of "where" or "how" to transition after a condition in $C$ has evaluated to \texttt{true}. It maps a conditional statement $C_S$ into the next game state $G_N$ to transition to:
+
+$$
+T: C_S \longrightarrow G_N
+$$
+
+This function can be generalized by instead taking a specific state $G_S$ and a generic condition $C$ as input:
+
+$$
+T: G_S \times C \longrightarrow G_N
+$$
+
+\paragraph{Entities}
+Entities $I$ are the objects which constitute a game's internal structure---the 'actors' of the game. An entity can be anything contained within a game, such as the player, enemies, items, level construction, etc.  Usually, an entity's behavior can be described using verbs---in either an active (\emph{Mario jumps on the platform}) or passive (\emph{The platform was jumped on by Mario}) sense.
+
+Each entity has attributes $A$ as well a collection of states $E$:
+
+$$I = \{A, E\}$$
+
+\subparagraph{Entity Attributes}
+Similar to the previous definitions, entity attributes describe entity-specific attributes. For example, an entity's location point $P$ in a 2D game's world space might be modeled as:
+
+$$P = \{(x,y): x,y \in \mathbf{R} ^2\}$$ 
+
+Similar information, like a enemy's current health, an item's purchase price, or a bomb's damage radius are also considered Entity attributes. 
+
+\subparagraph{Entity States}
+An entity state, then, describes an entity's different states of being. A player entity might be able to \textbf{jump}, while a spell entity might be \textbf{cast} or an enemy entity might be \textbf{killed}, to name a few examples. 
+
+Some examples may seem unintuitive, but still work within this framework. A game's menu system, for instance can also be considered an entity. In this case, the act of clicking on the menu---triggering some sort of effect, can be modeled as a \textbf{clicked} state with its own internal logic and goals. 
+
+As you might guess, a entity state looks similar to a game state, with its own internal logic $L$, a series of transition conditionals $C$, and transition mappings $T$:
+
+$$E = \{L, C, T\}$$
+
+One example of an entity state is \textbf{jumping}, which may transition from \textbf{idle} or \textbf{walking} or \textbf{running}. When transitioned to, the \textbf{jumping} state might, according to $L$, play a jumping sound effect. When a condition in $C$ is satisfied (the jumping entity finally touches the ground again, or perhaps falls into a pit and dies), then the transition function $T$ moves to the next state $E_N$:
+
+$$T(C) \longrightarrow E_N$$
+
+
+\paragraph{Conclusion}
+Here, I have provided a general outline of games in formal notation. I do not guarantee nor contend that these structures form a complete closure over the entire concept of video games---whose definition is still fiercely debated to this day\cite{Knoop_2021}---but these structures will serve as a useful framework for our following definitions and concepts.
+
 \subsection{Design}
 \subsection{Training}
 \subsection{Implementation}
@@ -77,5 +228,7 @@
 
 \section{Thanks}
 
+\bibliographystyle{IEEEtran}
+\bibliography{references}
 
 \end{document}

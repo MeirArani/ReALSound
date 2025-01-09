@@ -37,6 +37,7 @@ class WindowCaptureWidget(QWidget):
         super().__init__(parent)
 
         self.lasttime = time.time()
+        self.last_good_window = None
 
         self._media_capture_session = QMediaCaptureSession(self)
         self._video_widget = QVideoWidget(self)
@@ -69,12 +70,18 @@ class WindowCaptureWidget(QWidget):
 
     @Slot(QCapturableWindow)
     def on_current_window_selection_changed(self, window):
-        self.clear_error_string()
         self._window_capture.setWindow(window)
+        if not self._window_capture.isActive():
+            self._window_capture.setWindow(self.last_good_window)
+            self._window_capture.setActive(True)
 
     @Slot(bool)
     def on_active_state_changed(self, is_active):
         self._window_capture.setActive(is_active)
+
+    @Slot()
+    def reboot(self):
+        pass
 
     def select_first_window(self):
         window_list = QWindowCapture.capturableWindows()
@@ -85,6 +92,7 @@ class WindowCaptureWidget(QWidget):
         ]
         if pong_window:
             self._window_capture.setWindow(pong_window[0])
+            self.last_good_window = pong_window[0]
         else:
             self._window_capture.setWindow(window_list[0])
 
@@ -156,6 +164,8 @@ class WindowCaptureListWidget(QWidget):
             self.on_current_window_selection_changed
         )
 
+        self._start_stop_button.pressed.connect(self.on_start_stop_button_clicked)
+
     @Slot(QItemSelection)
     def on_current_window_selection_changed(self, selection):
         self.clear_error_string()
@@ -163,15 +173,14 @@ class WindowCaptureListWidget(QWidget):
         if indexes:
             window = self._window_list_model.window(indexes[0])
             if not window.isValid():
-                m = "The window is no longer valid. Update the list of windows?"
-                answer = QMessageBox.question(self, "Invalid window", m)
-                if answer == QMessageBox.Yes:
-                    self._window_list_view.clearSelection()
-                    self._window_list_model.populate()
-                    return
+                self._window_list_view.clearSelection()
+                self._window_list_model.populate()
+                return
             self.update_window.emit(window)
+            self.update_active_status.emit(True)
         else:
             self.update_window.emit(QCapturableWindow())
+            self.update_active_status.emit(True)
 
     @Slot(QWindowCapture.Error, str)
     def on_window_capture_error_occured(self, error, error_string):
@@ -206,10 +215,30 @@ class WindowListModel(QAbstractListModel):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._window_list = QWindowCapture.capturableWindows()
+
+        # Look man, I know this is ugly
+        # But for some reason regular iterations don't cull the list
+        # Dirty fix for now
         self._window_list = [
             window
             for window in self._window_list
             if "Window 0x" not in window.description()  # Remove blank handles
+        ]
+        self._window_list = [
+            window
+            for window in self._window_list
+            if "Settings" not in window.description()  # Remove blank handles
+        ]
+        self._window_list = [
+            window
+            for window in self._window_list
+            if "Windows Input Experience"
+            not in window.description()  # Remove blank handles
+        ]
+        self._window_list = [
+            window
+            for window in self._window_list
+            if "Program Manager" not in window.description()  # Remove blank handles
         ]
 
     def rowCount(self, QModelIndex):

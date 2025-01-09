@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.7)  7 JAN 2025 15:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.7)  9 JAN 2025 16:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -242,32 +242,41 @@ File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
 File: listings.cfg 2024/09/23 1.10c listings configuration
 ))
 Package: listings 2024/09/23 1.10c (Carsten Heinz)
- (c:/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+ (c:/texlive/2024/texmf-dist/tex/latex/tocbibind/tocbibind.sty
+Package: tocbibind 2010/10/13 v1.5k extra ToC listings
+Package tocbibind Info: The document has chapter divisions on input line 50.
+
+
+Package tocbibind Note: Using chapter style headings, unless overridden.
+
+) (c:/texlive/2024/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+) (c:/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count303
 \l__pdf_internal_box=\box56
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-Package hyperref Info: Link coloring OFF on input line 13.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+Package hyperref Info: Link coloring OFF on input line 19.
  (./main.out) (./main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
@@ -302,7 +311,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.27 \end{abstract}
+l.32 \end{abstract}
                     [1] (./main.toc)
 \tf@toc=\write4
 \openout4 = `main.toc'.
@@ -313,7 +322,7 @@ l.27 \end{abstract}
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.34 \newpage
+l.39 \newpage
              {} % Pagebreak [1
 
 ]
@@ -335,44 +344,122 @@ Chapter 3.
 [4
 
 ]
+Overfull \hbox (13.15031pt too wide) in paragraph at lines 92--93
+ []\OT1/cmr/bx/n/10 The Mod-ern AI Boom[] \OT1/cmr/m/n/10 On top of this, the re-cent 'boom' in AI technologies[[]][[]]
+ []
+
+
+
+[5]
+Overfull \hbox (1.48515pt too wide) in paragraph at lines 101--102
+ []\OT1/cmr/bx/n/10 Spatial Au-dio[] \OT1/cmr/m/n/10 Run-ning along-side the AI boom has been a com-pa-ra-bly smaller
+ []
+
+
+Overfull \hbox (14.60464pt too wide) in paragraph at lines 104--105
+\OT1/cmr/m/n/10 boom in con-sumer de-mand. Fan driven ef-forts like the \OT1/cmr/m/it/10 Spa-tial[]Audio[]Framework\OT1/cmr/m/n/10 [[]]
+ []
+
+
+
+[6]
+
+[7]
+Overfull \hbox (9.47382pt too wide) in paragraph at lines 175--176
+ []\OT1/cmr/bx/n/10 Entities[] \OT1/cmr/m/n/10 En-ti-ties $\OML/cmm/m/it/10 I$ \OT1/cmr/m/n/10 are the ob-jects which con-sti-tute a game's in-ter-nal structure---
+ []
+
+
+
+[8]
+
+[9]
 Chapter 4.
 
 
-[5
+[10
 
 ]
 Chapter 5.
 
 
-[6
+[11
 
 ]
 Chapter 6.
+(./main.bbl
+
+[12
+
+]
+Chapter 7.
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en-US'. Using the pattern for
+** the default language instead.
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en-US'. Using the pattern for
+** the default language instead.
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en'. Using the pattern for
+** the default language instead.
+
+Underfull \hbox (badness 10000) in paragraph at lines 43--45
+\OT1/cmr/m/n/10 06 / water-[]why-[]a-[]thirsty-[]generative-[]ai-[]boom-[]poses-[]a-[]problem-[]for-[]big-[]tech .
+ []
+
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en'. Using the pattern for
+** the default language instead.
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en-US'. Using the pattern for
+** the default language instead.
 
 
-[7
+[13
 
-] (./main.aux)
+]
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en'. Using the pattern for
+** the default language instead.
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en'. Using the pattern for
+** the default language instead.
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en-US'. Using the pattern for
+** the default language instead.
+
+Underfull \hbox (badness 3746) in paragraph at lines 84--86
+[]\OT1/cmr/m/n/10 I. Camp-bell, ``Dell's new 4k qd-oled mon-i-
+ []
+
+
+Underfull \hbox (badness 1577) in paragraph at lines 84--86
+\OT1/cmr/m/n/10 tor comes with spa-tial au-dio,'' Jan. 2025. [On-
+ []
+
+)
+
+[14] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-12-09>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 911F92817C68BBD274E734CE844116EA;2624.
+(rerunfilecheck)             Checksum: 552AC64F8D86FE3CA9B5041DB356D4FE;2888.
  ) 
 Here is how much of TeX's memory you used:
- 10607 strings out of 473254
- 160957 string characters out of 5722072
- 560686 words of memory out of 5000000
- 33679 multiletter control sequences out of 15000+600000
- 564664 words of font info for 59 fonts, out of 8000000 for 9000
+ 10841 strings out of 473254
+ 164828 string characters out of 5722072
+ 565888 words of memory out of 5000000
+ 33850 multiletter control sequences out of 15000+600000
+ 566156 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,6n,79p,781b,458s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on main.pdf (9 pages, 88533 bytes).
+ 75i,6n,79p,882b,608s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on main.pdf (16 pages, 198417 bytes).
 PDF statistics:
- 199 PDF objects out of 1000 (max. 8388607)
- 176 compressed objects within 2 object streams
- 33 named destinations out of 1000 (max. 500000)
- 193 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 368 PDF objects out of 1000 (max. 8388607)
+ 322 compressed objects within 4 object streams
+ 81 named destinations out of 1000 (max. 500000)
+ 209 words of extra memory for PDF output out of 10000 (max. 10000000)
 

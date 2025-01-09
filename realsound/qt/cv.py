@@ -51,7 +51,6 @@ class CVSettingsListWidget(QDialog):
         self.main_layout.setColumnStretch(1, 1)
 
     def update_settings(self, control, value):
-        print(f"{control}: {value}")
         self.settings[control].slider.value = value
         pass
 
@@ -67,7 +66,6 @@ class CVSliderWidget(QWidget):
         self.label = QLabel(f"{settings["name"] or "_"}: {settings["value"]}")
         self.label.setScaledContents(True)
 
-        print("HELLLOOOOOOOOOOO")
         # self.label.setContentsMargins(QMargins(10, 10, 10, 10))
 
         self.slider = QSlider(Qt.Orientation.Horizontal)
@@ -94,7 +92,6 @@ class CVSliderWidget(QWidget):
 
     @Slot(int)
     def on_move(self, val):
-        # print("SOMETHING IS HAPPENING")
         self.label.setText(f"{self.label.text().split(":")[0]}: {val}")
 
 

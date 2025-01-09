@@ -59,6 +59,8 @@ class MainWindow(QWidget):
             self.screen_list.on_window_capture_error_occured
         )
 
+        self.screen_cap._window_capture.errorOccurred.connect(self.screen_cap.reboot)
+
         self.screen_cap._window_capture.setActive(True)
 
         # self.screen_cap.frame_updated.connect(self.get_new_frame)
@@ -80,10 +82,9 @@ class MainWindow(QWidget):
 
         self.main_layout.addWidget(self.audio_settings, 0, 2)
 
-        # self.main_layout.setColumnStretch(1, 1)
-        # self.main_layout.setRowStretch(1, 1)
+        self.main_layout.setRowStretch(0, 1)
+        self.main_layout.setColumnStretch(1, 1)
         self.main_layout.setColumnMinimumWidth(0, 300)
-        # self.main_layout.setColumnMinimumWidth(1, 100)
 
         # self.cv_client = NewPong(self.settings)
 
@@ -96,7 +97,18 @@ class MainWindow(QWidget):
             self.settings,
         )
 
-        self.pong_video.frame_updated.connect(self.stats.update_stats)
+        self.pong_video.cv_event_frame_updated.connect(self.stats.update_stats)
+
+        self.pong_video.sound_event_ball_moved.connect(
+            self.audio_settings.update_ball_sound_position
+        )
+        self.pong_video.sound_event_goal_scored.connect(self.audio_settings.play_goal)
+
+        self.pong_video.sound_event_ball_hit.connect(self.audio_settings.play_hit)
+
+        self.pong_video.sound_event_ball_toggle.connect(
+            self.audio_settings.toggle_ball_sound
+        )
 
     @Slot(np.ndarray)
     def get_new_frame(self, frame):

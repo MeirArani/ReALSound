@@ -6,26 +6,52 @@ import cv2
 from PySide6.QtCore import Slot, Signal, QObject
 
 
+class GameState(IntEnum):
+    ATTRACT = 0
+    RIGHT_PADDLE = 1
+    LEFT_PADDLE = 2
+    MISSING_BALL = 3
+    MISSING_PADDLES = 4
+    BALL_RIGHT_PADDLE = 5
+    BALL_LEFT_PADDLE = 6
+    IN_GAME = 7
+    LEFT_GOAL = 8
+    RIGHT_GOAL = 9
+    BREAK = 10
+
+
 class PongVideoTest(QObject):
     MOE = 2
     PADDLE_X_MOE = 18
     PADDLE_Y_MOE = 15
     GOAL_PIXEL_THRESH = 60
     PADDLE_MAX_HEIGHT = 40
-    START_FRAME = 80
+    START_FRAME = 0
     PADDLE_MAX_WIDTH = 15
     OUT_OF_GAME_MIN_FRAMES = 2
-    FRAME_RATE = 2
-    MAX_DELTA = 150
+    FRAME_RATE = 24
+    MAX_DELTA = 300
 
-    frame_updated = Signal(np.ndarray, int)
+    # EVENTS
+    # CV EVENTS
+    cv_event_frame_updated = Signal(np.ndarray, int)
+
+    # SOUND EVENTS
+
+    # BALL MOVEMENT/HIT
+    sound_event_ball_moved = Signal(float, float)
+    sound_event_ball_toggle = Signal(bool)
+    sound_event_ball_hit = Signal(bool)
+
+    # GOAL
+    sound_event_goal_scored = Signal(GameState)
 
     def __init__(self, video, settings, parent=None):
         super().__init__(parent)
         self.qt_settings = settings
         self.paused = False
         self.good_frame = False
-        self.frame_state = 0
+        self.frame_state = GameState.ATTRACT
         self.bad_frames = []
         self.out_of_game_frames = 0
 
@@ -40,8 +66,11 @@ class PongVideoTest(QObject):
         self.video = video
         self.show_circles = False
 
+        self.on_break = False
         self.cap = None
         self.running = False
+        self.starting_frame = False
+        self.is_back_from_break = False
 
         self.prev_time = 0
 
@@ -51,6 +80,7 @@ class PongVideoTest(QObject):
 
         # Init values
         self.running = True
+        self.starting_frame = True
         show_circles = False
 
         # Init capture
@@ -74,20 +104,21 @@ class PongVideoTest(QObject):
             time_elapsed = time.time() - self.prev_time
 
             if time_elapsed > 1 / self.FRAME_RATE:
-                pass
+                if self.starting_frame:
+                    self.starting_frame = False
+                self.run_frame(self.cap)
+                self.prev_time = time.time()
 
-            self.run_frame(self.cap)
             # cv2.waitKey(0)
-
-            self.prev_time = time.time()
 
             # capture, frame by frame (sick guitar riff)
 
         self.cap.release()
-        print(self.bad_frames)
         cv2.destroyAllWindows()
 
     def run_frame(self, cap):
+        if self.is_back_from_break:
+            self.is_back_from_break = False
         ret, frame = self.cap.read()
 
         self.add_text(frame, "%r" % (self.cap.get(cv2.CAP_PROP_POS_FRAMES)), (450, 80))
@@ -116,16 +147,17 @@ class PongVideoTest(QObject):
         )
 
         groups = self.group_points(corners)
-        objs, centers = self.detect_objects(frame, groups)
+        objs, centers = self.detect_state(frame, groups)
 
         if self.frame_state == GameState.MISSING_PADDLES:
             self.out_of_game_frames += 1
             if self.out_of_game_frames > self.OUT_OF_GAME_MIN_FRAMES:
-                print("OUT OF GAME!")
+                self.frame_state = GameState.ATTRACT
         else:
             self.out_of_game_frames = 0
-        if self.goal_scored and self.frame_state == GameState.MISSING_BALL:
-            pass
+        if self.frame_state == GameState.MISSING_BALL:
+            print(f"{self.p1_score}, {self.p2_score}")
+            # self.frame_state = GameState.LEFT_GOAL
         else:
             if self.goal_scored:
                 print("GOAL!")
@@ -150,13 +182,14 @@ class PongVideoTest(QObject):
 
         self.add_text(frame, "%r" % (GameState(self.frame_state).name), (250, 80), 0.8)
 
-        self.update_ui(centers)
+        self.game_data_update(centers)
+        self.process_audio(centers)
 
         cv2.imshow("Frame testing", cv2.resize(frame, (1920, 1080)))
         if not self.good_frame:
             pass
 
-        key = 0xFF & cv2.waitKey(0)
+        key = 0xFF & cv2.waitKey(1)
 
         if key == ord("q"):
             self.running = False
@@ -324,7 +357,8 @@ class PongVideoTest(QObject):
             :, 0, :
         ]
 
-    def detect_objects(self, frame, groups):
+    # TODO: FIX STATE MESS!!!!
+    def detect_state(self, frame, groups):
         # Four data points: detected, Ball, Paddle1 (left), Paddle2 (right)
         # detected encodes if the next three objects were detected
         # in a single number ranging from 0-7
@@ -351,18 +385,30 @@ class PongVideoTest(QObject):
         results = np.zeros((3, 4, 2))
         centers = np.zeros((3, 2))
 
+        if self.frame_state is GameState.BREAK:
+            self.last_centers = None
+
         if has_ball:
+            if self.frame_state is GameState.BREAK:
+                self.back_from_break()
+
             self.frame_state = GameState.ATTRACT
 
             ball = ball.reshape((4, 2))
 
             cv2.rectangle(frame, ball[0], ball[3], (255, 0, 0), -1)
             self.frame_state += GameState.MISSING_PADDLES
-            print(f"After ball: {self.frame_state}")
             results[2] = ball
             centers[2] = (ball[0] + ball[2]) / 2
 
-        if not self.on_break() and has_paddles:
+        if self.frame_state is GameState.ATTRACT and has_paddles:
+            self.on_break = True
+
+        if (
+            self.frame_state is not GameState.ATTRACT
+            and not self.on_break
+            and has_paddles
+        ):
             if not has_ball:
                 self.frame_state = GameState.ATTRACT
             paddles = paddles.reshape(2, 4, 2)
@@ -371,7 +417,6 @@ class PongVideoTest(QObject):
             cv2.rectangle(frame, paddles[0][0], paddles[0][3], (0, 255, 0), -1)
             cv2.rectangle(frame, paddles[1][0], paddles[1][3], (0, 255, 0), -1)
             self.frame_state += GameState.MISSING_BALL
-            print(f"After paddles: {self.frame_state}")
             # Order paddles by direction (left first)
             if paddles[0][0][0] < self.cap_w / 2:
                 results[0] = paddles[0]
@@ -392,12 +437,12 @@ class PongVideoTest(QObject):
         if self.last_centers is None:
             self.last_centers = centers
 
-        if not self.on_break():
+        if not self.on_break and self.frame_state is not GameState.ATTRACT:
             deltas = np.sum(np.abs(centers - self.last_centers), axis=1)
             for i, delta in enumerate(deltas):
                 if delta > self.MAX_DELTA:
                     print(
-                        f"BAD DELTA FOUND! Corrected object {i} from {centers[i]} to previous position {self.last_centers[i]}"
+                        f"BAD DELTA FOUND! Corrected object {i} from {centers[i]} to previous #position {self.last_centers[i]}"
                     )
                     centers[i] = self.last_centers[i]
             self.last_centers = centers
@@ -411,6 +456,7 @@ class PongVideoTest(QObject):
                 self.in_hit_check = False
                 self.last_hit_check = -1
                 self.is_left_hit = False
+                self.send_hit_sound(True)
                 self.hit_position = None
             # If we hit the right paddle
             elif not self.is_left_hit and np.all((objs[2] < self.hit_position)[:, 0]):
@@ -418,6 +464,7 @@ class PongVideoTest(QObject):
                 self.in_hit_check = False
                 self.last_hit_check = -1
                 self.is_left_hit = False
+                self.send_hit_sound(False)
                 self.hit_position = None
             else:
                 self.last_hit_check += 1
@@ -460,6 +507,8 @@ class PongVideoTest(QObject):
             print("Player 2 GOAL!")
             print("%s - %s" % (self.p1_score, self.p2_score))
             self.frame_state = GameState.RIGHT_GOAL
+            self.on_break = True
+            self.send_goal_sound(GameState.RIGHT_GOAL)
             return True
         elif (
             np.all((objs[2] > objs[1] + self.GOAL_PIXEL_THRESH)[:, 0])
@@ -469,23 +518,40 @@ class PongVideoTest(QObject):
             print("Player 1 GOAL!")
             print("%s - %s" % (self.p1_score, self.p2_score))
             self.frame_state = GameState.LEFT_GOAL
+            self.on_break = True
+            self.send_goal_sound(GameState.LEFT_GOAL)
             return True
 
-    def on_break(self):
-        return self.frame_state in [GameState.LEFT_GOAL, GameState.RIGHT_GOAL]
+    def game_data_update(self, centers):
+        self.cv_event_frame_updated.emit(centers, self.frame_state)
 
-    def update_ui(self, centers):
-        self.frame_updated.emit(centers, self.frame_state)
+    def process_audio(self, centers):
+        match self.frame_state:
+            case GameState.IN_GAME:
+                self.update_audio_position(centers)
+                pass
+            case GameState.ATTRACT:
+                pass
+            case _:
+                pass
 
+    def back_from_break(self):
+        self.on_break = False
+        self.toggle_ball_sound(True)
+        self.is_back_from_break = True
 
-class GameState(IntEnum):
-    ATTRACT = 0
-    RIGHT_PADDLE = 1
-    LEFT_PADDLE = 2
-    MISSING_BALL = 3
-    MISSING_PADDLES = 4
-    BALL_RIGHT_PADDLE = 5
-    BALL_LEFT_PADDLE = 6
-    IN_GAME = 7
-    LEFT_GOAL = 8
-    RIGHT_GOAL = 9
+    def update_audio_position(self, centers):
+        dx = (centers[2][0] - centers[0][0]) / (self.cap_w * 0.725)
+        dy = (centers[2][1] - centers[0][1]) / self.cap_h
+        self.sound_event_ball_moved.emit(dx, dy)
+
+    def toggle_ball_sound(self, toggle):
+        self.sound_event_ball_toggle.emit(toggle)
+
+    def send_goal_sound(self, player):
+        self.toggle_ball_sound(False)
+        self.sound_event_goal_scored.emit(player)
+        pass
+
+    def send_hit_sound(self, playerOneHit):
+        self.sound_event_ball_hit.emit(playerOneHit)

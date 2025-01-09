@@ -37,6 +37,7 @@ from PySide6.QtCore import (
     Slot,
 )
 
+from realsound.cv.NewPong import GameState
 
 """PySide6 port of the spatialaudio/audiopanning example from Qt v6.x"""
 
@@ -121,6 +122,7 @@ class AudioWidget(QWidget):
         self._mode.currentIndexChanged.connect(self.mode_changed)
 
         self._engine = QAudioEngine()
+        self._engine.setOutputMode(QAudioEngine.Headphone)
         self._room = QAudioRoom(self._engine)
         self._room.setWallMaterial(QAudioRoom.BackWall, QAudioRoom.BrickBare)
         self._room.setWallMaterial(QAudioRoom.FrontWall, QAudioRoom.BrickBare)
@@ -135,7 +137,44 @@ class AudioWidget(QWidget):
         self._listener.setRotation(QQuaternion())
         self._engine.start()
 
-        self._sound = QSpatialSound(self._engine)
+        # SOUNDS
+        # BALL SOUND
+        self.sound_ball_pos = QSpatialSound(self._engine)
+        self.sound_ball_pos.setSource(
+            QUrl.fromLocalFile(
+                "C:\\Users\\cloud\\source\\repos\\ReALSound\\sounds\\ball440.wav"
+            )
+        )
+        self.sound_ball_pos.setAutoPlay(False)
+        self.sound_ball_pos.setSize(5)
+        self.sound_ball_pos.setLoops(QSpatialSound.Infinite)
+
+        # GOAL SOUND
+        self.sound_goal = QSpatialSound(self._engine)
+        self.sound_goal.setSource(
+            QUrl.fromLocalFile(
+                "C:\\Users\\cloud\\source\\repos\\ReALSound\\sounds\\goal.wav"
+            )
+        )
+        self.sound_goal.setAutoPlay(False)
+        self.sound_goal.setSize(5)
+        self.sound_goal.setLoops(QSpatialSound.Once)
+        self.sound_goal.setPosition(QVector3D())
+        self.sound_goal.setRotation(QQuaternion())
+
+        # HIT SOUND
+        self.sound_hit = QSpatialSound(self._engine)
+        self.sound_hit.setSource(
+            QUrl.fromLocalFile(
+                "C:\\Users\\cloud\\source\\repos\\ReALSound\\sounds\\hit.wav"
+            )
+        )
+        self.sound_hit.setAutoPlay(False)
+        self.sound_hit.setSize(5)
+        self.sound_hit.setLoops(QSpatialSound.Once)
+        self.sound_hit.setPosition(QVector3D())
+        self.sound_hit.setRotation(QQuaternion())
+
         self.update_position()
 
         self._animation = QPropertyAnimation(self._azimuth, b"value")
@@ -144,6 +183,41 @@ class AudioWidget(QWidget):
         self._animation.setEndValue(180)
         self._animation.setLoopCount(-1)
         self._animate_button.toggled.connect(self.animate_changed)
+
+    @Slot(float, float)
+    def update_ball_sound_position(self, dx, dy):
+        self.update_sound_position(self.sound_ball_pos, dx, dy)
+
+    def update_sound_position(self, sound, dx, dy):
+        az = dx * math.pi - (math.pi / 2)
+        el = self._elevation.value() / 180.0 * math.pi
+        d = self._distance.value()
+
+        x = d * math.sin(az) * math.cos(el)
+        y = d * math.sin(el)
+        z = -d * math.cos(az) * math.cos(el)
+        sound.setPosition(QVector3D(x, y, z))
+
+    @Slot(bool)
+    def toggle_ball_sound(self, toggle):
+        if toggle:
+            print("TOGGLING BALL SFX ON!")
+            self.sound_ball_pos.play()
+        else:
+            print("TOGGLING BALL SFX OFF!")
+            self.sound_ball_pos.pause()
+        pass
+
+    @Slot(GameState)
+    def play_goal(self, player):
+        print("PLAYING GOAL SFX!")
+        self.sound_goal.play()
+
+    @Slot(bool)
+    def play_hit(self, playerOneHit):
+        # self.update_sound_position(self.sound_hit, dx, dy)
+        self.sound_hit.play()
+        pass
 
     def set_file(self, file):
         self._file_edit.setText(file)
@@ -156,11 +230,11 @@ class AudioWidget(QWidget):
         x = d * math.sin(az) * math.cos(el)
         y = d * math.sin(el)
         z = -d * math.cos(az) * math.cos(el)
-        self._sound.setPosition(QVector3D(x, y, z))
+        self.sound_ball_pos.setPosition(QVector3D(x, y, z))
 
     @Slot()
     def new_occlusion(self):
-        self._sound.setOcclusionIntensity(self._occlusion.value() / 100.0)
+        self.sound_ball_pos.setOcclusionIntensity(self._occlusion.value() / 100.0)
 
     @Slot()
     def mode_changed(self):
@@ -168,9 +242,9 @@ class AudioWidget(QWidget):
 
     @Slot(str)
     def file_changed(self, file):
-        self._sound.setSource(QUrl.fromLocalFile(file))
-        self._sound.setSize(5)
-        self._sound.setLoops(QSpatialSound.Infinite)
+        self.sound_ball_pos.setSource(QUrl.fromLocalFile(file))
+        self.sound_ball_pos.setSize(5)
+        self.sound_ball_pos.setLoops(QSpatialSound.Infinite)
 
     @Slot()
     def open_file_dialog(self):
@@ -207,6 +281,7 @@ class AudioWidget(QWidget):
 
 
 if __name__ == "__main__":
+
     app = QApplication(sys.argv)
 
     name = "Spatial Audio Test Application"
