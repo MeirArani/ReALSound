@@ -110,4 +110,31 @@ T.~Q. Company, ``Qt spatial audio 6.8.1.'' [Online]. Available: \url{https://doc
 J.~Knoop, ``Epic v apple judge grapples with the big question: What is a videogame?'' Sep 2021. [Online]. Available: \url{https://www.pcgamer.com/videogame-definition-legal/}
 \BIBentrySTDinterwordspacing
 
+\bibitem{Chomsky1956ThreeMF}
+\BIBentryALTinterwordspacing
+N.~Chomsky, ``Three models for the description of language,'' \emph{IRE Trans. Inf. Theory}, vol.~2, pp. 113--124, 1956. [Online]. Available: \url{https://api.semanticscholar.org/CorpusID:17432009}
+\BIBentrySTDinterwordspacing
+
+\bibitem{FSM}
+J.~Carroll and D.~Long, \emph{Theory of Finite Automata with an Introduction to Formal Languages}, 01 1989.
+
+\bibitem{Turing}
+\BIBentryALTinterwordspacing
+A.~M. Turing, ``On computable numbers, with an application to the entscheidungsproblem,'' \emph{Proceedings of the London Mathematical Society}, vol. s2-42, no.~1, pp. 230--265, 1937. [Online]. Available: \url{https://londmathsoc.onlinelibrary.wiley.com/doi/abs/10.1112/plms/s2-42.1.230}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Turing_2004}
+A.~Turing, \emph{\BIBforeignlanguage{en}{The Essential Turing}}, B.~J. Copeland, Ed.\hskip 1em plus 0.5em minus 0.4em\relax Oxford, England: Clarendon Press, 2004.
+
+\bibitem{NDFSA}
+M.~O. Rabin and D.~Scott, ``Finite automata and their decision problems,'' \emph{IBM Journal of Research and Development}, vol.~3, no.~2, pp. 114--125, 1959.
+
+\bibitem{state}
+M.~Samek, ``Who moved my state?'' \emph{The C/C++ Users Journal}, vol.~21, pp. 28+30--34, 04 2003.
+
+\bibitem{omg2011umls}
+\BIBentryALTinterwordspacing
+OMG, \emph{{OMG Unified Modeling Language (OMG UML), Superstructure, Version 2.4.1}}, Object Management Group Std., Rev. 2.4.1, August 2011. [Online]. Available: \url{http://www.omg.org/spec/UML/2.4.1}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}

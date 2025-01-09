@@ -17,6 +17,7 @@
 \newcommand{\train}{\textbf{Training}\xspace}
 \newcommand{\design}{\textbf{Design}\xspace}
 \newcommand{\exec}{\textbf{Execution}\xspace}
+\newcommand{\state}[1]{\textbf{#1}}
 
 % ---
 %
@@ -46,18 +47,25 @@
 %%% INTRODUCTION
 
 \chapter{Introduction}
-\section{Game Development}
-\section{Accessibility}
-\section{Computer Vision}
-\section{Machine Learning}
+\section{Recent Advances in Software Development}
+\section{Recent User Experience Trends}
+\section{Games and Accessibility}
 
 
 %%% LITERATURE REVIEW
 \chapter{Literature Review} 
+\section{Computer Vision}
+\section{AI \& Machine Learning}
+\section{Audification}
+\subsection{Spatial Audio}
+\section{Games}
+\subsection{Games and Accessibility}
+\subsection{Games and Audification}
+\subsection{Games and Computer Vision}
 
 %%% PROPOSAL
 
-\chapter{Real Sound}
+\chapter{ReAL Sound}
 \paragraph{Introduction}
 In this chapter, I propose and outline the \textbf{\emph{\rs}} system: a \rsfull that abstracts the design of accessibility features for the visually impaired via the use of computer vision, spatial audio, and audification techniques.
 
@@ -114,38 +122,37 @@ In this section, I proposed \rs and provided justifications for its utility and 
 
 
 
-\section{Structural Outline}
+\section{Concepts}
 \paragraph{Introduction} 
-In this section, I explain \rs's structure in detail. To begin, I use formal math notation to construct a semi-formal definition of a 'video game.' I then use this construct to abstract methods of interpreting the active state of a game via visual analysis. From here, I outline \rs's principal operation process---the \plan, \train, \design, \exec loop. To conclude, I consider the structure's strengths and weaknesses.        
+In this section, I explain in detail the theoretical concepts which underpin \rs. I later use these concepts to rigidly define the system's core structure. To begin, I use formal math notation to construct a semi-formal definition of a 'video game.' I then explore this definition through the lens of automata theory. Following this, I use the construct to abstract methods of interpreting a game via visual analysis. 
 
 
-\subsection{Overview}
-\subsubsection{Anatomy of a Game}
-\paragraph{Introduction}
-Here, I construct a semi-formal abstraction of video games using mathematics notation. Later, I will use these constructs to more rigidly explore concepts.
+\subsection{Anatomy of a Game}
+\subsubsection{Introduction}
+Here, I construct a semi-rigid abstraction of video games using formal notation. Later, I will use these constructs to more clearly explore related concepts.
 
 
-\paragraph{Game}
-A Game, lets call it $M$ (for \emph{meta}), can be considered as the combination of three sets: a collection of meta attributes $A$, a series of in-game states $G$, and a group of entities $I$:
+\subsubsection{Game}
+A Game, termed $M$ (for \emph{meta}), can be conceived as the combination of three sets: a collection of meta attributes $A$, a series of in-game states $G$, and a group of entities $I$:
 
 $$
 M = \{A, G, I\}
 $$
 
-\subparagraph{Meta Attributes}
+\paragraph{Meta Attributes}
 The game's meta-attributes $M_A$ can be imagined as data that is preserved over an entire game session. This data can persist between state transitions and usually describes overarching information such as current playtime or the currently active game level. 
 
-\paragraph{Game State}
+\subsubsection{Game State}
 Each state, $G_S$ (referred to interchangeably as \textit{game state} hereafter) is comprised of four components---internal state-attributes $A$, internal state-logic $L$, as well as conditions $C$ for inter-state transitions $T$.
 
 $$
 G_S = \{ A, L, C, T \}
 $$
 
-\subparagraph{State-Attributes}
+\paragraph{State Attributes}
 A state's attributes $A$ act similarly to the game's overarching meta attributes $M_A$, but on a per-state context. These attributes may store information such as the current time spent within the state or other data describing the state in specific. State data is lost upon transitioning to a different state.
 
-\subparagraph{Internal Logic}
+\paragraph{Internal Logic}
 The state's internal logic $L$ defines all the behaviors and activities that are carried out \textit{within} the state. For example, a racing game may contain a \textbf{start} state---which contains logic for playing a special sound effect when the race is started, or routines to visually display the text \textit{'START!'} on-screen. 
 
 In abstract, $L$ can be imagined as a series of conditional requirements ('rules') $L_C$ that yield specific game actions ('responses') $L_A$:
@@ -153,7 +160,7 @@ In abstract, $L$ can be imagined as a series of conditional requirements ('rules
 $$L: L_C \longrightarrow L_A$$
 
 
-\subparagraph{Conditions}
+\paragraph{Conditions}
 A state also contains conditional rules defining when to exit the state and transition to different state. $C$ defines these rules as a set of boolean statements---which evaluate to either \texttt{true} or \texttt{false}.
 Take, for example, a sports game which transitions from a \textbf{match} state to a \textbf{finish} state after ten points are scored in the match. Imagine that the current match score is stored as an integer value through the state attribute $S$: 
 
@@ -169,7 +176,7 @@ $$
 
 When $C_S$ evaluates to true (i.e., when the match score has reached ten points), the state will transition transition to the \textbf{finish} state.
 
-\subparagraph{Transitions}
+\paragraph{Transitions}
 The transition function $T$ defines the mapping of "where" to or "how" to transition to a different state after a condition in $C$ has evaluated to \texttt{true}. In essence, $T$ maps a conditional statement $C_S$ to the next game state $G_N$ to transition to:
 
 $$
@@ -182,21 +189,21 @@ $$
 T: G_S \times C \longrightarrow G_N
 $$
 
-\paragraph{Entities}
+\subsubsection{Entities}
 Entities $I$ are the objects which constitute a game's internal structure---the 'actors' of the game. An entity can be anything contained within a game, such as the player, enemies, items, level construction, etc.  Usually, an entity's behavior can be described using verbs---in either an active (\emph{Mario jumps on the platform}) or passive (\emph{The platform was jumped on by Mario}) sense.
 
 Each entity has attributes $A$ as well a collection of states $E$:
 
 $$I = \{A, E\}$$
 
-\subparagraph{Entity Attributes}
+\paragraph{Entity Attributes}
 Similar to the previous definitions, entity attributes describe entity-specific attributes. For example, an entity's location point $P$ in a 2D game's world space might be modeled as:
 
 $$P = \{(x,y): x,y \in \mathbf{R} ^2\}$$ 
 
 Similar information, like a enemy's current health, an item's purchase price, or a bomb's damage radius are also considered Entity attributes. 
 
-\subparagraph{Entity States}
+\paragraph{Entity States}
 An entity state, then, describes an entity's different states of being. A player entity might be able to \textbf{jump}, while a spell entity might be \textbf{cast} or an enemy entity might be \textbf{killed}, to name a few examples. 
 
 Some examples may seem unintuitive, but still work within this framework. A game's menu system, for instance can also be considered an entity. In this case, the act of clicking on the menu---triggering some sort of effect, can be modeled as a \textbf{clicked} state with its own internal logic and goals. 
@@ -209,7 +216,7 @@ One example of an entity state is \textbf{jumping}, which may transition from \t
 
 $$T(C) \longrightarrow E_N$$
 
-\subparagraph{Summary}
+\subsubsection{Summary}
 To summarize, a game $M$ can be conceptualized as:
 
 \begin{enumerate}
@@ -231,15 +238,83 @@ $$I = \{A, E\}$$
 $$E = \{L, C, T\}$$
 
 
-\paragraph{Conclusion}
+\subsubsection{Conclusion}
 Here, I have provided a general outline of games in formal notation. I do not guarantee nor contend that these structures form a complete closure over the entire concept of video games---whose definition is still fiercely debated to this day\cite{Knoop_2021}---but these structures will serve as a useful framework for our following definitions and concepts.
 
+\subsection{State Models}
+
+\subsubsection{Introduction} 
+In this section, I briefly review automata theory theory. Through concepts like finite state automata, I produce the Game and Entity (GSM and ESM) state machine constructs, which I will continue to utilize in following sections.
+
+\subsubsection{Automata Theory}
+The previous section's underlying theory will likely seem familiar for those with a background in fields such at theory of computation or advanced linguistics. I am, of course, referring to the theory of \emph{automata} a core concept which underpins numerous fields--including computing and, by natural extension, interactive software such as video games. 
+
+Automata are generally categorized into four major types as defined by the Chomsky Hierarchy---ranging from Type-0, describing the classical Turning machine, to Type-3, which describes finite state automata \cite{Chomsky1956ThreeMF}. Games, as I have described them above, can (in general) be described as a Type-3 automata---an automation of finite state and quality. 
+
+\subsubsection{Finite State Automata}
+
+\paragraph{Introduction and Concepts}
+
+Carroll defines (deterministic) finite automata as the "mathematical model of a machine that accepts a particular set of words over some alphabet $\Sigma$.\cite{FSM}" He conceptualizes FSMs as "black boxes" that combine an input tape (consisting of symbols in the alpha $\Sigma$), a \emph{'read head'} which processes this input tape of symbols, and an 'acceptance light' which indicates the acceptance/rejection of an input symbol, and whose activity is governed by the read head's reaction to the given input. In essence, the machine accepts input, makes decisions for the acceptance light based upon the input, and then moves to a new position to receive another input. The machine's acceptance/rejection of a symbol, as well as the position it moves to next, is contingent on its own internal logic---some rule that dictates \emph{"If symbol X is read, turn on (if accepted) or off (if rejected) the acceptance light, and move read head to position Y."} The machine may also read a symbol which finally halts its operation.
+
+\paragraph{Comparison with Turing Machines}
+
+This conceptual structure bares some resemblance to a Turning machine\cite{Turing}, although there are some distinct differences. A Turning machine has an infinite amount of memory and is capable of accepting languages with recursive qualities---as the turing machine is able to 'write' to tape--modifying a symbol after reading it. A Turing machine is well known to be capable of implementing and computing any possible computing algorithm\cite{Turing_2004}. It is consequently classified as a Type-0 (also known as a "recursively enumerable" or an "unrestricted") grammar.
+
+An FSM, by contrast, is limited in several ways. As the name implies, FSM have a \emph{finite} set of states. More importantly, the system is incapable of storing memory---lacking the 'writing' mechanism of a Turning machine\cite{FSM}. 
+
+\paragraph{Deterministic and Non-deterministic FSAs}
+
+The FSMs we detail here should also be distinguished as \emph{deterministic}, as opposed to \emph{non-deterministic} FSMs. Some FSMs are considered non-deterministic when their states are capable of transitioning to several possible outputs given the \emph{same input}---making their reaction to an input non-deterministic in nature\cite{NDFSA}. For our purposes, we define games as a type of deterministic FSM--where the same inputs always yield the same results. 
+
+\paragraph{Obstacles and Limitations}
+You may be wondering how the provided definition of games fit the category of FSM considering the inclusion of attributes $A$---which may persist as a game or entity transitions from state-to-state. This may appear like a kind of 'memory' on first glance, but is actually just a shorthand notation that simplifies our FSM conceptualization. In reality the proper FSM of a game has \emph{many} more states than we describe here. 
+
+To provide some insight into this concept, imagine that for each state $G_S$, the conditions of $C$ and the transitional rules of $T$ also encode the attributes of $A$. This means that each state $G_S$ actually has numerous variations---each relating to the specific attributes of $A$ and the conditions of $C$. For example, the aforementioned sport game's \state{match} state may really have $10$ different \state{match} states, one describing each possible value of the scoring attribute $S$. If the game has just begun, the first scoring condition $C_0$ will transition the machine to $match_1$, and so on. Eventually, the final \state{match} state's $C_9$ condition will transition the FSM to the \state{finish} state.
+
+
+\paragraph{Useful Adaptions}
+
+As you can see, this more-accurate representation of FSMs is considered unproductive in many domains where FSMs remain useful concepts\cite{state}. Thankfully, numerous alternative notations have arisen to address these shortcomings. 
+
+For example, FSMs which produce output contingent on a given input---often termed \emph{transducers}\cite{FSM}---are frequently conceptualized as \emph{Mealy machines}. The output of a Mealy machine state is also contingent on its input (\texttt{IF input(X) AND IN state(Y) THEN transition(Z)}). Later designs---such as the \emph{unified modeling language}---have extended this notation further to leverage the theoretical benefits of FSAs while avoiding their limiting notation schemes\cite{omg2011umls}. In a similar fashion, I make use of FSAs on a conceptual basis while abstracting away these notational hindrances through the usage of the attributes $A$ of each object. 
+
+\subsubsection{Automata and Games}
+It is possible to define games more clearly through their relation to FSAs using our definitions. For example we can consider a game to be a collection of two principal state machines: 
+\begin{description}
+    \item[Game State Machine (GSM)] The game state machine comprises the general 'flow' of a game---its levels, combat encounters, win conditions, story sequences, game-over menus, boss fights, item inventories, and any other 'macro' loop that is reasonably distinguishable within the gaming experience.
+    \item[Entity State Machine (ESM)] An entity state machine comprises the general 'life' and 'activities' of a given entity---every action it can take, as well as its response to any given input. A player may run, jump, or die, while a stage platform may move or vanish.     
+\end{description}
+
+These two concepts---the GSM and ESM---prove to be crucial in the conceptualization of \rs. We will continue to analyze them in later sections using other frames of analysis.
+
+\subsubsection{Conclusion}
+In this section I reviewed numerous aspects of automata theory---namely finite state automata---in order to present the concept of the Game and Entity state machines (GSM and ESM), which will prove to be useful constructs in the total construction of \rs.
+
+
 \subsubsection{Visual Analysis of a Game}
+
+\paragraph{Introduction}
+In this section, I provide a framework for analyzing a game's state information based on the game's visual output by using the constructs detailed in the previous section. With this framework, I argue in the next section that a user who is aware of the game's external logic (the 'rules' a player intuitively learns via playing the game) can wield this visual analysis in building their own state model of the game.    
+
+
+\section{Structural Outline}
+
+\subsection{Vision Layer}
+
+\subsection{Decision Layer}
+
+\subsection{Audification Layer}
+
+\section{Process Outline}
+In this section, I outline \rs's principal operational process---the \plan, \train, \design, \exec loop. To conclude, I consider the structure's strengths and weaknesses.        
 
 \subsection{Design}
 \subsection{Training}
 \subsection{Implementation}
 \subsection{Play}
+
+\section{Demonstration: Pong}
 \section{Considerations}
 
 
@@ -266,3 +341,4 @@ Here, I have provided a general outline of games in formal notation. I do not gu
 \bibliography{references}
 
 \end{document}
+
