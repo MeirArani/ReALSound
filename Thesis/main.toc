@@ -14,34 +14,38 @@
 \contentsline {paragraph}{The Modern AI Boom}{5}{section*.7}%
 \contentsline {subparagraph}{Agnostic Vision Requirements}{6}{section*.8}%
 \contentsline {paragraph}{Spatial Audio}{6}{section*.9}%
+\contentsline {paragraph}{Conclusion}{6}{section*.10}%
 \contentsline {section}{\numberline {3.2}Structural Outline}{6}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Overview}{6}{subsection.3.2.1}%
-\contentsline {subsubsection}{Anatomy of a Game}{6}{section*.10}%
 \contentsline {paragraph}{Introduction}{6}{section*.11}%
-\contentsline {paragraph}{Game}{6}{section*.12}%
-\contentsline {subparagraph}{Meta Attributes}{7}{section*.13}%
-\contentsline {paragraph}{Game State}{7}{section*.14}%
-\contentsline {subparagraph}{State-Attributes}{7}{section*.15}%
-\contentsline {subparagraph}{Internal Logic}{7}{section*.16}%
-\contentsline {subparagraph}{Conditions}{7}{section*.17}%
-\contentsline {subparagraph}{Transitions}{8}{section*.18}%
-\contentsline {paragraph}{Entities}{8}{section*.19}%
-\contentsline {subparagraph}{Entity Attributes}{8}{section*.20}%
-\contentsline {subparagraph}{Entity States}{8}{section*.21}%
-\contentsline {paragraph}{Conclusion}{9}{section*.22}%
-\contentsline {subsection}{\numberline {3.2.2}Design}{9}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Training}{9}{subsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.2.4}Implementation}{9}{subsection.3.2.4}%
-\contentsline {subsection}{\numberline {3.2.5}Play}{9}{subsection.3.2.5}%
-\contentsline {section}{\numberline {3.3}Considerations}{9}{section.3.3}%
-\contentsline {chapter}{\numberline {4}Sample Implementation}{10}{chapter.4}%
-\contentsline {section}{\numberline {4.1}OpenCV}{10}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Qt}{10}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Experiments}{11}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Pong Demonstration}{11}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Results}{11}{subsection.5.1.1}%
-\contentsline {chapter}{\numberline {6}Conclusions}{12}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Limitations}{12}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Future Work}{12}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Thanks}{12}{section.6.3}%
-\contentsline {chapter}{\numberline {7}Bibliography}{13}{chapter.7}%
+\contentsline {subsection}{\numberline {3.2.1}Overview}{7}{subsection.3.2.1}%
+\contentsline {subsubsection}{Anatomy of a Game}{7}{section*.12}%
+\contentsline {paragraph}{Introduction}{7}{section*.13}%
+\contentsline {paragraph}{Game}{7}{section*.14}%
+\contentsline {subparagraph}{Meta Attributes}{7}{section*.15}%
+\contentsline {paragraph}{Game State}{7}{section*.16}%
+\contentsline {subparagraph}{State-Attributes}{7}{section*.17}%
+\contentsline {subparagraph}{Internal Logic}{7}{section*.18}%
+\contentsline {subparagraph}{Conditions}{8}{section*.19}%
+\contentsline {subparagraph}{Transitions}{8}{section*.20}%
+\contentsline {paragraph}{Entities}{8}{section*.21}%
+\contentsline {subparagraph}{Entity Attributes}{8}{section*.22}%
+\contentsline {subparagraph}{Entity States}{9}{section*.23}%
+\contentsline {subparagraph}{Summary}{9}{section*.24}%
+\contentsline {paragraph}{Conclusion}{10}{section*.25}%
+\contentsline {subsubsection}{Visual Analysis of a Game}{10}{section*.26}%
+\contentsline {subsection}{\numberline {3.2.2}Design}{10}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Training}{10}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Implementation}{10}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.2.5}Play}{10}{subsection.3.2.5}%
+\contentsline {section}{\numberline {3.3}Considerations}{10}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Sample Implementation}{11}{chapter.4}%
+\contentsline {section}{\numberline {4.1}OpenCV}{11}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Qt}{11}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Experiments}{12}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Pong Demonstration}{12}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Results}{12}{subsection.5.1.1}%
+\contentsline {chapter}{\numberline {6}Conclusions}{13}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Limitations}{13}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Future Work}{13}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Thanks}{13}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Bibliography}{14}{chapter.7}%

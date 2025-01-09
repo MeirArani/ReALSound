@@ -22,7 +22,7 @@
 
 \bibitem{Lewin_2023}
 \BIBentryALTinterwordspacing
-K.~Lewin, ``87% missing: The disappearance of classic video games,'' Nov 2023. [Online]. Available: \url{https://gamehistory.org/87percent/}
+K.~Lewin, ``87\% missing: The disappearance of classic video games,'' Nov 2023. [Online]. Available: \url{https://gamehistory.org/87percent/}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Costikyan_2000}
@@ -95,6 +95,14 @@ L.~McCormack, C.~Hold, M.~McCrea, juhanipaasonen, S.~Saue, jananifernandez, Marc
 \bibitem{Valve}
 \BIBentryALTinterwordspacing
 V.~Software, ``Steam audio.'' [Online]. Available: \url{https://valvesoftware.github.io/steam-audio/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{QTProgramming}
+J.~Blanchette and M.~Summerfield, \emph{C++ GUI Programming with Qt 4}, 2nd~ed.\hskip 1em plus 0.5em minus 0.4em\relax USA: Prentice Hall PTR, 2008.
+
+\bibitem{QTSpatial}
+\BIBentryALTinterwordspacing
+T.~Q. Company, ``Qt spatial audio 6.8.1.'' [Online]. Available: \url{https://doc.qt.io/qt-6/qtspatialaudio-index.html}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Knoop_2021}
