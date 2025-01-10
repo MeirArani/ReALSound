@@ -10,6 +10,34 @@
 \usepackage{listings} % Source code formatting and highlighting
 \usepackage[nottoc,numbib]{tocbibind}
 \usepackage{xspace}
+\usepackage{biblatex}
+\usepackage{amsthm}
+\usepackage[]{algorithm2e}
+
+\usepackage{framed, blindtext}
+
+%%%%%%%%%%%%%%%%
+\newcommand\lorname{\mdseries\textit{List of recommendations:}}%list of recommendations
+\newcommand\lorext{lor} % another aux-file is needed
+\newcommand\lortmp{}
+\newcounter{recommendations}
+\newcommand{\Summary}[2][\empty]{%
+  \vspace{0\baselineskip} \begin{framed} #2 \end{framed}%
+  \ifx#1\empty\renewcommand\lortmp{\footnotesize #2 }\else\renewcommand\lortmp{\footnotesize #1}\fi%
+  \addcontentsline{\lorext}{subsection}{\therecommendations\quad\lortmp}
+}
+\makeatletter
+  \newcommand\listofrecommendations{%
+    \footnotesize
+    \section*{\lorname}
+    \markboth{\lorname}{}
+    \@starttoc{\lorext}
+  }
+\makeatother
+
+
+\addbibresource{references.bib}
+
 
 \newcommand{\rs}{ReAL Sound\xspace}
 \newcommand{\rsfull}{\textbf{Re}-usable \textbf{A}udification \textbf{L}ibrary\xspace}
@@ -18,6 +46,11 @@
 \newcommand{\design}{\textbf{Design}\xspace}
 \newcommand{\exec}{\textbf{Execution}\xspace}
 \newcommand{\state}[1]{\textbf{#1}}
+\newcommand{\rules}{\textbf{Rules}\xspace}
+\newcommand{\vision}{\textbf{Vision}\xspace}
+\newcommand{\decision}{\textbf{Decision}\xspace}
+\newcommand{\audio}{\textbf{Audification}\xspace}
+
 
 % ---
 %
@@ -75,9 +108,9 @@ In this chapter, I propose and outline the \textbf{\emph{\rs}} system: a \rsfull
 In this section, I propose \rs and justify its novelty and utility based on the literature review performed in the previous chapter.
 
 \subsubsection{\emph{What is \rs?}}
-\rs (\rsfull) is a software framework concept that generalizes the creation of visual accessibility features for games. Using computer vision techniques and modern spatial audio technology, \rs aims to abstract the process of moment-to-moment analysis of a game's state as well as the generation of 3D spatial audio objects. Through this abstraction, implementors of /rs (as distinguished from \emph{users} of \rs---the visually impaired persons benefitting from the features) can sidestep many of the language, platform, and architecture specific headaches involved in the creation of game accessibility features, especially in the case of after-market games. 
+\rs (\rsfull) is a software framework concept that generalizes the creation of visual accessibility features for games. Using computer vision techniques and modern spatial audio technology, \rs aims to abstract the process of moment-to-moment analysis of a game's state as well as the generation of 3D spatial audio objects. Through this abstraction, implementors of \rs (as distinguished from \emph{users} of \rs---the visually impaired persons benefitting from the features) can sidestep many of the language, platform, and architecture specific headaches involved in the creation of game accessibility features, especially in the case of after-market games. 
 
-\rs achieves this generalization by abstracting the process into a few core steps for any given target game:
+In essence, \rs seeks to convert a game's visual information (the things a player sees on-screen) into audio information (the things a player hears). This is done so that visually impaired persons can better understand a game without having to 'look' at it directly. Moreover, \rs aims to abstract this process, making a simple implementation possible for a plethora of games. \rs achieves this generalization by abstracting feature development process into a few core steps for any given target game:
 
 \begin{description}
     \item [Planning] The creation of simple 'rules' and 'definitions' which accurately describe the game.
@@ -86,7 +119,7 @@ In this section, I propose \rs and justify its novelty and utility based on the 
     \item [Execution] The real-time marriage of the previous stages. Uses a computer vision model \textbf{trained} on the \textbf{planned} rules which translates the game's real-time visual data into spatial audio objects as \textbf{designed} by the implementor.    
 \end{description}
 
-With \rs, a implementor with only a moderate amount of technical knowledge  could feasibly add accessibility features to any target game---all with zero knowledge of the game's underlying source code or architecture.
+With \rs, a implementor with only a moderate amount of technical knowledge  could feasibly add accessibility features to any target game---all with zero knowledge of the game's underlying source code or architecture. A visually impaired user of \rs, meanwhile, gains access to accessibility features which translate the game's visual information into easily parsable audio data---allowing them to intuitively understand a game without seeing the game's visual output. 
 
 
 \subsubsection{\emph{Why is \rs?}}
@@ -238,6 +271,10 @@ $$I = \{A, E\}$$
 $$E = \{L, C, T\}$$
 
 
+\subsubsection{Limitations}
+While this construction is useful for our purposes here, I do not contend this definition as a end-all definition of games. It is already known that several games---both in physical and video formats---are Turing complete, which exists outside the definitions given here. Previous researchers however have likewise made attempts in formally defining games with similar bounds on their definitions---leaving titles like \emph{Magic: The Gathering}\cite{churchill2019magicgatheringturingcomplete} or \emph{Minecraft}\cite{Hildreth1980} out of scope\cite{Demaine}. Virtually any game can also be made Turning complete if methods of arbitrary code execution (ACE) are discovered, which has been demonstrated using \emph{Super Metroid}\cite{Mawhorter_Aytemiz_Karth_Smith_2021}, \emph{The Legend of Zelda: Ocarina of Time}\cite{OoT}, and numerous others. Despite this, we find that our definition of games covers a sufficiently useful scope to demonstrate \rs's utility.
+
+
 \subsubsection{Conclusion}
 Here, I have provided a general outline of games in formal notation. I do not guarantee nor contend that these structures form a complete closure over the entire concept of video games---whose definition is still fiercely debated to this day\cite{Knoop_2021}---but these structures will serve as a useful framework for our following definitions and concepts.
 
@@ -292,37 +329,348 @@ These two concepts---the GSM and ESM---prove to be crucial in the conceptualizat
 In this section I reviewed numerous aspects of automata theory---namely finite state automata---in order to present the concept of the Game and Entity state machines (GSM and ESM), which will prove to be useful constructs in the total construction of \rs.
 
 
-\subsubsection{Visual Analysis of a Game}
+\subsection{How Players Understand Games}
+
+\subsubsection{Introduction}
+In this section, I explore how games are conceived from the player's perspective. I illustrate my points via a few examples and ultimately generate the concept of the \state{State-Rule} relationship, which has consequences for \rs's design.
+ 
+\subsubsection{How Players Understand Games}
 
 \paragraph{Introduction}
-In this section, I provide a framework for analyzing a game's state information based on the game's visual output by using the constructs detailed in the previous section. With this framework, I argue in the next section that a user who is aware of the game's external logic (the 'rules' a player intuitively learns via playing the game) can wield this visual analysis in building their own state model of the game.    
 
+Drifting slightly from the previous formal definitions, let us consider here exactly how a human player understands a game. To begin, let us consider a simple game familiar to most readers---the playground classic \emph{rock-paper-scissors}. 
+
+\subparagraph{Simple Case: \emph{Rock-Paper-Scissors}}
+
+In rock-paper-scissors, each player is allowed one input---the 'hand' they choose to play---and the game produces one 'output'---the outcome of the match. Experienced players have an intuitive understanding of the rules which govern the game, which are simple enough to enumerate here:
+
+\begin{description}
+    \item [Rule One:] Each Player produces a hand symbol, which may be one of:
+        \begin{enumerate}
+            \item \state{Rock}
+            \item \state{Paper}
+            \item \state{Scissors}
+        \end{enumerate}
+    \item [Rule Two:] The outcome of the match is decided by these stipulations:
+        \begin{enumerate}
+            \item \state{Paper} 'beats' \state{Rock}
+            \item \state{Rock} 'beats' \state{Scissors}
+            \item \state{Scissors} 'beats' \state{Paper}
+            \item If both players produce the same hand, the game is a draw
+        \end{enumerate}
+\end{description}
+
+These rules comprise the entire experience, allowing a full play of the game to occur over the course of mere moments.
+
+To use the constructs defined previously, it is clear that rock-paper-scissors (hereafter \emph{RPS}) has only one possible game state, a fact which highlights the game's simplicity. In other words, players require no greater sense of \emph{context} to play RPS---they only need to understand the base rules described above. Consequently, the game has no memory requirements, as each play is decided in one step and has no consequences on future or past matches.
+
+\subparagraph{Average Case: \emph{Rock-Paper-Subsequent}}
+The previous definition of RPS can seem trivial, leading to an unfulfilling experience for gamers. As you likely know, many performances of RPS actually append on additional rules to improve the play experience. For example, competitions often involve some \emph{'best-of'} requirement---stipulating that a player must win a certain amount of matches before being declared the 'overall' winner. 
+
+This example of RPS, which I will term \emph{Rock-Paper-Subsequent}, has added additional complexity to the game's structure. The logic of each round is now contingent on the last, requiring players use a sense of context and memory to successfully complete the game. For example, forgetful players competing in a 'best-of-one-thousand' variant of RPS may eventually lose-track of the game's score. This mistake would render the entire competition invalid, as it makes the question of who will win the match undecidable. 
+
+In automata terms, \emph{Subsequent} has gained a sense of state---one for each possible configuration of game score. This case can be described in terms of an FSA, and, I conjecture, is categorically equivalent to my definition of games above.
+
+\subparagraph{Advanced Case: \emph{Rock-Paper-Scheherazade}}
+Imagine now that instead of having one simple match or even a simple 'best-of', we created a new version of RPS named \emph{Rock-Paper-Scheherazade}. In this version of the game, a tied match (where players produce the same hand) requires that players perform a 'best-of-three' sub-match of the game. Whichever player wins this sub-match will 'win' the match. This logic also applies recursively, meaning that players who tie during a sub-match are forced to perform yet another sub-match \emph{within} the sub-match---a sub-sub-match, if you will. This logic can naturally extend to an infinite recursion of context and memory: \emph{sub-sub-sub-sub-sub...-matches} are possible in \emph{Scheherazade}, each requiring the player to keep track of the game's current 'match', as well as all of the matches that exist 'above' it.
+
+This rendition of RPS is, in some senses, comparable to a Turing machine---allowing for infinite memory and recursive processes---which extends beyond the definition of games we contend with in this paper. In this cases, RPS may have an infinite amount of game states---each contextualized by the particular score of the current sub-match as well as all of the sub-matches that exist in the levels above it. 
+
+The purpose of these examples was to illustrate in clear terms the two key parts of a game's structure from the player's perspective---\state{Rules}, and \state{States}.
+
+\paragraph{Rules}
+
+Rules constitute the bulk of a player's understanding of a game. Without rules, even simple titles like RPS are rendered non-deterministic---as an infinite amount of hands outside of \state{Rock}, \state{Paper}, and \state{Scissors} may be produced, each with arbitrary rules about which hand 'beats' which, which may also change on a match-to-match basis. In general, players expect a specific reaction to a given input. 
+
+It should be noted that this is true even in cases where the output is seemingly random to the player. For example, a player always expects to be dealt a set of playing cards when performing an ante in Poker, even if those cards are given to the player in a seemingly random sequence. The player is not, by contrast, expecting to receive a collection of random objects that \emph{differ} each ante in lieu of playing cards---a gun for one hand, a hot-dog for the next, and perhaps the entirety Shakespeare's \emph{Hamlet} the last. 
+
+\paragraph{States}
+
+Despite this, rules are not the end-all-be-all of understanding most games---which are usually comprised of many different states. In these cases, the rules of the game actually best described as the \emph{rules of the state.} This means that the same rule, applied in different states---may actually produce a different output given the same input. This provides rules with a greater sense of context that games often demand. 
+
+\paragraph{The State-Rule Relationship}
+
+Consequently, one may imagine the intertwining of these two concepts: \state{Rules} which define \state{State}, and \state{States} which identify \state{Rules}. This \state{State-Rule} relationship often relates to problems in \emph{context sensitivity}, a domain which extends far beyond the realm of video games. Understanding this relationship, as well as context sensitivity, is key to \rs' design. We will now explore the problem further through a well known example: \emph{The Legend of Zelda: Ocarina of Time}, which pioneered advanced solutions to context-sensitive game design.
+
+\subparagraph{Context Sensitivity and \emph{Ocarina of Time}}
+
+As three-dimensional games saw increasing feasibility in the early-to-mid 1990s, developers were suddenly given an extra degree of spatial freedom. Many designers quickly came to view this boon as a bane, as developers new to 3D struggled in translating these newfound liberties into sensible game controls---which are limited by both physical design and human physiology. In essence, designers often believed they needed twenty buttons to accomplish in 3D space what was once possible with only four buttons in 2D. This was a consequence of the exponential growth of \state{States} and the \state{Rules} which governed 3D experiences. 
+
+\emph{The Legend of Zelda: Ocarina of Time} effectively solved this problem by standardizing a clear sense of context-sensitive design---both in terms of control design and UI design. In \emph{Ocarina}, each button on a game controller may have more than one in-game action (a control) assigned to it. Exactly which action is triggered in game is dependant on the game's current state. In this sense, the specific \state{Rule} of what happens when a button, say \state{A} is pressed is unique to the current \state{State} the game is in. For example, the \state{A} button may allow the player to 'talk' to another character---\emph{if} they are standing near one. They may also be able to push a box, open a door, read a sign, or use a fishing rod---all from just pressing the \state{A} button, who's \state{Rule} is contextually dependant on the current \state{State}.This was also made clear through the game's novel UI design--where the contextual action of the button (the button's \state{Rule} in the current \state{State}) was clearly displayed on-screen at all times. 
+
+This marriage context-sensitive design with clear visual indicators of the \state{State-Rule} relationship significantly aided players---who were still new to the concept of 3D games and their control schemes---and cemented \emph{Ocarina}'s status as a model for modern game design. In essence, these choices clarified the relationship of \state{Rules} and \state{States} to players. I conjecture that an obfuscation of this relationship (on the part of the developer) or a lack of understanding of this relationship (on the part of the player) inhibits the completion---or, at the very least, \emph{the enjoyment} of the play experience. 
+
+\subsubsection{Conclusion}
+In this section, I elaborated on the experience of playing a game from the player's perspective, making use of the structures defined in previous sections. Here, I illustrated the distinction between a game's \state{States} and \state{Rules}, as well as the relationship between them using the example of \emph{rock-paper-scissors}. I then considered the important of this relationship via the problem of context sensitivity, which I explored using the case study of how \emph{The Legend of Zelda: Ocarina of Time} handles similar problems. 
+
+
+\subsection{Visual Analysis of a Game}
+
+\subsubsection{Introduction}
+In this section, I provide a framework for analyzing a game's state information based on the its visual output using the constructs detailed in the previous sections. With this framework, I argue in the next section that a user who is aware of a game's external logic (the 'rules' a player intuitively learns via playing the game) can wield this visual analysis in building their own useful state model of the game.    
+
+\subsubsection{Context Sensitivity and \rs}
+As detailed in the previous section, we recognize the importance of context sensitivity in the design of \rs, which is tasked with understanding a game's 'rules' and 'contexts' just as a real-world player is. Unlike a real human, however, \rs cannot leverage the semantic power of the human mind. This means that visual concepts familiar to the average human---the shape of Pac-Man, or what color Mario's hat is---ultimately boils down to a collection of mere binary $1$s and $0$s for a computer. 
+
+Consequent to this fact is the first problem we must solve: 
+
+\newtheorem{q1}{Problem}
+\begin{q1}
+    How can \rs achieve the same level of context awareness that a human being reaches when visually analyzing a game? 
+\end{q1}
+
+To answer this problem, we must sub-divide it into two: the analysis of a game's \state{States} and \state{Rules}.
+
+\subsubsection{Analyzing Game State}
+
+Analyzing a game state is arguably the easier task, so we will begin our work here. 
+
+\paragraph{Differentiating State}
+
+To analyze a state, a player must be aware of what makes it \emph{distinct} from other states. Usually, this is done through some obvious visual cues. A game menu, such as a pause screen, is generally designed to look different than the in-game experience---clearly signaling to players that the game is not currently active. In a similar vein, the unique shades of blue and distinct green coral patterns of \emph{Super Mario Bros'} underwater levels indicate that a different play experience is to be expected. 
+
+And so, in order to understand a game's active state, the player must:
+
+\begin{enumerate}
+    \item Look at the game.
+    \item Detect the different objects that constitute the elements on-screen. 
+    \item Categorize these objects into known entities.
+    \item Relate this assortment of entities to a known \state{State}. 
+\end{enumerate}
+
+Logically then, we must translate this process into one that is computer-friendly.
+
+\subparagraph{Looking at the Game}
+Thankfully, the task of \textbf{1.} is simple enough. The current visual data of a game (hereafter referred to interchangeably as the game's active \emph{frame}) is easily copied from the buffers of memory which display it on-screen. We can then send this copy of the frame to whatever computer software we please.
+
+\subparagraph{Object Detection}
+Unfortunately, it is at step \textbf{2.} that we hit our first major roadblock. Or, to be more accurate, \emph{would} have hit a roadblock just a handful of years ago. 
+
+As discussed in section 2, the history of computer-automated object detection is as long and storied as the problem is complex and layered. Work in the field has generally focused on specific identification tasks with a well-known utility---such as the detection of human faces or cancer cells. Technologies and algorithms powering object detection were often bespoke and incredibly arcane, despite their limited use-cases. Only in recent years has the field matured into a respectable domain, owing mainly to modern AI and Machine Learning discoveries. Consequently, the identification of objects via visual input is now a fairly trivial task given some basic programming knowledge. Efficient cross-platform detection algorithms such as YOLO (\emph{You Only Look Once}) have popularized object detection in a wealth of fields thanks to their relative ease-of-use\cite{wang2022yolov7trainablebagoffreebiessets}. 
+
+\subparagraph{Object Categorization: \emph{The Journey}}
+There is yet another problem, however. \textbf{3.} stipulates that we not only detect the \emph{existence} of objects, we must also \emph{categorize} these detected object into known entities. In other words, we must attach some sense of semantic meaning to these objects. In other words, the machine must not only recognize a collection of pixels as being identical from frame-to-frame, but must also recognize those pixels as 'Mario.' 
+
+A purely automated solution to this problem is, unfortunately, outside the realm of this thesis (and likely modern science). There are certainly examples where an advanced, general computer vision algorithm may be able to recognize a popular entity like 'Mario'---who it has likely seen thousands of times within its training data---but this approach is not scalable for the domain of \emph{all} or even \emph{most} video games. 
+
+In reality, these algorithms recognize popular gaming characters through many means external to games---advertisements, movies, t-shirts, etc. Even if games were a common aspect of training data, the bespoke nature of games means training off of one game will not guarantee success in another. To put it simply: being able to tell apart Mario, Luigi, and a \emph{Goomba} will do no good in understanding the difference between Cloud, Tifa, and a \emph{Tonberry} in \emph{Final Fantasy VII}.
+
+
+\subparagraph{Object Categorization: \emph{The Answer}}
+Consequently, \rs requires human intervention to overcome this problem. Even though \rs would not likely function using a general machine learning model, it is very easy to obtain good results using a \emph{specialized} model instead. Specialized detection models augment a model (pre-trained on general data) with new specific training examples provided by the implementor---200 images of the target game, for instance. Using this new data, the model can acquire an understanding of the target game after only a modicum of training---allowing for the reliable detection and categorization of in-game objects.
+
+Of course, this process is not without its difficulties. For one thing, the act of providing image data to a machine learning algorithm is fairly laborious. Each image much be accurately annotated with labels describing the relevant objects contained within the image---requiring each picture to be manually edited and reviewed by a human being. On top of this, the exact number of annotated images required for good results is not consistent---with more complex games generally requiring larger datasets. Moreover, the \emph{quality} of the provided data is also crucial. Images of a low fidelity, as well as poorly annotated data, will often yield lackluster model behaviors.
+
+Despite all of these issues, the act of annotating training data has become commonplace in modern machine learning. There exist a wealth of tools---such as the open source \emph{Make Sense} project\cite{make-sense} or the corporate projects of companies such as \emph{RoboFlow}\cite{Roboflow_Supervision}---which streamline this process significantly. Moreover, the act of image acquisition is often trivial, merely demanding an implementor record a few minutes of active gameplay. The implementor could then simply pull a still frame from every few seconds of the video to use as data for annotation. 
+
+Given a few hours and some basic manual labor, a machine learning algorithm can be augmented with enough game-specific knowledge to enable the high-quality categorization of objects via computer vision---solving the hurdles of \textbf{3.} 
+
+Despite this, it should also be noted that machine learning, computer vision, and AI are not at all required to accomplish this task. A programmer willing to perform these operations manually---to design their own program which attaches semantic value to objects---can achieve the same results. \rs is ultimately indifferent to the exact approach to this problem---it only asks for good semantic information irregardless of its origin.
+
+\subparagraph{Relating to State}
+Now that we have all of this information---the game frame, the objects within the frame, and the semantic meaning of those objects---we must now perform the final and most crucial step: building a distinct mapping of this information set to one \state{State}. This process also requires human intervention, as it yet again demands the input data with additional semantic meaning. 
+
+This is the first area where \rs sees use---providing the format and framework for building these semantic relationships. This process---known as the \emph{Design Phase}---is detailed in a later section. For now, it is sufficient to say the implementor provides \rs with information about the game's semantics.
+
+\paragraph{Summary}
+
+With these challenges overcome, \rs is now able to 'see' and 'understand' the state of the game much like a user can---translating visual information (the game's current frame) into meaningful semantic information (the game's current \state{State}). 
+
+This puts us one step closer, but we are still missing something: an understanding of the \state{Rules} which underline the active \state{State}.
+
+\subsubsection{Analyzing \state{Rules}}
+Compared to the lengthy process required for \state{State} analysis, \rules are deduced in a far simpler fashion. One may observe that the structures and consequences of \rules are often non-visual and potentially abstract in nature, meaning our computer vision approach is yet again trumped by semantic and context sensitive information. But, as detailed in previous sections, even a game's abstract \rules are generally intuited by the player. For example, a player might understand that a switch flipped in one room of a game's level will have some effect on an entity in a different, yet unseen area. 
+
+And so, we require human intervention yet again through the \state{Design} phase of \rs's implementation process. The implementor must provide some simple input which describes the given \rules of a game's state in formal logic---which serves as the 'language' the computer is capable of understanding.
+
+\subsubsection{Conclusion}
+In this section, I dissected the visual experience of analyzing a game from the player's perspective. From this, I built a set of requirements that \rs must satisfy in order to successfully 'understand' the game like a real human player would based on the same visual information. I then elaborated the challenge presented by each requirement, as well as how \rs overcomes these challenges in order to successfully intuit a game based using the same visual input a human player uses. 
 
 \section{Structural Outline}
 
+\subsection{Overview}
+
+\subsubsection{Introduction}
+In this section, I provide an overview of the three 'layers'---\vision, and \decision, \audio---which constitute \rs's structure. 
+
+\subsubsection{Turning Theory into Practice}
+
+Now that we have explored the concepts needed for understanding \rs, it has come time to finally explain the structure of the framework in detail. It should be clear by now that \rs reaches into several areas of study for its theoretical basis---performing tasks in numerous domains to achieve our goals. This multi-modal approach makes explaining \rs's internal workings difficult. In order to ease this process, I will subdivide \rs into three key 'layers.' Each layer is tasked with solving problems in different domains and consequently has its own distinct traits and behaviors. The layers are:
+
+\begin{description}
+    \item[The Vision Layer] Converts a game's visual information in formal game logic. 
+    \item[The Decision Layer] Converts formal game logic into \rs's own internal logic.
+    \item[The Audification Layer] Converts \rs's internal logic into spatial audio, which is output for the end user.
+\end{description}
+
+It is hopefully clear how these three layers interact---and how the \vision layer cascades downwards towards the \audio layer, starting with visual data input and eventually generating audio data output. 
+
+
+\subsubsection{Conclusion}
+In this section, I provided an overview of \rs's layer-based structure. I will now elaborate on each layer in detail. 
+
 \subsection{Vision Layer}
+
+\subsubsection{Introduction}
+
+In this section, I detail the first of \rs's three 'layers'---the \vision layer, which is responsible for analyzing the target game's visual data and producing semantic information about the current game state.
+
+\subsubsection{Process}
+The \vision layer can be imagined as the starting point of \rs's execution loop. In it, the game's frame data (its visual information) is provided to a computer vision algorithm. The frame can be provided in a host of ways. 
+
+A programmer with direct access to the game's engine may choose to copy the framebuffer directly from its original in-engine source to \rs. Those without access to the game's internal logic may instead opt for a simple screen capture implementation, which essentially sends screenshots of the game window to the computer vision algorithm. This may seem inefficient at first glance, but all major operating systems have support for screen capture built-in at the kernel level, which makes this option a very feasible and attractive route for users with relatively modern computer hardware\footnote{See \texttt{PrintWindow} in the Windows API\cite{PrintWindow} and \texttt{XGetImage} in the X11 API\cite{XGetWindow} for modern examples.}. 
+
+This algorithm is responsible for the detection and classification of game entities contained within the frame. The algorithm may achieve object detection by any means desired by the implementor (machine learning, corner detection, template matching, etc.). 
+
+This same freedom is not extended to the act of object classification, however. The implementor must provide the \vision layer with object semantics. These semantics associate a detected object with a specific entity type---a mushroom in \emph{Mario}, a slime in \emph{Dragon Quest}, or a potion in \emph{Zelda}, for example. Semantic associations can be included in any way the implementor pleases---training data for a machine learning model, custom programming logic, etc. 
+
+The \vision layer is, through this processes able to translate a visual image of the game into semantic information about the game's active \state{State}---abstracting visuals into game logic. 
+
+\subsubsection{Conclusion}
+In this section I explored the specifics of the \vision layer. Its structure is summarized below:
+
+
+\Summary[]{
+
+{\begin{center}
+    \state{Vision Layer}
+\end{center}}
+
+\begin{description}
+    \item [Receives input from:] The game's graphical frame buffer.
+    \item[Input:] An image of the game's current on screen graphics (\emph{frame data})
+    \item[Behavior:] Uses a computer vision algorithm to perform object detection. Then uses semantic information provided by the implementor to classify these objects into game entities.
+    \item[Output:] Semantic information about the game's current state---as defined by the entities currently visible on screen. 
+    \item[Sends output to:] The \decision layer.    
+\end{description}
+}
+
 
 \subsection{Decision Layer}
 
-\subsection{Audification Layer}
+\subsubsection{Introduction}
+In this section, I explain the inner workings of the \decision layer, which transforms semantic information about the current game state into \rs's own internal logic.
 
-\section{Process Outline}
+\subsubsection{Process}
+The \decision layer is arguably the most complex layer, at least upon initial inspection. After receiving semantics about the game's current frame from the \vision layer, this layer is tasked with translating these semantics into the 'course of action' \rs takes in response to this frame. In other words, this layer is where \rs's \emph{decision making} occurs. In essence, this layer can be considered the 'heart' or 'core' of \rs---as it takes place entirely within its own confines.
+
+Of course, a program can only make decisions imbued in it by its creator---and \rs is no different. In reality, the implementor supplies \rs with a collection of simple conditional statements that translate into the range of possible decisions \rs is capable of making. For example, a supplied conditional statement may look something like this:
+
+
+
+\begin{algorithm}
+    \KwData{Game semantics S  from the \vision layer }
+    \KwResult{Procedural calls to generate \audio objects}
+    \If{{\bf Entity} 'Mario' is in S {\bf and} {\bf Entity} 'Mushroom' is in S}{
+     \If{distance(Mario, Mushroom) $\leq$ dMushroomCollision}{
+        play mushroom power-up SFX;
+      }
+    }
+    \caption{A simple semantic \decision}
+   \end{algorithm}
+
+In this simple case, the semantic data was used to check on existence of two entities---defined semantically as 'Mario' and 'Mushroom.' If these two entities are found to be on-screen at the same time, another check is made to see if they are close to each other---within a given distance $d$, as defined by the implementor. If so, \rs is told to play a specific spatial audio cue---a 'power-up' sound effect, which indicates what is already clear to a sighed player: that Mario has collided with a mushroom, giving him a power-up effect.
+
+Of course, this is a trivial example---as most games already provide auditory feedback for simple actions like powering up. But the extensible functionality of \rs allows for the translation of many non-auditory features into sound. For example, the position of a specific entity could be mapped from an physical point in game-space to a spatial point in the user's audio-space---generating sounds around the user's head to indicate their position in a clear, intuitive fashion.
+
+\subsubsection{Utilities and Extensions}
+
+The totality of these features allow \rs---under the imperative command of the implementor---to make active \state{Decisions} about what sound objects to generate in a given situation. More that, \state{Decisions} also allow the implementor freedom in controlling the 'How?' 'When?' and 'Where?' of \audio. More generally, the implementor is able to perform a host of non-audio related tasks using this functionality as well---updating state, entity, and meta attributes, generating other forms of user-understandable feedback, etc. 
+
+To achieve this, several simple constructs are provided by \rs to streamline the implementation of \state{Decisions.} For example, a $distance(x, y)$ function was used above to quickly calculate the distance between two entities. This can be applied to any given entity in \rs, as each entity's semantic is bundled with its screen-space cartesian location. Other foundational functions---such as a $amount(x)$ function (for calculating how many instances of an entity type are on-screen) and a $size(x)$ function (for quickly figuring the scale of an entity)---are also provided.  
+
+\subsubsection{Conclusion}
+In this section I explored the \decision layer, explaining its internal mechanisms while illuminating the relationship between implementor defined 'actions' and the audio produced by \rs in the following layer.
+
+In general, \state{Decisions} allow \rs to execute on a clear design strategy---as detailed by the implementor---which transforms useful game semantics into strategies for producing accessibility features. To summarize:
+
+
+\Summary[]{
+
+{\begin{center}
+    \state{Decision Layer}
+\end{center}}
+
+\begin{description}
+    \item [Receives input from:] \state{Vision Layer}
+    \item[Input:] The game's current state, as described in semantic terms defined by the implementor.
+    \item[Input:] Conditions and imperatives as defined by the implementor. 
+    \item[Behavior:] Evaluates the given semantic data against the provided conditions. If a condition evaluates to \texttt{true}, the associated imperative is executed.
+    \item[Output:] Various commands. Primarily the command to generate spatial audio objects, with behaviors defined by associated imperatives.
+    \item[Sends output to:] The \audio layer.    
+\end{description}
+}
+
+
+
+
+\subsection{Audification Layer}
+\subsubsection{Introduction}
+In this section, I explore the \audio layer, which transforms the internal logic of \rs into real spatial audio that the end user will hear while playing the target game.
+
+
+\subsubsection{Process}
+Finally, we arrive at the \audio layer, which is responsible for the generation of spatial audio objects that are played back to the end user---enabling them to 'hear' the information usually 'seen' in playing a game.
+
+This layer can be considered the simplest of the three, as most of its duties are delegated to any number of third-party audio libraries which exist outside of \rs. As mentioned in previous chapters, spatial and 3D audio technology has matured to the point of trivializing the generation of dynamic spatial audio---like in our use-case here. Consequently, the actual specifics of this layer are left up to the implementor---provided they accurately generate the audio as stipulated by the \decision layer.
+
+The comparatively trivial nature of this layer might leave one wondering exactly why it is defined as a distinct layer at all. This is because \audio serves a clear and distinct purpose within \rs (\emph{it is the system's name sake, after all!}). \audio also has its own set of unique behaviors and exists in a different domain (audio and sound) when compared to the previous two layers (vision and internal game semantics). Lastly, \audio produces our final and ultimate output---the sounds being played back to the end user. For these reasons, I have decided to distinguish it as its own pillar of \rs's structure.  
+
+
+\subsubsection{Conclusion}
+In this section, I explained \rs's most important layer, the \audio layer---which actually produces the spatial audio heard by end users. To summarize:
+
+\Summary[]{
+
+{\begin{center}
+    \state{Audification Layer}
+\end{center}}
+
+\begin{description}
+    \item [Receives input from:] \state{Decision Layer}
+    \item[Input:] A collection of spatial audio objects, as well as rules for how to instantiate them.
+    \item[Behavior:] Generates spatial audio based on the conditions provided as input.
+    \item[Output:] Spatial audio, which is outputted to the end user's headphones via a framework supporting 3D and spatial audio technology. 
+    \item[Sends output to:] Spatial/3D Audio playback libraries, the operating system, and eventually, the end user.
+\end{description}
+}
+
+
+
+
+\subsection{Summary}
+
+In this section, I provided a in-depth analysis of \rs's structure. I subdivided the system into three core layers which have unique behaviors spread across different problem domains. These layers---\vision, \decision, and \audio---ultimately work as a pipeline: taking a game's visual information, converting it into semantic data about the game's state (\vision), converting those semantics into actionable imperatives (\decision), and finally converting some of those imperatives into spatial audio objects (\audio). Figure X [TODO: ADD!] summarizes the entire structure of \rs.
+
+\section{Implementation Process}
 In this section, I outline \rs's principal operational process---the \plan, \train, \design, \exec loop. To conclude, I consider the structure's strengths and weaknesses.        
 
+\subsection{Overview}
+In the previous section, I detailed \rs's internal structure, and provided some hints as how exactly an implementor would interact with it. But this structural overview does not paint the full picture---the specifics how an implementor and an end user actually interact with \rs. And so, I will explore these interactions in this section. To do so, I conceptualize the \plan, \train, \decision, \exec process loop---which serves as a useful guide to understanding how \rs may be implemented into a given target game. 
+
 \subsection{Design}
+
 \subsection{Training}
+
 \subsection{Implementation}
+
 \subsection{Play}
 
-\section{Demonstration: Pong}
+\subsection{Summary}
+
 \section{Considerations}
+
 
 
 %%% IMPLEMENTATION
 
 \chapter{Sample Implementation}
-\section{OpenCV}
-\section{Qt}
+\section{Languages, Tools, and Frameworks}
+    \subsection{Python}
+    \subsection{OpenCV}
+    \subsection{Qt}
+\section{Choosing a Target Game}
+\section{Pong: A Worked Demonstration}
 
 %%% EXPERIMENTS
 
@@ -337,8 +685,8 @@ In this section, I outline \rs's principal operational process---the \plan, \tra
 
 \section{Thanks}
 
-\bibliographystyle{IEEEtran}
-\bibliography{references}
+% \bibliographystyle{IEEEtran}
+\printbibliography
 
 \end{document}
 
