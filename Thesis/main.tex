@@ -661,7 +661,9 @@ For example, one may observe \emph{Pac-Man} consists of only a few key states---
 
 Using these two groupings---the \state{States} and the Entities---one may finally attach \rules to each state, as well as the transitions between them. For example, the \textbf{PRESS START} text which appears during the \state{attract} phase could be classified as an entity. The presence of this entity on screen must mean the game is currently in the \state{attract} phase. The sudden appearance of other entities on screen---such as the \emph{Pellets} or \emph{Pac-Man} will indicate a player has started the game---taking us to the \state{opening} of the game. Observations like these are how an \imp builds the transitional function $T$ for each \state{State}. It should be noted that these transitions serve as a special kind of \state{Rule} for each \state{State}---one dictating how and when to move between \state{States}.
 
-\subparagraph{Desinging \state{State} \state{Rules}}
+\subsubsection{Desinging \state{Rules}}
+
+\paragraph{State Rules}
 
 Now that we are able to move between \state{States}, we must also define the \rules which comprise each one. For some \state{States} such as \state{attract} or \state{game-over}, this is a trivial operation---usually requiring only transitional \rules. For the advanced \state{States}---the ones which usually comprise the core gameplay loop---a more careful treatment is required. An \imp needs to intelligently organize in-game actions into useful logical constructs. Some \rules are simple---such as checking if the distance between \emph{Pac-Man} and any of the \emph{Ghosts} is less than some small value, which would indicate a need to transition to \state{death.} Other rules may have more nuance, such as understanding when the player achieves an extra-life after acquiring enough score points.
 One may notice that I did not detail any sort of \state{extra-life} state in the previous section. Nor have I detailed the \rules needed in ascertaining a transition from the \state{normal} game state to the eventual \state{death} state. 
@@ -669,30 +671,103 @@ One may notice that I did not detail any sort of \state{extra-life} state in the
 This is because we have only considered half of the \state{States} and \rules of the target game. We now consider the other half---those belonging to each Entity. 
 
 
-\subparagraph{Designing \state{Entity} \state{Rules}}
-Like the game itself, each entity has its own collections of \state{States} and \rules which govern it. These constructs define the entity's lifetime actions behaviors. 
+\paragraph{\state{Entity} \state{Rules}}
+Like the game itself, each entity has its own collections of \state{States} and \rules which govern it. These constructs describe behaviors an entity has over its lifetime. To return to the example above, we can consider the behaviors (i.e. \state{States}) of the \emph{Pac-Man} entity.  
 
-\conclusion
+As most readers are no doubt aware, \emph{Pac-man} is famous for his voracious appetite---\state{eating} pellets as he traverses the game world. He also enters a \state{power-up} state, where he is able to destroy ghosts. As alluded to above, he also \state{dies} whenever he collides with a \emph{Ghosts} while not \state{powered-up}. These three states---\state{eating}, \state{power-up}, \state{death}---cover \emph{Pac-Man's} obvious behavior, but there are less opaque \state{States} we must also consider. How can we reconcile this oversight in our \design? 
 
+\paragraph{Transient States}
+
+For example, \emph{Pac-Man} is able to gain additional lives if a specific score is achieved---a behavior not yet recognized by our \state{State} model. To account for this, we must also consider the notion of \emph{transient} \state{States}, which generally persist for only a single frame of in-game time. To illustrate this point further, consider the case when \emph{Pac-Man} touches an item object. The player is awarded a score boost, which has in-game consequences. Naturally, the player should be notified about this special occurrence. Of course in this specific case the game provides several kinds of feedback---removing the item object from screen, replacing it with a numeral score visual, and playing a special sound effect. 
+
+But these transient events are not always so clearly signaled. A player might receive audio feedback when \emph{Pac-Man} consumes an item, but they will not hear any indication of when that item first spawns on screen---obscuring key \state{State} information that a sighted player has easy access to. And even though item consumption has audio feedback, it does not paint the full picture---obscuring the score value of the item, which is only signaled to the player visually. 
+
+Through these considerations, it becomes clear that transient \state{States} also play a key part in \design. Thankfully, most of these problems are solved by the inclusion of audio cues indicating transient events to the player. For example, the \imp could design special audio cues that are generated whenever a item first appears on-screen---creating a unique sound that differentiates each item type. On top of this, a unique pitch could be generated each time an item is consumed---the frequency of the pitch being related to the item's score value. 
+
+\paragraph{State Delegation}
+The existence of Entities and transient \state{States} presents one more interesting problem: the \emph{delegation} of responsibilities between Entities. In the previous example, we considered the interactions between \emph{Pac-Man} and the various items that occasionally appear on-screen. I generally implied that \emph{Pac-Man} is responsible for maintaining the relevant \state{State} information about these interactions. But is that really the case?
+
+A state machine (at least as we define them here) can only exist in one state at a time. This means that \emph{Pac-Man} would need to leave his \state{normal} state in order to respond to special events such as when an item is spawned or consumed. This is generally unproductive to the overall experience. For example, if a important sound was being generated every frame by \emph{Pac-Man}---perhaps a sound indicating his on-screen position---the sound would need to be temporarily paused in order to handle the transient \state{State} change. This may be a non-issue in most cases, but it is easy to imagine situations where even short lapses in the consistency of key information spells trouble. 
+
+And so, the \imp must also take great care in delegating the responsibilities and behaviors of each entity. In this case, the aforementioned tasks could instead be handled by the items themselves---leaving \emph{Pac-Man} free to perform other \state{States} which are more relevant to the overall experience. An item could have states like \state{spawned} and \state{consumed}, which handle the situations described previously. On top of this, an item may also have a \state{normal} state---playing a spatial sound which describes it current location relative to \emph{Pac-Man}.
+
+
+\paragraph{Summary}
+
+We have wandered down a bit of a semantic rabbit hole via our \emph{Pac-Man} example, so let allow us to return to the big-picture. In the \design phase, the \imp considers the characteristics of the target game and designs a 'model' of the game. The model comprises the \state{States}, \rules, and Entities of the game. 
+
+It should be stated yet again that this design has not yet rendered a single line of code. The model instead serves as the \emph{guidelines} which drive the following steps of the implementation process. 
+
+To summarize:   
+
+\Summary[]{
+
+{\begin{center}
+    \state{Design Phase}
+\end{center}}
+
+\begin{description}
+    \item [Requires:] A target game. Game analysis skills.
+    \item [Involves:] The design of a model replicating the target game's characteristic behaviors. This model consists of
+    \begin{description}
+        \item[Game States] A list of states that comprise the entire game experience
+        \item[Game State Rules] A collection of rules that characterize what occurs during each game state. This also includes rules for how to transition between game states.
+        \item[Entities] A collection of entities that comprise all of the actors within the game.
+        \item[Entity States] A collection of states that describe the actions each entity is capable of.
+        \item[Entity State Rules] The rules which characterize each Entity state's behaviors---how an entity dies, what happens when it is collided with, etc.      
+    \end{description}
+    \item [Purpose:] Generates a design plan that serves as the guide for following steps.
+    \item [Notes:] This model is purely 'on-paper.' No code or software is required for this phase. 
+\end{description}
+
+}
 
 
 \subsection{Training}
 
-\intro
+I remarked at the start of this section that we were finally going to put theory into practice---a promise we have yet to fulfill. Let us amend that now with the \train phase. In this phase, the \imp is tasked with choosing and implementing a real means of analyzing the game's frame data. There are many different ways of accomplishing this task. We shall consider a few of primary methods now.   
 
-\conclusion
+\subsubsection{Computer Vision - Machine Learning}
+As we have no doubt made clear by now, virtually every useful method falls somewhere under the umbrella of computer vision. In recent years, this has meant the implementation of machine learning based object detection algorithms such as \emph{YOLO}. In this case, the implementor is tasked with generating the relevant training data needed to tune their machine learning model to the target game. As detailed in the previous section, this generally involves the creation of \train data which is used to train the model (hopefully making clear the provenance of this phase's name).
+
+It is hopefully clear to us now why the \design phase precedes \train. As discussed in earlier sections the \imp must annotate images of the games state in order to create a training data set. Each photo must clearly and consistently label game entities that appear within the frame. Without a clear \design, the \imp risks creating inconsistent annotations and a mediocre dataset. This would likely yield subpar training results and consequently a lackluster computer vision algorithm---impeding future steps.
+
+At any rate, we suppose that the \imp manages to successfully train a machine learning model. This model is capable of receiving a image of the game as input and outputting a list of entities which appear in the image---each one annotated with distinguishing information like the entity type and their position on screen. This suffices to satisfy the \train process. 
+
+\subsubsection{Computer Vision - Alternative Methods}
+But machine learning is not the only answer to this problem. Depending on the target game, other methods may prove to be easier to implement and more efficient in handling the \train requirements. Some examples include the previously discussed techniques of template matching and corner detection. Each uses a simple algorithm that performs a comparatively naive analysis of the frame, but may still yield successful results at a far more efficient speed than machine learning alternatives.
+
+There are still drawbacks to these alternatives, even when they prove to be successful. The appeal of machine learning is its ease of implementation into a wide variety of problem domains---a benefit not extended to alternative solutions. Instead, these methods demand bespoke software solutions that are often byzantine in nature. 
+
+An implementation of a corner detection algorithm (which we will demonstrate in the following section), for example, also demands custom semantics for translating detected corners into objects. This translation process is extremely specific to each game---and may involve painful pixel-level calculations that are often unreliable. Other methods like template matching allow the \imp some reprieve, but ultimately come off as an incredibly naive form of machine learning. However, there may still be cases where these simple approaches have utility, as we will see later.
+
+\subsubsection{Summary}
+In essence, the \train phase is where we first put theory into practice---choosing and implementing a computer vision algorithm capable of transforming a game image into a collection of well-defined entities which are processed in later stages. \rs aims to generalize this process by putting very few restrictions on the \imp, who may choose any current (or future, from the perspective of this writing) techniques they please. 
+
+To summarize:
+
+\Summary[]{
+
+{\begin{center}
+    \state{Training Phase}
+\end{center}}
+
+\begin{description}
+    \item [Requires:] A computer vision algorithm. Semantic data as created in the \design phase.
+    \item [Involves:] The implementation of a algorithm capable of translating a game's frame data into a list of entities which appear on-screen.
+    \item [Purpose:] Translates visual information into game semantics---serving as the \vision layer described in previous sections. 
+    \item [Notes:] Machine learning models are generally used, but the \imp is free to choose any method they please, provided it generates the correct output for later phases. 
+\end{description}
+
+}
+
 
 \subsection{Implementation}
 
-\intro
 
-\conclusion
 
 \subsection{Play}
 
-\intro
-
-\conclusion
 
 \subsection{Summary}
 
