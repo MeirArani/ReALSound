@@ -13,7 +13,7 @@
 \usepackage{biblatex}
 \usepackage{amsthm}
 \usepackage[]{algorithm2e}
-
+\usepackage{epigraph}
 \usepackage{framed, blindtext}
 
 %%%%%%%%%%%%%%%%
@@ -50,6 +50,12 @@
 \newcommand{\vision}{\textbf{Vision}\xspace}
 \newcommand{\decision}{\textbf{Decision}\xspace}
 \newcommand{\audio}{\textbf{Audification}\xspace}
+
+\newcommand{\intro}{\subsubsection{Introduction}}
+\newcommand{\conclusion}{\subsubsection{Conclusion}}
+
+
+\newcommand{\imp}{implementor\xspace}
 
 
 % ---
@@ -503,19 +509,10 @@ Now that we have explored the concepts needed for understanding \rs, it has come
     \item[The Audification Layer] Converts \rs's internal logic into spatial audio, which is output for the end user.
 \end{description}
 
-It is hopefully clear how these three layers interact---and how the \vision layer cascades downwards towards the \audio layer, starting with visual data input and eventually generating audio data output. 
-
-
-\subsubsection{Conclusion}
-In this section, I provided an overview of \rs's layer-based structure. I will now elaborate on each layer in detail. 
+It is hopefully clear how these three layers interact---and how the \vision layer cascades downwards towards the \audio layer, starting with visual data input and eventually generating audio data output. I will now elaborate on each layer in detail. 
 
 \subsection{Vision Layer}
 
-\subsubsection{Introduction}
-
-In this section, I detail the first of \rs's three 'layers'---the \vision layer, which is responsible for analyzing the target game's visual data and producing semantic information about the current game state.
-
-\subsubsection{Process}
 The \vision layer can be imagined as the starting point of \rs's execution loop. In it, the game's frame data (its visual information) is provided to a computer vision algorithm. The frame can be provided in a host of ways. 
 
 A programmer with direct access to the game's engine may choose to copy the framebuffer directly from its original in-engine source to \rs. Those without access to the game's internal logic may instead opt for a simple screen capture implementation, which essentially sends screenshots of the game window to the computer vision algorithm. This may seem inefficient at first glance, but all major operating systems have support for screen capture built-in at the kernel level, which makes this option a very feasible and attractive route for users with relatively modern computer hardware\footnote{See \texttt{PrintWindow} in the Windows API\cite{PrintWindow} and \texttt{XGetImage} in the X11 API\cite{XGetWindow} for modern examples.}. 
@@ -526,9 +523,7 @@ This same freedom is not extended to the act of object classification, however. 
 
 The \vision layer is, through this processes able to translate a visual image of the game into semantic information about the game's active \state{State}---abstracting visuals into game logic. 
 
-\subsubsection{Conclusion}
-In this section I explored the specifics of the \vision layer. Its structure is summarized below:
-
+To summarize:
 
 \Summary[]{
 
@@ -548,10 +543,6 @@ In this section I explored the specifics of the \vision layer. Its structure is 
 
 \subsection{Decision Layer}
 
-\subsubsection{Introduction}
-In this section, I explain the inner workings of the \decision layer, which transforms semantic information about the current game state into \rs's own internal logic.
-
-\subsubsection{Process}
 The \decision layer is arguably the most complex layer, at least upon initial inspection. After receiving semantics about the game's current frame from the \vision layer, this layer is tasked with translating these semantics into the 'course of action' \rs takes in response to this frame. In other words, this layer is where \rs's \emph{decision making} occurs. In essence, this layer can be considered the 'heart' or 'core' of \rs---as it takes place entirely within its own confines.
 
 Of course, a program can only make decisions imbued in it by its creator---and \rs is no different. In reality, the implementor supplies \rs with a collection of simple conditional statements that translate into the range of possible decisions \rs is capable of making. For example, a supplied conditional statement may look something like this:
@@ -579,11 +570,7 @@ The totality of these features allow \rs---under the imperative command of the i
 
 To achieve this, several simple constructs are provided by \rs to streamline the implementation of \state{Decisions.} For example, a $distance(x, y)$ function was used above to quickly calculate the distance between two entities. This can be applied to any given entity in \rs, as each entity's semantic is bundled with its screen-space cartesian location. Other foundational functions---such as a $amount(x)$ function (for calculating how many instances of an entity type are on-screen) and a $size(x)$ function (for quickly figuring the scale of an entity)---are also provided.  
 
-\subsubsection{Conclusion}
-In this section I explored the \decision layer, explaining its internal mechanisms while illuminating the relationship between implementor defined 'actions' and the audio produced by \rs in the following layer.
-
-In general, \state{Decisions} allow \rs to execute on a clear design strategy---as detailed by the implementor---which transforms useful game semantics into strategies for producing accessibility features. To summarize:
-
+To summarize:
 
 \Summary[]{
 
@@ -605,20 +592,14 @@ In general, \state{Decisions} allow \rs to execute on a clear design strategy---
 
 
 \subsection{Audification Layer}
-\subsubsection{Introduction}
-In this section, I explore the \audio layer, which transforms the internal logic of \rs into real spatial audio that the end user will hear while playing the target game.
 
-
-\subsubsection{Process}
 Finally, we arrive at the \audio layer, which is responsible for the generation of spatial audio objects that are played back to the end user---enabling them to 'hear' the information usually 'seen' in playing a game.
 
 This layer can be considered the simplest of the three, as most of its duties are delegated to any number of third-party audio libraries which exist outside of \rs. As mentioned in previous chapters, spatial and 3D audio technology has matured to the point of trivializing the generation of dynamic spatial audio---like in our use-case here. Consequently, the actual specifics of this layer are left up to the implementor---provided they accurately generate the audio as stipulated by the \decision layer.
 
 The comparatively trivial nature of this layer might leave one wondering exactly why it is defined as a distinct layer at all. This is because \audio serves a clear and distinct purpose within \rs (\emph{it is the system's name sake, after all!}). \audio also has its own set of unique behaviors and exists in a different domain (audio and sound) when compared to the previous two layers (vision and internal game semantics). Lastly, \audio produces our final and ultimate output---the sounds being played back to the end user. For these reasons, I have decided to distinguish it as its own pillar of \rs's structure.  
 
-
-\subsubsection{Conclusion}
-In this section, I explained \rs's most important layer, the \audio layer---which actually produces the spatial audio heard by end users. To summarize:
+To summarize: 
 
 \Summary[]{
 
@@ -642,19 +623,76 @@ In this section, I explained \rs's most important layer, the \audio layer---whic
 
 In this section, I provided a in-depth analysis of \rs's structure. I subdivided the system into three core layers which have unique behaviors spread across different problem domains. These layers---\vision, \decision, and \audio---ultimately work as a pipeline: taking a game's visual information, converting it into semantic data about the game's state (\vision), converting those semantics into actionable imperatives (\decision), and finally converting some of those imperatives into spatial audio objects (\audio). Figure X [TODO: ADD!] summarizes the entire structure of \rs.
 
+
+
+
+
 \section{Implementation Process}
 In this section, I outline \rs's principal operational process---the \plan, \train, \design, \exec loop. To conclude, I consider the structure's strengths and weaknesses.        
 
 \subsection{Overview}
-In the previous section, I detailed \rs's internal structure, and provided some hints as how exactly an implementor would interact with it. But this structural overview does not paint the full picture---the specifics how an implementor and an end user actually interact with \rs. And so, I will explore these interactions in this section. To do so, I conceptualize the \plan, \train, \decision, \exec process loop---which serves as a useful guide to understanding how \rs may be implemented into a given target game. 
+In the previous section, I detailed \rs's internal structure, and provided some hints as how an implementor interacts with it. But this structural overview paints a theoretical picture of software, not a full picture of how it can be used in the real world. In this section, I go into specifics on how an implementor applies \rs and an end user actually interacts with the software. To do so, I conceptualize the \plan, \train, \decision, \exec process loop---which serves as a useful guide to understanding how \rs may be implemented into a given target game. 
 
 \subsection{Design}
 
+And so, we begin with the first phase---\design---which occurs before a implementor even touches a computer. First, the \imp must come to understand the target game's internal logic and \design the semantic relationships which \rs will use for operation.
+
+This phase may appear simple at first glance---as it requires no direct programming or technical applications---but is actually the most difficult phase. To borrow the old Sagan aphorism:
+
+\begin{quote}
+    
+\emph{"If you wish to make an apple pie from scratch, you must first invent the universe."}
+    
+\end{quote}
+
+In order to make the 'apple pie' that is \rs's implementation into a target game, the \design phase must first 'invent' the universe which contains it. The quality of the entire implementation depends upon a successful \design---earning this phase the title of 'most critical.' If the foundational \design is poor, then the following phases will no doubt also yield poor results. 
+
+This phase involves several steps, which will we now investigate in detail.
+
+\subsubsection{Analyzing Game Semantics}
+
+First, the \imp must come to terms with their target game---the, \state{States}, \rules, and \state{States} that it consists of. For a simple target game---such as a classic arcade game or early home-console title---this process is fairly trivial. The \imp may break the game down into a series of entities, \state{States}, and \rules which apply to each state.
+
+\paragraph{\emph{Pac-Man:} A Worked Example }
+
+For example, one may observe \emph{Pac-Man} consists of only a few key states---an \state{attract} screen that plays before the user starts the game, a clear \state{opening} before which plays before each life or level begins, the \state{normal} gameplay cycle, the special \state{power-up} cycle (where ghosts are vulnerable), a \state{win} phase when a player successfully completes a level, a \state{death} sequence which occurs whenever the player collides with a ghost and a \state{game-over} phase. One may also easily observe the few entities which comprise the game---\emph{Pac-Man}, all four of the \emph{Ghosts}, the standard \emph{Pellet}, the \emph{Power Pellet}, the several \emph{Items} which occasionally appear on-screen, etc.
+
+\subparagraph{Designing Transitions}
+
+Using these two groupings---the \state{States} and the Entities---one may finally attach \rules to each state, as well as the transitions between them. For example, the \textbf{PRESS START} text which appears during the \state{attract} phase could be classified as an entity. The presence of this entity on screen must mean the game is currently in the \state{attract} phase. The sudden appearance of other entities on screen---such as the \emph{Pellets} or \emph{Pac-Man} will indicate a player has started the game---taking us to the \state{opening} of the game. Observations like these are how an \imp builds the transitional function $T$ for each \state{State}. It should be noted that these transitions serve as a special kind of \state{Rule} for each \state{State}---one dictating how and when to move between \state{States}.
+
+\subparagraph{Desinging \state{State} \state{Rules}}
+
+Now that we are able to move between \state{States}, we must also define the \rules which comprise each one. For some \state{States} such as \state{attract} or \state{game-over}, this is a trivial operation---usually requiring only transitional \rules. For the advanced \state{States}---the ones which usually comprise the core gameplay loop---a more careful treatment is required. An \imp needs to intelligently organize in-game actions into useful logical constructs. Some \rules are simple---such as checking if the distance between \emph{Pac-Man} and any of the \emph{Ghosts} is less than some small value, which would indicate a need to transition to \state{death.} Other rules may have more nuance, such as understanding when the player achieves an extra-life after acquiring enough score points.
+One may notice that I did not detail any sort of \state{extra-life} state in the previous section. Nor have I detailed the \rules needed in ascertaining a transition from the \state{normal} game state to the eventual \state{death} state. 
+
+This is because we have only considered half of the \state{States} and \rules of the target game. We now consider the other half---those belonging to each Entity. 
+
+
+\subparagraph{Designing \state{Entity} \state{Rules}}
+Like the game itself, each entity has its own collections of \state{States} and \rules which govern it. These constructs define the entity's lifetime actions behaviors. 
+
+\conclusion
+
+
+
 \subsection{Training}
+
+\intro
+
+\conclusion
 
 \subsection{Implementation}
 
+\intro
+
+\conclusion
+
 \subsection{Play}
+
+\intro
+
+\conclusion
 
 \subsection{Summary}
 
