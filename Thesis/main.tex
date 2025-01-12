@@ -15,6 +15,9 @@
 \usepackage[]{algorithm2e}
 \usepackage{epigraph}
 \usepackage{framed, blindtext}
+\usepackage{listings}    
+
+\usepackage{caption}
 
 %%%%%%%%%%%%%%%%
 \newcommand\lorname{\mdseries\textit{List of recommendations:}}%list of recommendations
@@ -56,6 +59,12 @@
 
 
 \newcommand{\imp}{implementor\xspace}
+
+\newenvironment{absolutelynopagebreak}
+  {\par\nobreak\vfil\penalty0\vfilneg
+   \vtop\bgroup}
+  {\par\xdef\tpd{\the\prevdepth}\egroup
+   \prevdepth=\tpd}
 
 
 % ---
@@ -380,7 +389,7 @@ In automata terms, \emph{Subsequent} has gained a sense of state---one for each 
 \subparagraph{Advanced Case: \emph{Rock-Paper-Scheherazade}}
 Imagine now that instead of having one simple match or even a simple 'best-of', we created a new version of RPS named \emph{Rock-Paper-Scheherazade}. In this version of the game, a tied match (where players produce the same hand) requires that players perform a 'best-of-three' sub-match of the game. Whichever player wins this sub-match will 'win' the match. This logic also applies recursively, meaning that players who tie during a sub-match are forced to perform yet another sub-match \emph{within} the sub-match---a sub-sub-match, if you will. This logic can naturally extend to an infinite recursion of context and memory: \emph{sub-sub-sub-sub-sub...-matches} are possible in \emph{Scheherazade}, each requiring the player to keep track of the game's current 'match', as well as all of the matches that exist 'above' it.
 
-This rendition of RPS is, in some senses, comparable to a Turing machine---allowing for infinite memory and recursive processes---which extends beyond the definition of games we contend with in this paper. In this cases, RPS may have an infinite amount of game states---each contextualized by the particular score of the current sub-match as well as all of the sub-matches that exist in the levels above it. 
+This rendition of RPS is, in some senses, comparable to a Turing machine---allowing for infinite memory and recursive processes---which extends beyond the definition of games we contend with in this paper. In this case, RPS may have an infinite amount of game states---each contextualized by the particular score of the current sub-match as well as all of the sub-matches that exist in the levels above it. 
 
 The purpose of these examples was to illustrate in clear terms the two key parts of a game's structure from the player's perspective---\state{Rules}, and \state{States}.
 
@@ -633,9 +642,9 @@ In this section, I outline \rs's principal operational process---the \plan, \tra
 \subsection{Overview}
 In the previous section, I detailed \rs's internal structure, and provided some hints as how an implementor interacts with it. But this structural overview paints a theoretical picture of software, not a full picture of how it can be used in the real world. In this section, I go into specifics on how an implementor applies \rs and an end user actually interacts with the software. To do so, I conceptualize the \plan, \train, \decision, \exec process loop---which serves as a useful guide to understanding how \rs may be implemented into a given target game. 
 
-\subsection{Design}
+\subsection{Planning}
 
-And so, we begin with the first phase---\design---which occurs before a implementor even touches a computer. First, the \imp must come to understand the target game's internal logic and \design the semantic relationships which \rs will use for operation.
+And so, we begin with the first phase---\plan---which occurs before a implementor even touches a computer. First, the \imp must come to understand the target game's internal logic and plan the semantic relationships which \rs will use for operation.
 
 This phase may appear simple at first glance---as it requires no direct programming or technical applications---but is actually the most difficult phase. To borrow the old Sagan aphorism:
 
@@ -645,7 +654,7 @@ This phase may appear simple at first glance---as it requires no direct programm
     
 \end{quote}
 
-In order to make the 'apple pie' that is \rs's implementation into a target game, the \design phase must first 'invent' the universe which contains it. The quality of the entire implementation depends upon a successful \design---earning this phase the title of 'most critical.' If the foundational \design is poor, then the following phases will no doubt also yield poor results. 
+In order to make the 'apple pie' that is \rs's implementation into a target game, the \plan phase must first 'invent' the universe which contains it. The quality of the implementation depends upon a successful plan---earning this step the title of 'most critical.' If the foundational plan is poor, then the following phases will no doubt yield poor results as well. 
 
 This phase involves several steps, which will we now investigate in detail.
 
@@ -657,7 +666,7 @@ First, the \imp must come to terms with their target game---the, \state{States},
 
 For example, one may observe \emph{Pac-Man} consists of only a few key states---an \state{attract} screen that plays before the user starts the game, a clear \state{opening} before which plays before each life or level begins, the \state{normal} gameplay cycle, the special \state{power-up} cycle (where ghosts are vulnerable), a \state{win} phase when a player successfully completes a level, a \state{death} sequence which occurs whenever the player collides with a ghost and a \state{game-over} phase. One may also easily observe the few entities which comprise the game---\emph{Pac-Man}, all four of the \emph{Ghosts}, the standard \emph{Pellet}, the \emph{Power Pellet}, the several \emph{Items} which occasionally appear on-screen, etc.
 
-\subparagraph{Designing Transitions}
+\subparagraph{Planning Transitions}
 
 Using these two groupings---the \state{States} and the Entities---one may finally attach \rules to each state, as well as the transitions between them. For example, the \textbf{PRESS START} text which appears during the \state{attract} phase could be classified as an entity. The presence of this entity on screen must mean the game is currently in the \state{attract} phase. The sudden appearance of other entities on screen---such as the \emph{Pellets} or \emph{Pac-Man} will indicate a player has started the game---taking us to the \state{opening} of the game. Observations like these are how an \imp builds the transitional function $T$ for each \state{State}. It should be noted that these transitions serve as a special kind of \state{Rule} for each \state{State}---one dictating how and when to move between \state{States}.
 
@@ -674,7 +683,7 @@ This is because we have only considered half of the \state{States} and \rules of
 \paragraph{\state{Entity} \state{Rules}}
 Like the game itself, each entity has its own collections of \state{States} and \rules which govern it. These constructs describe behaviors an entity has over its lifetime. To return to the example above, we can consider the behaviors (i.e. \state{States}) of the \emph{Pac-Man} entity.  
 
-As most readers are no doubt aware, \emph{Pac-man} is famous for his voracious appetite---\state{eating} pellets as he traverses the game world. He also enters a \state{power-up} state, where he is able to destroy ghosts. As alluded to above, he also \state{dies} whenever he collides with a \emph{Ghosts} while not \state{powered-up}. These three states---\state{eating}, \state{power-up}, \state{death}---cover \emph{Pac-Man's} obvious behavior, but there are less opaque \state{States} we must also consider. How can we reconcile this oversight in our \design? 
+As most readers are no doubt aware, \emph{Pac-man} is famous for his voracious appetite---\state{eating} pellets as he traverses the game world. He also enters a \state{power-up} state, where he is able to destroy ghosts. As alluded to above, he also \state{dies} whenever he collides with a \emph{Ghosts} while not \state{powered-up}. These three states---\state{eating}, \state{power-up}, \state{death}---cover \emph{Pac-Man's} obvious behavior, but there are less opaque \state{States} we must also consider. How can we reconcile this oversight in our plan? 
 
 \paragraph{Transient States}
 
@@ -682,7 +691,7 @@ For example, \emph{Pac-Man} is able to gain additional lives if a specific score
 
 But these transient events are not always so clearly signaled. A player might receive audio feedback when \emph{Pac-Man} consumes an item, but they will not hear any indication of when that item first spawns on screen---obscuring key \state{State} information that a sighted player has easy access to. And even though item consumption has audio feedback, it does not paint the full picture---obscuring the score value of the item, which is only signaled to the player visually. 
 
-Through these considerations, it becomes clear that transient \state{States} also play a key part in \design. Thankfully, most of these problems are solved by the inclusion of audio cues indicating transient events to the player. For example, the \imp could design special audio cues that are generated whenever a item first appears on-screen---creating a unique sound that differentiates each item type. On top of this, a unique pitch could be generated each time an item is consumed---the frequency of the pitch being related to the item's score value. 
+Through these considerations, it becomes clear that transient \state{States} also play a key part in \plan. Thankfully, most of these problems are solved by the inclusion of audio cues indicating transient events to the player. For example, the \imp could plan special audio cues that are generated whenever a item first appears on-screen---creating a unique sound that differentiates each item type. On top of this, a unique pitch could be generated each time an item is consumed---the frequency of the pitch being related to the item's score value. 
 
 \paragraph{State Delegation}
 The existence of Entities and transient \state{States} presents one more interesting problem: the \emph{delegation} of responsibilities between Entities. In the previous example, we considered the interactions between \emph{Pac-Man} and the various items that occasionally appear on-screen. I generally implied that \emph{Pac-Man} is responsible for maintaining the relevant \state{State} information about these interactions. But is that really the case?
@@ -694,21 +703,21 @@ And so, the \imp must also take great care in delegating the responsibilities an
 
 \paragraph{Summary}
 
-We have wandered down a bit of a semantic rabbit hole via our \emph{Pac-Man} example, so let allow us to return to the big-picture. In the \design phase, the \imp considers the characteristics of the target game and designs a 'model' of the game. The model comprises the \state{States}, \rules, and Entities of the game. 
+We have wandered down a bit of a semantic rabbit hole via our \emph{Pac-Man} example, so let allow us to return to the big-picture. In the \plan phase, the \imp considers the characteristics of the target game and plans a 'model' of the game. The model comprises the \state{States}, \rules, and Entities of the game. 
 
-It should be stated yet again that this design has not yet rendered a single line of code. The model instead serves as the \emph{guidelines} which drive the following steps of the implementation process. 
+It should be stated yet again that this plan has not yet rendered a single line of code. The model instead serves as the \emph{guidelines} which drive the following steps of the implementation process. 
 
 To summarize:   
 
 \Summary[]{
 
 {\begin{center}
-    \state{Design Phase}
+    \state{Planning Phase}
 \end{center}}
 
 \begin{description}
     \item [Requires:] A target game. Game analysis skills.
-    \item [Involves:] The design of a model replicating the target game's characteristic behaviors. This model consists of
+    \item [Involves:] The planning of a model replicating the target game's characteristic behaviors. This model consists of
     \begin{description}
         \item[Game States] A list of states that comprise the entire game experience
         \item[Game State Rules] A collection of rules that characterize what occurs during each game state. This also includes rules for how to transition between game states.
@@ -716,7 +725,7 @@ To summarize:
         \item[Entity States] A collection of states that describe the actions each entity is capable of.
         \item[Entity State Rules] The rules which characterize each Entity state's behaviors---how an entity dies, what happens when it is collided with, etc.      
     \end{description}
-    \item [Purpose:] Generates a design plan that serves as the guide for following steps.
+    \item [Purpose:] Generates a plan which guides for following phases.
     \item [Notes:] This model is purely 'on-paper.' No code or software is required for this phase. 
 \end{description}
 
@@ -762,16 +771,237 @@ To summarize:
 }
 
 
-\subsection{Implementation}
+\subsection{Design}
+Now that the \imp has successfully transformed frame data into entity information---successfully setting up the \vision layer of \rs--they must now prepare the \decision layer. Similar to \plan, a \design is now needed. This design marries the semantic model from \plan with our data from \train. In other words---the \imp must now explicitly design the conditions and actions which \rs uses to make \state{Decisions} on how it generates audio objects. We will now explore the nuances of this phase in detail.
 
 
+\subsubsection{Understanding Game Design}
 
-\subsection{Play}
+First, we begin with a simple question: 
+\begin{quote}
+    \emph{How does one design a game?} 
+\end{quote}
+
+Or, to be more pertinent to our aims:
+
+\begin{quote}
+    \emph{How does one design a \textbf{good} game?} 
+\end{quote}
+
+Of course, open questions like these have been debated since time immemorial, and we do not intended to throw ourselves into the fray of discourse here. But it is worth considering some history and context before moving to our next point.
+
+\paragraph{Origin of Multisensory Game Design}
+Video games---as we know them today---ultimately derive from mid-century electro-mechanical amusements (EMAs) such as \emph{Skee-Ball}, shooting games, or the various 'test-of-strength' games that can still be seen at fairs to this day \cite{Newman2017Atari}. These EAMs often lined the walls of popular leisure spots---penny arcades, nickelodeons, amusement parks, etc \cite{nasaw1999going}. In order to maximize their novelty status (and to grab attention in loud, crowded venues), most EMAs employed a wide range of sensory experiences to attract customers. Flashing lights, explosive sounds, and electric jolts of vibration were just some of the many ways that EMAs amused their customers. 
+
+As the introduction of the transistor and integrated circuit made computer games a reality, many EAM designers transitioned into this new field of amusement---taking their years of industry experience with them. Tomohiro Nishikado---the designer of \emph{Space Invaders}---as well as Gunpei Yokoi---creator of the \emph{Game \& Watch} and \emph{Game Boy}---serve as examples of this phenomenon\cite{theycreateworlds}.
+
+\paragraph{Games as Multisensory Design Experiences}
+
+This historical trend illuminates a key fact for this discussion: video games evolved into multisensory experiences the moment they exited the computer laboratories of universities and entered the arcades of the common man. From the dazzling visuals of arcade pioneers like \emph{Dragon's Lair}, to the avantgarde audio experiments of Kenji Eno\footnote{Whose game \emph{Real Sound: Kaze No Regret} serves as the inspiration and namesake of this research.}, to even the unique control schemes that propelled the Nintendo Wii to worldwide success---game design has been about the multisensory marriage of audio, video, and tactility since its earliest days.
+
+Unfortunately, this harmonious relationship is often a detriment to those with sensory impairments. The complex nature of game design often requires the encoding of key game data into only \emph{one} of the principle senses---Color-coded items, pressure sensitive buttons, timing-based audio cues, etc. These instances of mono-sensory data encodings\footnote{Specifically referred to as mono-visual, mono-aural, and mono-tactile hereafter.} are often the 'problem spots' that render games inaccessible for impaired persons.
 
 
-\subsection{Summary}
+We highlight these points to make clear the sort of challenges the \imp faces in \design. Games are often designed with a visuals-first approach, which is supplemented and reinforced by audio/touch design second. This means many types of key game data are encoded through visuals alone---necessitating the need for a careful redesign. To be clear: \design does not mean redesigning the entire game from scratch, but to craft an \emph{\textbf{audio-centered redesign}} of the game.
 
-\section{Considerations}
+To achieve this without \rs, re-programming the entire game (or at least modifying some source code directly) is a rigid requirement. The entire point of \rs is to abstract this process away from real games programming. We will discuss exactly how this is done in a moment, but for now, let us consider the consequences of re-designing a game for \rs. 
+
+\subsubsection{Audio Design as a First Class Citizen}
+
+At the heart of any good \rs \design is the belief that audio is a '\emph{first class citizen}\footnote{The notion of first (as opposed to second) class citizens derives from programming language convention---where specific constructs (functions, objects, messages, etc.) are given center focus in the language's design. See \cite{abelsonstructure} for more information.} of design. This may seem obvious considering the problems \rs seeks to solve, but the simple observation has a critical impact on crafting a good \design.
+
+\paragraph{Player-Oriented Sound Design}
+
+Let us illustrate a few examples to build our intuition. 
+
+\subparagraph{A Worked Example: \emph{Super Mario Brothers}}
+
+Imagine that we are trying to implement \rs with \emph{Super Mario Brothers} and are currently in the process of designing Mario's behaviors. We want to convey mario's on-screen position to the player, which is mono-visual in nature. A naive thought would be to play a repeating sound which is 'panned' to the left or right of the user's ears, relative to mario's position on-screen. If Mario were on the far left side of the screen, the sound would play only in the left channel, while a dead-center position would play the sound equally in both channels, etc. 
+
+This may seem like a good idea at first, but critical inspection reveals weaknesses. For one thing, \emph{Super Mario Bros.} is a platforming game---where the camera constantly shifts from left to right as the player traverses the level. This means Mario will never occupy the right side of the screen---the camera is constantly shifting with him! In the incredibly cluttered and limit realm of audio-space, oversights like this produce subpar \design that not only impair ease-of-use, but also produce discomfort for the player---who is forced to hear Mario in their left ear for their entire playtime.   
+
+\subparagraph{Player-Centered Audio Design}
+
+The solution is to rethink our understanding of \emph{Super Mario Brothers}---to see it from a new, audio-first perspective. The nature of 2D visuals (as well as the technical limitations of 1980s game hardware) demands a 'flat' or 'head-on' perspective---where the player sees the world of Mario as if they were looking at a picture book. This paints Mario as equally important as the entities around him. 
+
+This is no longer true in an audio-first world. Here, Mario stands as the \emph{center} of his universe---with everything else revolving around him. This means a good \design of \emph{Super Mario Bros.} would likely re-frame the entire conceptualization of Mario's world---from a 'head-on' 2D experience, to a 'first-person' 3D one. 
+
+Why? Because this allows us to highlight the world \emph{around} Mario, instead of focusing on the character himself. \emph{Mario} is a game about Mario---he will always be on screen. He is the universal constant that binds the rest of the game together, meaning his position on screen is hardly relevant to the player---who instead must focus on enemies, items, pitfalls, etc. These other entities are not relevant in themselves---but in their existence \emph{relative} to Mario. For example, a \emph{Mushroom} which slides past mario---first appearing in front of him (to his right) before eventually sliding behind him (to his left)---might have spatial audio framed in the same way: starting in the player's right ear and slowly panning to the left. 
+
+This redesign process---shifting and translating the game's vision-first design into one that intelligently makes efficient use of aural space---is what it means to treat audio as first-class citizen of \design. Specific considerations will vary from game-to-game, but the core details remain the same: Translating visual semantics into useful audio ones---even if they significantly deviate from the game's original design paradigms. 
+
+\subsubsection{Crafting Design}
+
+Equipped with a better understanding of what makes for good \design, we now consider its practical implementation. 
+
+In a low level sense, implementing \design involves programming rudimentary logic conditions---which are checked against the entity information provided by the previous \train phase---and actions---which instantiate spatial audio objects and handle other logic---in response to the conditions. This should bring the \decision layer to mind, as it is where our \design plays its largest role. 
+
+\paragraph{Simple Case: Custom Code}
+
+To put things into programming terms, we could imagine the simplest \design implementation being a series of \texttt{if-else} statements which compare the provided entity data against relevant conditions. Figure \ref{fig:design_code_examples} demonstrates three simple examples using the \texttt{python} language. The first example echoes one used in describing the \decision layer---playing a sound effect when Mario collides with a mushroom. 
+
+\begin{figure}[h]
+
+    \lstset{language=Python}
+    \begin{lstlisting}[frame=single]
+    if(mario is not None and mushroom is not None):
+        if(dist(mario, mushroom) < COLLISION_DIST):
+            play_powerup_sfx()
+    \end{lstlisting}
+    
+\begin{lstlisting}[frame=single]
+    if(mario is not None and pitfall is not None):
+        if(dist(mario, pitfall < WARN_DIST)):
+            play_pitfall_warning_sfx(dist(mario, pitfall))
+    \end{lstlisting}
+    
+    \begin{lstlisting}[frame=single]
+    if(mario is not None and mario.state is STATE_DEATH):
+        play_lives_remaining_sfx(--mario.lives)
+    \end{lstlisting}
+    
+    \caption{Three samples of rudimentary \design logic.}
+    \label{fig:design_code_examples}
+\end{figure}
+
+The second example is more complex, generating a special 'warning' sound cue when mario approaches an on-screen pitfall. To avoid cluttering audio-space, we have opted to only warn the player if they come dangerously close to a pitfall, a metric defined by the \texttt{WARN\_DIST} attribute. We can also presume the function used to trigger the sound effect, \texttt{play\_pitfall\_warning\_sfx()} is dynamically generating audio based on Mario's current distance from the pit---as the function takes the distance between the two entities (\texttt{dist(mario, pitfall)}) as input. The function may use this distance value metric to vary the pitch, volume, or frequency of the sound effect---more clearly explaining when and where danger awaits the player.
+
+The final sample makes use of the entity \state{States} discussed in previous sections. When mario's death is detected (presumably his death animation was associated with a state named \texttt{STATE\_DEATH} during the \train phase), a sound cue indicating Mario's remaining life count is played for the user---as this information is mono-visual in the original game. 
+
+
+One may wonder the purpose of \rs if the \imp is forced into programming lines upon lines of conditional statements. Although this may be monotonous work, it is no doubt simpler than the act of programming the entire game itself. There is no need to concern oneself with physics logic, graphics processing, data management etc. Instead, the \imp uses rudimentary logic that even a novice programmer could easily understand---more resembling textbook pseudocode than production-level programming. More importantly this has merely been the most rudimentary example of \design. We can easily conceive of higher-level implementations which abstract much of the boilerplate programming seen here. 
+
+\paragraph{Advanced Case: Domain Specific Language}
+An \imp could craft their own \emph{domain-specific language} (DSL), for instance. As opposed to general programming languages (GPL), DSLs are purpose-built for specific problem domains\cite{DSL}. Notable examples range from Wolfram's \emph{Mathematica} language---which is used in advanced mathematics---to even HTML, which is merely a method of annotating hypertext. DSLs are often known as \emph{'minilanguages'} because they are frequently used by developers to streamline workflows and internal tool usage\cite{UnixProg}. 
+
+\begin{figure}[h]
+
+\lstset{language=Python}
+\begin{lstlisting}[frame=single]
+    mario touches mushroom: play mushroom touch;
+\end{lstlisting}
+    
+\begin{lstlisting}[frame=single]
+    mario close to pitfall: warn pitfall;
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+    mario dies: lower lives;
+\end{lstlisting}
+
+    \caption{Three samples of a hypothetical DSL used to \design a \emph{Super Mario Brothers} implementation}
+    \label{fig:dsl_examples}
+\end{figure}
+
+
+We can plainly see the utility of DSLs when combined with \rs's \design process. An \imp interested in a wide variety of target games could build a generalized DSL, while a different \imp could just as easily build a specific DSL to streamline \design for a particularly large and complex game. Figure \ref{fig:dsl_examples} provides some examples of a hypothetical DSL specifically written for \emph{Super Mario Brothers}. Much of the previous code has been reduced into far friendlier (both for reader and coder) format. 
+
+The DSL has a grammar accepting two command stings:
+
+\vspace{8pt}
+
+\begin{lstlisting}[frame=single, basicstyle=\small]
+    ENTITY VERB ENTITY: VERB [ENTITY | ATTRIBUTE] [SFX_NAME];
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single]
+    ENTITY VERB: VERB (ENTITY | ATTRIBUTE);
+\end{lstlisting}
+
+\vspace{8pt}
+Those unfamiliar with formal language theory or metacompilers may struggle with the syntax. Suffice it to say that this DSL streamlines the \design process significantly---replacing lengthy code segments with basic \texttt{noun verb noun} phrases that are as easy to write as they are to parse.
+
+\paragraph{Advanced Case: GUI}
+Of course, we could go one step further and create an entire graphical user application to aid the \rs implementation process. In this case, a DSL would likely be supplemented with simple graphical tools that visualized the \design process---allowing even a novice user to efficiently create \design logic. We will table this idea for now and discuss the concept further in the following chapter.  
+
+\subsubsection{On Audification}
+We have made passing references to spatial audio in previous paragraphs, so we must now take a moment to discuss audification in more detail. Despite being described as one-third of \rs's structure (\audio) and ultimately the final output of this entire process, the actual specifics of spatial audio generation are (for the most part) outside the scope of this thesis. This omission is not due to the subject's complexity or nuance, but instead for the sake of brevity. In truth, support for spatial audio in contemporary libraries has become so ubiquitous as to render discussion of the topic irrelevant. Virtually any programmer, regardless of experience, can generate spatial audio using any off-the-shelf library and a few lines of code. Consequently, we have chosen to emphasize the problem of \design in this section instead. The task of physically generating audio may be left as an implementation afterthought. 
+
+\subsubsection{Summary}
+In essence, the \design phase overlaps the \decision phase of \rs's structure. The \imp designs and implements a collection of conditional statements and programmatic actions which are executed after a condition renders true. Conditions are based on the list of entities generated by the \train state, and actions generally create spatial audio, which ties into the \audio layer. There are many possible ways to handle \design, from rudimentary and bespoke code, to custom domain specific languages and potentially even entire applications with graphical user interfaces to streamline the \design process. 
+To summarize:
+
+\Summary[]{
+
+{\begin{center}
+    \state{Design Phase}
+\end{center}}
+
+\begin{description}
+    \item [Requires:] A design for converting entity information into actionable, programmatic decisions. The implementation of this design via some software means.
+    \item [Involves:] Translating the visual-focused nature of video games into audio-oriented design. Conditional logic that accurately converts entity data into useful audio information. Software implementation. 
+    \item [Purpose:] Translates entity information into game-state semantics via conditional logic. Converts those semantics into spatial audio data via defined actions.  
+    \item [Notes:] Software implementation particulars are left up to the \imp. Anything from rudimentary programming to advanced GUI applications are acceptable. 
+\end{description}
+
+}
+
+\subsection{Execution}
+We have at last reached our final phase---\exec---which serves to synthesize the efforts of the previous steps into a final, cohesive experience. This section will hopefully clear up any lingering questions regarding \rs's \emph{modus operandi} as we finally bring together all of our hard work. 
+
+The previous three phases have awarded us a \state{Plan}, which dictated our \train of a computer vision algorithm capable of transforming visual frame data into entity semantics, which were then combined with a audio-first \design that transformed our game state semantics into spatial audio cues. All that's left to do is package the \rs framework into a final product--something \state{executable} on an end user's computer. 
+
+If the \imp is adding \rs to their own game, then the entire package could be bundled in with their end product. In this case, most of the \imp's job is already done. The only real question remaining is exactly how \rs's functionality is exposed to the end-user. One could imagine that \rs lives happily in the accessibility settings of the game's options menu---toggleable with the press of a single button. 
+
+If the \imp is instead adding \rs into an existing game as an after-market feature, then they must concoct their own method of distributing the software without violating relevant copyright laws. \rs of course lives entirely outside of the game itself, so this should present no problems. A fastidious \imp would likely create a simple application that a user runs alongside the target game---requiring they supply their own copy of the title. 
+
+To further illustrate our point, we will demonstrate a sample application---which attaches \rs as an aftermarket functionality---the following section.  
+
+
+\subsubsection{Summary}
+The execution phase, much like the planning phase, serves more to illustrate a point: that the \imp must combine all of their efforts---their planning, computer vision model, design logic, and audio tools--into one concrete application which somehow reaches an end user's hands as a simple, easy-to-use application.
+
+To summarize:
+
+\Summary[]{
+
+{\begin{center}
+    \state{Execution Phase}
+\end{center}}
+
+\begin{description}
+    \item [Requires:] A proper software deliverable---capable of being run by an end user.
+    \item [Involves:] The bundling of the results of the previous phases into some sort of final product. 
+    \item [Purpose:] Completes the \rs implementation process, finally allowing an end user access to the software. 
+    \item [Notes:] \rs can be distributed as the \imp sees fit---bundled inside their own game, or released as a stand-alone software that runs alongside a target game. 
+\end{description}
+
+}
+
+\subsection{Conclusion}
+
+In this section, I explored the process of implementing \rs into a target game. To accomplish this, I divided the process into four principle phases: the \plan phase---where the \imp analyzes the semantics of the target game before even touching a single line of code---the \train phase, where the \imp uses any number of computer vision techniques to translate frame data into entity detection and categorization techniques based upon the aforementioned plan---the \design phase, where the \imp creates an audio-first redesign of the game experience and actuates their design using conditional logic and programmatic imperatives---and finally the \exec phase, where the \imp packages the entire process into some deliverable executable that can be run on an end user's device. 
+
+We will be honest in saying that this process may seem convoluted upon first glace. But one must remember that it is far less complex than the act of creating a video game itself. Through \rs, the implementor is free ignore most of the considerations that encumber development such as physics, engine-specific APIs, graphical libraries, etc. Moreover, the process of implementing \rs can essentially be restated in a few simple bullet points:
+
+
+\begin{enumerate}
+    \item Understand the target game.
+    \item Teach a computer vision algorithm to understand the target game.
+    \item Translate visual-specific game design into audio-specific game design.
+    \item Create conditional logic to connect the output from the computer vision algorithm you designed to your audio-specific game design. 
+    \item Package the entire experience.
+\end{enumerate}
+
+These simple points obviously fail to capture the process fully, but work as a sufficient set of guidelines to summarize the implementation process. We hope this section has also successfully demystified the process for all readers.
+
+\section{The End User Experience}
+Lastly, it is pertinent to briefly discuss the experience of interacting \rs from the perspective of the end user. As the target user of \rs is visually impaired, significant care must be put towards delivering \rs in a fashion accessible to the visually impaired. General software development accessibility guidelines (such as those maintained by the W3C\cite{Spellman:24:WAG}) should be respected to ensure good ease-of-access. 
+
+\rs software should, ideally, 'just work' out-of-the-box. Even in the case of an aftermarket fan project, the end user ideally executes a small application adored with the bare essential settings required to fine-tune the user experience. From there, \rs should be considered a 'plug-and-play' software by the end user---one that allows them to simply launch the application, launch the target game, sit back, and enjoy.
+
+\section{Conclusion}
+In this chapter, we proposed \rs---a framework for generalizing and streamlining the creation and implementation of game accessibility features for the visually impaired. 
+
+We began by laying the conceptual groundwork of \rs. First, we limited our definition of video games using semi-formal notation. We then discussed how we may breakdown the gaming experience into formal, discrete states using automata theory. Following this, we considered how players understand games---taking a look at the semantics which underline game design and game performance. We concluded our discussion of conceptual topics by giving an in-depth look at how games are analyzed from the perspective of human vision.
+
+We then proceeded with a structural outline of \rs. To to accomplish this, we broke the framework into three distinct 'layers:' the \vision layer, which is responsible for translating the game's visual data into semantic information---the \decision layer, which takes game semantics and assess it against pre-defined conditional statements, executing programmatic imperatives based on these conditions---and finally the \audio layer, which uses the imperatives from the previous layer to generate the spatial audio heard by our end user. 
+
+Following this, we then considered \rs from the perspective of an \imp---breaking down the process of implementing \rs into a target game. We subdivided the process into four stages: \plan---where the implementor first builds a model of the game's internal logic---\train, where the \imp trains a computer vision algorithm to understand the game based upon their previously model---\design, where the \imp creates a design to translate game semantics into spatial audio outputs---and \exec, where all the previous phases are packaged together into a final executable, capable of being easily run by the end user. 
+
+Finally, we concluded by considering the experience of using \rs from the end user's perspective. We provided clear stipulations on \rs being an accessibility-focused experience from the ground-up which requires accessibility and ease-of-use to be center stage during every step of the end user's journey in interacting with \rs. 
+
+In the following chapter, we provide some sample implementations of \rs to further illuminate on the concepts presented here.
 
 
 

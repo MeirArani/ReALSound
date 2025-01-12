@@ -81,40 +81,55 @@
 \contentsline {subsubsection}{Turning Theory into Practice}{21}{section*.60}%
 \contentsline {subsection}{\numberline {3.3.2}Vision Layer}{22}{subsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.3.3}Decision Layer}{23}{subsection.3.3.3}%
-\contentsline {subsubsection}{Utilities and Extensions}{24}{section*.61}%
+\contentsline {subsubsection}{Utilities and Extensions}{24}{section*.62}%
 \contentsline {subsection}{\numberline {3.3.4}Audification Layer}{24}{subsection.3.3.4}%
 \contentsline {subsection}{\numberline {3.3.5}Summary}{25}{subsection.3.3.5}%
 \contentsline {section}{\numberline {3.4}Implementation Process}{26}{section.3.4}%
 \contentsline {subsection}{\numberline {3.4.1}Overview}{26}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Design}{26}{subsection.3.4.2}%
-\contentsline {subsubsection}{Analyzing Game Semantics}{26}{section*.62}%
-\contentsline {paragraph}{\emph {Pac-Man:} A Worked Example }{27}{section*.63}%
-\contentsline {subparagraph}{Designing Transitions}{27}{section*.64}%
-\contentsline {subsubsection}{Desinging \textbf {Rules}}{27}{section*.65}%
-\contentsline {paragraph}{State Rules}{27}{section*.66}%
-\contentsline {paragraph}{\textbf {Entity} \textbf {Rules}}{27}{section*.67}%
-\contentsline {paragraph}{Transient States}{28}{section*.68}%
-\contentsline {paragraph}{State Delegation}{28}{section*.69}%
-\contentsline {paragraph}{Summary}{29}{section*.70}%
+\contentsline {subsection}{\numberline {3.4.2}Planning}{26}{subsection.3.4.2}%
+\contentsline {subsubsection}{Analyzing Game Semantics}{26}{section*.63}%
+\contentsline {paragraph}{\emph {Pac-Man:} A Worked Example }{27}{section*.64}%
+\contentsline {subparagraph}{Planning Transitions}{27}{section*.65}%
+\contentsline {subsubsection}{Desinging \textbf {Rules}}{27}{section*.66}%
+\contentsline {paragraph}{State Rules}{27}{section*.67}%
+\contentsline {paragraph}{\textbf {Entity} \textbf {Rules}}{27}{section*.68}%
+\contentsline {paragraph}{Transient States}{28}{section*.69}%
+\contentsline {paragraph}{State Delegation}{28}{section*.70}%
+\contentsline {paragraph}{Summary}{29}{section*.71}%
 \contentsline {subsection}{\numberline {3.4.3}Training}{30}{subsection.3.4.3}%
-\contentsline {subsubsection}{Computer Vision - Machine Learning}{30}{section*.71}%
-\contentsline {subsubsection}{Computer Vision - Alternative Methods}{30}{section*.72}%
-\contentsline {subsubsection}{Summary}{31}{section*.73}%
-\contentsline {subsection}{\numberline {3.4.4}Implementation}{31}{subsection.3.4.4}%
-\contentsline {subsection}{\numberline {3.4.5}Play}{31}{subsection.3.4.5}%
-\contentsline {subsection}{\numberline {3.4.6}Summary}{31}{subsection.3.4.6}%
-\contentsline {section}{\numberline {3.5}Considerations}{31}{section.3.5}%
-\contentsline {chapter}{\numberline {4}Sample Implementation}{32}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Languages, Tools, and Frameworks}{32}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Python}{32}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}OpenCV}{32}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Qt}{32}{subsection.4.1.3}%
-\contentsline {section}{\numberline {4.2}Choosing a Target Game}{32}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Pong: A Worked Demonstration}{32}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Experiments}{33}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Pong Demonstration}{33}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Results}{33}{subsection.5.1.1}%
-\contentsline {chapter}{\numberline {6}Conclusions}{34}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Limitations}{34}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Future Work}{34}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Thanks}{34}{section.6.3}%
+\contentsline {subsubsection}{Computer Vision - Machine Learning}{30}{section*.72}%
+\contentsline {subsubsection}{Computer Vision - Alternative Methods}{30}{section*.73}%
+\contentsline {subsubsection}{Summary}{31}{section*.74}%
+\contentsline {subsection}{\numberline {3.4.4}Design}{31}{subsection.3.4.4}%
+\contentsline {subsubsection}{Understanding Game Design}{32}{section*.75}%
+\contentsline {paragraph}{Origin of Multisensory Game Design}{32}{section*.76}%
+\contentsline {paragraph}{Games as Multisensory Design Experiences}{32}{section*.77}%
+\contentsline {subsubsection}{Audio Design as a First Class Citizen}{33}{section*.78}%
+\contentsline {paragraph}{Player-Oriented Sound Design}{33}{section*.79}%
+\contentsline {subparagraph}{A Worked Example: \emph {Super Mario Brothers}}{33}{section*.80}%
+\contentsline {subparagraph}{Player-Centered Audio Design}{33}{section*.81}%
+\contentsline {subsubsection}{Crafting Design}{34}{section*.82}%
+\contentsline {paragraph}{Simple Case: Custom Code}{34}{section*.83}%
+\contentsline {paragraph}{Advanced Case: Domain Specific Language}{35}{section*.85}%
+\contentsline {paragraph}{Advanced Case: GUI}{36}{section*.87}%
+\contentsline {subsubsection}{On Audification}{36}{section*.88}%
+\contentsline {subsubsection}{Summary}{37}{section*.89}%
+\contentsline {subsection}{\numberline {3.4.5}Execution}{37}{subsection.3.4.5}%
+\contentsline {subsubsection}{Summary}{38}{section*.90}%
+\contentsline {subsection}{\numberline {3.4.6}Conclusion}{39}{subsection.3.4.6}%
+\contentsline {section}{\numberline {3.5}The End User Experience}{39}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Conclusion}{40}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Sample Implementation}{41}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Languages, Tools, and Frameworks}{41}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Python}{41}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}OpenCV}{41}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Qt}{41}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}Choosing a Target Game}{41}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Pong: A Worked Demonstration}{41}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Experiments}{42}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Pong Demonstration}{42}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Results}{42}{subsection.5.1.1}%
+\contentsline {chapter}{\numberline {6}Conclusions}{43}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Limitations}{43}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Future Work}{43}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Thanks}{43}{section.6.3}%

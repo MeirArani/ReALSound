@@ -19,6 +19,47 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global/global}
+    \entry{abelsonstructure}{book}{}{}
+      \name{author}{3}{}{%
+        {{hash=466eb023f31a73b359386ab2f2ae5864}{%
+           family={Abelson},
+           familyi={A\bibinitperiod},
+           given={H.},
+           giveni={H\bibinitperiod}}}%
+        {{hash=0ec71ba9619f6d13821c02bfe30451b7}{%
+           family={Sussman},
+           familyi={S\bibinitperiod},
+           given={G.J.},
+           giveni={G\bibinitperiod}}}%
+        {{hash=4bb99462b8f827dedf110274e6137e33}{%
+           family={Sussman},
+           familyi={S\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Justin Kelly}%
+      }
+      \strng{namehash}{1475d816b57941ba002ae2ec172d0112}
+      \strng{fullhash}{1475d816b57941ba002ae2ec172d0112}
+      \strng{fullhashraw}{1475d816b57941ba002ae2ec172d0112}
+      \strng{bibnamehash}{1475d816b57941ba002ae2ec172d0112}
+      \strng{authorbibnamehash}{1475d816b57941ba002ae2ec172d0112}
+      \strng{authornamehash}{1475d816b57941ba002ae2ec172d0112}
+      \strng{authorfullhash}{1475d816b57941ba002ae2ec172d0112}
+      \strng{authorfullhashraw}{1475d816b57941ba002ae2ec172d0112}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Structure and Interpretation of Computer Programs - 2nd Edition}
+      \verb{urlraw}
+      \verb https://books.google.co.jp/books?id=MXZQAwAAQBAJ
+      \endverb
+      \verb{url}
+      \verb https://books.google.co.jp/books?id=MXZQAwAAQBAJ
+      \endverb
+    \endentry
     \entry{QTProgramming}{book}{}{}
       \name{author}{2}{}{%
         {{hash=84b7b35db74b1eeaf3673f2f8ae34928}{%
@@ -1076,6 +1117,115 @@
       \verb https://www.cnbc.com/2023/12/06/water-why-a-thirsty-generative-ai-boom-poses-a-problem-for-big-tech.html
       \endverb
     \endentry
+    \entry{DSL}{unpublished}{}{}
+      \name{author}{3}{}{%
+        {{hash=ad44b79af15ed460ebd677f4d43c5227}{%
+           family={Mernik},
+           familyi={M\bibinitperiod},
+           given={Marjan},
+           giveni={M\bibinitperiod}}}%
+        {{hash=50d19d5f335d5dea8c60e492c88f58f5}{%
+           family={Heering},
+           familyi={H\bibinitperiod},
+           given={Jan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=f07e79bc947e2cf105820dc7d07aeff1}{%
+           family={Sloane},
+           familyi={S\bibinitperiod},
+           given={A.M.},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{institution}{2}{%
+        {Software Analysis}%
+        {Transformation}%
+      }
+      \strng{namehash}{2f86d7ab136f2e986226e2036d8e3839}
+      \strng{fullhash}{2f86d7ab136f2e986226e2036d8e3839}
+      \strng{fullhashraw}{2f86d7ab136f2e986226e2036d8e3839}
+      \strng{bibnamehash}{2f86d7ab136f2e986226e2036d8e3839}
+      \strng{authorbibnamehash}{2f86d7ab136f2e986226e2036d8e3839}
+      \strng{authornamehash}{2f86d7ab136f2e986226e2036d8e3839}
+      \strng{authorfullhash}{2f86d7ab136f2e986226e2036d8e3839}
+      \strng{authorfullhashraw}{2f86d7ab136f2e986226e2036d8e3839}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{1}
+      \field{number}{E 0517}
+      \field{title}{When and how to develop domain-specific languages}
+      \field{year}{2005}
+    \endentry
+    \entry{nasaw1999going}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=42dd9dc0768298e89dad92a58fd64d59}{%
+           family={Nasaw},
+           familyi={N\bibinitperiod},
+           given={D.},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Harvard University Press}%
+      }
+      \strng{namehash}{42dd9dc0768298e89dad92a58fd64d59}
+      \strng{fullhash}{42dd9dc0768298e89dad92a58fd64d59}
+      \strng{fullhashraw}{42dd9dc0768298e89dad92a58fd64d59}
+      \strng{bibnamehash}{42dd9dc0768298e89dad92a58fd64d59}
+      \strng{authorbibnamehash}{42dd9dc0768298e89dad92a58fd64d59}
+      \strng{authornamehash}{42dd9dc0768298e89dad92a58fd64d59}
+      \strng{authorfullhash}{42dd9dc0768298e89dad92a58fd64d59}
+      \strng{authorfullhashraw}{42dd9dc0768298e89dad92a58fd64d59}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9780674417595}
+      \field{title}{Going Out: The Rise and Fall of Public Amusements}
+      \field{year}{1999}
+      \verb{urlraw}
+      \verb https://books.google.co.jp/books?id=hSEsEAAAQBAJ
+      \endverb
+      \verb{url}
+      \verb https://books.google.co.jp/books?id=hSEsEAAAQBAJ
+      \endverb
+    \endentry
+    \entry{Newman2017Atari}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=2b24fe8d58f1d5c047aaed8490b1a844}{%
+           family={Newman},
+           familyi={N\bibinitperiod},
+           given={Michael\bibnamedelima Z.},
+           giveni={M\bibinitperiod\bibinitdelim Z\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \list{publisher}{1}{%
+        {MIT Press}%
+      }
+      \strng{namehash}{2b24fe8d58f1d5c047aaed8490b1a844}
+      \strng{fullhash}{2b24fe8d58f1d5c047aaed8490b1a844}
+      \strng{fullhashraw}{2b24fe8d58f1d5c047aaed8490b1a844}
+      \strng{bibnamehash}{2b24fe8d58f1d5c047aaed8490b1a844}
+      \strng{authorbibnamehash}{2b24fe8d58f1d5c047aaed8490b1a844}
+      \strng{authornamehash}{2b24fe8d58f1d5c047aaed8490b1a844}
+      \strng{authorfullhash}{2b24fe8d58f1d5c047aaed8490b1a844}
+      \strng{authorfullhashraw}{2b24fe8d58f1d5c047aaed8490b1a844}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9780262035712}
+      \field{title}{Atari Age}
+      \field{year}{2017}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://books.google.com/books/about/Atari_Age.html?hl=&id=Y20ODgAAQBAJ
+      \endverb
+      \verb{url}
+      \verb https://books.google.com/books/about/Atari_Age.html?hl=&id=Y20ODgAAQBAJ
+      \endverb
+    \endentry
     \entry{omg2011umls}{standard}{}{}
       \name{author}{1}{}{%
         {{hash=5af83e3196bf99f440f31f2e1a6c9afe}{%
@@ -1149,6 +1299,33 @@
       \verb{doi}
       \verb 10.1147/rd.32.0114
       \endverb
+    \endentry
+    \entry{UnixProg}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=54a2a72b576ed340cbad4320514b664e}{%
+           family={Raymond},
+           familyi={R\bibinitperiod},
+           given={Eric\bibnamedelima S.},
+           giveni={E\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Pearson Education}%
+      }
+      \strng{namehash}{54a2a72b576ed340cbad4320514b664e}
+      \strng{fullhash}{54a2a72b576ed340cbad4320514b664e}
+      \strng{fullhashraw}{54a2a72b576ed340cbad4320514b664e}
+      \strng{bibnamehash}{54a2a72b576ed340cbad4320514b664e}
+      \strng{authorbibnamehash}{54a2a72b576ed340cbad4320514b664e}
+      \strng{authornamehash}{54a2a72b576ed340cbad4320514b664e}
+      \strng{authorfullhash}{54a2a72b576ed340cbad4320514b664e}
+      \strng{authorfullhashraw}{54a2a72b576ed340cbad4320514b664e}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{0131429019}
+      \field{title}{The Art of UNIX Programming}
+      \field{year}{2003}
     \endentry
     \entry{Roboflow_Supervision}{software}{}{}
       \name{author}{1}{}{%
@@ -1228,6 +1405,37 @@
       \field{title}{{Make Sense}}
       \field{year}{2019}
     \endentry
+    \entry{theycreateworlds}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=33d4e88ed3579ce4d1459b82174345bb}{%
+           family={Smith},
+           familyi={S\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {C\&C Press}%
+      }
+      \strng{namehash}{33d4e88ed3579ce4d1459b82174345bb}
+      \strng{fullhash}{33d4e88ed3579ce4d1459b82174345bb}
+      \strng{fullhashraw}{33d4e88ed3579ce4d1459b82174345bb}
+      \strng{bibnamehash}{33d4e88ed3579ce4d1459b82174345bb}
+      \strng{authorbibnamehash}{33d4e88ed3579ce4d1459b82174345bb}
+      \strng{authornamehash}{33d4e88ed3579ce4d1459b82174345bb}
+      \strng{authorfullhash}{33d4e88ed3579ce4d1459b82174345bb}
+      \strng{authorfullhashraw}{33d4e88ed3579ce4d1459b82174345bb}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9780429423642}
+      \field{month}{11}
+      \field{title}{They Create Worlds: The Story of the People and Companies that Shaped the Video Game Industry}
+      \field{year}{2019}
+      \verb{doi}
+      \verb 10.1201/9780429423642
+      \endverb
+    \endentry
     \entry{Valve}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=7285a1b05ea25cdc6cd5851d76dc06b6}{%
@@ -1259,6 +1467,60 @@
       \verb{url}
       \verb https://valvesoftware.github.io/steam-audio/
       \endverb
+    \endentry
+    \entry{Spellman:24:WAG}{report}{}{}
+      \name{author}{6}{}{%
+        {{hash=45dd7d8bce7bece918723d4d65fa0ea9}{%
+           family={Spellman},
+           familyi={S\bibinitperiod},
+           given={Jeanne\bibnamedelima F},
+           giveni={J\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=0e17dca57d532eefeb60b2f98f02a513}{%
+           family={Montgomery},
+           familyi={M\bibinitperiod},
+           given={Rachael\bibnamedelima Bradley},
+           giveni={R\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=614ec3f5cb09e127b4b9f680ef7028d4}{%
+           family={Storr},
+           familyi={S\bibinitperiod},
+           given={Francis},
+           giveni={F\bibinitperiod}}}%
+        {{hash=2bdded91659c7d50b472e2bb4e4caf83}{%
+           family={Adams},
+           familyi={A\bibinitperiod},
+           given={Charles},
+           giveni={C\bibinitperiod}}}%
+        {{hash=736d076866334d12184dec0afa87390c}{%
+           family={White},
+           familyi={W\bibinitperiod},
+           given={Kevin},
+           giveni={K\bibinitperiod}}}%
+        {{hash=aef66932bd4f0f0ec6a73f9f8705a02a}{%
+           family={Campbell},
+           familyi={C\bibinitperiod},
+           given={Alastair},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {W3C}%
+      }
+      \strng{namehash}{ad313648ba30188dd2f80ec232546f00}
+      \strng{fullhash}{daa420b6ea8054dbf19f9230f9f1b0ce}
+      \strng{fullhashraw}{daa420b6ea8054dbf19f9230f9f1b0ce}
+      \strng{bibnamehash}{ad313648ba30188dd2f80ec232546f00}
+      \strng{authorbibnamehash}{ad313648ba30188dd2f80ec232546f00}
+      \strng{authornamehash}{ad313648ba30188dd2f80ec232546f00}
+      \strng{authorfullhash}{daa420b6ea8054dbf19f9230f9f1b0ce}
+      \strng{authorfullhashraw}{daa420b6ea8054dbf19f9230f9f1b0ce}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{12}
+      \field{note}{https://www.w3.org/TR/2024/WD-wcag-3.0-20241212/}
+      \field{title}{{W3C} Accessibility Guidelines ({WCAG}) 3.0}
+      \field{type}{{W3C} Working Draft}
+      \field{year}{2024}
     \endentry
     \entry{Turing}{article}{}{}
       \name{author}{1}{}{%

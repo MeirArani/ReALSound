@@ -2411,6 +2411,13 @@
     <bcf:citekey order="37" intorder="1">Roboflow_Supervision</bcf:citekey>
     <bcf:citekey order="38" intorder="1">PrintWindow</bcf:citekey>
     <bcf:citekey order="39" intorder="1">XGetWindow</bcf:citekey>
+    <bcf:citekey order="40" intorder="1">Newman2017Atari</bcf:citekey>
+    <bcf:citekey order="41" intorder="1">nasaw1999going</bcf:citekey>
+    <bcf:citekey order="42" intorder="1">theycreateworlds</bcf:citekey>
+    <bcf:citekey order="43" intorder="1">abelsonstructure</bcf:citekey>
+    <bcf:citekey order="44" intorder="1">DSL</bcf:citekey>
+    <bcf:citekey order="45" intorder="1">UnixProg</bcf:citekey>
+    <bcf:citekey order="46" intorder="1">Spellman:24:WAG</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
