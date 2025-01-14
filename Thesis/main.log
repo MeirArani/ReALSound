@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.7)  15 JAN 2025 00:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.7)  15 JAN 2025 00:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -947,7 +947,7 @@ Chapter 6.
 [62
 
 ]
-Overfull \hbox (12.05278pt too wide) in paragraph at lines 1376--1376
+Overfull \hbox (12.05278pt too wide) in paragraph at lines 1379--1379
 \OT1/cmtt/m/n/10 lboro . ac . uk / articles / conference _ contribution / Proof -[] of -[] concept _
  []
 
@@ -956,7 +956,7 @@ Overfull \hbox (12.05278pt too wide) in paragraph at lines 1376--1376
 [63
 
 ]
-Overfull \hbox (2.4279pt too wide) in paragraph at lines 1376--1376
+Overfull \hbox (2.4279pt too wide) in paragraph at lines 1379--1379
 \OT1/cmtt/m/n/10 accessories / dells -[] new -[] 4k -[] qd -[] oled -[] monitor -[] comes -[] with -[] spatial -[]
  []
 
@@ -967,7 +967,7 @@ Overfull \hbox (2.4279pt too wide) in paragraph at lines 1376--1376
 [65]
 
 [66]
-Overfull \hbox (10.83441pt too wide) in paragraph at lines 1376--1376
+Overfull \hbox (10.83441pt too wide) in paragraph at lines 1379--1379
 []\OT1/cmr/m/n/10 (-20) Marco Libo^^Ra. ``Hard-ware de-sign and rep-re-sen-ta-tion of graph-ics in videogames:
  []
 
@@ -980,17 +980,17 @@ Overfull \hbox (10.83441pt too wide) in paragraph at lines 1376--1376
 [69]
 
 Package biblatex Warning: No driver for 'standard'.
-(biblatex)                Using fallback driver on input line 1375.
+(biblatex)                Using fallback driver on input line 1378.
 
 
-Overfull \hbox (25.02661pt too wide) in paragraph at lines 1376--1376
+Overfull \hbox (25.02661pt too wide) in paragraph at lines 1379--1379
 \OT1/cmr/m/it/10 (-20) Con-se-quences of Dis-ease\OT1/cmr/m/n/10 (-20) . World Health Or-ga-ni-za-tion, 1980. \OT1/cmr/m/sc/10 (-20) isbn\OT1/cmr/m/n/10 (-20) : 9789241541268.
  []
 
 
 
 [70]
-Overfull \hbox (11.71324pt too wide) in paragraph at lines 1376--1376
+Overfull \hbox (11.71324pt too wide) in paragraph at lines 1379--1379
 []\OT1/cmr/m/n/10 (-20) Roboflow. \OT1/cmr/m/it/10 (-20) Su-per-vi-sion\OT1/cmr/m/n/10 (-20) . \OT1/cmr/m/sc/10 (-20) url\OT1/cmr/m/n/10 (-20) : []$\OT1/cmtt/m/n/10 https : / / github . com / roboflow / supervision$[]\OT1/cmr/m/n/10 (-20) . 
  []
 
@@ -999,7 +999,7 @@ Overfull \hbox (11.71324pt too wide) in paragraph at lines 1376--1376
 [71]
 
 [72]
-Overfull \hbox (8.57227pt too wide) in paragraph at lines 1376--1376
+Overfull \hbox (8.57227pt too wide) in paragraph at lines 1379--1379
 []\OT1/cmr/m/n/10 (-20) Chien-Yao Wang, Alexey Bochkovskiy, and Hong-Yuan Mark Liao. \OT1/cmr/m/it/10 (-20) YOLOv7:
  []
 
