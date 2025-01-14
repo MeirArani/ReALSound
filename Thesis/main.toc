@@ -167,12 +167,19 @@
 \contentsline {section}{\numberline {4.3}\emph {Audio Arena: Pong Reloaded}: A Worked Demonstration}{61}{section.4.3}%
 \contentsline {subsection}{\numberline {4.3.1}A Brief Overview}{61}{subsection.4.3.1}%
 \contentsline {subsection}{\numberline {4.3.2}Translating \emph {Pong}}{61}{subsection.4.3.2}%
-\contentsline {section}{\numberline {4.4}Examining our Implementation}{61}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Experiments}{62}{chapter.5}%
-\contentsline {section}{\numberline {5.1}A Note on Experiments}{62}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Pong Demonstration}{62}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Results}{62}{subsection.5.2.1}%
-\contentsline {chapter}{\numberline {6}Conclusions}{63}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Limitations}{63}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Future Work}{63}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Thanks}{63}{section.6.3}%
+\contentsline {subsubsection}{Planning}{61}{section*.128}%
+\contentsline {paragraph}{Entities}{61}{section*.129}%
+\contentsline {subparagraph}{Paddles}{62}{section*.130}%
+\contentsline {subparagraph}{Ball}{62}{section*.131}%
+\contentsline {paragraph}{States}{62}{section*.132}%
+\contentsline {subparagraph}{Entity States}{62}{section*.133}%
+\contentsline {subsubsection}{Delgating Responsibilities}{62}{section*.134}%
+\contentsline {section}{\numberline {4.4}Examining our Implementation}{62}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Experiments}{63}{chapter.5}%
+\contentsline {section}{\numberline {5.1}A Note on Experiments}{63}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Pong Demonstration}{63}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Results}{63}{subsection.5.2.1}%
+\contentsline {chapter}{\numberline {6}Conclusions}{64}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Limitations}{64}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Future Work}{64}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Thanks}{64}{section.6.3}%

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.7)  15 JAN 2025 06:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.7)  15 JAN 2025 07:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -628,25 +628,25 @@ Package caption Info: New subtype `subtable' on input line 238.
  (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-Package hyperref Info: Link coloring OFF on input line 81.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+Package hyperref Info: Link coloring OFF on input line 83.
  (./main.out) (./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
@@ -684,22 +684,22 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
  (./main.bbl)
-Package biblatex Info: Reference section=0 on input line 81.
-Package biblatex Info: Reference segment=0 on input line 81.
-LaTeX Info: Redefining \microtypecontext on input line 81.
-Package microtype Info: Applying patch `item' on input line 81.
-Package microtype Info: Applying patch `toc' on input line 81.
-Package microtype Info: Applying patch `eqnum' on input line 81.
-Package microtype Info: Applying patch `footnote' on input line 81.
-Package microtype Info: Applying patch `verbatim' on input line 81.
-LaTeX Info: Redefining \microtypesetup on input line 81.
+Package biblatex Info: Reference section=0 on input line 83.
+Package biblatex Info: Reference segment=0 on input line 83.
+LaTeX Info: Redefining \microtypecontext on input line 83.
+Package microtype Info: Applying patch `item' on input line 83.
+Package microtype Info: Applying patch `toc' on input line 83.
+Package microtype Info: Applying patch `eqnum' on input line 83.
+Package microtype Info: Applying patch `footnote' on input line 83.
+Package microtype Info: Applying patch `verbatim' on input line 83.
+LaTeX Info: Redefining \microtypesetup on input line 83.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 81.
+LaTeX Info: Redefining \showhyphens on input line 83.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -718,7 +718,7 @@ Package caption Info: End \AtBeginDocument code.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.94 \end{abstract}
+l.96 \end{abstract}
                     [1] (./main.toc
 
 
@@ -764,32 +764,32 @@ Chapter 2.
 <./figures/kmean1.png, id=463, 499.8675pt x 481.8pt>
 File: ./figures/kmean1.png Graphic file (type png)
 <use ./figures/kmean1.png>
-Package pdftex.def Info: ./figures/kmean1.png  used on input line 244.
+Package pdftex.def Info: ./figures/kmean1.png  used on input line 246.
 (pdftex.def)             Requested size: 98.32568pt x 94.77032pt.
 <./figures/kmean2.png, id=465, 558.085pt x 481.8pt>
 File: ./figures/kmean2.png Graphic file (type png)
 <use ./figures/kmean2.png>
-Package pdftex.def Info: ./figures/kmean2.png  used on input line 248.
+Package pdftex.def Info: ./figures/kmean2.png  used on input line 250.
 (pdftex.def)             Requested size: 98.32568pt x 84.88234pt.
 <./figures/kmean3.png, id=466, 558.085pt x 481.8pt>
 File: ./figures/kmean3.png Graphic file (type png)
 <use ./figures/kmean3.png>
-Package pdftex.def Info: ./figures/kmean3.png  used on input line 252.
+Package pdftex.def Info: ./figures/kmean3.png  used on input line 254.
 (pdftex.def)             Requested size: 98.32568pt x 84.88234pt.
 <./figures/kmeansreal1.jpg, id=469, 321.2pt x 209.78375pt>
 File: ./figures/kmeansreal1.jpg Graphic file (type jpg)
 <use ./figures/kmeansreal1.jpg>
-Package pdftex.def Info: ./figures/kmeansreal1.jpg  used on input line 262.
+Package pdftex.def Info: ./figures/kmeansreal1.jpg  used on input line 264.
 (pdftex.def)             Requested size: 98.32568pt x 64.21921pt.
 <./figures/kmeansreal2.png, id=470, 321.2pt x 209.78375pt>
 File: ./figures/kmeansreal2.png Graphic file (type png)
 <use ./figures/kmeansreal2.png>
-Package pdftex.def Info: ./figures/kmeansreal2.png  used on input line 266.
+Package pdftex.def Info: ./figures/kmeansreal2.png  used on input line 268.
 (pdftex.def)             Requested size: 98.32568pt x 64.21921pt.
 <./figures/kmeansreal3.png, id=471, 321.2pt x 209.78375pt>
 File: ./figures/kmeansreal3.png Graphic file (type png)
 <use ./figures/kmeansreal3.png>
-Package pdftex.def Info: ./figures/kmeansreal3.png  used on input line 270.
+Package pdftex.def Info: ./figures/kmeansreal3.png  used on input line 272.
 (pdftex.def)             Requested size: 98.32568pt x 64.21921pt.
 
 
@@ -883,14 +883,14 @@ Chapter 3.
 [50] (c:/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
-LaTeX Font Info:    Trying to load font information for OML+cmr on input line 1159.
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 1161.
  (c:/texlive/2024/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2024/11/19 v2.5n Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 1159.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 1161.
 
-Overfull \hbox (3.00354pt too wide) in paragraph at lines 1166--1167
+Overfull \hbox (3.00354pt too wide) in paragraph at lines 1168--1169
 [][][][][][][][][][][][][] 
  []
 
@@ -903,17 +903,17 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 1215.
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 1217.
 (c:/texlive/2024/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2024/11/19 v2.5n Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1215.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1217.
 
 
 [52{c:/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1219.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1221.
 
 
 [53]
@@ -937,83 +937,85 @@ Chapter 4.
 [60]
 
 [61]
+
+[62]
 Chapter 5.
-
-
-[62
-
-]
-Chapter 6.
 
 
 [63
 
 ]
-Overfull \hbox (12.05278pt too wide) in paragraph at lines 1407--1407
-\OT1/cmtt/m/n/10 lboro . ac . uk / articles / conference _ contribution / Proof -[] of -[] concept _
- []
-
+Chapter 6.
 
 
 [64
 
 ]
-Overfull \hbox (2.4279pt too wide) in paragraph at lines 1407--1407
-\OT1/cmtt/m/n/10 accessories / dells -[] new -[] 4k -[] qd -[] oled -[] monitor -[] comes -[] with -[] spatial -[]
+Overfull \hbox (12.05278pt too wide) in paragraph at lines 1437--1437
+\OT1/cmtt/m/n/10 lboro . ac . uk / articles / conference _ contribution / Proof -[] of -[] concept _
  []
 
 
 
-[65]
+[65
+
+]
+Overfull \hbox (2.4279pt too wide) in paragraph at lines 1437--1437
+\OT1/cmtt/m/n/10 accessories / dells -[] new -[] 4k -[] qd -[] oled -[] monitor -[] comes -[] with -[] spatial -[]
+ []
+
+
 
 [66]
 
 [67]
 
 [68]
-Overfull \hbox (10.83441pt too wide) in paragraph at lines 1407--1407
+
+[69]
+Overfull \hbox (10.83441pt too wide) in paragraph at lines 1437--1437
 []\OT1/cmr/m/n/10 (-20) Marco Libo^^Ra. ``Hard-ware de-sign and rep-re-sen-ta-tion of graph-ics in videogames:
  []
 
 
 
-[69]
-
 [70]
-Overfull \hbox (4.2022pt too wide) in paragraph at lines 1407--1407
+
+[71]
+Overfull \hbox (4.2022pt too wide) in paragraph at lines 1437--1437
 \OT1/cmr/m/it/10 (-20) nol-ogy Firms\OT1/cmr/m/n/10 (-20) . Springer In-ter-na-tional Pub-lish-ing, 2015. \OT1/cmr/m/sc/10 (-20) isbn\OT1/cmr/m/n/10 (-20) : 9783319214641.
  []
 
 
 Package biblatex Warning: No driver for 'standard'.
-(biblatex)                Using fallback driver on input line 1406.
+(biblatex)                Using fallback driver on input line 1436.
 
 
-Overfull \hbox (25.02661pt too wide) in paragraph at lines 1407--1407
+Overfull \hbox (25.02661pt too wide) in paragraph at lines 1437--1437
 \OT1/cmr/m/it/10 (-20) Con-se-quences of Dis-ease\OT1/cmr/m/n/10 (-20) . World Health Or-ga-ni-za-tion, 1980. \OT1/cmr/m/sc/10 (-20) isbn\OT1/cmr/m/n/10 (-20) : 9789241541268.
  []
 
 
 
-[71]
-Overfull \hbox (11.71324pt too wide) in paragraph at lines 1407--1407
+[72]
+Overfull \hbox (11.71324pt too wide) in paragraph at lines 1437--1437
 []\OT1/cmr/m/n/10 (-20) Roboflow. \OT1/cmr/m/it/10 (-20) Su-per-vi-sion\OT1/cmr/m/n/10 (-20) . \OT1/cmr/m/sc/10 (-20) url\OT1/cmr/m/n/10 (-20) : []$\OT1/cmtt/m/n/10 https : / / github . com / roboflow / supervision$[]\OT1/cmr/m/n/10 (-20) . 
  []
 
 
 
-[72]
-
 [73]
-Overfull \hbox (8.57227pt too wide) in paragraph at lines 1407--1407
+
+[74]
+Overfull \hbox (8.57227pt too wide) in paragraph at lines 1437--1437
 []\OT1/cmr/m/n/10 (-20) Chien-Yao Wang, Alexey Bochkovskiy, and Hong-Yuan Mark Liao. \OT1/cmr/m/it/10 (-20) YOLOv7:
  []
 
 
 
-[74]
+[75]
 
-[75] (./main.aux)
+[76] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-12-09>
@@ -1025,21 +1027,21 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 24745 strings out of 473254
- 436162 string characters out of 5722072
- 1382547 words of memory out of 5000000
- 46826 multiletter control sequences out of 15000+600000
- 585004 words of font info for 283 fonts, out of 8000000 for 9000
+ 24757 strings out of 473254
+ 436276 string characters out of 5722072
+ 1382569 words of memory out of 5000000
+ 46828 multiletter control sequences out of 15000+600000
+ 585064 words of font info for 284 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,12n,81p,1555b,1607s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{Hfootnote.9} has been referenced but does not exist, replaced by a fixed one
 
 <c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on main.pdf (77 pages, 752851 bytes).
+Output written on main.pdf (78 pages, 756612 bytes).
 PDF statistics:
- 1586 PDF objects out of 1728 (max. 8388607)
- 1435 compressed objects within 15 object streams
- 472 named destinations out of 1000 (max. 500000)
+ 1598 PDF objects out of 1728 (max. 8388607)
+ 1446 compressed objects within 15 object streams
+ 480 named destinations out of 1000 (max. 500000)
  58855 words of extra memory for PDF output out of 61914 (max. 10000000)
 

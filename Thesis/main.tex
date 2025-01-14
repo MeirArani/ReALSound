@@ -60,6 +60,8 @@
 \newcommand{\vision}{\textbf{Vision}\xspace}
 \newcommand{\decision}{\textbf{Decision}\xspace}
 \newcommand{\audio}{\textbf{Audification}\xspace}
+\newcommand{\pad}{\textbf{paddle}\xspace}
+\newcommand{\ball}{\textbf{ball}\xspace}
 
 \newcommand{\intro}{\subsubsection{Introduction}}
 \newcommand{\conclusion}{\subsubsection{Conclusion}}
@@ -1379,6 +1381,34 @@ If a paddle makes contact with the ball, it is reflected in the opposite directi
 With these two paragraphs, we have accurately described \emph{Pong}'s entire operation in meticulous detail. We shall now consider how to translate the rules of \emph{Pong} into a sensible audio display. This process resembles the \plan and \design phases.
 
 \subsection{Translating \emph{Pong}}
+\subsubsection{Planning}
+We start, then, with \plan. First, let us consider the entities, \state{States}, and \rules of \emph{Pong.}
+
+\paragraph{Entities}
+
+As described above, \emph{Pong} comprises two key entities---the player \pad and the \ball.
+The scoring system, which is prominently displayed on-screen during matches, may also be considered an entity. However, our \design does not require these entities, so we will omit them from our discussion. Other implementations may have use for them, however.
+
+\subparagraph{Paddles}
+
+Each player controls a \pad entity, which has a few key behaviors. The \pad is able to \state{move} up and down, and is capable of \state{hitting} the \ball. Depending on the implementation, it may be worth noting that it may also remain \state{idle} on-screen. Taking things a step further, some implementations may also wish to account for the fact that a \pad is capable of \state{scoring} a point. 
+
+Speaking of \state{attributes}, each \pad has an on-screen \state{position}, which we may measure in cartesian coordinate $(x,y)$ relative to screen-space. Depending on the implementation, we may also want to note the \state{player numer} (i.e., player one or player two), as well as the player's current \state{score} value. 
+
+\subparagraph{Ball} The ball may also \state{move} around the screen. When it when it strikes the top or bottom of the screen, it may \state{ricochet}. When a ball advances past the left or right sides of the screen, it \state{scores} a goal. 
+A \ball, like all entities, has an on-screen position attribute. Other attributes could be included as-needed---such as ones describing the ball's speed (which is monotonic in Atari's original \emph{Pong}) or direction.
+
+
+\paragraph{States} 
+
+\emph{Pong}, like many classic arcade games, is easily defined in terms of finite state automata. When the game launches, it continuously loops an \state{attract} screen---performing a automatic demonstration of the game until a player inserts a coin and presses the 'start' button. \state{Attract} then transitions to what we will call the \state{break} state---a brief intermission that plays between each round of the match. After a few seconds, the normal \state{match} state begins. When a \state{goal} is scored, we return to the \state{break} state for a few moments before starting another \state{match}. When enough points are scored, the set finally enters a \state{win} state, before transitioning back to the \state{attract} screen---waiting for the user to input more coins. 
+
+\subparagraph{Entity States}
+As hinted at above, entities have their own states, such as \state{move} and \state{idle}. These comparatively primitive state machines form simplistic behaviors. A \pad, for example, may transition between any of the  \state{moving}, \state{hitting}, and \state{idling} states at almost any time. The same is true for the \ball. 
+
+One may arguably subdivide behaviors even further, but we find these description to be sufficiently detailed for our purposes. But despite the simplicity, there are still some semantic messes that we must untangle before achieving competent \plan. 
+
+\subsubsection{Delgating Responsibilities}
 
 
 \section{Examining our Implementation}
