@@ -106,7 +106,7 @@
 \chapter{Introduction}
 
 \section{Overview}
-In this chapter we introduce the historical and environmental trends that contextualize and motivate our research. We begin with a discussion of recent advances in the general software industry---primarily its drive for more universal design principles. We also take time to discuss new trends in user experience design, where we touch on the modern accessibility movement.
+In this chapter we introduce the historical and environmental trends that contextualize and motivate our research. We begin with a discussion of recent advances in the general software industry---primarily its drive for more universal design\footnote{To be clear, we use the term 'universal design' in this thesis when referring to 'platform-agnostic, generalized, and abstracted design principles in computer technology.' We are not referring to 'universal design' in the sense of 'inclusive design principles.'} principles. We also take time to discuss new trends in user experience design, where we touch on the modern accessibility movement.
 
 Building on this theme, we then take a turn to discuss the recent boom of AI technologies and how it relates to the course of software development as a whole. We also consider how new AI-powered technologies and design techniques have impacted the field of software as a whole.
 
@@ -360,12 +360,67 @@ Recent advances in spatial audio technology have married these two details---pre
 
 Contemporary research from laboratories such as Dolby have produced technologies such as \tech{Dolby Atmos}, which incorporates hight channels, room (i.e., acoustic) metadata, and a conceptualization of \tech{audio objects} to ease the generation of 3D audio \cite{Pfanzagl-Cardone2023}. Non-surround sound technology also makes use of Atmos and similar 3D audio branding. To achieve a similar effect, HRTFs are used to estimate and exaggerate spatiality, combined with room metadata and audio objects \cite{dewey2024practitioners}.  
 
-\section{Games}
-\subsection{Games and Accessibility}
-\subsection{Games and Audification}
-\subsection{Games and Computer Vision}
+Many advances in modern spatial audio originate from games-adjacent research, which we will cover in the next section. 
 
-\paragraph{Conclusion}
+\section{Games}
+We at last arrive at the core field of our research---games. We shall begin with a review of relevant accessibility research before considering similar work in the realm of audification and computer vision before finally concluding this chapter. 
+
+\subsection{Games and Accessibility}
+As described in the previous chapter, there has been an increasing trend towards accessibility in the games industry. One industry survey---commissioned by the causal game company \emph{PopCap}---found that over 20\% of their userbase identified as disabled \cite{Popcap_2008}. Similar examinations have shown games to be a popular pastime for disabled persons, despite high barriers of entry---especially in action-focused genres \cite{yuan2011game}. The trend eventually received headline attention in 2015 when the United States of America's Federal Communications Commission imposed legal requirements for improved accessibility on the gaming industry \cite{Richert}.
+
+Naturally, there has also been a growing body of research on games and accessibility. Previous work has laid the groundwork motivations for game accessibility research \cite{miesenberger2008more} \cite{garber2013game} and critically examined barriers to widespread adoption \cite{porter2013empirical}. Others have sought design of bespoke accessible games \cite{AudioArchery}, while many more have proposed bespoke after-market modifications of existing games \cite{atkinson2006making}. Others still have performed comprehensive surveys of accessibility features in popular titles as well as user impressions of these features---identifying middleware as a 'critical link' in the 'chain of accessibility \cite{porter2013empirical}.'
+
+\subsubsection{Defining Games Accessibility}
+Previous work has endeavored to formally define and categorize games accessibility concepts. \cite{yuan2011game} partitioned target demographics into those with \tech{vision, hearing, motor,} and \tech{cognitive impariments}---based on WHO guidelines in \cite{world1980international} as well as \cite{accessguidelines}. The authors then proceed analyze the accessibility and the gaming experience through the lens of gameplay loop made of three phases---\tech{receiving stimuli}, \tech{determining response}, and \tech{providing input}. They then consider challenges and solutions for improving this loop for each disability category. Speaking on the visually impaired, the authors conclude that even though these players are "physically able to perform" gameplay tasks, they are "unable to perceive primary stimuli" and that "without this feedback, it is impossible to determine what in-game responses and what physical input to provide \cite{yuan2011game}." 
+
+Echoing general consensus the authors in \cite{yuan2011game} later conclude that good accessibility features for the visually impaired should replace visuals with audio---providing audio cues and sonification to inform players on otherwise absent primary stimuli.
+
+\subsection{Games and Audification}
+Despite this, the authors in \cite{prazaru2020overview} observe cases where visually impaired users claim mastery over games not designed specifically for their impairments---such as in \emph{Mortal Kombat}. This is (in some part) due to the neurological theory of \tech{brain plasticity}---a phenomenon wherein un-used parts of the brain (e.g., visual processing centers) are reused for other tasks \cite{nudo2006plasticity}, thereby affording visually impaired users additional 'brain capacity' for processing audio information. They explain that \emph{Mortal Kombat} in particular is accessible (albeit unintentionally) to visually impaired users on account of its wide array of distinct and heavily signaled audio cues for different character moves and attacks. In general, repeated research has shown that improved auditory feedback 'helps visually impaired individuals move faster in a game \cite{agrimi2024game}.'
+
+\subsubsection{Audio Games}
+
+This is reflected in the wealth of existing \tech{audio games}, which either supplement or entirely replace the visual component of games with audio-oriented techniques. Or, to use the phrasing found on \texttt{audiogames.net}---the largest repository for audio games online: 
+
+\begin{quote}
+\emph{"An audio game is a game that consists (only) of sound. Its gamemechanics [\tech{sic}] are usually based on the possibilites [\tech{sic}] of sound as well. Usually (but not always) audio games have only auditory (so no visual!) output. Audio games are NOT specifically games for the blind! It is true that most audio games around at the moment are developed by and for the blind community. But we think audio games have the potentional [\tech{sic}] to be a genre on its own due to the immense undiscovered possibilities of sound. We believe that audio games have the potentional [\tech{sic}] to be a complete gaming genre on its own."} \cite{Audiogames}    
+\end{quote}
+
+
+
+
+The authors of \cite{friberg2004audio} analyzed the trend of audio games, proposing a semiotic model of sound in games that considered gaming through the \tech{casual, semantic,} and \tech{reduced} listening modes. They also make inroads at merging theory with practice by demonstrating the \tech{TiM} (\tech{T}actile \tech{I}nteractive \tech{Multimedia}) project, a development of the Stockholm International Toy Research Center. The TiM project evaluated the efficacy and possibilities of audio games through three self-made titles: \emph{Mudsplat}, \emph{X-tune}, and \emph{Tim's Journey}. Through their work, they demonstrate 'functional' design solutions that prove even visually impaired children are capable of handling complex control interfaces. Moreover, the authors proceed to argue that 'sound-based games' do not have to be developed only for players with visual impairments. 
+
+
+The authors of \cite{urbanek2019unpacking} ventured to gain an 'in-depth understanding of the audio game experience.' They also surveyed tools for creating audio games---finding a dearth of information. They go as far as stating that they could find "(almost) no documentation or reflection of the processes that [other] researchers engaged in when designing their games"---highlighting a need for more audio game development tools.
+
+Despite this, some have managed bespoke development of audio games. The first noteworthy example is Japanese game director Kenji Eno's \emph{Real Sound: Kaze No Regret}\footnote{Originally released exclusively in Japan for the Sega Saturn in 1997. The game has since been re-released in audio drama format.}, which is (to this author's knowledge) the only audio game ever brought to mass-market. According to Eno, the game was inspired by letters he had received from blind fans following the success of his 1995 horror game \emph{D}---which featured a slow paced, atmospheric, and puzzle-oriented design attracted blind players by chance \cite{Torres_2005}. The game was a modest success, being re-released on the Dreamcast in 1999.
+
+While \emph{Real Sound} may be the only mass-market audio game, there have also been many other notable entires in the medium. The enduring popularly and open-source nature of id software's \emph{Doom} and \emph{Quake} series have naturally extended themselves to the audio game community as well. \emph{Shades of Doom} \cite{GMA_Games} and \emph{AudioQuake} \cite{atkinson2006making} are two such examples, which modify each game's source code to include audification features and other accessibility support. AudioQuake has since expanded into the \tech{AGRIP} project, including support for custom level designs via its 'level description language \cite{Atkinson2009}.'
+
+
+Others have sought ground-up re-creations of iconic titles---such as \emph{Mach 1 Car Racing}---a remake of Namco's arcade classic \emph{Pole Position} \cite{friberg2004audio}. There has also been a successful niche of audio rhythm games---such as \emph{Blind Hero} \cite{yuan2008blind}, \emph{Finger Dance} \cite{miller2007finger}, and even \emph{Metris} \cite{metris}, a musical version of \emph{Tetris}. The recent indie game \emph{Blind Drive} \cite{blinddrive}, was developed from the ground up as a commercial release and brought audio games to entirely new audience outside of research circles.
+
+\subsection{Games and Computer Vision}
+Recent years have also seen a growing interest in the intersection of games and computer vision. 
+
+One common application has actually been the usage of computer games to train computer vision models---as games are able to produce easily understandable and realistic data on-the-fly \cite{shafaei2016play} \cite{richter2016playing}. Others have considered ways to integrate computer vision into development processes---\cite{qiu2016unrealcv} merged openCV with the Unreal engine while \cite{paduraru2021automated} proposed methods of automating game testing through CV methods.
+
+There has been some overlap between computer vision, games, and accessibility (and serious games) research. The authors of \cite{chursin2021using} proposed an educational game making use of computer vision, while \cite{webgame} demonstrated an online game used in training a computer vision model that improves website accessibility.
+
+\subsection{Related Work}
+
+Lastly, we note a few research efforts bearing resemblance to our own work. \cite{erdelyi2019using} performed similar research by using computer vision techniques and a bespoke algorithm to achieve computer-automated gaming. \cite{vallejo2011applying} also produced a similar result to our own proposal---integrating audification tools (sans computer vision techniques) into a custom point-and-click adventure game engine. The very recent work of \cite{StreetFighter}, meanwhile, examines the implementation of audification techniques in the newly released hit fighting game \emph{Street Fighter 6}, which received new accessibility features around the time of writing. 
+
+\subsection{Conclusion}
+In this chapter, we reviewed theories and research relevant to our proposal. We began with an overview of computer vision research---namely in the areas of image processing and analysis---before moving onwards to AI and machine learning research. There, presented a brief summary of machine learning topics and considered an example using video games. We also made a brief stop to review the fields of object recognition and classification.  
+
+Afterwards, we switched disciplines and reviewed spatial audio theory---staring with concepts of sound localization before transitioning to discussions on spatial audio and 3D audio effects. 
+
+Finally, we turned our focus to games---beginning with a look at games accessibility research. We then mediated on audification research as it related to games---particularly through the lens of audio games. Then, we took a look at the intersection between computer vision and games research before finally making brief considerations of work similar to our \rs proposal.
+
+Although this chapter forms an adequate summary of relevant topics, we will continue to introduce and review theory as needed in the following chapters as well. We now move to a detailed proposal and exploration of the \rs system.
+
 
 %%% PROPOSAL
 
@@ -1263,13 +1318,22 @@ In the following chapter, we provide some sample implementations of \rs to furth
 
 %%% IMPLEMENTATION
 
-\chapter{Sample Implementation}
+\chapter{Sample Implementation of \rs}
+
+In this chapter we present a sample implementation of \rs using common off-the-shelf programming tools. We present a worked example of a \rs implementation using \emph{Pong} as our target game.
+
+We begin first by discussing implementation specifics before outlining considerations in choosing a target game. We then discuss our design plan for \emph{Pong}, followed by a detailed examination of the code specifics of our implementation. 
+
+We explore experimental results of this prototype in the following chapter.
+
 \section{Languages, Tools, and Frameworks}
+
     \subsection{Python}
     \subsection{OpenCV}
     \subsection{Qt}
 \section{Choosing a Target Game}
 \section{Pong: A Worked Demonstration}
+\section{Examining our Implementation}
 
 %%% EXPERIMENTS
 

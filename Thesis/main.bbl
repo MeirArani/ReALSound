@@ -60,6 +60,120 @@
       \verb https://books.google.co.jp/books?id=MXZQAwAAQBAJ
       \endverb
     \endentry
+    \entry{agrimi2024game}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=7f622714bdfb690228ecf44c9a65d893}{%
+           family={Agrimi},
+           familyi={A\bibinitperiod},
+           given={Emanuele},
+           giveni={E\bibinitperiod}}}%
+        {{hash=9217d2dbd7c490bd5b65532261b4b399}{%
+           family={Battaglini},
+           familyi={B\bibinitperiod},
+           given={Chiara},
+           giveni={C\bibinitperiod}}}%
+        {{hash=076171e6b678a08a6c9826c24bf20eeb}{%
+           family={Bottari},
+           familyi={B\bibinitperiod},
+           given={Davide},
+           giveni={D\bibinitperiod}}}%
+        {{hash=5792ebb0dc42bb2278cc2aca8a4c3486}{%
+           family={Gnecco},
+           familyi={G\bibinitperiod},
+           given={Giorgio},
+           giveni={G\bibinitperiod}}}%
+        {{hash=18753ad407d8e6fe031e694fd23dde82}{%
+           family={Leporini},
+           familyi={L\bibinitperiod},
+           given={Barbara},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{f40f2222b2b95b3d9759cd50ef4c7ea6}
+      \strng{fullhash}{05c4c7116ce49a896bc5341e81641ed4}
+      \strng{fullhashraw}{05c4c7116ce49a896bc5341e81641ed4}
+      \strng{bibnamehash}{f40f2222b2b95b3d9759cd50ef4c7ea6}
+      \strng{authorbibnamehash}{f40f2222b2b95b3d9759cd50ef4c7ea6}
+      \strng{authornamehash}{f40f2222b2b95b3d9759cd50ef4c7ea6}
+      \strng{authorfullhash}{05c4c7116ce49a896bc5341e81641ed4}
+      \strng{authorfullhashraw}{05c4c7116ce49a896bc5341e81641ed4}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Soft Computing}
+      \field{title}{Game accessibility for visually impaired people: a review}
+      \field{year}{2024}
+      \field{pages}{1\bibrangedash 15}
+      \range{pages}{15}
+    \endentry
+    \entry{webgame}{inproceedings}{}{}
+      \name{author}{5}{}{%
+        {{hash=54d84914a1a27ba9f8106286e989ecf7}{%
+           family={Ahn},
+           familyi={A\bibinitperiod},
+           given={Luis},
+           giveni={L\bibinitperiod},
+           prefix={von},
+           prefixi={v\bibinitperiod}}}%
+        {{hash=359db98ea9b0bf16c6522b4cf982e539}{%
+           family={Ginosar},
+           familyi={G\bibinitperiod},
+           given={Shiry},
+           giveni={S\bibinitperiod}}}%
+        {{hash=c7f96ff7713102f315280a97329535a6}{%
+           family={Kedia},
+           familyi={K\bibinitperiod},
+           given={Mihir},
+           giveni={M\bibinitperiod}}}%
+        {{hash=55c1f43d2112d51c73f38dc41cc05f67}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Ruoran},
+           giveni={R\bibinitperiod}}}%
+        {{hash=28c90cdf2ecdb66629343cb5855120e9}{%
+           family={Blum},
+           familyi={B\bibinitperiod},
+           given={Manuel},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Montréal, Québec, Canada}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{d3ec090964909a750c06812a8a3ecfa7}
+      \strng{fullhash}{78d6e50b1eb94559a1276d12abec79a6}
+      \strng{fullhashraw}{78d6e50b1eb94559a1276d12abec79a6}
+      \strng{bibnamehash}{d3ec090964909a750c06812a8a3ecfa7}
+      \strng{authorbibnamehash}{d3ec090964909a750c06812a8a3ecfa7}
+      \strng{authornamehash}{d3ec090964909a750c06812a8a3ecfa7}
+      \strng{authorfullhash}{78d6e50b1eb94559a1276d12abec79a6}
+      \strng{authorfullhashraw}{78d6e50b1eb94559a1276d12abec79a6}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{1595933727}
+      \field{series}{CHI '06}
+      \field{title}{Improving accessibility of the web with a computer game}
+      \field{year}{2006}
+      \field{pages}{79\bibrangedash 82}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1145/1124772.1124785
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/1124772.1124785
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/1124772.1124785
+      \endverb
+      \keyw{web-based games,distributed knowledge acquisition,accessibility}
+    \endentry
     \entry{Alexander_2024}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=68ecb5a3dad84f3a9bd3e633a0688d05}{%
@@ -96,6 +210,107 @@
       \verb{url}
       \verb https://www.xda-developers.com/how-web-apps-took-over-the-desktop/
       \endverb
+    \endentry
+    \entry{atkinson2006making}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{hash=b0af0ded93b937301e421a178b702c73}{%
+           family={Atkinson},
+           familyi={A\bibinitperiod},
+           given={Matthew\bibnamedelima T},
+           giveni={M\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=4cbdf02269d7fef664b52c1c094d02d0}{%
+           family={Gucukoglu},
+           familyi={G\bibinitperiod},
+           given={Sabahattin},
+           giveni={S\bibinitperiod}}}%
+        {{hash=94c96451369d2a65a1981cf063a676dc}{%
+           family={Machin},
+           familyi={M\bibinitperiod},
+           given={Colin\bibnamedelima HC},
+           giveni={C\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=4ff506485e2fc71b5ba9de7531579d3b}{%
+           family={Lawrence},
+           familyi={L\bibinitperiod},
+           given={Adrian\bibnamedelima E},
+           giveni={A\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \strng{namehash}{a76ddefe1f1e6cd5ad1912472d231c2e}
+      \strng{fullhash}{cfc16b9d2623bb7965b485f238841b1b}
+      \strng{fullhashraw}{cfc16b9d2623bb7965b485f238841b1b}
+      \strng{bibnamehash}{a76ddefe1f1e6cd5ad1912472d231c2e}
+      \strng{authorbibnamehash}{a76ddefe1f1e6cd5ad1912472d231c2e}
+      \strng{authornamehash}{a76ddefe1f1e6cd5ad1912472d231c2e}
+      \strng{authorfullhash}{cfc16b9d2623bb7965b485f238841b1b}
+      \strng{authorfullhashraw}{cfc16b9d2623bb7965b485f238841b1b}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 2006 ACM SIGGRAPH Symposium on Videogames}
+      \field{title}{Making the mainstream accessible: redefining the game}
+      \field{year}{2006}
+      \field{pages}{21\bibrangedash 28}
+      \range{pages}{8}
+    \endentry
+    \entry{Atkinson2009}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=b0af0ded93b937301e421a178b702c73}{%
+           family={Atkinson},
+           familyi={A\bibinitperiod},
+           given={Matthew\bibnamedelima T.},
+           giveni={M\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=f20c6d83623cc0c2b038eb2b8de7f058}{%
+           family={Machin},
+           familyi={M\bibinitperiod},
+           given={Colin},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{3093c5f98016cc66809dce6b76574489}
+      \strng{fullhash}{3093c5f98016cc66809dce6b76574489}
+      \strng{fullhashraw}{3093c5f98016cc66809dce6b76574489}
+      \strng{bibnamehash}{3093c5f98016cc66809dce6b76574489}
+      \strng{authorbibnamehash}{3093c5f98016cc66809dce6b76574489}
+      \strng{authornamehash}{3093c5f98016cc66809dce6b76574489}
+      \strng{authorfullhash}{3093c5f98016cc66809dce6b76574489}
+      \strng{authorfullhashraw}{3093c5f98016cc66809dce6b76574489}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{1}
+      \field{title}{{Proof-of-concept 3D level creation tool for blind gamers}}
+      \field{year}{2009}
+      \verb{urlraw}
+      \verb https://repository.lboro.ac.uk/articles/conference_contribution/Proof-of-concept_3D_level_creation_tool_for_blind_gamers/9405689
+      \endverb
+      \verb{url}
+      \verb https://repository.lboro.ac.uk/articles/conference_contribution/Proof-of-concept_3D_level_creation_tool_for_blind_gamers/9405689
+      \endverb
+    \endentry
+    \entry{Audiogames}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=75e0731b342308294cabb4513d495d56}{%
+           family={Audiogames.net},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Creative Heroe}%
+      }
+      \strng{namehash}{75e0731b342308294cabb4513d495d56}
+      \strng{fullhash}{75e0731b342308294cabb4513d495d56}
+      \strng{fullhashraw}{75e0731b342308294cabb4513d495d56}
+      \strng{bibnamehash}{75e0731b342308294cabb4513d495d56}
+      \strng{authorbibnamehash}{75e0731b342308294cabb4513d495d56}
+      \strng{authornamehash}{75e0731b342308294cabb4513d495d56}
+      \strng{authorfullhash}{75e0731b342308294cabb4513d495d56}
+      \strng{authorfullhashraw}{75e0731b342308294cabb4513d495d56}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Audiogames.net}
+      \field{title}{AudioGames | Frequently Asked Questions}
+      \field{year}{2022}
     \endentry
     \entry{netflix}{article}{}{}
       \name{author}{4}{}{%
@@ -381,6 +596,60 @@
       \field{title}{Theory of Finite Automata with an Introduction to Formal Languages}
       \field{year}{1989}
     \endentry
+    \entry{accessguidelines}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=3595ac6236c304ce1364e92dc4bca6d4}{%
+           family={Cavender},
+           familyi={C\bibinitperiod},
+           given={Anna},
+           giveni={A\bibinitperiod}}}%
+        {{hash=ea3f9fdb14471d253989bf3b2686d97c}{%
+           family={Trewin},
+           familyi={T\bibinitperiod},
+           given={Shari},
+           giveni={S\bibinitperiod}}}%
+        {{hash=7c8efe84dc2505651a7a8224ef81d203}{%
+           family={Hanson},
+           familyi={H\bibinitperiod},
+           given={Vicki},
+           giveni={V\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{545313fb87d663bb4c9c118b7d68f5fe}
+      \strng{fullhash}{545313fb87d663bb4c9c118b7d68f5fe}
+      \strng{fullhashraw}{545313fb87d663bb4c9c118b7d68f5fe}
+      \strng{bibnamehash}{545313fb87d663bb4c9c118b7d68f5fe}
+      \strng{authorbibnamehash}{545313fb87d663bb4c9c118b7d68f5fe}
+      \strng{authornamehash}{545313fb87d663bb4c9c118b7d68f5fe}
+      \strng{authorfullhash}{545313fb87d663bb4c9c118b7d68f5fe}
+      \strng{authorfullhashraw}{545313fb87d663bb4c9c118b7d68f5fe}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1558-2337}
+      \field{journaltitle}{SIGACCESS Access. Comput.}
+      \field{month}{9}
+      \field{number}{92}
+      \field{title}{General writing guidelines for technology and people with disabilities}
+      \field{year}{2008}
+      \field{pages}{17\bibrangedash 22}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1145/1452562.1452565
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/1452562.1452565
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/1452562.1452565
+      \endverb
+    \endentry
     \entry{Chomsky1956ThreeMF}{article}{}{}
       \name{author}{1}{}{%
         {{hash=28167c0b3800bc5cfb686676277005b0}{%
@@ -457,6 +726,42 @@
       \verb{url}
       \verb https://arxiv.org/abs/1904.09828
       \endverb
+    \endentry
+    \entry{chursin2021using}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=5c8b4156550849a8836561d5f271cfa2}{%
+           family={Chursin},
+           familyi={C\bibinitperiod},
+           given={G},
+           giveni={G\bibinitperiod}}}%
+        {{hash=a0aa7afbf6e3dbc7ab94170803d33ec3}{%
+           family={Semenov},
+           familyi={S\bibinitperiod},
+           given={M},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IOP Publishing}%
+      }
+      \strng{namehash}{1fa3d6c524b5e8963225801e7a53015c}
+      \strng{fullhash}{1fa3d6c524b5e8963225801e7a53015c}
+      \strng{fullhashraw}{1fa3d6c524b5e8963225801e7a53015c}
+      \strng{bibnamehash}{1fa3d6c524b5e8963225801e7a53015c}
+      \strng{authorbibnamehash}{1fa3d6c524b5e8963225801e7a53015c}
+      \strng{authornamehash}{1fa3d6c524b5e8963225801e7a53015c}
+      \strng{authorfullhash}{1fa3d6c524b5e8963225801e7a53015c}
+      \strng{authorfullhashraw}{1fa3d6c524b5e8963225801e7a53015c}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Journal of Physics: Conference Series}
+      \field{number}{1}
+      \field{title}{Using computer vision in the gameplay of educational computer games}
+      \field{volume}{1989}
+      \field{year}{2021}
+      \field{pages}{012011}
+      \range{pages}{1}
     \endentry
     \entry{Cobbett_2017}{misc}{}{}
       \name{author}{1}{}{%
@@ -923,6 +1228,29 @@
       \verb https://www.worldradiohistory.com/Archive-All-Music/Billboard/70s/1973/Billboard%201973-08-04.pdf
       \endverb
     \endentry
+    \entry{erdelyi2019using}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=aacdbfeec4efab7b5c07c93efd67dc23}{%
+           family={Erdelyi},
+           familyi={E\bibinitperiod},
+           given={Christopher},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{aacdbfeec4efab7b5c07c93efd67dc23}
+      \strng{fullhash}{aacdbfeec4efab7b5c07c93efd67dc23}
+      \strng{fullhashraw}{aacdbfeec4efab7b5c07c93efd67dc23}
+      \strng{bibnamehash}{aacdbfeec4efab7b5c07c93efd67dc23}
+      \strng{authorbibnamehash}{aacdbfeec4efab7b5c07c93efd67dc23}
+      \strng{authornamehash}{aacdbfeec4efab7b5c07c93efd67dc23}
+      \strng{authorfullhash}{aacdbfeec4efab7b5c07c93efd67dc23}
+      \strng{authorfullhashraw}{aacdbfeec4efab7b5c07c93efd67dc23}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Using Computer Vision Techniques to Play an Existing Video Game}
+      \field{year}{2019}
+    \endentry
     \entry{subpixel}{article}{}{}
       \name{author}{3}{}{%
         {{hash=998a001f16bb57c079c1d5afb1cb02c8}{%
@@ -1102,6 +1430,37 @@
       \verb https://tronche.com/gui/x/xlib/graphics/XGetImage.html
       \endverb
     \endentry
+    \entry{friberg2004audio}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=cbcda8cb25efe9eb4ffb39728ca9364d}{%
+           family={Friberg},
+           familyi={F\bibinitperiod},
+           given={Johnny},
+           giveni={J\bibinitperiod}}}%
+        {{hash=a05b757212e7ca593bbf09996dcef864}{%
+           family={Gärdenfors},
+           familyi={G\bibinitperiod},
+           given={Dan},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{0c1885d512518a2bd1bd8c6cd41107cc}
+      \strng{fullhash}{0c1885d512518a2bd1bd8c6cd41107cc}
+      \strng{fullhashraw}{0c1885d512518a2bd1bd8c6cd41107cc}
+      \strng{bibnamehash}{0c1885d512518a2bd1bd8c6cd41107cc}
+      \strng{authorbibnamehash}{0c1885d512518a2bd1bd8c6cd41107cc}
+      \strng{authornamehash}{0c1885d512518a2bd1bd8c6cd41107cc}
+      \strng{authorfullhash}{0c1885d512518a2bd1bd8c6cd41107cc}
+      \strng{authorfullhashraw}{0c1885d512518a2bd1bd8c6cd41107cc}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 2004 ACM SIGCHI International Conference on Advances in computer entertainment technology}
+      \field{title}{Audio games: new perspectives on game audio}
+      \field{year}{2004}
+      \field{pages}{148\bibrangedash 154}
+      \range{pages}{7}
+    \endentry
     \entry{imageprocessing}{article}{}{}
       \name{author}{2}{}{%
         {{hash=d50c9b6697c82cff878977c563287173}{%
@@ -1173,6 +1532,69 @@
       \verb https://www.cnet.com/science/ai-learns-how-to-play-super-mario-world-better-than-you-ever-will/
       \endverb
     \endentry
+    \entry{GMA_Games}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=23dc8e2fc0ae6d8c43262bbb5bdf624a}{%
+           family={Games},
+           familyi={G\bibinitperiod},
+           given={GMA},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {GMA Games}%
+      }
+      \strng{namehash}{23dc8e2fc0ae6d8c43262bbb5bdf624a}
+      \strng{fullhash}{23dc8e2fc0ae6d8c43262bbb5bdf624a}
+      \strng{fullhashraw}{23dc8e2fc0ae6d8c43262bbb5bdf624a}
+      \strng{bibnamehash}{23dc8e2fc0ae6d8c43262bbb5bdf624a}
+      \strng{authorbibnamehash}{23dc8e2fc0ae6d8c43262bbb5bdf624a}
+      \strng{authornamehash}{23dc8e2fc0ae6d8c43262bbb5bdf624a}
+      \strng{authorfullhash}{23dc8e2fc0ae6d8c43262bbb5bdf624a}
+      \strng{authorfullhashraw}{23dc8e2fc0ae6d8c43262bbb5bdf624a}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Shades of Doom}
+      \field{title}{Shades of Doom}
+      \verb{urlraw}
+      \verb https://www.gmagames.com/sod.shtml
+      \endverb
+      \verb{url}
+      \verb https://www.gmagames.com/sod.shtml
+      \endverb
+    \endentry
+    \entry{garber2013game}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=66d4c6e3e8b231213006e4981b1801da}{%
+           family={Garber},
+           familyi={G\bibinitperiod},
+           given={Lee},
+           giveni={L\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IEEE Computer Society}%
+      }
+      \strng{namehash}{66d4c6e3e8b231213006e4981b1801da}
+      \strng{fullhash}{66d4c6e3e8b231213006e4981b1801da}
+      \strng{fullhashraw}{66d4c6e3e8b231213006e4981b1801da}
+      \strng{bibnamehash}{66d4c6e3e8b231213006e4981b1801da}
+      \strng{authorbibnamehash}{66d4c6e3e8b231213006e4981b1801da}
+      \strng{authornamehash}{66d4c6e3e8b231213006e4981b1801da}
+      \strng{authorfullhash}{66d4c6e3e8b231213006e4981b1801da}
+      \strng{authorfullhashraw}{66d4c6e3e8b231213006e4981b1801da}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Computer}
+      \field{number}{06}
+      \field{title}{Game accessibility: enabling everyone to play}
+      \field{volume}{46}
+      \field{year}{2013}
+      \field{pages}{14\bibrangedash 18}
+      \range{pages}{5}
+    \endentry
     \entry{Gershgorn_2017}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=6581eac9882c56b0b9f06d1c99b2fb2a}{%
@@ -1235,6 +1657,40 @@
       \field{labeltitlesource}{title}
       \field{title}{Game engine architecture}
       \field{year}{2018}
+    \endentry
+    \entry{Popcap_2008}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=45812f7d59e89652298ccc4725d7b42c}{%
+           family={Group},
+           familyi={G\bibinitperiod},
+           given={Information\bibnamedelima Solutions},
+           giveni={I\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cision}%
+      }
+      \strng{namehash}{45812f7d59e89652298ccc4725d7b42c}
+      \strng{fullhash}{45812f7d59e89652298ccc4725d7b42c}
+      \strng{fullhashraw}{45812f7d59e89652298ccc4725d7b42c}
+      \strng{bibnamehash}{45812f7d59e89652298ccc4725d7b42c}
+      \strng{authorbibnamehash}{45812f7d59e89652298ccc4725d7b42c}
+      \strng{authornamehash}{45812f7d59e89652298ccc4725d7b42c}
+      \strng{authorfullhash}{45812f7d59e89652298ccc4725d7b42c}
+      \strng{authorfullhashraw}{45812f7d59e89652298ccc4725d7b42c}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{PRNewsWire}
+      \field{month}{6}
+      \field{title}{Survey: ’Disabled Gamers’ Comprise 20\% of Casual Video Games Audience}
+      \field{year}{2008}
+      \verb{urlraw}
+      \verb https://web.archive.org/web/20170615144453/http://www.prnewswire.com/news-releases/survey-disabled-gamers-comprise-20-of-casual-video-games-audience-57442172.html
+      \endverb
+      \verb{url}
+      \verb https://web.archive.org/web/20170615144453/http://www.prnewswire.com/news-releases/survey-disabled-gamers-comprise-20-of-casual-video-games-audience-57442172.html
+      \endverb
     \endentry
     \entry{AIWinter}{article}{}{}
       \name{author}{2}{}{%
@@ -1343,6 +1799,65 @@
       \field{year}{1987}
       \field{pages}{28\bibrangedash 55}
       \range{pages}{28}
+    \endentry
+    \entry{metris}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=720e5c3cba519f9d35e8b87a09e262bf}{%
+           family={Havryliv},
+           familyi={H\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod}}}%
+        {{hash=7a277a9444f473263ba1884859f1bec2}{%
+           family={Narushima},
+           familyi={N\bibinitperiod},
+           given={Terumi},
+           giveni={T\bibinitperiod}}}%
+      }
+      \name{editor}{3}{}{%
+        {{hash=84fb375db3d89a93682a80640da41e8c}{%
+           family={Kronland-Martinet},
+           familyi={K\bibinithyphendelim M\bibinitperiod},
+           given={Richard},
+           giveni={R\bibinitperiod}}}%
+        {{hash=eb96855fba8ea3d868e888f973fc8e80}{%
+           family={Voinier},
+           familyi={V\bibinitperiod},
+           given={Thierry},
+           giveni={T\bibinitperiod}}}%
+        {{hash=f0c2757ecd063804cda9f236a7bbf774}{%
+           family={Ystad},
+           familyi={Y\bibinitperiod},
+           given={S{ø}lvi},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{0e24e51c7eb5a301429a70376fa4f951}
+      \strng{fullhash}{0e24e51c7eb5a301429a70376fa4f951}
+      \strng{fullhashraw}{0e24e51c7eb5a301429a70376fa4f951}
+      \strng{bibnamehash}{0e24e51c7eb5a301429a70376fa4f951}
+      \strng{authorbibnamehash}{0e24e51c7eb5a301429a70376fa4f951}
+      \strng{authornamehash}{0e24e51c7eb5a301429a70376fa4f951}
+      \strng{authorfullhash}{0e24e51c7eb5a301429a70376fa4f951}
+      \strng{authorfullhashraw}{0e24e51c7eb5a301429a70376fa4f951}
+      \strng{editorbibnamehash}{a6fb67a0a604f8e5f148a4e353827bcd}
+      \strng{editornamehash}{a6fb67a0a604f8e5f148a4e353827bcd}
+      \strng{editorfullhash}{a6fb67a0a604f8e5f148a4e353827bcd}
+      \strng{editorfullhashraw}{a6fb67a0a604f8e5f148a4e353827bcd}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Computer Music Modeling and Retrieval}
+      \field{isbn}{978-3-540-34028-7}
+      \field{title}{Metris: A Game Environment for Music Performance}
+      \field{year}{2006}
+      \field{pages}{101\bibrangedash 109}
+      \range{pages}{9}
     \endentry
     \entry{Heikkilä_2022}{misc}{}{}
       \name{author}{1}{}{%
@@ -2107,6 +2622,58 @@
       \verb https://finance.yahoo.com/news/ai-researcher-helped-write-landmark-030025546.html
       \endverb
     \endentry
+    \entry{AudioArchery}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=9caf4000af9c87dff024b0a885bf043b}{%
+           family={Luo},
+           familyi={L\bibinitperiod},
+           given={Shan},
+           giveni={S\bibinitperiod}}}%
+        {{hash=813e475df24da6320f3a1ac7f3d52e93}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Jianan\bibnamedelima Johanna},
+           giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=b06dfd0a531b63a281bbeb234e696840}{%
+           family={Hu},
+           familyi={H\bibinitperiod},
+           given={Botao\bibnamedelima Amber},
+           giveni={B\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {St. John's, NL, Canada}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{f1f0bb8c45801036fd4e3835ae1baf2c}
+      \strng{fullhash}{f1f0bb8c45801036fd4e3835ae1baf2c}
+      \strng{fullhashraw}{f1f0bb8c45801036fd4e3835ae1baf2c}
+      \strng{bibnamehash}{f1f0bb8c45801036fd4e3835ae1baf2c}
+      \strng{authorbibnamehash}{f1f0bb8c45801036fd4e3835ae1baf2c}
+      \strng{authornamehash}{f1f0bb8c45801036fd4e3835ae1baf2c}
+      \strng{authorfullhash}{f1f0bb8c45801036fd4e3835ae1baf2c}
+      \strng{authorfullhashraw}{f1f0bb8c45801036fd4e3835ae1baf2c}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 26th International ACM SIGACCESS Conference on Computers and Accessibility}
+      \field{isbn}{9798400706776}
+      \field{series}{ASSETS '24}
+      \field{title}{Designing a Safe Auditory-Cued Archery Exertion Game for the Visually Impaired and Sighted to Enjoy Together}
+      \field{year}{2024}
+      \verb{doi}
+      \verb 10.1145/3663548.3688510
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/3663548.3688510
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/3663548.3688510
+      \endverb
+      \keyw{Accessibility,Auditory feedback,Exergames,Visually Impaired}
+    \endentry
     \entry{mahesh2020machine}{article}{}{}
       \name{author}{1}{}{%
         {{hash=88192550e0159ac348930d7729ba63aa}{%
@@ -2354,6 +2921,105 @@
       \verb{url}
       \verb https://www.tensorflow.org/
       \endverb
+    \endentry
+    \entry{StreetFighter}{inproceedings}{}{}
+      \name{author}{10}{}{%
+        {{hash=0885622a21c9fa85aa35d1bbac387a7c}{%
+           family={Matsuo},
+           familyi={M\bibinitperiod},
+           given={Masaki},
+           giveni={M\bibinitperiod}}}%
+        {{hash=a18caf1d5e7c4dc0983ad1126d01bf50}{%
+           family={Kitamura},
+           familyi={K\bibinitperiod},
+           given={Naoya},
+           giveni={N\bibinitperiod}}}%
+        {{hash=336f71ff25c7ba08c7c81b892937eb09}{%
+           family={Egashira},
+           familyi={E\bibinitperiod},
+           given={Misato},
+           giveni={M\bibinitperiod}}}%
+        {{hash=871a897efcc03e94db5a6b5014e6be99}{%
+           family={Hosogai},
+           familyi={H\bibinitperiod},
+           given={Teruo},
+           giveni={T\bibinitperiod}}}%
+        {{hash=e7145ca16c6597014be3699adc942096}{%
+           family={Hatakeyama},
+           familyi={H\bibinitperiod},
+           given={Shunya},
+           giveni={S\bibinitperiod}}}%
+        {{hash=927d3dc11d9ddb7b91969010fae84b77}{%
+           family={Kato},
+           familyi={K\bibinitperiod},
+           given={Daiki},
+           giveni={D\bibinitperiod}}}%
+        {{hash=9f4482cf1e8f8066eb84d2f0b566ae79}{%
+           family={Hayakawa},
+           familyi={H\bibinitperiod},
+           given={Ko},
+           giveni={K\bibinitperiod}}}%
+        {{hash=95521f2862e83deaa8a38fa8d1d0a71e}{%
+           family={Onishi},
+           familyi={O\bibinitperiod},
+           given={Junji},
+           giveni={J\bibinitperiod}}}%
+        {{hash=df05d61101762ce5c6f92847c4864b4a}{%
+           family={Sakajiri},
+           familyi={S\bibinitperiod},
+           given={Masatsugu},
+           giveni={M\bibinitperiod}}}%
+        {{hash=4525417e0c8fd21de29bac0f60d3b566}{%
+           family={Miura},
+           familyi={M\bibinitperiod},
+           given={Takahiro},
+           giveni={T\bibinitperiod}}}%
+      }
+      \name{editor}{3}{}{%
+        {{hash=1826e3849b5433de19756f93f76b9d80}{%
+           family={Miesenberger},
+           familyi={M\bibinitperiod},
+           given={Klaus},
+           giveni={K\bibinitperiod}}}%
+        {{hash=3f5211ca92e08d62dcecfbd3c19f9211}{%
+           family={Peňáz},
+           familyi={P\bibinitperiod},
+           given={Petr},
+           giveni={P\bibinitperiod}}}%
+        {{hash=1d18c7040021fd59e144a3f51f75838b}{%
+           family={Kobayashi},
+           familyi={K\bibinitperiod},
+           given={Makoto},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cham}%
+      }
+      \list{publisher}{1}{%
+        {Springer Nature Switzerland}%
+      }
+      \strng{namehash}{77be82b0753f989fdc18baccb3ce389b}
+      \strng{fullhash}{5723eb86d06d21bdde80fba15e8acd09}
+      \strng{fullhashraw}{5723eb86d06d21bdde80fba15e8acd09}
+      \strng{bibnamehash}{77be82b0753f989fdc18baccb3ce389b}
+      \strng{authorbibnamehash}{77be82b0753f989fdc18baccb3ce389b}
+      \strng{authornamehash}{77be82b0753f989fdc18baccb3ce389b}
+      \strng{authorfullhash}{5723eb86d06d21bdde80fba15e8acd09}
+      \strng{authorfullhashraw}{5723eb86d06d21bdde80fba15e8acd09}
+      \strng{editorbibnamehash}{da3154fa646ec871e40d975ecda81f30}
+      \strng{editornamehash}{da3154fa646ec871e40d975ecda81f30}
+      \strng{editorfullhash}{da3154fa646ec871e40d975ecda81f30}
+      \strng{editorfullhashraw}{da3154fa646ec871e40d975ecda81f30}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Computers Helping People with Special Needs}
+      \field{isbn}{978-3-031-62846-7}
+      \field{title}{Inclusive Fighting with Mind's Eye: Case Study of a Fighting Game Playing with only Auditory Cues for Sighted and Blind Gamers}
+      \field{year}{2024}
+      \field{pages}{137\bibrangedash 145}
+      \range{pages}{9}
     \endentry
     \entry{maver2009self}{article}{}{}
       \name{author}{1}{}{%
@@ -2729,6 +3395,91 @@
       \field{pages}{99\bibrangedash 116}
       \range{pages}{18}
     \endentry
+    \entry{miesenberger2008more}{inproceedings}{}{}
+      \name{author}{5}{}{%
+        {{hash=1826e3849b5433de19756f93f76b9d80}{%
+           family={Miesenberger},
+           familyi={M\bibinitperiod},
+           given={Klaus},
+           giveni={K\bibinitperiod}}}%
+        {{hash=b9a03f5a75c7eaea98c5a3f7ba199ff4}{%
+           family={Ossmann},
+           familyi={O\bibinitperiod},
+           given={Roland},
+           giveni={R\bibinitperiod}}}%
+        {{hash=892fcc1caa4db2e8807781a8a9e3ccdd}{%
+           family={Archambault},
+           familyi={A\bibinitperiod},
+           given={Dominique},
+           giveni={D\bibinitperiod}}}%
+        {{hash=bfc2d709eb91c0845454932a1befe11b}{%
+           family={Searle},
+           familyi={S\bibinitperiod},
+           given={Gig},
+           giveni={G\bibinitperiod}}}%
+        {{hash=3f4842b3f24d20f809775dbf780810ab}{%
+           family={Holzinger},
+           familyi={H\bibinitperiod},
+           given={Andreas},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{2d688aa7485a854115fb5151e08ad67f}
+      \strng{fullhash}{780841a5f5488a13721520a717f3cbe9}
+      \strng{fullhashraw}{780841a5f5488a13721520a717f3cbe9}
+      \strng{bibnamehash}{2d688aa7485a854115fb5151e08ad67f}
+      \strng{authorbibnamehash}{2d688aa7485a854115fb5151e08ad67f}
+      \strng{authornamehash}{2d688aa7485a854115fb5151e08ad67f}
+      \strng{authorfullhash}{780841a5f5488a13721520a717f3cbe9}
+      \strng{authorfullhashraw}{780841a5f5488a13721520a717f3cbe9}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{HCI and Usability for Education and Work: 4th Symposium of the Workgroup Human-Computer Interaction and Usability Engineering of the Austrian Computer Society, USAB 2008, Graz, Austria, November 20-21, 2008. Proceedings 4}
+      \field{title}{More than just a game: accessibility in computer games}
+      \field{year}{2008}
+      \field{pages}{247\bibrangedash 260}
+      \range{pages}{14}
+    \endentry
+    \entry{miller2007finger}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=8350c644f429801520f6eca87614b150}{%
+           family={Miller},
+           familyi={M\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+        {{hash=a0d750ea4c4bd6e7beeb53741ae4b101}{%
+           family={Parecki},
+           familyi={P\bibinitperiod},
+           given={Aaron},
+           giveni={A\bibinitperiod}}}%
+        {{hash=5c642ae8339f5d0707a365863927381a}{%
+           family={Douglas},
+           familyi={D\bibinitperiod},
+           given={Sarah\bibnamedelima A},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{53827c73886f1ed13d78ce3929f5615a}
+      \strng{fullhash}{53827c73886f1ed13d78ce3929f5615a}
+      \strng{fullhashraw}{53827c73886f1ed13d78ce3929f5615a}
+      \strng{bibnamehash}{53827c73886f1ed13d78ce3929f5615a}
+      \strng{authorbibnamehash}{53827c73886f1ed13d78ce3929f5615a}
+      \strng{authornamehash}{53827c73886f1ed13d78ce3929f5615a}
+      \strng{authorfullhash}{53827c73886f1ed13d78ce3929f5615a}
+      \strng{authorfullhashraw}{53827c73886f1ed13d78ce3929f5615a}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 9th International ACM SIGACCESS Conference on Computers and Accessibility}
+      \field{title}{Finger dance: a sound game for blind people}
+      \field{year}{2007}
+      \field{pages}{253\bibrangedash 254}
+      \range{pages}{2}
+    \endentry
     \entry{MILLER2003141}{article}{}{}
       \name{author}{1}{}{%
         {{hash=52cf88006a41a8cd9aab3bcb5e428b80}{%
@@ -2939,6 +3690,36 @@
       \verb https://books.google.com/books/about/Atari_Age.html?hl=&id=Y20ODgAAQBAJ
       \endverb
     \endentry
+    \entry{nudo2006plasticity}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=717beea5071e23a36ecd3bc7590ceb31}{%
+           family={Nudo},
+           familyi={N\bibinitperiod},
+           given={Randolph\bibnamedelima J},
+           giveni={R\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{717beea5071e23a36ecd3bc7590ceb31}
+      \strng{fullhash}{717beea5071e23a36ecd3bc7590ceb31}
+      \strng{fullhashraw}{717beea5071e23a36ecd3bc7590ceb31}
+      \strng{bibnamehash}{717beea5071e23a36ecd3bc7590ceb31}
+      \strng{authorbibnamehash}{717beea5071e23a36ecd3bc7590ceb31}
+      \strng{authornamehash}{717beea5071e23a36ecd3bc7590ceb31}
+      \strng{authorfullhash}{717beea5071e23a36ecd3bc7590ceb31}
+      \strng{authorfullhashraw}{717beea5071e23a36ecd3bc7590ceb31}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{NeuroRx}
+      \field{title}{Plasticity}
+      \field{volume}{3}
+      \field{year}{2006}
+      \field{pages}{420\bibrangedash 427}
+      \range{pages}{8}
+    \endentry
     \entry{omg2011umls}{standard}{}{}
       \name{author}{1}{}{%
         {{hash=5af83e3196bf99f440f31f2e1a6c9afe}{%
@@ -2977,6 +3758,78 @@
       \endverb
       \keyw{omg standard uml}
     \endentry
+    \entry{world1980international}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=8179b1fdebe9235e54501d2878c47e1b}{%
+           family={Organization},
+           familyi={O\bibinitperiod},
+           given={World\bibnamedelima Health},
+           giveni={W\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {World Health Organization}%
+      }
+      \strng{namehash}{8179b1fdebe9235e54501d2878c47e1b}
+      \strng{fullhash}{8179b1fdebe9235e54501d2878c47e1b}
+      \strng{fullhashraw}{8179b1fdebe9235e54501d2878c47e1b}
+      \strng{bibnamehash}{8179b1fdebe9235e54501d2878c47e1b}
+      \strng{authorbibnamehash}{8179b1fdebe9235e54501d2878c47e1b}
+      \strng{authornamehash}{8179b1fdebe9235e54501d2878c47e1b}
+      \strng{authorfullhash}{8179b1fdebe9235e54501d2878c47e1b}
+      \strng{authorfullhashraw}{8179b1fdebe9235e54501d2878c47e1b}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9789241541268}
+      \field{title}{International Classification of Impairments, Disabilities, and Handicaps: A Manual of Classification Relating to the Consequences of Disease}
+      \field{year}{1980}
+      \verb{urlraw}
+      \verb https://books.google.co.jp/books?id=QFNrAAAAMAAJ
+      \endverb
+      \verb{url}
+      \verb https://books.google.co.jp/books?id=QFNrAAAAMAAJ
+      \endverb
+    \endentry
+    \entry{paduraru2021automated}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=3a0f8bb1b53382f102d2ac211994000f}{%
+           family={Paduraru},
+           familyi={P\bibinitperiod},
+           given={Ciprian},
+           giveni={C\bibinitperiod}}}%
+        {{hash=bc930238e1e096e6765b23fb5fb1cb4a}{%
+           family={Paduraru},
+           familyi={P\bibinitperiod},
+           given={Miruna},
+           giveni={M\bibinitperiod}}}%
+        {{hash=21a0a7984e7fc1a70fec5ea748003a72}{%
+           family={Stefanescu},
+           familyi={S\bibinitperiod},
+           given={Alin},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{2f7b13f1056764722b98361a35ab8f69}
+      \strng{fullhash}{2f7b13f1056764722b98361a35ab8f69}
+      \strng{fullhashraw}{2f7b13f1056764722b98361a35ab8f69}
+      \strng{bibnamehash}{2f7b13f1056764722b98361a35ab8f69}
+      \strng{authorbibnamehash}{2f7b13f1056764722b98361a35ab8f69}
+      \strng{authornamehash}{2f7b13f1056764722b98361a35ab8f69}
+      \strng{authorfullhash}{2f7b13f1056764722b98361a35ab8f69}
+      \strng{authorfullhashraw}{2f7b13f1056764722b98361a35ab8f69}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2021 36th IEEE/ACM International Conference on Automated Software Engineering Workshops (ASEW)}
+      \field{title}{Automated game testing using computer vision methods}
+      \field{year}{2021}
+      \field{pages}{65\bibrangedash 72}
+      \range{pages}{8}
+    \endentry
     \entry{Paquin_2010}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=565e152a9316f17eba39bbc00b992021}{%
@@ -3006,6 +3859,38 @@
       \endverb
       \verb{url}
       \verb https://web.archive.org/web/20100817065302/http://www.officeformac.com/ms/blogs/blog1/I-know-I-ve-spelled-this-right
+      \endverb
+    \endentry
+    \entry{blinddrive}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=6813a37123dd46fb7799a33d69500aa5}{%
+           family={People},
+           familyi={P\bibinitperiod},
+           given={Lo-Fi},
+           giveni={L\bibinithyphendelim F\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Lo-Fi People}%
+      }
+      \strng{namehash}{6813a37123dd46fb7799a33d69500aa5}
+      \strng{fullhash}{6813a37123dd46fb7799a33d69500aa5}
+      \strng{fullhashraw}{6813a37123dd46fb7799a33d69500aa5}
+      \strng{bibnamehash}{6813a37123dd46fb7799a33d69500aa5}
+      \strng{authorbibnamehash}{6813a37123dd46fb7799a33d69500aa5}
+      \strng{authornamehash}{6813a37123dd46fb7799a33d69500aa5}
+      \strng{authorfullhash}{6813a37123dd46fb7799a33d69500aa5}
+      \strng{authorfullhashraw}{6813a37123dd46fb7799a33d69500aa5}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Blind Drive | Press}
+      \field{title}{Blind Drive}
+      \verb{urlraw}
+      \verb https://blinddrivegame.com/press/
+      \endverb
+      \verb{url}
+      \verb https://blinddrivegame.com/press/
       \endverb
     \endentry
     \entry{petrou2010image}{book}{}{}
@@ -3088,6 +3973,91 @@
       \verb https://doi.org/10.1007/978-3-031-23046-2_4
       \endverb
     \endentry
+    \entry{porter2013empirical}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=bea7a2c1d2fd2e48e53cd88462e29632}{%
+           family={Porter},
+           familyi={P\bibinitperiod},
+           given={John\bibnamedelima R},
+           giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=b3e018836e042dfd04089ce0237efd3d}{%
+           family={Kientz},
+           familyi={K\bibinitperiod},
+           given={Julie\bibnamedelima A},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{648789176101d03a36b84bb5fc1b0437}
+      \strng{fullhash}{648789176101d03a36b84bb5fc1b0437}
+      \strng{fullhashraw}{648789176101d03a36b84bb5fc1b0437}
+      \strng{bibnamehash}{648789176101d03a36b84bb5fc1b0437}
+      \strng{authorbibnamehash}{648789176101d03a36b84bb5fc1b0437}
+      \strng{authornamehash}{648789176101d03a36b84bb5fc1b0437}
+      \strng{authorfullhash}{648789176101d03a36b84bb5fc1b0437}
+      \strng{authorfullhashraw}{648789176101d03a36b84bb5fc1b0437}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 15th international ACM SIGACCESS conference on computers and accessibility}
+      \field{title}{An empirical study of issues and barriers to mainstream video game accessibility}
+      \field{year}{2013}
+      \field{pages}{1\bibrangedash 8}
+      \range{pages}{8}
+    \endentry
+    \entry{prazaru2020overview}{inproceedings}{}{}
+      \name{author}{6}{}{%
+        {{hash=967a7bb532dee70435bc1820fa696e5b}{%
+           family={Prazaru},
+           familyi={P\bibinitperiod},
+           given={A},
+           giveni={A\bibinitperiod}}}%
+        {{hash=9feeb44a87f81ac76abf746249451ea3}{%
+           family={Balan},
+           familyi={B\bibinitperiod},
+           given={O},
+           giveni={O\bibinitperiod}}}%
+        {{hash=f64df26ce4739c69609269b4ea11f52d}{%
+           family={Moldoveanu},
+           familyi={M\bibinitperiod},
+           given={A},
+           giveni={A\bibinitperiod}}}%
+        {{hash=664c400abdfb1a5a6eb3c96b2395ad58}{%
+           family={Moldoveanu},
+           familyi={M\bibinitperiod},
+           given={F},
+           giveni={F\bibinitperiod}}}%
+        {{hash=06bc6bd4b033892c19e45d9604b39caf}{%
+           family={Morar},
+           familyi={M\bibinitperiod},
+           given={A},
+           giveni={A\bibinitperiod}}}%
+        {{hash=e5c5f745f80885c235aa03006aad2b19}{%
+           family={Ivascu},
+           familyi={I\bibinitperiod},
+           given={S},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IATED}%
+      }
+      \strng{namehash}{ae31588b24f2ceb02d7a6e1623cf7a0a}
+      \strng{fullhash}{e3ddade0251ec17ec66b7601f5950848}
+      \strng{fullhashraw}{e3ddade0251ec17ec66b7601f5950848}
+      \strng{bibnamehash}{ae31588b24f2ceb02d7a6e1623cf7a0a}
+      \strng{authorbibnamehash}{ae31588b24f2ceb02d7a6e1623cf7a0a}
+      \strng{authornamehash}{ae31588b24f2ceb02d7a6e1623cf7a0a}
+      \strng{authorfullhash}{e3ddade0251ec17ec66b7601f5950848}
+      \strng{authorfullhashraw}{e3ddade0251ec17ec66b7601f5950848}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{EDULEARN20 Proceedings}
+      \field{title}{Overview on visually impaired gamers and game accessibility}
+      \field{year}{2020}
+      \field{pages}{5491\bibrangedash 5501}
+      \range{pages}{11}
+    \endentry
     \entry{chrome}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=ebaecc6ed2acff7108c70cdd773a8524}{%
@@ -3120,6 +4090,40 @@
       \verb{url}
       \verb https://www.chromium.org/chromium-os/chromiumos-design-docs/chromium-os-kernel/
       \endverb
+    \endentry
+    \entry{qiu2016unrealcv}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=6dabe12412f87ffed5e9e5803cac2476}{%
+           family={Qiu},
+           familyi={Q\bibinitperiod},
+           given={Weichao},
+           giveni={W\bibinitperiod}}}%
+        {{hash=53a8d2ea6010d6c2a2c8a7c283548c6e}{%
+           family={Yuille},
+           familyi={Y\bibinitperiod},
+           given={Alan},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{c697cd58804e2f51c662ac060aca0f4a}
+      \strng{fullhash}{c697cd58804e2f51c662ac060aca0f4a}
+      \strng{fullhashraw}{c697cd58804e2f51c662ac060aca0f4a}
+      \strng{bibnamehash}{c697cd58804e2f51c662ac060aca0f4a}
+      \strng{authorbibnamehash}{c697cd58804e2f51c662ac060aca0f4a}
+      \strng{authornamehash}{c697cd58804e2f51c662ac060aca0f4a}
+      \strng{authorfullhash}{c697cd58804e2f51c662ac060aca0f4a}
+      \strng{authorfullhashraw}{c697cd58804e2f51c662ac060aca0f4a}
+      \field{sortinit}{Q}
+      \field{sortinithash}{ce69a400a872ddd02ee7fdb3b38c6abd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Computer Vision--ECCV 2016 Workshops: Amsterdam, The Netherlands, October 8-10 and 15-16, 2016, Proceedings, Part III 14}
+      \field{title}{Unrealcv: Connecting computer vision to unreal engine}
+      \field{year}{2016}
+      \field{pages}{909\bibrangedash 916}
+      \range{pages}{8}
     \endentry
     \entry{NDFSA}{article}{}{}
       \name{author}{2}{}{%
@@ -3214,6 +4218,82 @@
       \verb{url}
       \verb https://www.cbinsights.com/research/game-engines-growth-expert-intelligence/
       \endverb
+    \endentry
+    \entry{Richert}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=243ee91b39ffabb1b822edf28a4fe56b}{%
+           family={Richert},
+           familyi={R\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {The American Foundation for the Blind}%
+      }
+      \strng{namehash}{243ee91b39ffabb1b822edf28a4fe56b}
+      \strng{fullhash}{243ee91b39ffabb1b822edf28a4fe56b}
+      \strng{fullhashraw}{243ee91b39ffabb1b822edf28a4fe56b}
+      \strng{bibnamehash}{243ee91b39ffabb1b822edf28a4fe56b}
+      \strng{authorbibnamehash}{243ee91b39ffabb1b822edf28a4fe56b}
+      \strng{authornamehash}{243ee91b39ffabb1b822edf28a4fe56b}
+      \strng{authorfullhash}{243ee91b39ffabb1b822edf28a4fe56b}
+      \strng{authorfullhashraw}{243ee91b39ffabb1b822edf28a4fe56b}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The American Foundation for the Blind}
+      \field{title}{FCC Pushes Back on Gaming Industry Accessibility Waiver Request, Consumer Voices Tip the Scales}
+      \verb{urlraw}
+      \verb https://www.afb.org/aw/13/12/15859
+      \endverb
+      \verb{url}
+      \verb https://www.afb.org/aw/13/12/15859
+      \endverb
+    \endentry
+    \entry{richter2016playing}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{hash=132cc1bc90af33fd4c9cbf6c7f6ca36a}{%
+           family={Richter},
+           familyi={R\bibinitperiod},
+           given={Stephan\bibnamedelima R},
+           giveni={S\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=919bdbb82e6940f3a8a29ffaa5b4c177}{%
+           family={Vineet},
+           familyi={V\bibinitperiod},
+           given={Vibhav},
+           giveni={V\bibinitperiod}}}%
+        {{hash=507b5db9b42e37f1dc7fd50bac7cd869}{%
+           family={Roth},
+           familyi={R\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+        {{hash=9025300f43a193cfed8e10e924f2a117}{%
+           family={Koltun},
+           familyi={K\bibinitperiod},
+           given={Vladlen},
+           giveni={V\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{2d1a65fb2a8b9597108e7475d7cb40d9}
+      \strng{fullhash}{2dc91f38073d1b231b9df3ca0206b710}
+      \strng{fullhashraw}{2dc91f38073d1b231b9df3ca0206b710}
+      \strng{bibnamehash}{2d1a65fb2a8b9597108e7475d7cb40d9}
+      \strng{authorbibnamehash}{2d1a65fb2a8b9597108e7475d7cb40d9}
+      \strng{authornamehash}{2d1a65fb2a8b9597108e7475d7cb40d9}
+      \strng{authorfullhash}{2dc91f38073d1b231b9df3ca0206b710}
+      \strng{authorfullhashraw}{2dc91f38073d1b231b9df3ca0206b710}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Computer Vision--ECCV 2016: 14th European Conference, Amsterdam, The Netherlands, October 11-14, 2016, Proceedings, Part II 14}
+      \field{title}{Playing for data: Ground truth from computer games}
+      \field{year}{2016}
+      \field{pages}{102\bibrangedash 118}
+      \range{pages}{17}
     \endentry
     \entry{Roboflow_Supervision}{software}{}{}
       \name{author}{1}{}{%
@@ -3341,6 +4421,40 @@
       \verb 10.1109/JSTSP.2016.2639325
       \endverb
       \keyw{Three-dimensional displays;Loudspeakers;Quality assessment;Reliability;Taxonomy;Speech;Quality of service;Subjective assessment;3D audio;basic audio quality;overall listening experience}
+    \endentry
+    \entry{shafaei2016play}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=0995cb2aefae10cdfa66641d7a9922b8}{%
+           family={Shafaei},
+           familyi={S\bibinitperiod},
+           given={Alireza},
+           giveni={A\bibinitperiod}}}%
+        {{hash=16338b21a38c654c79c5bc6d227cb313}{%
+           family={Little},
+           familyi={L\bibinitperiod},
+           given={James\bibnamedelima J},
+           giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=6ec4971d3a33801f19547675e0e66e5e}{%
+           family={Schmidt},
+           familyi={S\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{907a9ad93d381ff0733427b1f2c64eac}
+      \strng{fullhash}{907a9ad93d381ff0733427b1f2c64eac}
+      \strng{fullhashraw}{907a9ad93d381ff0733427b1f2c64eac}
+      \strng{bibnamehash}{907a9ad93d381ff0733427b1f2c64eac}
+      \strng{authorbibnamehash}{907a9ad93d381ff0733427b1f2c64eac}
+      \strng{authornamehash}{907a9ad93d381ff0733427b1f2c64eac}
+      \strng{authorfullhash}{907a9ad93d381ff0733427b1f2c64eac}
+      \strng{authorfullhashraw}{907a9ad93d381ff0733427b1f2c64eac}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1608.01745}
+      \field{title}{Play and learn: Using video games to train computer vision models}
+      \field{year}{2016}
     \endentry
     \entry{Sinclair_2012}{misc}{}{}
       \name{author}{1}{}{%
@@ -3666,6 +4780,40 @@
       \verb https://commons.wikimedia.org/wiki/Image_segmentation#Example:_Aurora_Borealis
       \endverb
     \endentry
+    \entry{Torres_2005}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=a200252fab7db86c19f054802c6aaede}{%
+           family={Torres},
+           familyi={T\bibinitperiod},
+           given={Ricardo},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Fandom, Inc.}%
+      }
+      \strng{namehash}{a200252fab7db86c19f054802c6aaede}
+      \strng{fullhash}{a200252fab7db86c19f054802c6aaede}
+      \strng{fullhashraw}{a200252fab7db86c19f054802c6aaede}
+      \strng{bibnamehash}{a200252fab7db86c19f054802c6aaede}
+      \strng{authorbibnamehash}{a200252fab7db86c19f054802c6aaede}
+      \strng{authornamehash}{a200252fab7db86c19f054802c6aaede}
+      \strng{authorfullhash}{a200252fab7db86c19f054802c6aaede}
+      \strng{authorfullhashraw}{a200252fab7db86c19f054802c6aaede}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{GameSpot}
+      \field{month}{9}
+      \field{title}{GameSpot Presents: GameSpotting}
+      \field{year}{2005}
+      \verb{urlraw}
+      \verb https://web.archive.org/web/20050907192055/http://www.gamespot.com/gamespot/features/all/gamespotting/081102/p6_01.html
+      \endverb
+      \verb{url}
+      \verb https://web.archive.org/web/20050907192055/http://www.gamespot.com/gamespot/features/all/gamespotting/081102/p6_01.html
+      \endverb
+    \endentry
     \entry{Turing}{article}{}{}
       \name{author}{1}{}{%
         {{hash=fdc523429c3c89c34880f733033f2099}{%
@@ -3751,6 +4899,79 @@
       \field{isbn}{9780198250807}
       \field{title}{The Essential Turing}
       \field{year}{2004}
+    \endentry
+    \entry{urbanek2019unpacking}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=b6f5139d0c40238e8199819620775cd5}{%
+           family={Urbanek},
+           familyi={U\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=b3fc4cd02835ed7462226f0109ade283}{%
+           family={Güldenpfennig},
+           familyi={G\bibinitperiod},
+           given={Florian},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{88b430ff8aae876e9ce39f4e0990cf2f}
+      \strng{fullhash}{88b430ff8aae876e9ce39f4e0990cf2f}
+      \strng{fullhashraw}{88b430ff8aae876e9ce39f4e0990cf2f}
+      \strng{bibnamehash}{88b430ff8aae876e9ce39f4e0990cf2f}
+      \strng{authorbibnamehash}{88b430ff8aae876e9ce39f4e0990cf2f}
+      \strng{authornamehash}{88b430ff8aae876e9ce39f4e0990cf2f}
+      \strng{authorfullhash}{88b430ff8aae876e9ce39f4e0990cf2f}
+      \strng{authorfullhashraw}{88b430ff8aae876e9ce39f4e0990cf2f}
+      \field{sortinit}{U}
+      \field{sortinithash}{6901a00e45705986ee5e7ca9fd39adca}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the annual symposium on computer-human interaction in play}
+      \field{title}{Unpacking the audio game experience: Lessons learned from game veterans}
+      \field{year}{2019}
+      \field{pages}{253\bibrangedash 264}
+      \range{pages}{12}
+    \endentry
+    \entry{vallejo2011applying}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{hash=e89dd6a17920d00f6af0898ae7dec98c}{%
+           family={Vallejo-Pinto},
+           familyi={V\bibinithyphendelim P\bibinitperiod},
+           given={José\bibnamedelima Ángel},
+           giveni={J\bibinitperiod\bibinitdelim Á\bibinitperiod}}}%
+        {{hash=9fa96869730137a31bf87bab4d309c19}{%
+           family={Torrente},
+           familyi={T\bibinitperiod},
+           given={Javier},
+           giveni={J\bibinitperiod}}}%
+        {{hash=f34a6383156f724525165c84ea1b038d}{%
+           family={Ortega-Moral},
+           familyi={O\bibinithyphendelim M\bibinitperiod},
+           given={Manuel},
+           giveni={M\bibinitperiod}}}%
+        {{hash=b4c05f9e18d0a7a019a023345a834e75}{%
+           family={Fernández-Manjón},
+           familyi={F\bibinithyphendelim M\bibinitperiod},
+           given={Baltasar},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {BCS Learning \& Development}%
+      }
+      \strng{namehash}{c282579e90ad401ea46c585b93f7694a}
+      \strng{fullhash}{9204889ba57cb5ae840ad61af4d3b004}
+      \strng{fullhashraw}{9204889ba57cb5ae840ad61af4d3b004}
+      \strng{bibnamehash}{c282579e90ad401ea46c585b93f7694a}
+      \strng{authorbibnamehash}{c282579e90ad401ea46c585b93f7694a}
+      \strng{authornamehash}{c282579e90ad401ea46c585b93f7694a}
+      \strng{authorfullhash}{9204889ba57cb5ae840ad61af4d3b004}
+      \strng{authorfullhashraw}{9204889ba57cb5ae840ad61af4d3b004}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of HCI 2011 The 25th BCS Conference on Human Computer Interaction}
+      \field{title}{Applying sonification to improve accessibility of point-and-click computer games for people with limited vision}
+      \field{year}{2011}
     \endentry
     \entry{Antti2024}{patent}{}{}
       \name{author}{6}{}{%
@@ -4299,6 +5520,77 @@
       \field{year}{2023}
       \field{pages}{1199}
       \range{pages}{1}
+    \endentry
+    \entry{yuan2008blind}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=b58300768cad071464d4e380e89c8136}{%
+           family={Yuan},
+           familyi={Y\bibinitperiod},
+           given={Bei},
+           giveni={B\bibinitperiod}}}%
+        {{hash=c82b21eeb46009f3381d5548855784fe}{%
+           family={Folmer},
+           familyi={F\bibinitperiod},
+           given={Eelke},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{4cf4b0cedd5f34a3e21bd46bc77b89bb}
+      \strng{fullhash}{4cf4b0cedd5f34a3e21bd46bc77b89bb}
+      \strng{fullhashraw}{4cf4b0cedd5f34a3e21bd46bc77b89bb}
+      \strng{bibnamehash}{4cf4b0cedd5f34a3e21bd46bc77b89bb}
+      \strng{authorbibnamehash}{4cf4b0cedd5f34a3e21bd46bc77b89bb}
+      \strng{authornamehash}{4cf4b0cedd5f34a3e21bd46bc77b89bb}
+      \strng{authorfullhash}{4cf4b0cedd5f34a3e21bd46bc77b89bb}
+      \strng{authorfullhashraw}{4cf4b0cedd5f34a3e21bd46bc77b89bb}
+      \field{sortinit}{Y}
+      \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 10th international ACM SIGACCESS conference on Computers and accessibility}
+      \field{title}{Blind hero: enabling guitar hero for the visually impaired}
+      \field{year}{2008}
+      \field{pages}{169\bibrangedash 176}
+      \range{pages}{8}
+    \endentry
+    \entry{yuan2011game}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=b58300768cad071464d4e380e89c8136}{%
+           family={Yuan},
+           familyi={Y\bibinitperiod},
+           given={Bei},
+           giveni={B\bibinitperiod}}}%
+        {{hash=c82b21eeb46009f3381d5548855784fe}{%
+           family={Folmer},
+           familyi={F\bibinitperiod},
+           given={Eelke},
+           giveni={E\bibinitperiod}}}%
+        {{hash=6e34d43bc297d8b7a5bf9249a6c116e9}{%
+           family={Harris},
+           familyi={H\bibinitperiod},
+           given={Frederick\bibnamedelima C},
+           giveni={F\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{5ab119e7cf106a75fd831b418449d5d4}
+      \strng{fullhash}{5ab119e7cf106a75fd831b418449d5d4}
+      \strng{fullhashraw}{5ab119e7cf106a75fd831b418449d5d4}
+      \strng{bibnamehash}{5ab119e7cf106a75fd831b418449d5d4}
+      \strng{authorbibnamehash}{5ab119e7cf106a75fd831b418449d5d4}
+      \strng{authornamehash}{5ab119e7cf106a75fd831b418449d5d4}
+      \strng{authorfullhash}{5ab119e7cf106a75fd831b418449d5d4}
+      \strng{authorfullhashraw}{5ab119e7cf106a75fd831b418449d5d4}
+      \field{sortinit}{Y}
+      \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Universal Access in the information Society}
+      \field{title}{Game accessibility: a survey}
+      \field{volume}{10}
+      \field{year}{2011}
+      \field{pages}{81\bibrangedash 100}
+      \range{pages}{20}
     \endentry
     \entry{zhao2019objectdetectiondeeplearning}{misc}{}{}
       \name{author}{4}{}{%

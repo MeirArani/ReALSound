@@ -40,128 +40,132 @@
 \contentsline {subsubsection}{Spatial Audio and the 3D Audio Effect}{18}{section*.29}%
 \contentsline {section}{\numberline {2.3}Games}{18}{section.2.3}%
 \contentsline {subsection}{\numberline {2.3.1}Games and Accessibility}{18}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Games and Audification}{18}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}Games and Computer Vision}{18}{subsection.2.3.3}%
-\contentsline {paragraph}{Conclusion}{18}{section*.30}%
-\contentsline {chapter}{\numberline {3}ReAL Sound}{19}{chapter.3}%
-\contentsline {paragraph}{Introduction}{19}{section*.31}%
-\contentsline {section}{\numberline {3.1}Proposal}{19}{section.3.1}%
-\contentsline {paragraph}{Introduction}{19}{section*.32}%
-\contentsline {subsubsection}{\emph {What is ReAL Sound\xspace ?}}{19}{section*.33}%
-\contentsline {subsubsection}{\emph {Why is ReAL Sound\xspace ?}}{20}{section*.34}%
-\contentsline {subsubsection}{\emph {How is ReAL Sound\xspace ?}}{21}{section*.35}%
-\contentsline {paragraph}{The Modern AI Boom}{21}{section*.36}%
-\contentsline {subparagraph}{Agnostic Vision Requirements}{21}{section*.37}%
-\contentsline {paragraph}{Spatial Audio}{21}{section*.38}%
-\contentsline {paragraph}{Conclusion}{22}{section*.39}%
-\contentsline {section}{\numberline {3.2}Concepts}{22}{section.3.2}%
-\contentsline {paragraph}{Introduction}{22}{section*.40}%
-\contentsline {subsection}{\numberline {3.2.1}Anatomy of a Game}{22}{subsection.3.2.1}%
-\contentsline {subsubsection}{Introduction}{22}{section*.41}%
-\contentsline {subsubsection}{Game}{22}{section*.42}%
-\contentsline {paragraph}{Meta Attributes}{22}{section*.43}%
-\contentsline {subsubsection}{Game State}{22}{section*.44}%
-\contentsline {paragraph}{State Attributes}{23}{section*.45}%
-\contentsline {paragraph}{Internal Logic}{23}{section*.46}%
-\contentsline {paragraph}{Conditions}{23}{section*.47}%
-\contentsline {paragraph}{Transitions}{23}{section*.48}%
-\contentsline {subsubsection}{Entities}{24}{section*.49}%
-\contentsline {paragraph}{Entity Attributes}{24}{section*.50}%
-\contentsline {paragraph}{Entity States}{24}{section*.51}%
-\contentsline {subsubsection}{Summary}{24}{section*.52}%
-\contentsline {subsubsection}{Limitations}{25}{section*.53}%
-\contentsline {subsubsection}{Conclusion}{25}{section*.54}%
-\contentsline {subsection}{\numberline {3.2.2}State Models}{25}{subsection.3.2.2}%
-\contentsline {subsubsection}{Introduction}{25}{section*.55}%
-\contentsline {subsubsection}{Automata Theory}{26}{section*.56}%
-\contentsline {subsubsection}{Finite State Automata}{26}{section*.57}%
-\contentsline {paragraph}{Introduction and Concepts}{26}{section*.58}%
-\contentsline {paragraph}{Comparison with Turing Machines}{26}{section*.59}%
-\contentsline {paragraph}{Deterministic and Non-deterministic FSAs}{26}{section*.60}%
-\contentsline {paragraph}{Obstacles and Limitations}{27}{section*.61}%
-\contentsline {paragraph}{Useful Adaptions}{27}{section*.62}%
-\contentsline {subsubsection}{Automata and Games}{27}{section*.63}%
-\contentsline {subsubsection}{Conclusion}{28}{section*.64}%
-\contentsline {subsection}{\numberline {3.2.3}How Players Understand Games}{28}{subsection.3.2.3}%
-\contentsline {subsubsection}{Introduction}{28}{section*.65}%
-\contentsline {subsubsection}{How Players Understand Games}{28}{section*.66}%
-\contentsline {paragraph}{Introduction}{28}{section*.67}%
-\contentsline {subparagraph}{Simple Case: \emph {Rock-Paper-Scissors}}{28}{section*.68}%
-\contentsline {subparagraph}{Average Case: \emph {Rock-Paper-Subsequent}}{29}{section*.69}%
-\contentsline {subparagraph}{Advanced Case: \emph {Rock-Paper-Scheherazade}}{29}{section*.70}%
-\contentsline {paragraph}{Rules}{30}{section*.71}%
-\contentsline {paragraph}{States}{30}{section*.72}%
-\contentsline {paragraph}{The State-Rule Relationship}{30}{section*.73}%
-\contentsline {subparagraph}{Context Sensitivity and \emph {Ocarina of Time}}{30}{section*.74}%
-\contentsline {subsubsection}{Conclusion}{31}{section*.75}%
-\contentsline {subsection}{\numberline {3.2.4}Visual Analysis of a Game}{31}{subsection.3.2.4}%
-\contentsline {subsubsection}{Introduction}{31}{section*.76}%
-\contentsline {subsubsection}{Context Sensitivity and ReAL Sound\xspace }{31}{section*.77}%
-\contentsline {subsubsection}{Analyzing Game State}{32}{section*.78}%
-\contentsline {paragraph}{Differentiating State}{32}{section*.79}%
-\contentsline {subparagraph}{Looking at the Game}{32}{section*.80}%
-\contentsline {subparagraph}{Object Detection}{32}{section*.81}%
-\contentsline {subparagraph}{Object Categorization: \emph {The Journey}}{33}{section*.82}%
-\contentsline {subparagraph}{Object Categorization: \emph {The Answer}}{33}{section*.83}%
-\contentsline {subparagraph}{Relating to State}{34}{section*.84}%
-\contentsline {paragraph}{Summary}{34}{section*.85}%
-\contentsline {subsubsection}{Analyzing \textbf {Rules}}{34}{section*.86}%
-\contentsline {subsubsection}{Conclusion}{35}{section*.87}%
-\contentsline {section}{\numberline {3.3}Structural Outline}{35}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Overview}{35}{subsection.3.3.1}%
-\contentsline {subsubsection}{Introduction}{35}{section*.88}%
-\contentsline {subsubsection}{Turning Theory into Practice}{35}{section*.89}%
-\contentsline {subsection}{\numberline {3.3.2}Vision Layer}{36}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Decision Layer}{37}{subsection.3.3.3}%
-\contentsline {subsubsection}{Utilities and Extensions}{37}{section*.91}%
-\contentsline {subsection}{\numberline {3.3.4}Audification Layer}{38}{subsection.3.3.4}%
-\contentsline {subsection}{\numberline {3.3.5}Summary}{39}{subsection.3.3.5}%
-\contentsline {section}{\numberline {3.4}Implementation Process}{39}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Overview}{40}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Planning}{40}{subsection.3.4.2}%
-\contentsline {subsubsection}{Analyzing Game Semantics}{40}{section*.92}%
-\contentsline {paragraph}{\emph {Pac-Man:} A Worked Example }{40}{section*.93}%
-\contentsline {subparagraph}{Planning Transitions}{41}{section*.94}%
-\contentsline {subsubsection}{Desinging \textbf {Rules}}{41}{section*.95}%
-\contentsline {paragraph}{State Rules}{41}{section*.96}%
-\contentsline {paragraph}{\textbf {Entity} \textbf {Rules}}{41}{section*.97}%
-\contentsline {paragraph}{Transient States}{41}{section*.98}%
-\contentsline {paragraph}{State Delegation}{42}{section*.99}%
-\contentsline {paragraph}{Summary}{42}{section*.100}%
-\contentsline {subsection}{\numberline {3.4.3}Training}{43}{subsection.3.4.3}%
-\contentsline {subsubsection}{Computer Vision - Machine Learning}{44}{section*.101}%
-\contentsline {subsubsection}{Computer Vision - Alternative Methods}{44}{section*.102}%
-\contentsline {subsubsection}{Summary}{45}{section*.103}%
-\contentsline {subsection}{\numberline {3.4.4}Design}{45}{subsection.3.4.4}%
-\contentsline {subsubsection}{Understanding Game Design}{45}{section*.104}%
-\contentsline {paragraph}{Origin of Multisensory Game Design}{46}{section*.105}%
-\contentsline {paragraph}{Games as Multisensory Design Experiences}{46}{section*.106}%
-\contentsline {subsubsection}{Audio Design as a First Class Citizen}{47}{section*.107}%
-\contentsline {paragraph}{Player-Oriented Sound Design}{47}{section*.108}%
-\contentsline {subparagraph}{A Worked Example: \emph {Super Mario Brothers}}{47}{section*.109}%
-\contentsline {subparagraph}{Player-Centered Audio Design}{47}{section*.110}%
-\contentsline {subsubsection}{Crafting Design}{48}{section*.111}%
-\contentsline {paragraph}{Simple Case: Custom Code}{48}{section*.112}%
-\contentsline {paragraph}{Advanced Case: Domain Specific Language}{49}{section*.114}%
-\contentsline {paragraph}{Advanced Case: GUI}{50}{section*.116}%
-\contentsline {subsubsection}{On Audification}{50}{section*.117}%
-\contentsline {subsubsection}{Summary}{50}{section*.118}%
-\contentsline {subsection}{\numberline {3.4.5}Execution}{51}{subsection.3.4.5}%
-\contentsline {subsubsection}{Summary}{52}{section*.119}%
-\contentsline {subsection}{\numberline {3.4.6}Conclusion}{52}{subsection.3.4.6}%
-\contentsline {section}{\numberline {3.5}The End User Experience}{53}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Conclusion}{53}{section.3.6}%
-\contentsline {chapter}{\numberline {4}Sample Implementation}{55}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Languages, Tools, and Frameworks}{55}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Python}{55}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}OpenCV}{55}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Qt}{55}{subsection.4.1.3}%
-\contentsline {section}{\numberline {4.2}Choosing a Target Game}{55}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Pong: A Worked Demonstration}{55}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Experiments}{56}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Pong Demonstration}{56}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Results}{56}{subsection.5.1.1}%
-\contentsline {chapter}{\numberline {6}Conclusions}{57}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Limitations}{57}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Future Work}{57}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Thanks}{57}{section.6.3}%
+\contentsline {subsubsection}{Defining Games Accessibility}{19}{section*.30}%
+\contentsline {subsection}{\numberline {2.3.2}Games and Audification}{19}{subsection.2.3.2}%
+\contentsline {subsubsection}{Audio Games}{19}{section*.31}%
+\contentsline {subsection}{\numberline {2.3.3}Games and Computer Vision}{21}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Related Work}{21}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Conclusion}{21}{subsection.2.3.5}%
+\contentsline {chapter}{\numberline {3}ReAL Sound}{22}{chapter.3}%
+\contentsline {paragraph}{Introduction}{22}{section*.32}%
+\contentsline {section}{\numberline {3.1}Proposal}{22}{section.3.1}%
+\contentsline {paragraph}{Introduction}{22}{section*.33}%
+\contentsline {subsubsection}{\emph {What is ReAL Sound\xspace ?}}{22}{section*.34}%
+\contentsline {subsubsection}{\emph {Why is ReAL Sound\xspace ?}}{23}{section*.35}%
+\contentsline {subsubsection}{\emph {How is ReAL Sound\xspace ?}}{24}{section*.36}%
+\contentsline {paragraph}{The Modern AI Boom}{24}{section*.37}%
+\contentsline {subparagraph}{Agnostic Vision Requirements}{24}{section*.38}%
+\contentsline {paragraph}{Spatial Audio}{24}{section*.39}%
+\contentsline {paragraph}{Conclusion}{25}{section*.40}%
+\contentsline {section}{\numberline {3.2}Concepts}{25}{section.3.2}%
+\contentsline {paragraph}{Introduction}{25}{section*.41}%
+\contentsline {subsection}{\numberline {3.2.1}Anatomy of a Game}{25}{subsection.3.2.1}%
+\contentsline {subsubsection}{Introduction}{25}{section*.42}%
+\contentsline {subsubsection}{Game}{25}{section*.43}%
+\contentsline {paragraph}{Meta Attributes}{25}{section*.44}%
+\contentsline {subsubsection}{Game State}{25}{section*.45}%
+\contentsline {paragraph}{State Attributes}{26}{section*.46}%
+\contentsline {paragraph}{Internal Logic}{26}{section*.47}%
+\contentsline {paragraph}{Conditions}{26}{section*.48}%
+\contentsline {paragraph}{Transitions}{26}{section*.49}%
+\contentsline {subsubsection}{Entities}{27}{section*.50}%
+\contentsline {paragraph}{Entity Attributes}{27}{section*.51}%
+\contentsline {paragraph}{Entity States}{27}{section*.52}%
+\contentsline {subsubsection}{Summary}{27}{section*.53}%
+\contentsline {subsubsection}{Limitations}{28}{section*.54}%
+\contentsline {subsubsection}{Conclusion}{28}{section*.55}%
+\contentsline {subsection}{\numberline {3.2.2}State Models}{28}{subsection.3.2.2}%
+\contentsline {subsubsection}{Introduction}{28}{section*.56}%
+\contentsline {subsubsection}{Automata Theory}{29}{section*.57}%
+\contentsline {subsubsection}{Finite State Automata}{29}{section*.58}%
+\contentsline {paragraph}{Introduction and Concepts}{29}{section*.59}%
+\contentsline {paragraph}{Comparison with Turing Machines}{29}{section*.60}%
+\contentsline {paragraph}{Deterministic and Non-deterministic FSAs}{29}{section*.61}%
+\contentsline {paragraph}{Obstacles and Limitations}{30}{section*.62}%
+\contentsline {paragraph}{Useful Adaptions}{30}{section*.63}%
+\contentsline {subsubsection}{Automata and Games}{30}{section*.64}%
+\contentsline {subsubsection}{Conclusion}{31}{section*.65}%
+\contentsline {subsection}{\numberline {3.2.3}How Players Understand Games}{31}{subsection.3.2.3}%
+\contentsline {subsubsection}{Introduction}{31}{section*.66}%
+\contentsline {subsubsection}{How Players Understand Games}{31}{section*.67}%
+\contentsline {paragraph}{Introduction}{31}{section*.68}%
+\contentsline {subparagraph}{Simple Case: \emph {Rock-Paper-Scissors}}{31}{section*.69}%
+\contentsline {subparagraph}{Average Case: \emph {Rock-Paper-Subsequent}}{32}{section*.70}%
+\contentsline {subparagraph}{Advanced Case: \emph {Rock-Paper-Scheherazade}}{32}{section*.71}%
+\contentsline {paragraph}{Rules}{33}{section*.72}%
+\contentsline {paragraph}{States}{33}{section*.73}%
+\contentsline {paragraph}{The State-Rule Relationship}{33}{section*.74}%
+\contentsline {subparagraph}{Context Sensitivity and \emph {Ocarina of Time}}{33}{section*.75}%
+\contentsline {subsubsection}{Conclusion}{34}{section*.76}%
+\contentsline {subsection}{\numberline {3.2.4}Visual Analysis of a Game}{34}{subsection.3.2.4}%
+\contentsline {subsubsection}{Introduction}{34}{section*.77}%
+\contentsline {subsubsection}{Context Sensitivity and ReAL Sound\xspace }{34}{section*.78}%
+\contentsline {subsubsection}{Analyzing Game State}{35}{section*.79}%
+\contentsline {paragraph}{Differentiating State}{35}{section*.80}%
+\contentsline {subparagraph}{Looking at the Game}{35}{section*.81}%
+\contentsline {subparagraph}{Object Detection}{35}{section*.82}%
+\contentsline {subparagraph}{Object Categorization: \emph {The Journey}}{36}{section*.83}%
+\contentsline {subparagraph}{Object Categorization: \emph {The Answer}}{36}{section*.84}%
+\contentsline {subparagraph}{Relating to State}{37}{section*.85}%
+\contentsline {paragraph}{Summary}{37}{section*.86}%
+\contentsline {subsubsection}{Analyzing \textbf {Rules}}{37}{section*.87}%
+\contentsline {subsubsection}{Conclusion}{38}{section*.88}%
+\contentsline {section}{\numberline {3.3}Structural Outline}{38}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Overview}{38}{subsection.3.3.1}%
+\contentsline {subsubsection}{Introduction}{38}{section*.89}%
+\contentsline {subsubsection}{Turning Theory into Practice}{38}{section*.90}%
+\contentsline {subsection}{\numberline {3.3.2}Vision Layer}{39}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Decision Layer}{40}{subsection.3.3.3}%
+\contentsline {subsubsection}{Utilities and Extensions}{40}{section*.92}%
+\contentsline {subsection}{\numberline {3.3.4}Audification Layer}{41}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Summary}{42}{subsection.3.3.5}%
+\contentsline {section}{\numberline {3.4}Implementation Process}{42}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Overview}{43}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Planning}{43}{subsection.3.4.2}%
+\contentsline {subsubsection}{Analyzing Game Semantics}{43}{section*.93}%
+\contentsline {paragraph}{\emph {Pac-Man:} A Worked Example }{43}{section*.94}%
+\contentsline {subparagraph}{Planning Transitions}{44}{section*.95}%
+\contentsline {subsubsection}{Desinging \textbf {Rules}}{44}{section*.96}%
+\contentsline {paragraph}{State Rules}{44}{section*.97}%
+\contentsline {paragraph}{\textbf {Entity} \textbf {Rules}}{44}{section*.98}%
+\contentsline {paragraph}{Transient States}{44}{section*.99}%
+\contentsline {paragraph}{State Delegation}{45}{section*.100}%
+\contentsline {paragraph}{Summary}{45}{section*.101}%
+\contentsline {subsection}{\numberline {3.4.3}Training}{46}{subsection.3.4.3}%
+\contentsline {subsubsection}{Computer Vision - Machine Learning}{47}{section*.102}%
+\contentsline {subsubsection}{Computer Vision - Alternative Methods}{47}{section*.103}%
+\contentsline {subsubsection}{Summary}{48}{section*.104}%
+\contentsline {subsection}{\numberline {3.4.4}Design}{48}{subsection.3.4.4}%
+\contentsline {subsubsection}{Understanding Game Design}{48}{section*.105}%
+\contentsline {paragraph}{Origin of Multisensory Game Design}{49}{section*.106}%
+\contentsline {paragraph}{Games as Multisensory Design Experiences}{49}{section*.107}%
+\contentsline {subsubsection}{Audio Design as a First Class Citizen}{50}{section*.108}%
+\contentsline {paragraph}{Player-Oriented Sound Design}{50}{section*.109}%
+\contentsline {subparagraph}{A Worked Example: \emph {Super Mario Brothers}}{50}{section*.110}%
+\contentsline {subparagraph}{Player-Centered Audio Design}{50}{section*.111}%
+\contentsline {subsubsection}{Crafting Design}{51}{section*.112}%
+\contentsline {paragraph}{Simple Case: Custom Code}{51}{section*.113}%
+\contentsline {paragraph}{Advanced Case: Domain Specific Language}{52}{section*.115}%
+\contentsline {paragraph}{Advanced Case: GUI}{53}{section*.117}%
+\contentsline {subsubsection}{On Audification}{53}{section*.118}%
+\contentsline {subsubsection}{Summary}{53}{section*.119}%
+\contentsline {subsection}{\numberline {3.4.5}Execution}{54}{subsection.3.4.5}%
+\contentsline {subsubsection}{Summary}{55}{section*.120}%
+\contentsline {subsection}{\numberline {3.4.6}Conclusion}{55}{subsection.3.4.6}%
+\contentsline {section}{\numberline {3.5}The End User Experience}{56}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Conclusion}{56}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Sample Implementation of ReAL Sound\xspace }{58}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Languages, Tools, and Frameworks}{58}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Python}{58}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}OpenCV}{58}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Qt}{58}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}Choosing a Target Game}{58}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Pong: A Worked Demonstration}{58}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Examining our Implementation}{58}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Experiments}{59}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Pong Demonstration}{59}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Results}{59}{subsection.5.1.1}%
+\contentsline {chapter}{\numberline {6}Conclusions}{60}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Limitations}{60}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Future Work}{60}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Thanks}{60}{section.6.3}%
