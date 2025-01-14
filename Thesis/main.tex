@@ -1328,10 +1328,36 @@ We explore experimental results of this prototype in the following chapter.
 
 \section{Languages, Tools, and Frameworks}
 
-    \subsection{Python}
-    \subsection{OpenCV}
-    \subsection{Qt}
+A key aspect of \rs's design is its portable and cross platform nature. Although this spirit of universality is not strictly enforced, we have decided to target cross-platform tools in our own implementation of \rs. Let us start by reviewing our software choices. 
+\subsubsection{Python}
+
+The \tech{python} programming language is renowned for its legible, high-level writing style as well as its incredibly portable nature. The enduring popularity of the language has also endeared itself to a mature package ecosystem with countless easy-to-access libraries. Combined with the popular \tech{pip} package manager, extensions to the language feel 'off-the-shelf' and allow the linking of complex libraries in a matter of seconds.
+
+\subsubsection{OpenCV}
+As referenced in previous chapters, \tech{OpenCV} has become the \emph{de facto} standard for computer vision implementations. The library comes bundled with hundreds of useful machine learning and computer vision algorithms that are deployable using only a handful of programming statements.
+
+OpenCV is also extremely cross platform. The primary C++ libraries would present some complications---but, as luck would have it, a python port of OpenCV is available via the \texttt{opencv-python} and \texttt{opencv-contrib-python} modules. Using this port, we can write simple python software that can execute most of the common computer vision algorithms on virtually any modern machine. 
+
+\subsubsection{NumPy}
+We also will be requiring the equally popular \tech{NumPy} python package---which will serve as our stand-in for OpenCV's \texttt{Mat} (i.e., \texttt{Matrix}) construct. Numpy extends python with a rich collection of high-level math functions as well as extremely high-performant multi-dimensional arrays. These arrays will be our primary method of manipulating image data, making NumPy key for our implementation. It is also cross-platform and installable with a single execution of the \texttt{pip install numpy} command.
+
+\subsubsection{Qt}
+As we are building a full demonstration of \rs, we also require tools to build and package a proper application. We have opted to use the ever-popular \tech{Qt} suite of software libraries and tools. Qt's functionality is extremely diverse, and we will make use of it to create everything from graphical user interfaces, to video I/O, to even spatial audio.
+
+Although originally written for C++, Qt also has extensive python support via its \tech{PySide6} library. This package is once again cross platform, and is installable via \texttt{pip install PySide6}.
+
+\subsubsection{Miscelanious Software}
+Although not required for implementation, we also make use of \tech{git} and \tech{GitHub} for version control, as well as \tech{Visual Studio Code} for code editing. There are, of course, other dependencies which were used during development---but these packages all solve minor problems not worth detailing in our work here. Regardless, we ensured that all utilized packages were cross-platform and sufficiently open sourced for our purposes. 
+
+We should also note that a litany of free sound effects were taken from \texttt{freesound.com}, with relevant attributions being placed in the source code.
+
+\subsubsection{Summary}
+Using these few off-the-shelf libraries, we now have everything we need to implement \rs. Well, \emph{almost} everything. We are still lacking a target game to use for implementation, whose choice we shall now mediate on.
+
 \section{Choosing a Target Game}
+
+
+
 \section{Pong: A Worked Demonstration}
 \section{Examining our Implementation}
 
