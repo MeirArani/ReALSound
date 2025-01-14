@@ -2534,6 +2534,10 @@
     <bcf:citekey order="160" intorder="1">DSL</bcf:citekey>
     <bcf:citekey order="161" intorder="1">UnixProg</bcf:citekey>
     <bcf:citekey order="162" intorder="1">Spellman:24:WAG</bcf:citekey>
+    <bcf:citekey order="163" intorder="1">o2015pillars</bcf:citekey>
+    <bcf:citekey order="164" intorder="1">de2015tennis</bcf:citekey>
+    <bcf:citekey order="165" intorder="1">Ahoy_2019</bcf:citekey>
+    <bcf:citekey order="166" intorder="1">raessens2011handbook</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

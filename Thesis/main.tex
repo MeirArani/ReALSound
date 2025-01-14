@@ -1334,15 +1334,15 @@ A key aspect of \rs's design is its portable and cross platform nature. Although
 The \tech{python} programming language is renowned for its legible, high-level writing style as well as its incredibly portable nature. The enduring popularity of the language has also endeared itself to a mature package ecosystem with countless easy-to-access libraries. Combined with the popular \tech{pip} package manager, extensions to the language feel 'off-the-shelf' and allow the linking of complex libraries in a matter of seconds.
 
 \subsubsection{OpenCV}
-As referenced in previous chapters, \tech{OpenCV} has become the \emph{de facto} standard for computer vision implementations. The library comes bundled with hundreds of useful machine learning and computer vision algorithms that are deployable using only a handful of programming statements.
+As referenced in previous chapters, \tech{OpenCV} has become the \emph{de facto} standard for computer vision implementations. The library comes bundled with hundreds of useful machine learning and computer vision algorithms that are deployable using only a handful of lines of code.
 
 OpenCV is also extremely cross platform. The primary C++ libraries would present some complications---but, as luck would have it, a python port of OpenCV is available via the \texttt{opencv-python} and \texttt{opencv-contrib-python} modules. Using this port, we can write simple python software that can execute most of the common computer vision algorithms on virtually any modern machine. 
 
 \subsubsection{NumPy}
-We also will be requiring the equally popular \tech{NumPy} python package---which will serve as our stand-in for OpenCV's \texttt{Mat} (i.e., \texttt{Matrix}) construct. Numpy extends python with a rich collection of high-level math functions as well as extremely high-performant multi-dimensional arrays. These arrays will be our primary method of manipulating image data, making NumPy key for our implementation. It is also cross-platform and installable with a single execution of the \texttt{pip install numpy} command.
+We also require the equally popular \tech{NumPy} python package---which will serve as our stand-in for OpenCV's C++ native \texttt{Mat} (i.e., \texttt{Matrix}) construct. Numpy extends python with a rich collection of high-level math functions as well as extremely high-performant multi-dimensional arrays. These arrays will be our primary method of manipulating image data, making NumPy key for our implementation. It is also cross-platform and installable with a single execution of the \texttt{pip install numpy} command.
 
 \subsubsection{Qt}
-As we are building a full demonstration of \rs, we also require tools to build and package a proper application. We have opted to use the ever-popular \tech{Qt} suite of software libraries and tools. Qt's functionality is extremely diverse, and we will make use of it to create everything from graphical user interfaces, to video I/O, to even spatial audio.
+We also require tools for building and packaging a proper application. We have opted to use the ever-popular \tech{Qt} suite of software libraries and tools. Qt's functionality is extremely diverse, and we will make use of it to create everything from graphical user interfaces, to video I/O, to even spatial audio.
 
 Although originally written for C++, Qt also has extensive python support via its \tech{PySide6} library. This package is once again cross platform, and is installable via \texttt{pip install PySide6}.
 
@@ -1356,9 +1356,31 @@ Using these few off-the-shelf libraries, we now have everything we need to imple
 
 \section{Choosing a Target Game}
 
+Although \rs is devised to be used in many games, it is true that certain games are better candidates for for implementation than others. We particularly recognize the challenges and complexity in implementing \rs into a 3D game, whose added layer of depth makes sound localization increasingly difficult using headphones. Moreover, 3D games often feature complex graphical styles, which presents challenges for the \train process and \vision layer. None of this means that 3D games are unfit for \rs, but instead provide additional challenges that are outside the scope of an introductory work. And so, we will limit our choice to 2D games.
+
+But even limiting ourselves to two dimensions, we still have many other considerations to make. For one thing, how many entities and game \state{States} will we need to account for in our \plan and \design? A game like \emph{Super Mario Bros.} features a litany of enemy and types and stage contexts, for example. We will also be avoiding complex games in the interest of brevity---although we have interest in targeting more complex 2D games in our future work.
+
+\subsubsection{New Challenges in Translating Design}
+
+A major question we must consider when choosing a target game is how feasible the translation of the game's visual information is into a easily comprehensible audio display. A game like \emph{Pac-Man} may have few entity types, but it still demands a nuanced understanding of multiple entities and spatial relationships. When the game begins, for example, how will the existence of hundreds of yet-undevoured pellets be represented to the user? How will the twists and turns which characterize \emph{Pac-Man}'s maze? How will the player understand the exact location of that \emph{one} remaining pellet---located halfway across the stage---which is needed for a stage completion? These questions are certainly solvable, but they provide significant \design challenges that are outside the scope of our research. 
+
+All of this brings us to a key point---that \rs provides new and interesting design challenges in the realm of games accessibility. Particularly, the challenge of translating visual displays into audio displays on a massive medium-level scale. \emph{Just as game design has evolved through the development of the industry, so too must we evolve audio game design}. For now, however, we leave this as an exercise for future work.
+
+In the absence of a well-developed audio game design language, we will demonstrate our prototype using one of the simplest (yet most iconic) games available to us---the 1972 Atari game \emph{Pong}. 
+
+\section{\emph{Audio Arena: Pong Reloaded}: A Worked Demonstration}
+\subsection{A Brief Overview}
+\emph{Pong} was developed by Allan Alcorn and released by Atari 1972 for arcades \cite{o2015pillars}. Its early release and spartan design have lead it to be erroneously considered by many to be the 'first' video game ever released\footnote{Despite the relatively recent introduction of video games, much of its history---including what the definitive 'first' video game was, is still a matter of open debate. Candidates include 1958's pong-like \emph{Tennis for Two} \cite{de2015tennis} and 1952's \emph{Draughts}, produced by noted computer science pioneer Christopher Strachey. For further information, see the excellent documentary \emph{The First Video Game}, available at \cite{Ahoy_2019}.} \cite{raessens2011handbook}. 
+
+Pong is a primitive replication of Tennis in gaming format. In it, two players---represented by rectangular entities referred to as a \tech{paddle}---are positioned on opposing sides of the screen. The paddles are locked to a one-dimensional axis, moving only upwards or downwards. A \tech{ball} also appears during regular play. The ball begins at the center of the screen before moving in a random direction at a constant speed. The ball is capable of two-dimensional movement---ricocheting off of the top and bottom 'walls' (i.e., the screen-space) when struck. 
+
+If a paddle makes contact with the ball, it is reflected in the opposite direction. When the ball reaches behind a player---going 'off-screen' on either the left or right side---the opposing player receives a goal point---which is indicated by a score displayed at the top of the screen. The stage is reset and a new match follows after a player scores a point. The first player to receive ten points is declared the winner---returning the game to an infinitely looping \state{attract} sequence, which awaits player input (i.e., a coin to be inserted into the arcade machine).
+
+With these two paragraphs, we have accurately described \emph{Pong}'s entire operation in meticulous detail. We shall now consider how to translate the rules of \emph{Pong} into a sensible audio display. This process resembles the \plan and \design phases.
+
+\subsection{Translating \emph{Pong}}
 
 
-\section{Pong: A Worked Demonstration}
 \section{Examining our Implementation}
 
 %%% EXPERIMENTS

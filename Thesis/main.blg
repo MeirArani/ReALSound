@@ -1,21 +1,21 @@
 [0] Config.pm:308> INFO - This is Biber 2.20
 [0] Config.pm:311> INFO - Logfile is 'main.blg'
-[201] biber-MSWIN64:340> INFO - === 
-[260] Biber.pm:420> INFO - Reading 'main.bcf'
-[482] Biber.pm:994> INFO - Found 146 citekeys in bib section 0
-[512] Biber.pm:4463> INFO - Processing section 0
-[532] Biber.pm:4654> INFO - Looking for bibtex file 'references.bib' for section 0
-[615] bibtex.pm:1713> INFO - LaTeX decoding ...
-[793] bibtex.pm:1519> INFO - Found BibTeX data source 'references.bib'
-[1751] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[1752] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[1752] Biber.pm:4283> INFO - Sorting list 'nty/global//global/global/global' of type 'entry' with template 'nty' and locale 'en-US'
-[1752] Biber.pm:4289> INFO - No sort tailoring available for locale 'en-US'
-[1911] bbl.pm:676> INFO - Writing 'main.bbl' with encoding 'UTF-8'
-[2009] bbl.pm:779> INFO - Output to main.bbl
-[2009] Biber.pm:131> WARN - Duplicate entry key: 'porter2013empirical' in file 'references.bib', skipping ...
-[2010] Biber.pm:131> WARN - legacy month field 'Nov' in entry 'Lewin_2023' is not an integer - this will probably not sort properly.
-[2010] Biber.pm:131> WARN - legacy month field 'Oct.' in entry 'Mawhorter_Aytemiz_Karth_Smith_2021' is not an integer - this will probably not sort properly.
-[2010] Biber.pm:131> WARN - legacy month field 'Sep' in entry 'Knoop_2021' is not an integer - this will probably not sort properly.
-[2010] Biber.pm:131> WARN - legacy month field 'August' in entry 'omg2011umls' is not an integer - this will probably not sort properly.
-[2010] Biber.pm:133> INFO - WARNINGS: 5
+[161] biber-MSWIN64:340> INFO - === 
+[216] Biber.pm:420> INFO - Reading 'main.bcf'
+[388] Biber.pm:994> INFO - Found 150 citekeys in bib section 0
+[407] Biber.pm:4463> INFO - Processing section 0
+[424] Biber.pm:4654> INFO - Looking for bibtex file 'references.bib' for section 0
+[525] bibtex.pm:1713> INFO - LaTeX decoding ...
+[734] bibtex.pm:1519> INFO - Found BibTeX data source 'references.bib'
+[1735] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[1735] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[1735] Biber.pm:4283> INFO - Sorting list 'nty/global//global/global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[1735] Biber.pm:4289> INFO - No sort tailoring available for locale 'en-US'
+[1902] bbl.pm:676> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[2011] bbl.pm:779> INFO - Output to main.bbl
+[2011] Biber.pm:131> WARN - Duplicate entry key: 'porter2013empirical' in file 'references.bib', skipping ...
+[2012] Biber.pm:131> WARN - legacy month field 'Nov' in entry 'Lewin_2023' is not an integer - this will probably not sort properly.
+[2012] Biber.pm:131> WARN - legacy month field 'Oct.' in entry 'Mawhorter_Aytemiz_Karth_Smith_2021' is not an integer - this will probably not sort properly.
+[2012] Biber.pm:131> WARN - legacy month field 'Sep' in entry 'Knoop_2021' is not an integer - this will probably not sort properly.
+[2012] Biber.pm:131> WARN - legacy month field 'August' in entry 'omg2011umls' is not an integer - this will probably not sort properly.
+[2012] Biber.pm:133> INFO - WARNINGS: 5

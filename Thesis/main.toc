@@ -163,13 +163,16 @@
 \contentsline {subsubsection}{Miscelanious Software}{59}{section*.125}%
 \contentsline {subsubsection}{Summary}{59}{section*.126}%
 \contentsline {section}{\numberline {4.2}Choosing a Target Game}{60}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Pong: A Worked Demonstration}{60}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Examining our Implementation}{60}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Experiments}{61}{chapter.5}%
-\contentsline {section}{\numberline {5.1}A Note on Experiments}{61}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Pong Demonstration}{61}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Results}{61}{subsection.5.2.1}%
-\contentsline {chapter}{\numberline {6}Conclusions}{62}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Limitations}{62}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Future Work}{62}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Thanks}{62}{section.6.3}%
+\contentsline {subsubsection}{New Challenges in Translating Design}{60}{section*.127}%
+\contentsline {section}{\numberline {4.3}\emph {Audio Arena: Pong Reloaded}: A Worked Demonstration}{61}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}A Brief Overview}{61}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Translating \emph {Pong}}{61}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Examining our Implementation}{61}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Experiments}{62}{chapter.5}%
+\contentsline {section}{\numberline {5.1}A Note on Experiments}{62}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Pong Demonstration}{62}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Results}{62}{subsection.5.2.1}%
+\contentsline {chapter}{\numberline {6}Conclusions}{63}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Limitations}{63}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Future Work}{63}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Thanks}{63}{section.6.3}%

@@ -174,6 +174,38 @@
       \endverb
       \keyw{web-based games,distributed knowledge acquisition,accessibility}
     \endentry
+    \entry{Ahoy_2019}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=df229b0e2262ffb03b9641032b6cf591}{%
+           family={Ahoy},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Google Inc}%
+      }
+      \strng{namehash}{df229b0e2262ffb03b9641032b6cf591}
+      \strng{fullhash}{df229b0e2262ffb03b9641032b6cf591}
+      \strng{fullhashraw}{df229b0e2262ffb03b9641032b6cf591}
+      \strng{bibnamehash}{df229b0e2262ffb03b9641032b6cf591}
+      \strng{authorbibnamehash}{df229b0e2262ffb03b9641032b6cf591}
+      \strng{authornamehash}{df229b0e2262ffb03b9641032b6cf591}
+      \strng{authorfullhash}{df229b0e2262ffb03b9641032b6cf591}
+      \strng{authorfullhashraw}{df229b0e2262ffb03b9641032b6cf591}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{YouTube}
+      \field{month}{10}
+      \field{title}{The First Video Game}
+      \field{year}{2019}
+      \verb{urlraw}
+      \verb https://www.youtube.com/watch?v=uHQ4WCU1WQc
+      \endverb
+      \verb{url}
+      \verb https://www.youtube.com/watch?v=uHQ4WCU1WQc
+      \endverb
+    \endentry
     \entry{Alexander_2024}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=68ecb5a3dad84f3a9bd3e633a0688d05}{%
@@ -1044,6 +1076,34 @@
       \field{year}{2012}
       \field{pages}{1725\bibrangedash 1730}
       \range{pages}{6}
+    \endentry
+    \entry{de2015tennis}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=9e74a5e1a7b9ffae0e0ad96f233a83e2}{%
+           family={De\bibnamedelima La\bibnamedelima Cruz},
+           familyi={D\bibinitperiod\bibinitdelim L\bibinitperiod\bibinitdelim C\bibinitperiod},
+           given={Angel},
+           giveni={A\bibinitperiod}}}%
+        {{hash=83f5ea18f4ea7a2767b9a47da000a147}{%
+           family={Ryan},
+           familyi={R\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{f1279586d23bafc1ca3a40b56e616b87}
+      \strng{fullhash}{f1279586d23bafc1ca3a40b56e616b87}
+      \strng{fullhashraw}{f1279586d23bafc1ca3a40b56e616b87}
+      \strng{bibnamehash}{f1279586d23bafc1ca3a40b56e616b87}
+      \strng{authorbibnamehash}{f1279586d23bafc1ca3a40b56e616b87}
+      \strng{authornamehash}{f1279586d23bafc1ca3a40b56e616b87}
+      \strng{authorfullhash}{f1279586d23bafc1ca3a40b56e616b87}
+      \strng{authorfullhashraw}{f1279586d23bafc1ca3a40b56e616b87}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Tennis for Two}
+      \field{year}{2015}
     \endentry
     \entry{Demaine}{inproceedings}{}{}
       \name{author}{2}{}{%
@@ -3720,6 +3780,39 @@
       \field{pages}{420\bibrangedash 427}
       \range{pages}{8}
     \endentry
+    \entry{o2015pillars}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=5d3dec2fc32ce41c756bb42d2d3a44f2}{%
+           family={O'Regan},
+           familyi={O\bibinitperiod},
+           given={G.},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer International Publishing}%
+      }
+      \strng{namehash}{5d3dec2fc32ce41c756bb42d2d3a44f2}
+      \strng{fullhash}{5d3dec2fc32ce41c756bb42d2d3a44f2}
+      \strng{fullhashraw}{5d3dec2fc32ce41c756bb42d2d3a44f2}
+      \strng{bibnamehash}{5d3dec2fc32ce41c756bb42d2d3a44f2}
+      \strng{authorbibnamehash}{5d3dec2fc32ce41c756bb42d2d3a44f2}
+      \strng{authornamehash}{5d3dec2fc32ce41c756bb42d2d3a44f2}
+      \strng{authorfullhash}{5d3dec2fc32ce41c756bb42d2d3a44f2}
+      \strng{authorfullhashraw}{5d3dec2fc32ce41c756bb42d2d3a44f2}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9783319214641}
+      \field{title}{Pillars of Computing: A Compendium of Select, Pivotal Technology Firms}
+      \field{year}{2015}
+      \verb{urlraw}
+      \verb https://books.google.co.jp/books?id=RBKcCgAAQBAJ
+      \endverb
+      \verb{url}
+      \verb https://books.google.co.jp/books?id=RBKcCgAAQBAJ
+      \endverb
+    \endentry
     \entry{omg2011umls}{standard}{}{}
       \name{author}{1}{}{%
         {{hash=5af83e3196bf99f440f31f2e1a6c9afe}{%
@@ -4159,6 +4252,44 @@
       \range{pages}{12}
       \verb{doi}
       \verb 10.1147/rd.32.0114
+      \endverb
+    \endentry
+    \entry{raessens2011handbook}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=6eeb92505e0f787a73d43c05844b6aae}{%
+           family={Raessens},
+           familyi={R\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=288f83c36ffc74fe3f68a67f1f6adbdb}{%
+           family={Goldstein},
+           familyi={G\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {MIT Press}%
+      }
+      \strng{namehash}{2cc49c8451575c8aa70d943366fe4593}
+      \strng{fullhash}{2cc49c8451575c8aa70d943366fe4593}
+      \strng{fullhashraw}{2cc49c8451575c8aa70d943366fe4593}
+      \strng{bibnamehash}{2cc49c8451575c8aa70d943366fe4593}
+      \strng{authorbibnamehash}{2cc49c8451575c8aa70d943366fe4593}
+      \strng{authornamehash}{2cc49c8451575c8aa70d943366fe4593}
+      \strng{authorfullhash}{2cc49c8451575c8aa70d943366fe4593}
+      \strng{authorfullhashraw}{2cc49c8451575c8aa70d943366fe4593}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9780262516587}
+      \field{title}{Handbook of Computer Game Studies}
+      \field{year}{2011}
+      \verb{urlraw}
+      \verb https://books.google.co.jp/books?id=ErhNEAAAQBAJ
+      \endverb
+      \verb{url}
+      \verb https://books.google.co.jp/books?id=ErhNEAAAQBAJ
       \endverb
     \endentry
     \entry{UnixProg}{book}{}{}
