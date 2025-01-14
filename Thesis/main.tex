@@ -13,11 +13,18 @@
 \usepackage{biblatex}
 \usepackage{amsthm}
 \usepackage[]{algorithm2e}
+\usepackage{microtype}
 \usepackage{epigraph}
 \usepackage{framed, blindtext}
 \usepackage{listings}    
+\usepackage{graphicx}
+\usepackage{subcaption}
 
 \usepackage{caption}
+
+
+\graphicspath{{./figures/}}
+
 
 %%%%%%%%%%%%%%%%
 \newcommand\lorname{\mdseries\textit{List of recommendations:}}%list of recommendations
@@ -57,6 +64,8 @@
 \newcommand{\intro}{\subsubsection{Introduction}}
 \newcommand{\conclusion}{\subsubsection{Conclusion}}
 
+\newcommand{\tech}[1]{\textbf{#1}}
+
 
 \newcommand{\imp}{implementor\xspace}
 
@@ -95,21 +104,268 @@
 %%% INTRODUCTION
 
 \chapter{Introduction}
-\section{Recent Advances in Software Development}
-\section{Recent User Experience Trends}
-\section{Games and Accessibility}
 
+\section{Overview}
+In this chapter we introduce the historical and environmental trends that contextualize and motivate our research. We begin with a discussion of recent advances in the general software industry---primarily its drive for more universal design principles. We also take time to discuss new trends in user experience design, where we touch on the modern accessibility movement.
+
+Building on this theme, we then take a turn to discuss the recent boom of AI technologies and how it relates to the course of software development as a whole. We also consider how new AI-powered technologies and design techniques have impacted the field of software as a whole.
+
+Taking a turn, we make a quick detour to discuss recent advances in audio technology. We consider how these trends relate to the previous sections through the framework of universal and accessible design.
+
+We then produce a variation on this theme with a discussion of the modern state of game development. We consider the problem of universal design within gaming and explore contemporary problems in game accessibility. 
+
+Finally having provided the relevant context to motivate our research, we argue for the need of a universal framework to develop accessibility tools---particularly in the realm of game development. We choose to narrow our scope---focusing on the problem of generalizing accessibility features for the visually impaired using modern computer vision, AI, and spatial audio technology. 
+
+We then propose our own design to address these problems: \emph{\textbf{\rs}}: the \rsfull---a universal real-time framework for transforming a game's visual information into spatial audio using computer vision and AI technology---making games more accessible to the visually impaired.    
+
+\section{Recent Trends in Software Development}
+\subsection{Interoperability, Abstraction, Modularity}
+
+\subsubsection{The Diversification of Computer Technologies}
+As computer technology has advanced, so has its usage contexts. The static mainframes of 1960s laboratories quickly evolved into the homeward-bound personal computers of the 1980s, and eventually into the 'smart' devices that now line everything from our pockets to our televisions to even our refrigerators. This societal shift from monolithic computing styles to a diverse multi-modal paradigm has also created new challenges for designers. 
+
+The old conceptualization of immutable hardware configurations (dichotomies such as 'PC vs Mac,' 'Intel vs PowerPC,' etc.) has been replaced with a broad array of operating systems (\tech{iOS, Android, Windows, MacOS, watchOS, WearOS, Linux\footnote{It would be more accurate to say Linux \emph{derivatives}---such as \tech{Ubuntu, RedHat, Debian, Arch,} etc.}, ChromiumOS, Solaris}, etc.) and hardware architectures (\tech{x86, ARM, RISC-V, FPGA}, etc.) which are often broken down even further into distinct sub-categories\footnote{For an example that has had immense impact on modern computing, see the \tech{x86} \tech{32-bit/64-bit} schism.}.
+
+
+\subsubsection{The Rise of Universal Software Design}
+
+This trend highlights a key problem area in contemporary tech: the need for modular, cross-platform, and \emph{universal} software and software design. It would not be an overstatement to say that billions-upon-billions of dollars have been spent over the last decade in an industry-wide attempt to transition core technologies to agnostic designs. Microsoft has undertaken a multi-decade campaign to phase-out classic Windows 32-bit applications\cite{Foley_2020}, while Google opted to create an entire operating system---\tech{ChromiumOS}---which essentially functions a massive, OS-level web-browser to sidestep the problem entirely\cite{chrome}. 
+
+In a similar fashion, nascent startups have frequently leaned towards platform-agnostic frameworks and technology-stacks. The \tech{Electron} software framework allows the creation of cross-platform applications using standard web-development tools such as \tech{JavaScript}, \tech{HTML}, and \tech{CSS} in a fashion similar to ChromiumOS. It would not be unfair to say that Electron's web-focused paradigms ushered in the modern era of application design\cite{Alexander_2024}. It is also not hard to see why, as cross-platform applications which once demanded dozens of low-level technical programmers and leagues of platform specalists could now instead be developed by a handful of web-developers. This has had a large impact on the current state of technology, as JavaScript has functionally replaced C++ as the \emph{lingua franca} of young developers, while modern application---from \tech{Slack} and \tech{Skype} to \tech{Visual Studio Code} and \tech{Atom}.  
+
+As software has become platform-agnostic, so too has its development tools. Now-ubiquitous technologies like \tech{Docker} avoid the need for platform-specific considerations by simply packaging the platform as a \emph{ part} of the software itself---a paradigm now termed \emph{Platform as a Service} (\tech{PaaS})\cite{kolb2019portability}. This enables developers to avoid the infamous \emph{"works on my machine"} dilemma \cite{Yadav_2021}---where software issues appear only on platform configurations not used in development. This trend of \emph{containerization} and \emph{virtualization} has also had massive implications for software development and its future---expediting the diffusion of cross-platform technologies used in everything from standard computers to complex, IoT-enabled embedded devices. As proof of its success, we should note that Docker and its derivatives are now in-use by virtually every major software vendor: Microsoft, IBM, Google, Cisco, Meta, etc.
+
+\subsection{User Experience Trends}
+While these hardware trends have kept developers on their toes, they have offered end users a rich array of computing options. An evolution of user experience \footnote{\textbf{UX}, a shorthand for \textbf{U}ser E\textbf{X}perience is used interchangeably hereafter.} expectations has naturally followed as different styles of computing (smartphones, smartwatches, smart TVs, tablets, smart home devices, etc.) achieved mass-adoption. Although the totality of UX trends are beyond the scope of this thesis, we must highlight the clear demands and expectations users have for cross-platform design. 
+
+\subsubsection{Towards a Universal User Experience}
+But despite the trend towards universal design, numerous real-world applications have yet to successfully realize this ideal---necessitating the need for platform-specific software. The experience of browsing a popular social media platform such as \tech{Instagram}, for instance, is inherently different on a computer web browser versus a native mobile application. More infamously, the MacOS version of Microsoft's \tech{Office Suite}---which has been developed independently of the more well known Windows version since 1989---has no doubt confused many users making an operating system switch.
+
+These platform-specific incongruities have often the target of user anger\cite{Paquin_2010}, as most users expect the features and quality of their experience to be preserved when they change usage contexts. This ever-present sense of user ire has become another key motivator behind the generalization of computer software. Instagram, to continue with the previous example, lacked a method of accessing the platform on windows devices until overwhelming user demand necessitated its creation\cite{Warren2013}. In a similar (and more humorous) vein, the iPad's omission of a standard calculator app became such a fixation of user frustration as to be headline news \cite{Weinstein_2024} when Apple finally debuted a native app in 2024. These emerging behaviors clearly demonstrate the need for universal design---not only for developers of software, but also their end-users. 
+
+\subsubsection{The AI Boom}
+Overlapping the trend towards universal design has been the sudden explosion of AI technologies in recent years \cite{Knight_2023}. Of course, there are many reasons to be skeptical of AI's sudden explosion in popularity, as AI research has been notorious for its seasonal relevance in the past. The term \emph{AI Winter}---which describes the long droughts of public attention and spending towards AI between milestone research achievements---has been in the technical lexicon for decades now \cite{AIWinter}. Despite this, it is hard to deny the widespread changes this most recent \emph{AI Summer} has brought with it. And so, we shall introduce some relevant topics from the boom---namely through advances in machine learning. 
+
+\subsubsection{Machine Learning Realized}
+Although machine learning has its roots in the 'cognitive revolution' of the 1960s \cite{MILLER2003141} and produced notable results in early years such as the \tech{ELIZA} chatbot of the 1960s, \cite{ELIZA} the field essentially remained dormant until the turn of the 2010s---when modern technological advances and extensive collaboration efforts made feasible the AI theories proposed in earlier decades. The \tech{ImageNet} database played a large part in kickstarting the modern AI boom by providing large sums of well-collected data necessary in creating modern AI \cite{Gershgorn_2017}. Other research highlights often came from the labs of big-tech companies such as Netflix---who previously awarded \emph{The Netflix Prize} to incentivize AI research \cite{netflix}---and Google, who's seminal 2017 paper \emph{Attention is All You Need} \cite{vaswani2023attentionneed} revolutionized the field, ushering in the presently-dominant GPT era \cite{Love_2023}.   
+
+The ubiquitous popularity of ImageNet highlights a key feature of the AI boom---an attention on vision and visual media. While AI is used in a variety of problem domains---from recommendation engines to text prediction---vision and other sight-related tasks have had a tenacious popularity. The problems of object detection and object classification in particular have endured as areas of consistent growth. Many tasks considered crucial by modern science---such as facial recognition, tumor detection, and autonomous driving---are deeply entangled with object detection and classification.
+
+\subsubsection{Computer Vision}
+Although computer vision describes any process of modeling human sight using any computational means \cite{Huang1996ComputerVE}, it is often tied to the fields of AI and machine learning. Consequently, computer vision has also received much of the same boost in popularity and accessibility as machine learning has. The \tech{OpenCV} library in particular has significantly streamlined computer vision implementations and has become a staple of modern computer vision development \cite{culjak2012brief}, as we will see in later chapters.
+
+The continued improvement and diffusion of high-performance graphics cards (\tech{GPU}s) has also had a hand in popularizing computer vision. GPUs are not required for computer vision or AI tasks, but their efficiency in performing \emph{single instruction, multiple data} (\textbf{SIMD}) tasks makes them incredibly appealing for AI research---whose processing targets are often SIMD by nature. Processors custom-built for AI workloads---such as neural processing units (\tech{NPU}s)---are generally more performant, but the GPUs ease-of-acccess for the home consumer (and average software developer) has cemented its status in AI history. This is mainly because the GPU had already reached wide-spread consumer adoption in the years prior to the AI boom---larging owing its success to an association with the ever-popular PC gaming market.
+
+
+\section{Recent Trends in Audio Technologies}
+Somewhat parallel, yet mainly orthogonal to the previous trends has been new developments in audio technologies---primarily in the realm of 3D and spatial audio.
+
+\subsubsection{The Death and Rebirth of Spatial Audio}
+Spatial audio---that is, audio generated to give the impression of sound naturally emanating from around the listener---has its modern origins in 1960s and 70s. 
+
+The popularization of the stereo sound format spawned many technologies which attempted (and failed) to overtake it. Quadraphonic sound---which utilized four speakers instead of two---significantly improved the reproduction of localized sound, but ultimately failed due to a myriad of technical shortcomings and disinterest from artists \cite{Eguchi_1973}. 
+
+Spatial audio found a slightly stronger footing in the 1970s with Ambisonics---which abstracted sound into a speaker-independent format that was decoded at runtime to suit the listener's speaker system. However it was not until the advent of VR technology in recent years which transitioned Ambisonics from a niche enthusiast standard to mass-market product. Ambisonics remains the format of choice for many players in the tech industry---from Google to Meta \cite{Google_2024}\cite{MetaPlatforms2024}. 
+
+Coincident with the rebirth of spatial audio through VR technologies was the introduction of Dolby's \tech{Atmos} surround sound technology. Atmos extended the traditional surround sound setup with new hight channels---allowing three dimensional sound---and the conception of \emph{Audio Objects}, which engineers design and 'place' around the listener's position \cite{Dolby_Laboratories_2016}. As Dolby is a titanic figure in the audio market, it would only a take a few years before Atmos reached mass-adoption in the market---leading to Atmos-branded support in everything from soundbars to game consoles to smartphones \cite{Cox_2020}. 
+
+These two trends---the mass-market adoption of VR technology, as well as the proliferation of the Dolby Atmos standard---have ushered in a new era of spatial and 3D audio. Numerous software libraries have incorporated extensive support as a consequence. We will examine the developmental nature of spatial audio in later chapters.   
+
+
+\section{Recent Trends in Games Development}
+
+Gaming has often been at the forefront of technological progress---from real-time texture mapping techniques in \emph{Virtua Fighter 2} \cite{liboa2020hardware}, to novel solutions to the fast inverse square root problem found in \emph{Quake III Arena} \cite{lomont2003fast}, to contemporary advances in VR and AR technologies. It should come as no surprise that the above trends also ring true for the world of gaming. In fact, one could easily argue that many of the problems seeking the solutions above are even more pronounced in games. 
+
+\subsubsection{The Quest for Reusability}
+Take, for instance, the unique hardware and software requirements often found in games. Prior to the introduction of the smartphone, most games were consumed via bespoke hardware that was rendered obsolete only a few years after release. Although systems like the \tech{Playstation 3} featured backwards compatibility\footnote{It would be more accurate to say the system \emph{originally} featured backwards compatibility, as the feature was infamously removed in subsequent revisions.}, the console itself bared no resemblance---in terms of development workflows or architectural design----to its progenitors \cite{Kuchera_2009}. In fact, most systems (including the Playstation consoles as well as the Nintendo \tech{Wii}) accomplished backwards compatibility by packaging the entire previous generation's processors as a sub-component of the new system\footnote{Although this is a known fact in the case of the PlayStation 3, we should note the Wii's architectural similarities to the GameCube have never been formally confirmed to be exactly identical by Nintendo, IBM, or ATI/AMD.} \cite{Copetti_2021} \cite{Copetti_2020}. 
+
+Game software, meanwhile, faces a very similar dilemma. For most of gaming history, game development frameworks (generally termed \tech{game engines}) were bespoke and remained a corporate secret \cite{gregory2018game}. Engines were often abandoned at the end of a console generation, if not at the end of a single title's development. Even developers who iteratively improved an engine over the course of multiple generations have been known to discard entire tools and frameworks at a moment's notice---rebuilding entire codebases from scratch.  
+
+A growing trend of reusable game development software began in the 90s with the advent of 3D games. The inherent complexity of 3D game development made consistent engines an attractive prospect, which was further bolstered by the massive success of first person shooter titles \emph{Quake} and \emph{Unreal}. Both games were developed with high-quality engines which soon proliferated the market---becoming pillars of the modern game development world\footnote{While the Unreal engine's impact is still evident to modern readers, we should note that the Quake engine spawned numerous derivations---which have powered everything from \emph{Call of Duty} games to the \emph{Half-Life} and even recent hits like \emph{Apex: Legends}}.
+
+This trend intensified in the 2000s via the rise in middleware and shared library tools which streamlined other aspects of development. Audio software like \tech{fmod}, physics sub-engines such as \tech{Havok}, and CRI's \tech{Sofdec} video decoder serve as noteworthy examples \cite{Foley_2015}. The introduction of easy-to-use public-facing game engines such as \tech{Unity} as well as \tech{GameMaker} in the 2010s have only furthered the push towards universal design \cite{Cobbett_2017}. As of the time of writing, it would not be an understatement to say that a presumed majority of the game industry is making use of either the Unity or Unreal engine for development \cite{CBResearch_2018}. Even in Japan---where bespoke and company-internal tools have endured in popularity---we have seen similar shifts, as companies like Square Enix have opted to replace their own internal engines with Unreal \cite{Sinclair_2012}.
+
+\subsubsection{A More Accessible Future for Games}
+The diffusion of engines like Unity coincided roughly with the introduction of entry-level smartphones, which spawned a new market of so-called \emph{casual games} as well as a newfound cottage industry for independent game development. The casual game segment introduced gaming to large demographics who previously found games inaccessible, while indie games often had a niche appeal that attracted unorthodox fan bases. Both market segments are generally considered to have had a democratizing effect on games---opening up the medium for audiences who had previously felt 'unseen' by the industry at large. As both markets grew to multi-billion dollar valuations, a greater push for games accessibility gained momentum. 
+
+This shift towards accessibility in games has percolated all the way up to blockbuster \emph{triple-A} titles such as \emph{The Last of Us: Part II} and \emph{Assassin's Creed: Valhalla}, both of which feature extensive accessibility features to accommodate for a wide variety of disability and user preferences. The largest game industry award show---\emph{The Game Awards}---has even designated an entire award to celebrate yearly accomplishments in accessibility. Other significant milestones, such as Microsoft and Sony's release of accessibility-focused devices has cemented the industry-wide recognition of accessibility in games. Now, entire teams and companies operate entirely to solve problems with accessibility within gaming.  
+
+\section{\emph{\rs}: Towards a More Universal Accessibility Design}
+If we unite the trends of previous sections, a harmonic theme begins to manifest: the need for universal, accessible design in not only game software, but also game development. This has remained a complex problem even into the current era, but the swift maturation of AI, computer vision, machine learning, and spatial audio technologies has provided us a clear set of tools to address this shortcoming in the medium of video games. 
+
+And so, we aim to contribute to the fields of games accessibility and universal design in this thesis with our own novel contribution---\rs: the \rsfull. \rs is a framework for streamlining and generalizing the process of developing game accessibility features for the visually impaired. To accomplish this, we make use of cutting-edge computer vision and spatial audio techniques. Through this thesis, we endeavor to explain \rs's theoretical basis, application value, and implementation process. We then consider a implementation of \rs and examine experimental results to demonstrate its real-world utility.
+
+
+\section{Conclusion}
+In this chapter, we examined recent trends around numerous fields of software. We began with a look at the general software trends in universal design before moving to a mediation of the modern AI boom. Following this, we examined the primarily orthogonal trends in contemporary spatial audio technology before transitioning to a discussion of the current state of game development, highlighting how it echoes themes from earlier sections. Finally, we synthesized these trends into a clear problem statement: the need for improved universal design in games accessibility software. To address this perceived shortcoming, we proposed \emph{\rs}: the \rsfull library, which combines recent advances in computer vision and spatial audio to streamline and generalize the development of accessibility features for the visually impaired. 
+
+\subsubsection{The Following Chapters}
+In the following chapter, we conduct a brief review of relevant theory and research in connected fields. We then propose \rs in the following chapter. Afterwards, we demonstrate \rs through a sample implementation in chapter four before examining some experimental data about the prototype's efficacy in chapter five. Finally, we conclude our thesis in chapter six.
 
 %%% LITERATURE REVIEW
+
 \chapter{Literature Review} 
+
+\paragraph{Introduction}
+
+To accomplish the goals set by our proposal, we must build on research and theory stemming from a wide range of disciplines. And so, to contextualize \rs, we first review the relevant theory and literature from the fields of computer vision and AI, acoustics and audio processing, and finally games and accessibility.
+
 \section{Computer Vision}
-\section{AI \& Machine Learning}
-\section{Audification}
-\subsection{Spatial Audio}
+
+Computer vision has matured in recent years from a niche experimental field into a veritable juggernaut of computer science. The multiplicative nature of vision naturally spawned numerous sub-fields of study---from the \tech{image processing and analysis} of two dimensional image data, to \tech{machine vision} used in robot guidance systems, to \tech{imaging} techniques that have become a cornerstone of modern medicine, to \tech{pattern recognition} techniques which drive facial detection algorithms \cite{dobson2023birth}. 
+
+We narrow our scope here to reviewing the relevant disciplines of image processing and pattern recognition. 
+
+\subsection{Image Processing and Analysis}
+Image processing is a storied area of computer science research---with notable work dating back as far as the 1950s \cite{imageprocessing}. The primary goal of image processing is to translate visual data---specifically that of a two dimensional image---into digital data \cite{marion2013introduction}. 
+
+\subsubsection{Defining a Digital Image}
+
+First, a real-world \tech{panchromatic image} is conceived as a two dimensional function of light intensity: $f(x,y)$. As function return value indicates the brightness of the image at the point $(x,y)$ \cite{petrou2010image}. The goal then becomes to find a mapping between this function and another type of $f(x,y)$---which describes a \tech{digital image}, whose values have been transformed from the continuous nature of reality to the discrete nature of digital computers.
+
+This process is achieved in a number of ways. In hardware, specialized sensors  such as a \tech{CCD} (Charge-Coupled Device) or \tech{CMOS} (Complementary Metal Oxide Semiconductor) perform this translation by reacting to changes in real-world lighting conditions \cite{bigas2006review}. These sensors are found in everything from advanced medical technologies to the smartphone in your pocket.  
+
+In the realm of software, a digital image is generally defined as a combination of \tech{pixels}, equating to the aforementioned $f(x,y)$ value above. Each pixel is typically made up of numerous \tech{sub-pixels}, which usually equate to discrete numeric representations of the primary colors---\tech{Red, Green, Blue}---giving name to the \tech{RGB} representation of an image. The combination of sub-pixels defines the ultimate output of a pixel---a color with a given luminosity value \cite{subpixel}. The representation of a digital image as a mathematical function of two variables has allowed for many useful techniques to streamline image representation and compression---such as the \tech{Discrete Cosine Transforms} used in ubiquitous file standards like \tech{JPEG} \cite{saha2000image}. 
+
+\subsubsection{Understanding a Digital Image}
+But even though digital images are no doubt necessary for our purposes, it hardly brings us any closer to achieving \rs. We will also need methods of analyzing digital images. This problem is often referred to as \tech{image segmentation}. As Yu et al. described in a sweeping review of the discipline, image segmentation "divides images into regions with different features and extracts regions of interest (ROIs). \cite{yu2023techniques}" These regions strive to be 'meaningful,' but present the problem of rigidly defining meaning.
+
+\paragraph{Simple Methods}
+
+There exist many techniques to segment an image. Basic forms such as \tech{thresholding} simply compare a pixel against one or a few trivial criteria. For example, imagine a threshold algorithm which produced a striking, high-contrast black-and-white image. If we consider pixel values to be in the range of $[0, 255]$, then our algorithm $t(x,y)$ may look something like this:
+
+$$t(x,y) = \begin{cases} 0 & f(x,y) \leq 128 \\ 255 & f(x,y) > 128 \end{cases}$$
+
+More complex techniques, such as \tech{k-means clustering} work to 'cluster' the image data into $k$ discrete clusters \cite{kmeans}. This is accomplished via an iterative process of partitioning data points into $k$ groups (termed \tech{clusters}) organized around a center point (termed a \tech{centroid}). The validly of clustering is considered by averaging the value of clustered points, which updates the centroid's position. The process is then run again---repeating until a satisfactory segmentation has been achieved.
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{0.3\textwidth}
+        \includegraphics[width=0.95\textwidth]{kmean1.png}
+        \caption{Original data}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \includegraphics[width=0.95\textwidth]{kmean2.png}
+        \caption{First iteration}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \includegraphics[width=0.95\textwidth]{kmean3.png}
+        \caption{Second iteration}
+    \end{subfigure}
+    \caption{A demonstration of K-means clustering with three centroids \cite{kmeanspic}.}
+    \label{fig:kmeans}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{0.3\textwidth}
+        \includegraphics[width=0.95\textwidth]{kmeansreal1.jpg}
+        \caption{Original image}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \includegraphics[width=0.95\textwidth]{kmeansreal2.png}
+        \caption{$k=16$}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \includegraphics[width=0.95\textwidth]{kmeansreal3.png}
+        \caption{$k=2$}
+    \end{subfigure}
+    \caption{Segmentation of a digital image. \cite{kmeanspicreal}.}
+    \label{fig:kmeansreal}
+\end{figure}
+
+
+Methods like k-means allow for the segmentation of images into 'meaningful' partitions. These clusters may correspond to useful semantics---such as the separation of colors in an image---which may be modified or analyzed independently.
+
+\paragraph{Advanced Methods} Moving beyond simple clusters, techniques have also been developed to analyze the 'edges' of objects within an image. Using methods of \tech{edge detection}, it becomes possible to asses the physical shapes and locations of objects within image data \cite{ziou1998edge}. This is done by considering the 'rate of change' of data within an image. For example, consider a black-box framed as the center of an (otherwise white) image. The pixel value at the edge of the box would be something like:
+
+$$f(x_{e}, y_{e}) = 0$$ 
+
+But the pixels surrounding it---the white which lies outside the box---instead have the values:
+
+$$
+f(x_e + 1, y_e + 1) = 255
+$$
+
+This sudden shift in value is detectable using methods rooted in calculus such as \tech{image derivatives.} \cite{hashimoto1987multiple}. Although the specific mathematics driving edge detection are outside the scope of this paper, we must take a moment to talk about a relative field of study---\tech{corner detection}. 
+
+As one may guess from its naming, corner detections runs parallel to edge detection---working to assess the corners of objects within an image instead of entire edges. Similar (in abstract) to edge detection, corner detection calculates edges using image derivatives---with the additional requirement of large shifts in both the $x$ and $y$ directions of an edge. Or, to use the formal phrasing, corners are points with a low \emph{'self-similarity. \cite{maver2009self}'} Methods of corner detection were popularized by Harris and Stephens in 1988, as we will see in later chapters \cite{Harris}. 
+
+\subsubsection{The Diffusion of Computer Vision}
+
+Using these methods (and many others left unexplored in the interest of brevity), the act of analyzing a digital image---particularly for its regions of interest---becomes possible. Contemporary open source libraries such as \tech{OpenCV} \cite{opencv_library} have accelerated the spread of computer vision techniques by providing an extensive and high quality collection many classic computer vision algorithms. We will continue to review computer vision topics in later chapters. For now, we turn to AI and machine learning. 
+
+\subsection{AI \& Machine Learning}
+It is clear that providing even a brief overview of AI literature is beyond our scope. Consequently, we will be focusing on topics of relevance in the fields of machine learning.
+
+\subsubsection{Machine Learning: A Brief Review}
+Machine learning (\tech{ML}) is, in its essence, the marriage of statistical modeling techniques and computer technology \cite{mahesh2020machine}. ML centers around the development of \tech{models} which serve to predict an output based on a particular input. More specifically, the goal of a model---once completed---is to predict output \emph{without} the helping hand of its creator. 
+
+This requires the model to be \emph{'trained'} with a series of known inputs and outputs. When first constructed, the model is essentially a collection of random functions---turning any given input into functionally random output. As training data inputs are fed into the model, each (again, initially \emph{random}) output is compared against the known 'correct' outputs found in the training data. The inner-workings of the model's functions are then slightly adjusted based on the model's output prediction error \cite{jordan2015machine}. 
+
+Generally---given enough statistically significant training data---a model may eventually become 'trained.' This trained model is capable of taking any given input and producing a good approximation of output. This is because the internal functions of the model---which once spewed random noise---were slowly 'shaped' over time (via the training data) into functions that actually fit the nature of the model's question \cite{mahesh2020machine}. 
+
+\paragraph{Neural Networks }
+
+Many machine learning paradigms extend this simple concept with additional theories and stipulations. Most notable is the model of a \tech{neural network}\footnote{Also referred to as an \tech{Artificial Neural Network} (\tech{ANN}) \footnote{abiodun2018state}} and its extensions \tech{deep learning} and \tech{reinforcement learning.} Neural networks frame the issue of machine learning in terms of the biological neural networks found in animal brains. Each input \tech{neuron} makes connections to other neurons, eventually reaching a series of output neurons. The connections between neurons are the model functions described above. Neurons are traditionally grouped into several \tech{layers}: the \tech{input} and \tech{output} layers, as well as any number of \tech{hidden} layers which lie between the two. The name stems from its vague similarities to brain structure---each neuron forming convoluted connections to all of the neurons in surrounding layers \cite{dongare2012introduction}.
+
+\subparagraph{Deep Learning} 
+
+A neural network is said to feature deep learning when using many neuron layers, as well as a wealth of training data. This is because the 'deep' nature of deep learning models' neuron structures are capable of learning things 'deeply.' Or, in other words, capable of learning 'representations of data with multiple levels of abstraction \cite{lecun2015deep}.' The model's ability to predict several layers of semantic nuance has made them a good fit for multi-modal and multi-contextual tasks such as image and text classification \cite{minaee2021deep}.
+
+\subparagraph{Reinforcement Learning}
+
+Reinforcement Learning, meanwhile, bucks the trend of training data altogether. Instead of providing static, prepared training data, reinforcement learning models provide \tech{reward} metrics. When a model makes an output prediction, its accuracy is evaluated and a proportional reward signal is sent to the model. The model then adjusts its internal functions based on the reward signal---constantly attempting to maximize received rewards \cite{kaelbling1996reinforcement}.   The \tech{NEAT} (\textbf{N}euro\textbf{E}volution of  \textbf{A}ugmenting \textbf{T}opologies) method \cite{NEAT} is one notable implementation.
+
+
+\paragraph{MarI/O}
+
+We will now review a simple example to reinforce our learning. Injecting some levity and topicality into our discussion, we consider a machine learning model trained to play the ever-popular \emph{Super Mario World.} In 2015 \emph{SethBling\footnote{A noted online personality in the realm of games and computer science. Real name Seth Hendrickson.}} demonstrated a machine learning model that successfully played \emph{Super Mario World} \cite{sethbling} in a video viewed by over 11 million people, garnering significant press coverage \cite{Souppouris_2015} \cite{Gallagher_2015}. Hendrickson's model---named \tech{MarI/O}\footnote{Source code available at \cite{Hendrickson_2015}.}---is based on the NEAT method discussed above.
+
+
+What constitutes 'input,' 'output,' and 'reward' naturally differs significantly depending on the model. In the case of MarI/O, the model receives a simplified representation of the game-world (designed by Hendrickson) as input and produces a in-game command as output. The model's input consists of key data such as the location of Mario, enemies, and items, while the output is a simple button press on a controller such as \tech{UP} or \tech{A.} The reward function used for reinforcement is based on how far Mario progresses within the given level. This is an incredibly simple metric to measure---as most \emph{Super Mario World} stages move purely left-to-right. In other words, the further Mario 'moves to the right' within a level, the more rewarded the model is. 
+
+Hendrickson allowed the model to train for 24. To improve training efficiency, he forced a level reset if Mario failed to move within a given time window. At first, the model produced only poor results---often remaining motionless. Eventually, the model randomly produced a \tech{RIGHT} output, which moved Mario forward. This decision received a large reward, altering the model's internal functions in ways that biased it to continue outputting \tech{RIGHT} commands. Although a successful start, the model failed whenever Mario reached obstructing objects. Eventually, a random combination of \tech{RIGHT} directional inputs and \tech{A} button presses allowed Mario to progress further in the level---giving the model additional rewards and further altering its internal functions. 
+
+We can now see how MARI/O achieved mastery of its task---by producing random outputs until the outputs are deemed successful, which alters the model's behavior. With enough iterations (and using reasonably valid assumptions), it becomes possible to train a litany of models to produce good output estimations over an even wider array of problem domains.  
+
+\subsubsection{Object Recognition and Classification}
+Most crucial for our research are the advances made in \tech{object recognition} and \tech{object classification}. One may imagine how the research discussed above empowers these tasks. Recognition models are usually trained on massive data sets featuring thousands of images. These images are \tech{annotated} with \tech{features} that the model is trained to recognize \cite{wang2016deep}. For example, a face detection model would likely train on images featuring human faces. Each face is manually labeled and perhaps includes  other key characteristics (age, gender, race, etc.) used in training and tuning the model. A small sub-set of training data is usually unused in training, instead being set aside to 'test' the model's post-training validity. The trained model is considered valid if it produces output matching known 'correct' output in the testing data \cite{zhao2019objectdetectiondeeplearning}. 
+
+We will explore these topics further in the following chapters. For now we turn our attention to other fields of relevant research. 
+
+\section{Spatial Audio}
+In this section we explore theory and research related to \tech{auditory displays}---from \tech{audification} and \tech{sonification} to \tech{spatial audio} and \tech{3D Audio}.
+
+\subsubsection{Auditory Displays, Audification, and Sonification}
+Our work deals with \tech{auditory displays}---systems which employ "the use of sound to communicate information about the state of a computing device to a user \cite{audiodisplays}." More specifically, we utilize \tech{sonification} techniques. Sonification was defined by Scaletti as "a mapping of numerically represented relations in some domain under study to relations in an acoustic domain for the purposes of interpreting, understanding, or communicating relations in the domain under study \cite{kramer1994auditory}." In simpler terms, sonification is the translation of information from other domains into audio\footnote{We should note that the definitions of audification and sonification are somewhat vague in the literature. As seen in \cite{vickers2017directsegmentedsonificationcharacteristic}, audification is sometimes considered a subset of sonification---one that deals with the \emph{direct} one-to-one translation of non-audio data into audio data. However, as these terms maintain some flexibility, we have opted to use 'audification' in our research.}. Sonification is a complex research field that combines "psychological research in perception and cognition" with the development of computer "tools" and software "design \cite{kramer2010sonification}." Many core research topics overlap with physiology, psychology, acoustics, cognition, signal processing, and computer science. 
+
+We will now review a few concepts from the field relevant to our research.
+
+\subsubsection{Sound Localization}
+Most key to our research is the topic of \tech{sound localization}. Humans, along with numerous animals, are capable of localizing the origin of sounds in three dimensions \cite{middlebrooks2015sound}. \tech{Interaural time-difference cues} (\tech{ITDs})---the difference between a sound signal as it reaches each ear indecently---was devised as a model for understanding sound localization. Lord Rayleigh proposed theories of sound localization in horizontal planes termed \tech{duplex theory}, which ITDs model. In essence, it is observable that the difference in \emph{travel-time} (i.e., path length) between a sound's origin point and each of the listener's ears produces a distinct localization of the sound in the human mind \cite{middlebrooks2015sound}. ITDs were later modeled by Woodworth mathematically:
+
+$$
+ITD = \frac{a}{c}[\theta_{rad} + sin(\theta_{rad})]
+$$
+
+Where $a$ is the radius of the relevant sphere (i.e., the human head), $c$ is the speed of sound, and $\theta$ being the angle of the sound relative to the listener \cite{woodworth1954experimental}.
+
+\subsubsection{The Head-Related Transfer Function}
+
+As one may imagine, the specific characteristics of localization depend on the physiology of the listener. Not all heads and ears are made alike, after all. The \tech{Head-related transfer function} (\tech{HRTF}) models this behavior \cite{li2020measurement}. The specific derivations of an HRTF are beyond the scope of this thesis, but we must note a few key observations. A high-quality HRTF is required for good spatial audio reproduction. However, a challenge lies in the fact that HRTFs are unique to the individual---and must be calculated per-person if precise results are desired. Consequently, spatial audio technologies supply 'average-case' HRTFs, which are sufficiently effective in general situations. HRTFs also presume an 'open-field' (that is, a room without any acoustic characteristics), meaning that additional acoustic information must be provided after-the-fact \cite{moller1995head}. 
+
+\subsubsection{Spatial Audio and the 3D Audio Effect}
+Recent advances in spatial audio technology have married these two details---precise, research derived HRTFs, and \textbf{room modeling} (the simulation of acoustics) \cite{roommodel}---to great success. As we described above, humans localize sound in \emph{three} dimensions---meaning \tech{hight channels} are necessary to accurately produce a \tech{3D audio} effect. We are, of course, referring to the \tech{channels} used in modeling \tech{surround sound} technology---the more common \tech{center} and \tech{surround} channels are also needed to produce 3D audio \cite{3daudio}. 
+
+Contemporary research from laboratories such as Dolby have produced technologies such as \tech{Dolby Atmos}, which incorporates hight channels, room (i.e., acoustic) metadata, and a conceptualization of \tech{audio objects} to ease the generation of 3D audio \cite{Pfanzagl-Cardone2023}. Non-surround sound technology also makes use of Atmos and similar 3D audio branding. To achieve a similar effect, HRTFs are used to estimate and exaggerate spatiality, combined with room metadata and audio objects \cite{dewey2024practitioners}.  
+
 \section{Games}
 \subsection{Games and Accessibility}
 \subsection{Games and Audification}
 \subsection{Games and Computer Vision}
+
+\paragraph{Conclusion}
 
 %%% PROPOSAL
 
