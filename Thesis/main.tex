@@ -1510,143 +1510,6 @@ The general logic goes like this:
 
 The specific nature of 'perfect square' 'aspect ratio' are somewhat fuzzy for the \ball and \pad respectively. We allow for slight (one to three pixel) margins of error on shape calculations, We also consult the aspect ratio of the frame itself to calcualte the paddle and square's appropriate aspect ratio. 
 
-\begin{lstlisting}[language=python, caption={The \texttt{group_points} algorithm used in object detection}]
-    def group_points(self, points):
-        shaped = np.reshape(points, (-1, 2))  # Clean points
-        candidates = shaped  # Grab a copy
-        # Where we store our final results
-        results = np.zeros((3, 4, 2), dtype=np.int64)
-        for index, i in enumerate(shaped):  # For each point in our original array
-
-            # If we've already found this point, move on
-            if np.argwhere(np.any(results == i, axis=2)).size > 0:
-                continue
-
-            # p2 = None  # Second point
-            # p3 = None  # third point
-            # Initialize our result array
-            result = np.zeros((4, 2), dtype=np.int64)
-            result[0] = i  # Set first point
-            # Compares X Y values
-            # finds point that only shares ONE X or ONE Y--since its a rectangle
-            test_points = candidates[
-                np.argwhere(
-                    np.logical_xor(
-                        self.is_close(candidates, i)[:, 0],
-                        self.is_close(candidates, i)[:, 1],
-                    )
-                ).flatten()
-            ]
-            # we got back two actual points,
-            # they also don't share X/Y values
-            # (Since they're opposite corners of the rect)
-            if test_points.shape[0] > 1 and not np.any(
-                self.is_close(test_points[:, 0], test_points[:, 1])
-            ):
-                if test_points.shape[0] > 2:
-                    # test_points[np.argsort(
-                    # np.sum(abs(test_points - i), axis=1))][:2]
-                    test_points = test_points[np.argmin(abs(test_points - i), axis=0)]
-                # append our new points to the resulting object
-                result[1:3] = test_points
-                # Get the two X/Y values from our two connected points
-                # They *aren't* close to our first point,
-                # which would be the opposite corner of the rectangle
-                # Aka our forth point that closes the rect
-                p4 = test_points[np.where(self.is_close(test_points, i) != True)]
-                # Make sure the X / Y in p4 are in the right order
-                if not np.any(p4[0] == test_points[:, 0]):
-                    p4 = np.flip(p4)  # if not, swap X/Y values
-                result[3] = p4  # save to results
-                # min_max = np.array(
-                #   [np.min(result, axis=0), np.max(result, axis=0)])
-                maxes = np.max(result, axis=0)  # Find maxes
-                mins = np.min(result, axis=0)  # find mins
-                # Subtract mins from maxes
-                # figures out length and width of box.
-                # Then, Divide by dimmensions of screen
-                horz_rt = (maxes[0] - mins[0]) / self.frame_width
-                vert_rt = (maxes[1] - mins[1]) / self.frame_height  # Same for height
-                # If the box isn't illogically large.
-                # If it is, we had a rare misfire of alignments
-                # Build final result in correct order, based on maxes
-                if horz_rt < self.HORZ_MAX and vert_rt < self.VERT_MAX:
-                    result = np.array(
-                        [
-                            [mins[0], mins[1]],
-                            [mins[0], maxes[1]],
-                            [maxes[0], mins[1]],
-                            [maxes[0], maxes[1]],
-                        ],
-                        dtype=np.int64,
-                    )
-                    # Add to the list of results at the closest empty slot
-                    results[
-                        np.argwhere(np.all(np.all(results == 0, axis=1), axis=1))[0]
-                    ] = result
-                    candidates = candidates[
-                        np.argwhere(
-                            np.all(
-                                np.any(
-                                    np.logical_not(
-                                        self.is_close(result[:, None], candidates)
-                                    ),
-                                    axis=2,
-                                ),
-                                axis=0,
-                            )
-                        )
-                    ][
-                        :, 0, :
-                    ]  # Remove resultant points from candidate list
-        return results[np.argwhere(np.all(np.any(results != 0, axis=2), axis=1))][
-            :, 0, :
-        ]
-\end{lstlisting}
-
-\begin{lstlisting}[language=python, caption={The \texttt{detect_objects} function used in object classification.}]
-    def detect_objects(self, frame, groups):
-        # Four data points: detected, Ball, Paddle1 (left), Paddle2 (right)
-        # detected encodes if the next three objects were detected
-        # in a single number ranging from 0-7
-        # The number is a binary representation of the three objects:
-        # All three yield 7 (111) while none yield 0 (000).
-        # 6 = Ball + L paddle (110) 5 = Ball + R paddle (101),
-        # 4 = Ball (100), 3 = Paddles (011), 2/1 = LP/RP (010/001)
-        # The next indexes store the top left corner of the object
-        # as well as its width and height
-        self.frame_state = GameState.NONE
-        results = np.zeros((3, 4, 2))
-        if len(groups) == 0: # No objects
-            return results
-        w = groups[:, 2, 0] - groups[:, 0, 0] # Width of objects 
-        h = groups[:, 1, 1] - groups[:, 0, 1] # Height of objects
-        paddles = groups[np.argwhere(h / w > 2)][:, 0, :] # Paddles have specific aspect ratios
-        paddles = np.take_along_axis(paddles, np.argsort(paddles, axis=1), axis=1)
-        ball = groups[np.argwhere(h / w < 2)][:, 0, :] # Ball also a unique aspect ratio
-        if np.any(ball) and len(ball) == 1: #Found ball
-            cv2.rectangle(frame, ball[0][0], ball[0][3], (255, 0, 0), -1)
-            self.frame_state += GameState.BALL
-            results[2] = ball
-        if np.any(paddles) and len(paddles) > 0: #Found paddles
-            if len(paddles) == 2:
-                cv2.rectangle(frame, paddles[0][0], paddles[0][3], (0, 255, 0), -1) # draw debug rectangle
-                cv2.rectangle(frame, paddles[1][0], paddles[1][3], (0, 255, 0), -1)
-                self.frame_state += GameState.PADDLES
-                if paddles[0][0][0] < self.frame_width / 2: # Re-organize paddles from left to right 
-                    results[0] = paddles[0]
-                    results[1] = paddles[1]
-                else:
-                    results[0] = paddles[1]
-                    results[1] = paddles[0]
-            elif len(paddles) == 1: # If we failed to detect a paddle, skip this frame
-                pass
-        # We have paddle movement or paddle and ball movement
-        if self.frame_state in [GameState.PADDLES, GameState.ALL]:
-            self.good_frame = True
-        self.add_text(frame, "%r" % (self.frame_state), (300, 80)) # Write debug info to screen
-        return results
-\end{lstlisting}
 
 The code for achieving these catagorizations is somewhat obtuse to the untrained eye. This is due to the nature of NumPy array notation, which requires some familiarization. As we strive for optimal performance (thirty or more frames calculated per second), we endeavored to make the most out of this notation. To address potential confusion, we have thouroughly documented our code, and provide snippets of the object dection and classification algorithms in \ref{} \ref{}.
 
@@ -1690,27 +1553,9 @@ Although \rs performs per-frame analysis, we must also provide transitional logi
 \subparagraph{Entity States and transitions}
 Entity states are handled in a similar fashion. If a \pad for example is in the idle state but has performed a movement (i.e., its position has changed when compared to the previous frame), then it transitions to the \state{moving} state. If a \ball strike is detected this frame it transitions to \state{hit} for one frame before moving back to either \state{idle} or \state{moving}.
 
-Each of these conditions are simplistic, as we demonstrated with our psuedocode in previous chapters. For instance, consider the code used to detect a \state{goal}---which merely checks poitions against a set \texttt{GOAL_PIXEL_THRESH} value, which defines the invisible 'goalline' the ball must cross before a goal is registered:
+Each of these conditions are simplistic, as we demonstrated with our psuedocode in previous chapters. For instance, consider the code used to detect a \state{goal}---which merely checks poitions against a set \texttt{GOAL\_PIXEL\_THRESH} value, which defines the invisible 'goalline' the ball must cross before a goal is registered:
 
-\begin{lstlisting}[language=python, caption={Algorithm for detecting a \state{goal}.}]
-    def detect_score(self, objs):
-        if (
-            np.all((objs[2] < objs[0] - self.GOAL_PIXEL_THRESH)[:, 0])
-            and self.frame_state == GameState.PADDLES
-        ):
-            self.p2_score += 1
-            print("Player 2 GOAL!")
-            print("%s - %s" % (self.p1_score, self.p2_score))
-            return True
-        elif (
-            np.all((objs[2] > objs[1] + self.GOAL_PIXEL_THRESH)[:, 0])
-            and self.frame_state == GameState.PADDLES
-        ):
-            self.p1_score += 1
-            print("Player 1 GOAL!")
-            print("%s - %s" % (self.p1_score, self.p2_score))
-            return True
-\end{lstlisting}
+
 
 
 Using these conditions (and others omitted in the interest of time), we have successfully built the \decision layer using some of our \design principles. Before we move on to \audio, we must first consider the relevant \design elements. 
@@ -1826,6 +1671,5 @@ As the fields of machine learning and computer vision are changing constantly, i
 
 % \bibliographystyle{IEEEtran}
 \printbibliography
-
 \end{document}
 
