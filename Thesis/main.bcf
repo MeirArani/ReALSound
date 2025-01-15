@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bcf:controlfile version="3.10" bltxversion="3.19" xmlns:bcf="https://sourceforge.net/projects/biblatex">
+<bcf:controlfile version="3.11" bltxversion="3.20" xmlns:bcf="https://sourceforge.net/projects/biblatex">
   <!-- BIBER OPTIONS -->
   <bcf:options component="biber" type="global">
     <bcf:option type="singlevalued">
@@ -502,6 +502,7 @@
     <bcf:option datatype="xml">inheritance</bcf:option>
     <bcf:option datatype="xml">translit</bcf:option>
     <bcf:option datatype="xml">uniquenametemplate</bcf:option>
+    <bcf:option datatype="xml">namehashtemplate</bcf:option>
     <bcf:option datatype="xml">sortingnamekeytemplate</bcf:option>
     <bcf:option datatype="xml">sortingtemplate</bcf:option>
     <bcf:option datatype="xml">extradatespec</bcf:option>
@@ -748,9 +749,10 @@
   </bcf:optionscope>
   <bcf:optionscope type="ENTRY">
     <bcf:option datatype="string">noinherit</bcf:option>
-    <bcf:option datatype="string" backendin="sortingnamekeytemplatename,uniquenametemplatename,labelalphanametemplatename">nametemplates</bcf:option>
+    <bcf:option datatype="string" backendin="sortingnamekeytemplatename,uniquenametemplatename,labelalphanametemplatename,namehashtemplatename">nametemplates</bcf:option>
     <bcf:option datatype="string" backendout="1">labelalphanametemplatename</bcf:option>
     <bcf:option datatype="string" backendout="1">uniquenametemplatename</bcf:option>
+    <bcf:option datatype="string" backendout="1">namehashtemplatename</bcf:option>
     <bcf:option datatype="string" backendout="1">sortingnamekeytemplatename</bcf:option>
     <bcf:option datatype="string">presort</bcf:option>
     <bcf:option datatype="string" backendout="1">indexing</bcf:option>
@@ -827,9 +829,10 @@
     <bcf:option datatype="integer" backendout="1">minalphanames</bcf:option>
   </bcf:optionscope>
   <bcf:optionscope type="NAMELIST">
-    <bcf:option datatype="string" backendin="sortingnamekeytemplatename,uniquenametemplatename,labelalphanametemplatename">nametemplates</bcf:option>
+    <bcf:option datatype="string" backendin="sortingnamekeytemplatename,uniquenametemplatename,labelalphanametemplatename,namehashtemplatename">nametemplates</bcf:option>
     <bcf:option datatype="string" backendout="1">labelalphanametemplatename</bcf:option>
     <bcf:option datatype="string" backendout="1">uniquenametemplatename</bcf:option>
+    <bcf:option datatype="string" backendout="1">namehashtemplatename</bcf:option>
     <bcf:option datatype="string" backendout="1">sortingnamekeytemplatename</bcf:option>
     <bcf:option datatype="string">uniquelist</bcf:option>
     <bcf:option datatype="string">uniquename</bcf:option>
@@ -843,9 +846,10 @@
     <bcf:option datatype="boolean" backendout="1">useprefix</bcf:option>
   </bcf:optionscope>
   <bcf:optionscope type="NAME">
-    <bcf:option datatype="string" backendin="sortingnamekeytemplatename,uniquenametemplatename,labelalphanametemplatename">nametemplates</bcf:option>
+    <bcf:option datatype="string" backendin="sortingnamekeytemplatename,uniquenametemplatename,labelalphanametemplatename,namehashtemplatename">nametemplates</bcf:option>
     <bcf:option datatype="string" backendout="1">labelalphanametemplatename</bcf:option>
     <bcf:option datatype="string" backendout="1">uniquenametemplatename</bcf:option>
+    <bcf:option datatype="string" backendout="1">namehashtemplatename</bcf:option>
     <bcf:option datatype="string" backendout="1">sortingnamekeytemplatename</bcf:option>
     <bcf:option datatype="string">uniquename</bcf:option>
     <bcf:option datatype="boolean" backendout="1">familyinits</bcf:option>
@@ -1059,6 +1063,13 @@
     <bcf:namepart order="2" base="1">family</bcf:namepart>
     <bcf:namepart order="3">given</bcf:namepart>
   </bcf:uniquenametemplate>
+  <!-- NAME HASH TEMPLATES -->
+  <bcf:namehashtemplate name="global">
+    <bcf:namepart order="1" hashscope="full">family</bcf:namepart>
+    <bcf:namepart order="2" hashscope="full">given</bcf:namepart>
+    <bcf:namepart order="3" hashscope="full">prefix</bcf:namepart>
+    <bcf:namepart order="4" hashscope="full">suffix</bcf:namepart>
+  </bcf:namehashtemplate>
   <!-- SORTING NAME KEY TEMPLATES -->
   <bcf:sortingnamekeytemplate name="global" visibility="sort">
     <bcf:keypart order="1">
@@ -2402,136 +2413,154 @@
     <bcf:citekey order="39" intorder="1">subpixel</bcf:citekey>
     <bcf:citekey order="40" intorder="1">saha2000image</bcf:citekey>
     <bcf:citekey order="41" intorder="1">yu2023techniques</bcf:citekey>
-    <bcf:citekey order="42" intorder="1">kmeans</bcf:citekey>
-    <bcf:citekey order="43" intorder="1">kmeanspic</bcf:citekey>
-    <bcf:citekey order="44" intorder="1">kmeanspic</bcf:citekey>
-    <bcf:citekey order="45" intorder="1">kmeanspicreal</bcf:citekey>
-    <bcf:citekey order="46" intorder="1">kmeanspicreal</bcf:citekey>
-    <bcf:citekey order="47" intorder="1">ziou1998edge</bcf:citekey>
-    <bcf:citekey order="48" intorder="1">hashimoto1987multiple</bcf:citekey>
-    <bcf:citekey order="49" intorder="1">maver2009self</bcf:citekey>
-    <bcf:citekey order="50" intorder="1">Harris</bcf:citekey>
-    <bcf:citekey order="51" intorder="1">opencv_library</bcf:citekey>
-    <bcf:citekey order="52" intorder="1">mahesh2020machine</bcf:citekey>
-    <bcf:citekey order="53" intorder="1">jordan2015machine</bcf:citekey>
-    <bcf:citekey order="54" intorder="1">mahesh2020machine</bcf:citekey>
-    <bcf:citekey order="55" intorder="1">dongare2012introduction</bcf:citekey>
-    <bcf:citekey order="56" intorder="1">lecun2015deep</bcf:citekey>
-    <bcf:citekey order="57" intorder="1">minaee2021deep</bcf:citekey>
-    <bcf:citekey order="58" intorder="1">kaelbling1996reinforcement</bcf:citekey>
-    <bcf:citekey order="59" intorder="1">NEAT</bcf:citekey>
-    <bcf:citekey order="60" intorder="1">sethbling</bcf:citekey>
-    <bcf:citekey order="61" intorder="1">Souppouris_2015</bcf:citekey>
-    <bcf:citekey order="62" intorder="1">Gallagher_2015</bcf:citekey>
-    <bcf:citekey order="63" intorder="1">Hendrickson_2015</bcf:citekey>
-    <bcf:citekey order="64" intorder="1">wang2016deep</bcf:citekey>
-    <bcf:citekey order="65" intorder="1">zhao2019objectdetectiondeeplearning</bcf:citekey>
-    <bcf:citekey order="66" intorder="1">audiodisplays</bcf:citekey>
-    <bcf:citekey order="67" intorder="1">kramer1994auditory</bcf:citekey>
-    <bcf:citekey order="68" intorder="1">vickers2017directsegmentedsonificationcharacteristic</bcf:citekey>
-    <bcf:citekey order="69" intorder="1">kramer2010sonification</bcf:citekey>
-    <bcf:citekey order="70" intorder="1">middlebrooks2015sound</bcf:citekey>
-    <bcf:citekey order="71" intorder="1">middlebrooks2015sound</bcf:citekey>
-    <bcf:citekey order="72" intorder="1">woodworth1954experimental</bcf:citekey>
-    <bcf:citekey order="73" intorder="1">li2020measurement</bcf:citekey>
-    <bcf:citekey order="74" intorder="1">moller1995head</bcf:citekey>
-    <bcf:citekey order="75" intorder="1">roommodel</bcf:citekey>
-    <bcf:citekey order="76" intorder="1">3daudio</bcf:citekey>
-    <bcf:citekey order="77" intorder="1">Pfanzagl-Cardone2023</bcf:citekey>
-    <bcf:citekey order="78" intorder="1">dewey2024practitioners</bcf:citekey>
-    <bcf:citekey order="79" intorder="1">Popcap_2008</bcf:citekey>
-    <bcf:citekey order="80" intorder="1">yuan2011game</bcf:citekey>
-    <bcf:citekey order="81" intorder="1">Richert</bcf:citekey>
-    <bcf:citekey order="82" intorder="1">miesenberger2008more</bcf:citekey>
-    <bcf:citekey order="83" intorder="1">garber2013game</bcf:citekey>
-    <bcf:citekey order="84" intorder="1">porter2013empirical</bcf:citekey>
-    <bcf:citekey order="85" intorder="1">AudioArchery</bcf:citekey>
-    <bcf:citekey order="86" intorder="1">atkinson2006making</bcf:citekey>
-    <bcf:citekey order="87" intorder="1">porter2013empirical</bcf:citekey>
-    <bcf:citekey order="88" intorder="1">yuan2011game</bcf:citekey>
-    <bcf:citekey order="89" intorder="1">world1980international</bcf:citekey>
-    <bcf:citekey order="90" intorder="1">accessguidelines</bcf:citekey>
-    <bcf:citekey order="91" intorder="1">yuan2011game</bcf:citekey>
-    <bcf:citekey order="92" intorder="1">yuan2011game</bcf:citekey>
-    <bcf:citekey order="93" intorder="1">prazaru2020overview</bcf:citekey>
-    <bcf:citekey order="94" intorder="1">nudo2006plasticity</bcf:citekey>
-    <bcf:citekey order="95" intorder="1">agrimi2024game</bcf:citekey>
-    <bcf:citekey order="96" intorder="1">Audiogames</bcf:citekey>
-    <bcf:citekey order="97" intorder="1">friberg2004audio</bcf:citekey>
-    <bcf:citekey order="98" intorder="1">urbanek2019unpacking</bcf:citekey>
-    <bcf:citekey order="99" intorder="1">Torres_2005</bcf:citekey>
-    <bcf:citekey order="100" intorder="1">GMA_Games</bcf:citekey>
-    <bcf:citekey order="101" intorder="1">atkinson2006making</bcf:citekey>
-    <bcf:citekey order="102" intorder="1">Atkinson2009</bcf:citekey>
-    <bcf:citekey order="103" intorder="1">friberg2004audio</bcf:citekey>
-    <bcf:citekey order="104" intorder="1">yuan2008blind</bcf:citekey>
-    <bcf:citekey order="105" intorder="1">miller2007finger</bcf:citekey>
-    <bcf:citekey order="106" intorder="1">metris</bcf:citekey>
-    <bcf:citekey order="107" intorder="1">blinddrive</bcf:citekey>
-    <bcf:citekey order="108" intorder="1">shafaei2016play</bcf:citekey>
-    <bcf:citekey order="109" intorder="1">richter2016playing</bcf:citekey>
-    <bcf:citekey order="110" intorder="1">qiu2016unrealcv</bcf:citekey>
-    <bcf:citekey order="111" intorder="1">paduraru2021automated</bcf:citekey>
-    <bcf:citekey order="112" intorder="1">chursin2021using</bcf:citekey>
-    <bcf:citekey order="113" intorder="1">webgame</bcf:citekey>
-    <bcf:citekey order="114" intorder="1">erdelyi2019using</bcf:citekey>
-    <bcf:citekey order="115" intorder="1">vallejo2011applying</bcf:citekey>
-    <bcf:citekey order="116" intorder="1">StreetFighter</bcf:citekey>
-    <bcf:citekey order="117" intorder="1">Lewin_2023</bcf:citekey>
-    <bcf:citekey order="118" intorder="1">Costikyan_2000</bcf:citekey>
-    <bcf:citekey order="119" intorder="1">opencv_library</bcf:citekey>
-    <bcf:citekey order="120" intorder="1">Knight_2023</bcf:citekey>
-    <bcf:citekey order="121" intorder="1">Meredith_2023</bcf:citekey>
-    <bcf:citekey order="122" intorder="1">Brynjolfsson_McAfee_2017</bcf:citekey>
-    <bcf:citekey order="123" intorder="1">Heikkilä_2022</bcf:citekey>
-    <bcf:citekey order="124" intorder="1">Wiggers_2022</bcf:citekey>
-    <bcf:citekey order="125" intorder="1">tensorflow2015-whitepaper</bcf:citekey>
-    <bcf:citekey order="126" intorder="1">Brunelli2009-gh</bcf:citekey>
-    <bcf:citekey order="127" intorder="1">Hildreth1980</bcf:citekey>
-    <bcf:citekey order="128" intorder="1">Harris</bcf:citekey>
-    <bcf:citekey order="129" intorder="1">ApplePods</bcf:citekey>
-    <bcf:citekey order="130" intorder="1">Campbell_2025</bcf:citekey>
-    <bcf:citekey order="131" intorder="1">Antti2024</bcf:citekey>
-    <bcf:citekey order="132" intorder="1">McCormack2024</bcf:citekey>
-    <bcf:citekey order="133" intorder="1">Valve</bcf:citekey>
-    <bcf:citekey order="134" intorder="1">QTProgramming</bcf:citekey>
-    <bcf:citekey order="135" intorder="1">QTSpatial</bcf:citekey>
-    <bcf:citekey order="136" intorder="1">churchill2019magicgatheringturingcomplete</bcf:citekey>
-    <bcf:citekey order="137" intorder="1">Hildreth1980</bcf:citekey>
-    <bcf:citekey order="138" intorder="1">Demaine</bcf:citekey>
-    <bcf:citekey order="139" intorder="1">Mawhorter_Aytemiz_Karth_Smith_2021</bcf:citekey>
-    <bcf:citekey order="140" intorder="1">OoT</bcf:citekey>
-    <bcf:citekey order="141" intorder="1">Knoop_2021</bcf:citekey>
-    <bcf:citekey order="142" intorder="1">Chomsky1956ThreeMF</bcf:citekey>
-    <bcf:citekey order="143" intorder="1">FSM</bcf:citekey>
-    <bcf:citekey order="144" intorder="1">Turing</bcf:citekey>
-    <bcf:citekey order="145" intorder="1">Turing_2004</bcf:citekey>
-    <bcf:citekey order="146" intorder="1">FSM</bcf:citekey>
-    <bcf:citekey order="147" intorder="1">NDFSA</bcf:citekey>
-    <bcf:citekey order="148" intorder="1">state</bcf:citekey>
-    <bcf:citekey order="149" intorder="1">FSM</bcf:citekey>
-    <bcf:citekey order="150" intorder="1">omg2011umls</bcf:citekey>
-    <bcf:citekey order="151" intorder="1">wang2022yolov7trainablebagoffreebiessets</bcf:citekey>
-    <bcf:citekey order="152" intorder="1">make-sense</bcf:citekey>
-    <bcf:citekey order="153" intorder="1">Roboflow_Supervision</bcf:citekey>
-    <bcf:citekey order="154" intorder="1">PrintWindow</bcf:citekey>
-    <bcf:citekey order="155" intorder="1">XGetWindow</bcf:citekey>
-    <bcf:citekey order="156" intorder="1">Newman2017Atari</bcf:citekey>
-    <bcf:citekey order="157" intorder="1">nasaw1999going</bcf:citekey>
-    <bcf:citekey order="158" intorder="1">theycreateworlds</bcf:citekey>
-    <bcf:citekey order="159" intorder="1">abelsonstructure</bcf:citekey>
-    <bcf:citekey order="160" intorder="1">DSL</bcf:citekey>
-    <bcf:citekey order="161" intorder="1">UnixProg</bcf:citekey>
-    <bcf:citekey order="162" intorder="1">Spellman:24:WAG</bcf:citekey>
-    <bcf:citekey order="163" intorder="1">o2015pillars</bcf:citekey>
-    <bcf:citekey order="164" intorder="1">de2015tennis</bcf:citekey>
-    <bcf:citekey order="165" intorder="1">Ahoy_2019</bcf:citekey>
-    <bcf:citekey order="166" intorder="1">raessens2011handbook</bcf:citekey>
-    <bcf:citekey order="167" intorder="1">gamma1994design</bcf:citekey>
-    <bcf:citekey order="168" intorder="1">googleRepo</bcf:citekey>
-    <bcf:citekey order="169" intorder="1">OpenCV</bcf:citekey>
-    <bcf:citekey order="170" intorder="1">QT_Doc</bcf:citekey>
-    <bcf:citekey order="171" intorder="1">QT_EX</bcf:citekey>
+    <bcf:citekey order="42" intorder="1">thresh</bcf:citekey>
+    <bcf:citekey order="43" intorder="1">thresh</bcf:citekey>
+    <bcf:citekey order="44" intorder="1">kmeans</bcf:citekey>
+    <bcf:citekey order="45" intorder="1">kmeanspic</bcf:citekey>
+    <bcf:citekey order="46" intorder="1">kmeanspic</bcf:citekey>
+    <bcf:citekey order="47" intorder="1">kmeanspicreal</bcf:citekey>
+    <bcf:citekey order="48" intorder="1">kmeanspicreal</bcf:citekey>
+    <bcf:citekey order="49" intorder="1">ziou1998edge</bcf:citekey>
+    <bcf:citekey order="50" intorder="1">edge</bcf:citekey>
+    <bcf:citekey order="51" intorder="1">edge</bcf:citekey>
+    <bcf:citekey order="52" intorder="1">corner</bcf:citekey>
+    <bcf:citekey order="53" intorder="1">corner</bcf:citekey>
+    <bcf:citekey order="54" intorder="1">hashimoto1987multiple</bcf:citekey>
+    <bcf:citekey order="55" intorder="1">maver2009self</bcf:citekey>
+    <bcf:citekey order="56" intorder="1">Harris</bcf:citekey>
+    <bcf:citekey order="57" intorder="1">opencv_library</bcf:citekey>
+    <bcf:citekey order="58" intorder="1">mahesh2020machine</bcf:citekey>
+    <bcf:citekey order="59" intorder="1">jordan2015machine</bcf:citekey>
+    <bcf:citekey order="60" intorder="1">mahesh2020machine</bcf:citekey>
+    <bcf:citekey order="61" intorder="1">neural</bcf:citekey>
+    <bcf:citekey order="62" intorder="1">neural</bcf:citekey>
+    <bcf:citekey order="63" intorder="1">dongare2012introduction</bcf:citekey>
+    <bcf:citekey order="64" intorder="1">lecun2015deep</bcf:citekey>
+    <bcf:citekey order="65" intorder="1">minaee2021deep</bcf:citekey>
+    <bcf:citekey order="66" intorder="1">kaelbling1996reinforcement</bcf:citekey>
+    <bcf:citekey order="67" intorder="1">NEAT</bcf:citekey>
+    <bcf:citekey order="68" intorder="1">sethbling</bcf:citekey>
+    <bcf:citekey order="69" intorder="1">Souppouris_2015</bcf:citekey>
+    <bcf:citekey order="70" intorder="1">Gallagher_2015</bcf:citekey>
+    <bcf:citekey order="71" intorder="1">Hendrickson_2015</bcf:citekey>
+    <bcf:citekey order="72" intorder="1">Hendrickson_2015</bcf:citekey>
+    <bcf:citekey order="73" intorder="1">Hendrickson_2015</bcf:citekey>
+    <bcf:citekey order="74" intorder="1">wang2016deep</bcf:citekey>
+    <bcf:citekey order="75" intorder="1">zhao2019objectdetectiondeeplearning</bcf:citekey>
+    <bcf:citekey order="76" intorder="1">objdetect</bcf:citekey>
+    <bcf:citekey order="77" intorder="1">objdetect</bcf:citekey>
+    <bcf:citekey order="78" intorder="1">audiodisplays</bcf:citekey>
+    <bcf:citekey order="79" intorder="1">kramer1994auditory</bcf:citekey>
+    <bcf:citekey order="80" intorder="1">vickers2017directsegmentedsonificationcharacteristic</bcf:citekey>
+    <bcf:citekey order="81" intorder="1">kramer2010sonification</bcf:citekey>
+    <bcf:citekey order="82" intorder="1">middlebrooks2015sound</bcf:citekey>
+    <bcf:citekey order="83" intorder="1">middlebrooks2015sound</bcf:citekey>
+    <bcf:citekey order="84" intorder="1">woodworth1954experimental</bcf:citekey>
+    <bcf:citekey order="85" intorder="1">hrtfpic</bcf:citekey>
+    <bcf:citekey order="86" intorder="1">hrtfpic</bcf:citekey>
+    <bcf:citekey order="87" intorder="1">li2020measurement</bcf:citekey>
+    <bcf:citekey order="88" intorder="1">moller1995head</bcf:citekey>
+    <bcf:citekey order="89" intorder="1">roommodel</bcf:citekey>
+    <bcf:citekey order="90" intorder="1">3daudio</bcf:citekey>
+    <bcf:citekey order="91" intorder="1">heightPic</bcf:citekey>
+    <bcf:citekey order="92" intorder="1">heightPic</bcf:citekey>
+    <bcf:citekey order="93" intorder="1">Pfanzagl-Cardone2023</bcf:citekey>
+    <bcf:citekey order="94" intorder="1">dewey2024practitioners</bcf:citekey>
+    <bcf:citekey order="95" intorder="1">Popcap_2008</bcf:citekey>
+    <bcf:citekey order="96" intorder="1">yuan2011game</bcf:citekey>
+    <bcf:citekey order="97" intorder="1">Richert</bcf:citekey>
+    <bcf:citekey order="98" intorder="1">miesenberger2008more</bcf:citekey>
+    <bcf:citekey order="99" intorder="1">garber2013game</bcf:citekey>
+    <bcf:citekey order="100" intorder="1">porter2013empirical</bcf:citekey>
+    <bcf:citekey order="101" intorder="1">AudioArchery</bcf:citekey>
+    <bcf:citekey order="102" intorder="1">atkinson2006making</bcf:citekey>
+    <bcf:citekey order="103" intorder="1">porter2013empirical</bcf:citekey>
+    <bcf:citekey order="104" intorder="1">yuan2011game</bcf:citekey>
+    <bcf:citekey order="105" intorder="1">world1980international</bcf:citekey>
+    <bcf:citekey order="106" intorder="1">accessguidelines</bcf:citekey>
+    <bcf:citekey order="107" intorder="1">yuan2011game</bcf:citekey>
+    <bcf:citekey order="108" intorder="1">yuan2011game</bcf:citekey>
+    <bcf:citekey order="109" intorder="1">prazaru2020overview</bcf:citekey>
+    <bcf:citekey order="110" intorder="1">nudo2006plasticity</bcf:citekey>
+    <bcf:citekey order="111" intorder="1">agrimi2024game</bcf:citekey>
+    <bcf:citekey order="112" intorder="1">Audiogames</bcf:citekey>
+    <bcf:citekey order="113" intorder="1">friberg2004audio</bcf:citekey>
+    <bcf:citekey order="114" intorder="1">urbanek2019unpacking</bcf:citekey>
+    <bcf:citekey order="115" intorder="1">Torres_2005</bcf:citekey>
+    <bcf:citekey order="116" intorder="1">GMA_Games</bcf:citekey>
+    <bcf:citekey order="117" intorder="1">atkinson2006making</bcf:citekey>
+    <bcf:citekey order="118" intorder="1">Atkinson2009</bcf:citekey>
+    <bcf:citekey order="119" intorder="1">friberg2004audio</bcf:citekey>
+    <bcf:citekey order="120" intorder="1">yuan2008blind</bcf:citekey>
+    <bcf:citekey order="121" intorder="1">miller2007finger</bcf:citekey>
+    <bcf:citekey order="122" intorder="1">metris</bcf:citekey>
+    <bcf:citekey order="123" intorder="1">blinddrive</bcf:citekey>
+    <bcf:citekey order="124" intorder="1">shafaei2016play</bcf:citekey>
+    <bcf:citekey order="125" intorder="1">richter2016playing</bcf:citekey>
+    <bcf:citekey order="126" intorder="1">qiu2016unrealcv</bcf:citekey>
+    <bcf:citekey order="127" intorder="1">paduraru2021automated</bcf:citekey>
+    <bcf:citekey order="128" intorder="1">chursin2021using</bcf:citekey>
+    <bcf:citekey order="129" intorder="1">webgame</bcf:citekey>
+    <bcf:citekey order="130" intorder="1">erdelyi2019using</bcf:citekey>
+    <bcf:citekey order="131" intorder="1">vallejo2011applying</bcf:citekey>
+    <bcf:citekey order="132" intorder="1">StreetFighter</bcf:citekey>
+    <bcf:citekey order="133" intorder="1">Lewin_2023</bcf:citekey>
+    <bcf:citekey order="134" intorder="1">Costikyan_2000</bcf:citekey>
+    <bcf:citekey order="135" intorder="1">opencv_library</bcf:citekey>
+    <bcf:citekey order="136" intorder="1">Knight_2023</bcf:citekey>
+    <bcf:citekey order="137" intorder="1">Meredith_2023</bcf:citekey>
+    <bcf:citekey order="138" intorder="1">Brynjolfsson_McAfee_2017</bcf:citekey>
+    <bcf:citekey order="139" intorder="1">Heikkilä_2022</bcf:citekey>
+    <bcf:citekey order="140" intorder="1">Wiggers_2022</bcf:citekey>
+    <bcf:citekey order="141" intorder="1">tensorflow2015-whitepaper</bcf:citekey>
+    <bcf:citekey order="142" intorder="1">Brunelli2009-gh</bcf:citekey>
+    <bcf:citekey order="143" intorder="1">Hildreth1980</bcf:citekey>
+    <bcf:citekey order="144" intorder="1">Harris</bcf:citekey>
+    <bcf:citekey order="145" intorder="1">ApplePods</bcf:citekey>
+    <bcf:citekey order="146" intorder="1">Campbell_2025</bcf:citekey>
+    <bcf:citekey order="147" intorder="1">Antti2024</bcf:citekey>
+    <bcf:citekey order="148" intorder="1">McCormack2024</bcf:citekey>
+    <bcf:citekey order="149" intorder="1">Valve</bcf:citekey>
+    <bcf:citekey order="150" intorder="1">QTProgramming</bcf:citekey>
+    <bcf:citekey order="151" intorder="1">QTSpatial</bcf:citekey>
+    <bcf:citekey order="152" intorder="1">churchill2019magicgatheringturingcomplete</bcf:citekey>
+    <bcf:citekey order="153" intorder="1">Hildreth1980</bcf:citekey>
+    <bcf:citekey order="154" intorder="1">Demaine</bcf:citekey>
+    <bcf:citekey order="155" intorder="1">Mawhorter_Aytemiz_Karth_Smith_2021</bcf:citekey>
+    <bcf:citekey order="156" intorder="1">OoT</bcf:citekey>
+    <bcf:citekey order="157" intorder="1">Knoop_2021</bcf:citekey>
+    <bcf:citekey order="158" intorder="1">Chomsky1956ThreeMF</bcf:citekey>
+    <bcf:citekey order="159" intorder="1">fsaPic</bcf:citekey>
+    <bcf:citekey order="160" intorder="1">fsaPic</bcf:citekey>
+    <bcf:citekey order="161" intorder="1">FSM</bcf:citekey>
+    <bcf:citekey order="162" intorder="1">Turing</bcf:citekey>
+    <bcf:citekey order="163" intorder="1">Turing_2004</bcf:citekey>
+    <bcf:citekey order="164" intorder="1">FSM</bcf:citekey>
+    <bcf:citekey order="165" intorder="1">NDFSA</bcf:citekey>
+    <bcf:citekey order="166" intorder="1">state</bcf:citekey>
+    <bcf:citekey order="167" intorder="1">FSM</bcf:citekey>
+    <bcf:citekey order="168" intorder="1">omg2011umls</bcf:citekey>
+    <bcf:citekey order="169" intorder="1">wang2022yolov7trainablebagoffreebiessets</bcf:citekey>
+    <bcf:citekey order="170" intorder="1">make-sense</bcf:citekey>
+    <bcf:citekey order="171" intorder="1">Roboflow_Supervision</bcf:citekey>
+    <bcf:citekey order="172" intorder="1">PrintWindow</bcf:citekey>
+    <bcf:citekey order="173" intorder="1">XGetWindow</bcf:citekey>
+    <bcf:citekey order="174" intorder="1">Newman2017Atari</bcf:citekey>
+    <bcf:citekey order="175" intorder="1">nasaw1999going</bcf:citekey>
+    <bcf:citekey order="176" intorder="1">theycreateworlds</bcf:citekey>
+    <bcf:citekey order="177" intorder="1">abelsonstructure</bcf:citekey>
+    <bcf:citekey order="178" intorder="1">DSL</bcf:citekey>
+    <bcf:citekey order="179" intorder="1">UnixProg</bcf:citekey>
+    <bcf:citekey order="180" intorder="1">Spellman:24:WAG</bcf:citekey>
+    <bcf:citekey order="181" intorder="1">o2015pillars</bcf:citekey>
+    <bcf:citekey order="182" intorder="1">de2015tennis</bcf:citekey>
+    <bcf:citekey order="183" intorder="1">Ahoy_2019</bcf:citekey>
+    <bcf:citekey order="184" intorder="1">raessens2011handbook</bcf:citekey>
+    <bcf:citekey order="185" intorder="1">gamma1994design</bcf:citekey>
+    <bcf:citekey order="186" intorder="1">googleRepo</bcf:citekey>
+    <bcf:citekey order="187" intorder="1">OpenCV</bcf:citekey>
+    <bcf:citekey order="188" intorder="1">QT_Doc</bcf:citekey>
+    <bcf:citekey order="189" intorder="1">QT_EX</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
@@ -2564,12 +2593,13 @@
   </bcf:sortingtemplate>
   <!-- DATALISTS -->
   <bcf:datalist section="0"
-                name="nty/global//global/global"
+                name="nty/global//global/global/global"
                 type="entry"
                 sortingtemplatename="nty"
                 sortingnamekeytemplatename="global"
                 labelprefix=""
                 uniquenametemplatename="global"
-                labelalphanametemplatename="global">
+                labelalphanametemplatename="global"
+                namehashtemplatename="global">
   </bcf:datalist>
 </bcf:controlfile>
