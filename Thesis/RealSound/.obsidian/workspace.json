@@ -89,12 +89,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2025-01-14.md",
+                "file": "2025-01-15.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2025-01-14"
+              "title": "2025-01-15"
             }
           }
         ],
@@ -252,9 +252,9 @@
   },
   "active": "f5b47e4a7cdc703e",
   "lastOpenFiles": [
+    "2025-01-14.md",
     "2025-01-15.md",
     "2025-01-13.md",
-    "2025-01-14.md",
     "2025-02-14.md",
     "2025-02-07.md",
     "2025-01-24.md",
