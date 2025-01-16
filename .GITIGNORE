@@ -494,3 +494,18 @@ cython_debug/
 Thesis/RealSound/.obsidian/workspace.json
 Thesis/RealSound/.obsidian/appearance.json
 Thesis/main.pdf
+
+### VSCODE
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
