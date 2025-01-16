@@ -1,4 +1,5 @@
 import sys
+from importlib import resources
 from PySide6.QtMultimediaWidgets import QVideoWidget
 from PySide6.QtMultimedia import (
     QCapturableWindow,
@@ -18,15 +19,17 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import QCoreApplication, Slot
 
-from realsound.cv import NewPong, PongVideoTest
-from realsound.cv.PongVideo import GameState
+import main
+from realsound import config
+from realsound.cv import NewPong, VisionLayer
+from realsound.cv.VisionLayer import GameState
 from realsound.qt.cv import CVSettingsListWidget
 
 from realsound.qt.capture import WindowCaptureWidget, WindowCaptureListWidget
 
 import numpy as np
 
-import cv2 as cv
+import cv2 as cv2
 
 from realsound.qt.cv import CVStatsWidget
 
@@ -92,41 +95,50 @@ class MainWindow(QWidget):
 
         # self.current_frame = None
 
-        self.pong_video = PongVideoTest(
-            r"C:\Users\cloud\source\repos\CVPongDemo\PongDemoPy\Pong480.mp4",
+        self.video_file = resources.files(config).joinpath("Pong480.mp4")
+        self.vision = VisionLayer(
             self.settings,
         )
 
-        self.pong_video.cv_event_frame_updated.connect(self.stats.update_stats)
+        self.vision.cv_event_frame_updated.connect(self.stats.update_stats)
 
-        self.pong_video.sound_event_ball_moved.connect(
+        self.vision.sound_event_ball_moved.connect(
             self.audio_settings.update_ball_sound_position
         )
-        self.pong_video.sound_event_goal_scored.connect(self.audio_settings.play_goal)
+        self.vision.sound_event_goal_scored.connect(self.audio_settings.play_goal)
 
-        self.pong_video.sound_event_ball_hit.connect(self.audio_settings.play_hit)
+        self.vision.sound_event_ball_hit.connect(self.audio_settings.play_hit)
 
-        self.pong_video.sound_event_ball_toggle.connect(
+        self.vision.sound_event_ball_toggle.connect(
             self.audio_settings.toggle_ball_sound
         )
+
+        self.cap = None
 
     @Slot(np.ndarray)
     def get_new_frame(self, frame):
         pass
         # cv.imshow("CV Output", frame)
 
+    def simulate_stream(self):
+        pass
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+
     QCoreApplication.setApplicationName("ReAL Sound")
     main_window = MainWindow()
 
     main_window.show()
 
-    main_window.pong_video.start()
+    main_window.cap = cv2.VideoCapture(main_window.video_file)
+    main_window.cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+
+    main_window.vision.start()
 
     if app.exec() == 0:
 
-        main_window.pong_video.stop()
+        main_window.vision.stop()
         main_window.screen_cap.stop()
         sys.exit(0)

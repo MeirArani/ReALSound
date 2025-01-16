@@ -211,7 +211,7 @@ class NewPong:
         ]
 
     def detect_objects(self, frame, groups):
-        # Four data points: detected, Ball, Paddle1 (left), Paddle2 (right)
+        # Three data points: Ball, Paddle1 (left), Paddle2 (right)
         # detected encodes if the next three objects were detected
         # in a single number ranging from 0-7
         # The number is a binary representation of the three objects:
