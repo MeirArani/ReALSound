@@ -648,6 +648,31 @@
       \verb https://doi.org/10.1145/1452562.1452565
       \endverb
     \endentry
+    \entry{fsaPic}{online}{}
+      \name{author}{1}{}{%
+        {{hash=84e3582d6ab6f6a07f96eb0d826352f1}{%
+           family={Chetvorno},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{84e3582d6ab6f6a07f96eb0d826352f1}
+      \strng{fullhash}{84e3582d6ab6f6a07f96eb0d826352f1}
+      \strng{bibnamehash}{84e3582d6ab6f6a07f96eb0d826352f1}
+      \strng{authorbibnamehash}{84e3582d6ab6f6a07f96eb0d826352f1}
+      \strng{authornamehash}{84e3582d6ab6f6a07f96eb0d826352f1}
+      \strng{authorfullhash}{84e3582d6ab6f6a07f96eb0d826352f1}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Turnstile state machine colored}
+      \field{year}{2012}
+      \verb{urlraw}
+      \verb https://commons.wikimedia.org/wiki/File:Turnstile_state_machine_colored.svg
+      \endverb
+      \verb{url}
+      \verb https://commons.wikimedia.org/wiki/File:Turnstile_state_machine_colored.svg
+      \endverb
+    \endentry
     \entry{Chomsky1956ThreeMF}{article}{}
       \name{author}{1}{}{%
         {{hash=28167c0b3800bc5cfb686676277005b0}{%
@@ -1079,6 +1104,31 @@
       \verb 10.1109/CCC.2008.35
       \endverb
       \keyw{Logic;Computational modeling;USA Councils;Automata;Economic forecasting;Turing machines;Polynomials;Computational complexity;Computer science;Artificial intelligence;hardness;undecidability;games}
+    \endentry
+    \entry{heightPic}{online}{}
+      \name{author}{1}{}{%
+        {{hash=c279c1ef3fe7ca1956b057d2e95af71b}{%
+           family={Denon},
+           familyi={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{c279c1ef3fe7ca1956b057d2e95af71b}
+      \strng{fullhash}{c279c1ef3fe7ca1956b057d2e95af71b}
+      \strng{bibnamehash}{c279c1ef3fe7ca1956b057d2e95af71b}
+      \strng{authorbibnamehash}{c279c1ef3fe7ca1956b057d2e95af71b}
+      \strng{authornamehash}{c279c1ef3fe7ca1956b057d2e95af71b}
+      \strng{authorfullhash}{c279c1ef3fe7ca1956b057d2e95af71b}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Connecting 11.1-channel speakers}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://manuals.denon.com/AVRX6400H/eu/en/DRDZSYrjomlmpo.php
+      \endverb
+      \verb{url}
+      \verb https://manuals.denon.com/AVRX6400H/eu/en/DRDZSYrjomlmpo.php
+      \endverb
     \endentry
     \entry{dewey2024practitioners}{article}{}
       \name{author}{3}{}{%
@@ -1647,6 +1697,31 @@
       \verb https://qz.com/1034972/the-data-that-changed-the-direction-of-ai-research-and-possibly-the-world
       \endverb
     \endentry
+    \entry{neural}{online}{}
+      \name{author}{1}{}{%
+        {{hash=048c472d6a269e71e462431ed5482a7b}{%
+           family={Glosser.ca},
+           familyi={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{048c472d6a269e71e462431ed5482a7b}
+      \strng{fullhash}{048c472d6a269e71e462431ed5482a7b}
+      \strng{bibnamehash}{048c472d6a269e71e462431ed5482a7b}
+      \strng{authorbibnamehash}{048c472d6a269e71e462431ed5482a7b}
+      \strng{authornamehash}{048c472d6a269e71e462431ed5482a7b}
+      \strng{authorfullhash}{048c472d6a269e71e462431ed5482a7b}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Colored neural network}
+      \field{year}{2010}
+      \verb{urlraw}
+      \verb https://commons.wikimedia.org/wiki/File:Colored_neural_network.svg
+      \endverb
+      \verb{url}
+      \verb https://commons.wikimedia.org/wiki/File:Colored_neural_network.svg
+      \endverb
+    \endentry
     \entry{gregory2018game}{book}{}
       \name{author}{1}{}{%
         {{hash=b97f772b60bfb5bf77251b45263e44dd}{%
@@ -2014,6 +2089,31 @@
       \endverb
       \verb{url}
       \verb https://support.apple.com/guide/airpods/control-spatial-audio-and-head-tracking-dev00eb7e0a3/web
+      \endverb
+    \endentry
+    \entry{edge}{online}{}
+      \name{author}{1}{}{%
+        {{hash=1ba56bf45c1962c5886184ae57f3ef8d}{%
+           family={JonMcLoone},
+           familyi={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{1ba56bf45c1962c5886184ae57f3ef8d}
+      \strng{fullhash}{1ba56bf45c1962c5886184ae57f3ef8d}
+      \strng{bibnamehash}{1ba56bf45c1962c5886184ae57f3ef8d}
+      \strng{authorbibnamehash}{1ba56bf45c1962c5886184ae57f3ef8d}
+      \strng{authornamehash}{1ba56bf45c1962c5886184ae57f3ef8d}
+      \strng{authorfullhash}{1ba56bf45c1962c5886184ae57f3ef8d}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Edge Detection}
+      \field{year}{2010}
+      \verb{urlraw}
+      \verb https://commons.wikimedia.org/wiki/File:%C3%84%C3%A4retuvastuse_n%C3%A4ide.png
+      \endverb
+      \verb{url}
+      \verb https://commons.wikimedia.org/wiki/File:%C3%84%C3%A4retuvastuse_n%C3%A4ide.png
       \endverb
     \endentry
     \entry{jordan2015machine}{article}{}
@@ -3601,6 +3701,31 @@
       \field{pages}{300\bibrangedash 321}
       \range{pages}{22}
     \endentry
+    \entry{objdetect}{online}{}
+      \name{author}{1}{}{%
+        {{hash=3caddfdbee2bfd48e9e4b7f9339b3cdd}{%
+           family={MTheiler},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{3caddfdbee2bfd48e9e4b7f9339b3cdd}
+      \strng{fullhash}{3caddfdbee2bfd48e9e4b7f9339b3cdd}
+      \strng{bibnamehash}{3caddfdbee2bfd48e9e4b7f9339b3cdd}
+      \strng{authorbibnamehash}{3caddfdbee2bfd48e9e4b7f9339b3cdd}
+      \strng{authornamehash}{3caddfdbee2bfd48e9e4b7f9339b3cdd}
+      \strng{authorfullhash}{3caddfdbee2bfd48e9e4b7f9339b3cdd}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Detected-with-YOLO}
+      \field{year}{2010}
+      \verb{urlraw}
+      \verb https://commons.wikimedia.org/wiki/File:Detected-with-YOLO--Schreibtisch-mit-Objekten.jpg
+      \endverb
+      \verb{url}
+      \verb https://commons.wikimedia.org/wiki/File:Detected-with-YOLO--Schreibtisch-mit-Objekten.jpg
+      \endverb
+    \endentry
     \entry{nasaw1999going}{book}{}
       \name{author}{1}{}{%
         {{hash=42dd9dc0768298e89dad92a58fd64d59}{%
@@ -3762,6 +3887,31 @@
       \endverb
       \keyw{omg standard uml}
     \endentry
+    \entry{corner}{online}{}
+      \name{author}{1}{}{%
+        {{hash=5bd4c87976f48e6a53919d53e14025e9}{%
+           family={OpenCV},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{5bd4c87976f48e6a53919d53e14025e9}
+      \strng{fullhash}{5bd4c87976f48e6a53919d53e14025e9}
+      \strng{bibnamehash}{5bd4c87976f48e6a53919d53e14025e9}
+      \strng{authorbibnamehash}{5bd4c87976f48e6a53919d53e14025e9}
+      \strng{authornamehash}{5bd4c87976f48e6a53919d53e14025e9}
+      \strng{authorfullhash}{5bd4c87976f48e6a53919d53e14025e9}
+      \field{extraname}{1}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Harris Corner Detection}
+      \verb{urlraw}
+      \verb https://docs.opencv.org/4.x/dc/d0d/tutorial_py_features_harris.html
+      \endverb
+      \verb{url}
+      \verb https://docs.opencv.org/4.x/dc/d0d/tutorial_py_features_harris.html
+      \endverb
+    \endentry
     \entry{OpenCV}{misc}{}
       \name{author}{1}{}{%
         {{hash=5bd4c87976f48e6a53919d53e14025e9}{%
@@ -3777,6 +3927,7 @@
       \strng{authorbibnamehash}{5bd4c87976f48e6a53919d53e14025e9}
       \strng{authornamehash}{5bd4c87976f48e6a53919d53e14025e9}
       \strng{authorfullhash}{5bd4c87976f48e6a53919d53e14025e9}
+      \field{extraname}{2}
       \field{sortinit}{O}
       \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
       \field{labelnamesource}{author}
@@ -3788,6 +3939,31 @@
       \endverb
       \verb{url}
       \verb https://docs.opencv.org/4.x/dc/d0d/tutorial_py_features_harris.html
+      \endverb
+    \endentry
+    \entry{thresh}{online}{}
+      \name{author}{1}{}{%
+        {{hash=5bd4c87976f48e6a53919d53e14025e9}{%
+           family={OpenCV},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{5bd4c87976f48e6a53919d53e14025e9}
+      \strng{fullhash}{5bd4c87976f48e6a53919d53e14025e9}
+      \strng{bibnamehash}{5bd4c87976f48e6a53919d53e14025e9}
+      \strng{authorbibnamehash}{5bd4c87976f48e6a53919d53e14025e9}
+      \strng{authornamehash}{5bd4c87976f48e6a53919d53e14025e9}
+      \strng{authorfullhash}{5bd4c87976f48e6a53919d53e14025e9}
+      \field{extraname}{3}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Image Thresholding}
+      \verb{urlraw}
+      \verb https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html
+      \endverb
+      \verb{url}
+      \verb https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html
       \endverb
     \endentry
     \entry{world1980international}{book}{}
@@ -3915,6 +4091,31 @@
       \endverb
       \verb{url}
       \verb https://blinddrivegame.com/press/
+      \endverb
+    \endentry
+    \entry{hrtfpic}{online}{}
+      \name{author}{1}{}{%
+        {{hash=0c46a44b753f42c6a95138d7c202b54d}{%
+           family={Petibub},
+           familyi={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{0c46a44b753f42c6a95138d7c202b54d}
+      \strng{fullhash}{0c46a44b753f42c6a95138d7c202b54d}
+      \strng{bibnamehash}{0c46a44b753f42c6a95138d7c202b54d}
+      \strng{authorbibnamehash}{0c46a44b753f42c6a95138d7c202b54d}
+      \strng{authornamehash}{0c46a44b753f42c6a95138d7c202b54d}
+      \strng{authorfullhash}{0c46a44b753f42c6a95138d7c202b54d}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{SimpleFreeFieldHRIR-0.3}
+      \field{year}{2010}
+      \verb{urlraw}
+      \verb https://commons.wikimedia.org/wiki/File:SimpleFreeFieldHRIR-0.3.png
+      \endverb
+      \verb{url}
+      \verb https://commons.wikimedia.org/wiki/File:SimpleFreeFieldHRIR-0.3.png
       \endverb
     \endentry
     \entry{petrou2010image}{book}{}

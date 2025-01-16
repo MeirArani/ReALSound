@@ -1,2 +1,2 @@
-from .PongVideo import PongVideoTest, GameState
+from .VisionLayer import VisionLayer, GameState
 from .NewPong import NewPong

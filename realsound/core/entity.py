@@ -1,18 +1,24 @@
 import numpy as np
-from realsound.core import FSM
+from realsound.core import FSM, State
 
 
 class Entity(FSM):
+    def __init__(self, corners):
+        super().__init__(self)
+        self.corners = corners
+        self.position = (self.corners[0] + self.corners[2]) / 2
+
+
+class EState(State):
     def __init__(self):
         super().__init__(self)
-        self.position = np.zeros(2, 1)
 
 
 class Paddle(Entity):
-    def __init__(self):
-        super().__init__(self)
+    def __init__(self, corners):
+        super().__init__(corners)
 
 
 class Ball(Entity):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, corners):
+        super().__init__(corners)
