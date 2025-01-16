@@ -61,36 +61,9 @@ class VisionLayer(QObject):
         self.prev_time = 0
 
     def start(self, window_name="Pong Demo"):
-
-        # Init values
-        self.running = True
-
-        # Init capture
-        self.cap = cv2.VideoCapture(self.video)
-        self.cap.set(cv2.CAP_PROP_POS_FRAMES, self.START_FRAME)
-
         # Init Width/Height
         self.VERT_MAX = self.PADDLE_MAX_HEIGHT / self.cap_h
         self.HORZ_MAX = self.PADDLE_MAX_WIDTH / self.cap_w
-
-        if not self.cap.isOpened():
-            print("Cannot open camera")
-            exit()
-
-        while self.running:
-
-            time_elapsed = time.time() - self.prev_time
-
-            if time_elapsed > 1 / self.FRAME_RATE:
-                self.run_frame(self.cap)
-                self.prev_time = time.time()
-
-            # cv2.waitKey(0)
-
-            # capture, frame by frame (sick guitar riff)
-
-        self.cap.release()
-        cv2.destroyAllWindows()
 
     def run_frame(self, cap):
 
@@ -100,7 +73,18 @@ class VisionLayer(QObject):
             print("Frame error!")
             self.running = False
 
-        # Get threshold value from slider
+        # Get Entity corners
+        # Uses Harris Corner Detection
+        corners = self.get_corners(frame)
+
+        # Detect object shapes
+        # Need to re-shape array to make function happy
+        shapes = self.detect(np.reshape(corners, (-1, 2)))
+
+        # Classify Entities (i.e. ball & paddles)
+        entities = self.classify(frame, shapes)
+
+    def get_corners(self, frame):
         self.threshold = self.qt_settings.settings["thresh"].slider.value / 100
 
         # Get a grayscale copy
@@ -114,31 +98,7 @@ class VisionLayer(QObject):
             self.qt_settings.settings["distance"].slider.value,
         )
 
-        # Detect object shapes
-        shapes = self.detect(np.reshape(corners, (-1, 2)))
-
-        # Classify Objects (i.e. ball & paddles)
-        objs = self.classify(frame, shapes)
-
-        key = 0xFF & cv2.waitKey(1)
-
-        if key == ord("q"):
-            self.running = False
-        elif key == ord("v"):
-            cv2.imwrite("test.png", gray)
-            print("Screenshotted!")
-        elif key == ord("p"):
-            self.paused = not self.paused
-        elif key == ord("c"):
-            show_circles = not show_circles
-        while self.paused:
-            key = 0xFF & cv2.waitKey(1)
-            if key == ord("s"):
-                break
-            elif key == ord("p"):
-                self.paused = not self.paused
-            elif key == ord("c"):
-                show_circles = not show_circles
+        return corners
 
     def detect(self, points):
         candidates = points  # Grab a copy

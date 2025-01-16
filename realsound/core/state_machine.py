@@ -7,21 +7,3 @@ class FSM:
 
     def stop(self):
         pass
-
-
-class State:
-    def __init__(self):
-        self.transitions = None
-        # Vars go here
-
-    # Handle Startup
-    def start(self, data):
-        pass
-
-    # Evaluate Conditions Here
-    def process(self, data):
-        pass
-
-    # Transition to next state
-    def stop(self):
-        pass
