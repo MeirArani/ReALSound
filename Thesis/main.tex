@@ -113,17 +113,26 @@
 %%% ABSTRACT
 
 \begin{abstract}
-    In a world of ever-increasing software complexity, there has been a growing demand for interoperable, reusable technologies that function in many problem domains. This is especially true in the world of game development, where tools, structures, and architectures often change from title to title. At the same time, the complexity and specificity of the needs of end-users has also grown immensely, bringing an increased demand for advanced accessibility features with it. To address these trends, we propose \rs: the \rsfull, which abstracts the creation of accessibility features for visually impaired persons in the realm of game design using computer vision and machine learning techniques. Through our proposal, we demonstrate the efficacy of \rs as a general-purpose tool for implementing accessibility features in a wide-variety of games.  
+    In a world of ever-increasing software complexity, there has been a growing demand for interoperable, reusable technologies that function in many problem domains. This is especially true in the world of game development, where tools, structures, and architectures often change from title to title. At the same time, the complexity and specificity of the needs of end-users has also grown immensely, bringing an increased demand for advanced accessibility features with it. To address these trends, we propose \rs: the \rsfull, which abstracts the creation of accessibility features for visually impaired persons in the realm of game design using computer vision spatial audio techniques. Through our proposal, we demonstrate the efficacy of \rs as a general-purpose tool for implementing accessibility features in a wide-variety of games.  
 \end{abstract}
 
 \newpage{} % Pagebreak
 
 %%% TABLE OF CONTENTS
 
-\chapter{Notes on the First Draft}
-The prose found within this first draft is primarily complete, although no doubt riddled with errata and typos which require fixing. We do note that some sections are incomplete as of this draft. Later sections of chapter 4---where I provide samples of my own implementation of \rs---are in the final stages of development, which will hopefully conclude in the coming days. Consequently, those sections are unfinished. The same is true of chapter 5, where I perform some basic experiments using my sample implementations. As this thesis has already reached a massive scope, these experiments will be brief in nature. I estimate their results will be fairly inconsequential to the thesis as whole. 
+\chapter*{Notes on the First Draft}
+The prose found within this first draft is mainly complete, although no doubt riddled with errata and typos which demand fixing. 
 
-On top of this, there is some confusion in my writing notations which need to be addressed and amended for the final version. This draft is also lacking in figures and explanatory visuals, which will also be added for the final draft.
+We note that a few sections of this draft are incomplete. Later sections of chapter 4---where I provide samples of my own implementation of \rs---are in the final stages of development, which will hopefully conclude in the coming days. Consequently, those sections are unfinished. The same is true of chapter 5, where I perform some basic experiments using my sample implementations. As this thesis has already reached a massive scope, these experiments will be brief in nature. I estimate their results will be fairly inconsequential to the thesis's validity and novelty as whole. 
+
+On top of this, there is some inconsistency in my notations which will fixed in the final version. This draft is also lacking in figures, explanatory visuals, and code snippets, also to be included in the next version. Any citations or references to figures that appear as \textbf{[??]} indicate content to be added.
+
+\begin{flushright}
+\vspace{5mm}
+Zachary Arani
+\\
+\date{\today}
+\end{flushright}
 
 \tableofcontents{} % Generates table of contents from sections and subsections
 \newpage{} % Pagebreak
@@ -157,11 +166,11 @@ The old conceptualization of immutable hardware configurations (dichotomies such
 
 \subsubsection{The Rise of Universal Software Design}
 
-This trend highlights a key problem area in contemporary tech: the need for modular, cross-platform, and \emph{universal} software and software design. It would not be an overstatement to say that billions-upon-billions of dollars have been spent over the last decade in an industry-wide attempt to transition core technologies to agnostic designs. Microsoft has undertaken a multi-decade campaign to phase-out classic Windows 32-bit applications\cite{Foley_2020}, while Google opted to create an entire operating system---\tech{ChromiumOS}---which essentially functions a massive, OS-level web-browser to sidestep the problem entirely\cite{chrome}. 
+This trend highlights a key problem area in contemporary tech: the need for modular, cross-platform, and \emph{universal} software and software design. It would not be an overstatement to say that billions-upon-billions of dollars have been spent over the last decade in an industry-wide attempt to transition core technologies to agnostic designs. Microsoft has undertaken a multi-decade campaign to phase-out classic Windows 32-bit applications \cite{Foley_2020}, while Google opted to create an entire operating system---\tech{ChromiumOS}---which essentially functions a massive, OS-level web-browser to sidestep the problem entirely \cite{chrome}. 
 
-In a similar fashion, nascent startups have frequently leaned towards platform-agnostic frameworks and technology-stacks. The \tech{Electron} software framework allows the creation of cross-platform applications using standard web-development tools such as \tech{JavaScript}, \tech{HTML}, and \tech{CSS} in a fashion similar to ChromiumOS. It would not be unfair to say that Electron's web-focused paradigms ushered in the modern era of application design\cite{Alexander_2024}. It is also not hard to see why, as cross-platform applications which once demanded dozens of low-level technical programmers and leagues of platform specialists could now instead be developed by a handful of web-developers. This has had a large impact on the current state of technology, as JavaScript has functionally replaced C++ as the \emph{lingua franca} of young developers, while modern application---from \tech{Slack} and \tech{Skype} to \tech{Visual Studio Code} and \tech{Atom}.  
+In a similar fashion, nascent startups have frequently leaned towards platform-agnostic frameworks and technology-stacks. The \tech{Electron} software framework allows the creation of cross-platform applications using standard web-development tools such as \tech{JavaScript}, \tech{HTML}, and \tech{CSS} in a fashion similar to ChromiumOS. It would not be unfair to say that Electron's web-focused paradigms ushered in the modern era of application design \cite{Alexander_2024}. It is also not hard to see why, as cross-platform applications which once demanded dozens of low-level technical programmers and leagues of platform specialists could now instead be developed by a handful of web-developers. This has had a large impact on the current state of technology, as JavaScript has functionally replaced C++ as the \emph{lingua franca} of young developers, while modern application---from \tech{Slack} and \tech{Skype} to \tech{Visual Studio Code} and \tech{Atom}.  
 
-As software has become platform-agnostic, so too has its development tools. Now-ubiquitous technologies like \tech{Docker} avoid the need for platform-specific considerations by simply packaging the platform as a \emph{ part} of the software itself---a paradigm now termed \emph{Platform as a Service} (\tech{PaaS})\cite{kolb2019portability}. This enables developers to avoid the infamous \emph{"works on my machine"} dilemma \cite{Yadav_2021}---where software issues appear only on platform configurations not used in development. This trend of \emph{containerization} and \emph{virtualization} has also had massive implications for software development and its future---expediting the diffusion of cross-platform technologies used in everything from standard computers to complex, IoT-enabled embedded devices. As proof of its success, we should note that Docker and its derivatives are now in-use by virtually every major software vendor: Microsoft, IBM, Google, Cisco, Meta, etc.
+As software has become platform-agnostic, so too has its development tools. Now-ubiquitous technologies like \tech{Docker} avoid the need for platform-specific considerations by simply packaging the platform as a \emph{ part} of the software itself---a paradigm now termed \emph{Platform as a Service} (\tech{PaaS}) \cite{kolb2019portability}. This enables developers to avoid the infamous \emph{"works on my machine"} dilemma \cite{Yadav_2021}---where software issues appear only on platform configurations not used in development. This trend of \emph{containerization} and \emph{virtualization} has also had massive implications for software development and its future---expediting the diffusion of cross-platform technologies used in everything from standard computers to complex, IoT-enabled embedded devices. As proof of its success, we should note that Docker and its derivatives are now in-use by virtually every major software vendor: Microsoft, IBM, Google, Cisco, Meta, etc.
 
 \subsection{User Experience Trends}
 While these hardware trends have kept developers on their toes, they have offered end users a rich array of computing options. An evolution of user experience \footnote{\textbf{UX}, a shorthand for \textbf{U}ser E\textbf{X}perience is used interchangeably hereafter.} expectations has naturally followed as different styles of computing (smartphones, smartwatches, smart TVs, tablets, smart home devices, etc.) achieved mass-adoption. Although the totality of UX trends are beyond the scope of this thesis, we must highlight the clear demands and expectations users have for cross-platform design. 
@@ -169,7 +178,7 @@ While these hardware trends have kept developers on their toes, they have offere
 \subsubsection{Towards a Universal User Experience}
 But despite the trend towards universal design, numerous real-world applications have yet to successfully realize this ideal---necessitating the need for platform-specific software. The experience of browsing a popular social media platform such as \tech{Instagram}, for instance, is inherently different on a computer web browser versus a native mobile application. More infamously, the MacOS version of Microsoft's \tech{Office Suite}---which has been developed independently of the more well known Windows version since 1989---has no doubt confused many users making an operating system switch.
 
-These platform-specific incongruities have often the target of user anger\cite{Paquin_2010}, as most users expect the features and quality of their experience to be preserved when they change usage contexts. This ever-present sense of user ire has become another key motivator behind the generalization of computer software. Instagram, to continue with the previous example, lacked a method of accessing the platform on windows devices until overwhelming user demand necessitated its creation\cite{Warren2013}. In a similar (and more humorous) vein, the iPad's omission of a standard calculator app became such a fixation of user frustration as to be headline news \cite{Weinstein_2024} when Apple finally debuted a native app in 2024. These emerging behaviors clearly demonstrate the need for universal design---not only for developers of software, but also their end-users. 
+These platform-specific incongruities have often the target of user anger \cite{Paquin_2010}, as most users expect the features and quality of their experience to be preserved when they change usage contexts. This ever-present sense of user ire has become another key motivator behind the generalization of computer software. Instagram, to continue with the previous example, lacked a method of accessing the platform on windows devices until overwhelming user demand necessitated its creation \cite{Warren2013}. In a similar (and more humorous) vein, the iPad's omission of a standard calculator app became such a fixation of user frustration as to be headline news \cite{Weinstein_2024} when Apple finally debuted a native app in 2024. These emerging behaviors clearly demonstrate the need for universal design---not only for developers of software, but also their end-users. 
 
 \subsubsection{The AI Boom}
 Overlapping the trend towards universal design has been the sudden explosion of AI technologies in recent years \cite{Knight_2023}. Of course, there are many reasons to be skeptical of AI's sudden explosion in popularity, as AI research has been notorious for its seasonal relevance in the past. The term \emph{AI Winter}---which describes the long droughts of public attention and spending towards AI between milestone research achievements---has been in the technical lexicon for decades now \cite{AIWinter}. Despite this, it is hard to deny the widespread changes this most recent \emph{AI Summer} has brought with it. And so, we shall introduce some relevant topics from the boom---namely through advances in machine learning. 
@@ -260,6 +269,13 @@ But even though digital images are no doubt necessary for our purposes, it hardl
 
 \paragraph{Simple Methods}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\textwidth]{thresh.jpg}
+    \caption{Demonstration of image thresholding techniques \cite{thresh}.}
+    \label{fig:thresh}
+\end{figure}
+
 There exist many techniques to segment an image. Basic forms such as \tech{thresholding} simply compare a pixel against one or a few trivial criteria. For example, imagine a threshold algorithm which produced a striking, high-contrast black-and-white image. If we consider pixel values to be in the range of $[0, 255]$, then our algorithm $t(x,y)$ may look something like this:
 
 $$t(x,y) = \begin{cases} 0 & f(x,y) \leq 128 \\ 255 & f(x,y) > 128 \end{cases}$$
@@ -315,6 +331,22 @@ $$
 f(x_e + 1, y_e + 1) = 255
 $$
 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\textwidth]{edge.png}
+    \caption{Demonstration of edge detection techniques \cite{edge} }
+    \label{fig:edge}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\textwidth]{corner.jpg}
+    \caption{Demonstration of corner detection techniques \cite{corner}}
+    \label{fig:corner}
+\end{figure}
+
+
 This sudden shift in value is detectable using methods rooted in calculus such as \tech{image derivatives.} \cite{hashimoto1987multiple}. Although the specific mathematics driving edge detection are outside the scope of this paper, we must take a moment to talk about a relative field of study---\tech{corner detection}. 
 
 As one may guess from its naming, corner detections runs parallel to edge detection---working to assess the corners of objects within an image instead of entire edges. Similar (in abstract) to edge detection, corner detection calculates edges using image derivatives---with the additional requirement of large shifts in both the $x$ and $y$ directions of an edge. Or, to use the formal phrasing, corners are points with a low \emph{'self-similarity. \cite{maver2009self}'} Methods of corner detection were popularized by Harris and Stephens in 1988, as we will see in later chapters \cite{Harris}. 
@@ -333,7 +365,15 @@ This requires the model to be \emph{'trained'} with a series of known inputs and
 
 Generally---given enough statistically significant training data---a model may eventually become 'trained.' This trained model is capable of taking any given input and producing a good approximation of output. This is because the internal functions of the model---which once spewed random noise---were slowly 'shaped' over time (via the training data) into functions that actually fit the nature of the model's question \cite{mahesh2020machine}. 
 
-\paragraph{Neural Networks }
+\paragraph{Neural Networks}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.35\textwidth]{neural.png}
+    \caption{A basic neural network model \cite{neural}.}
+    \label{fig:neural}
+\end{figure}
+
 
 Many machine learning paradigms extend this simple concept with additional theories and stipulations. Most notable is the model of a \tech{neural network}\footnote{Also referred to as an \tech{Artificial Neural Network} (\tech{ANN}) \footnote{abiodun2018state}} and its extensions \tech{deep learning} and \tech{reinforcement learning.} Neural networks frame the issue of machine learning in terms of the biological neural networks found in animal brains. Each input \tech{neuron} makes connections to other neurons, eventually reaching a series of output neurons. The connections between neurons are the model functions described above. Neurons are traditionally grouped into several \tech{layers}: the \tech{input} and \tech{output} layers, as well as any number of \tech{hidden} layers which lie between the two. The name stems from its vague similarities to brain structure---each neuron forming convoluted connections to all of the neurons in surrounding layers \cite{dongare2012introduction}.
 
@@ -343,12 +383,20 @@ A neural network is said to feature deep learning when using many neuron layers,
 
 \subparagraph{Reinforcement Learning}
 
-Reinforcement Learning, meanwhile, bucks the trend of training data altogether. Instead of providing static, prepared training data, reinforcement learning models provide \tech{reward} metrics. When a model makes an output prediction, its accuracy is evaluated and a proportional reward signal is sent to the model. The model then adjusts its internal functions based on the reward signal---constantly attempting to maximize received rewards \cite{kaelbling1996reinforcement}.   The \tech{NEAT} (\textbf{N}euro\textbf{E}volution of  \textbf{A}ugmenting \textbf{T}opologies) method \cite{NEAT} is one notable implementation.
+Reinforcement Learning, meanwhile, bucks the trend of training data altogether. Instead of providing static, prepared training data, reinforcement learning models provide \tech{reward} metrics. When a model makes an output prediction, its accuracy is evaluated and a proportional reward signal is sent to the model. The model then adjusts its internal functions based on the reward signal---constantly attempting to maximize received rewards \cite{kaelbling1996reinforcement}. The \tech{NEAT} (\textbf{N}euro\textbf{E}volution of  \textbf{A}ugmenting \textbf{T}opologies) method \cite{NEAT} is one notable implementation.
 
 
 \paragraph{MarI/O}
 
 We will now review a simple example to reinforce our learning. Injecting some levity and topicality into our discussion, we consider a machine learning model trained to play the ever-popular \emph{Super Mario World.} In 2015 \emph{SethBling\footnote{A noted online personality in the realm of games and computer science. Real name Seth Hendrickson.}} demonstrated a machine learning model that successfully played \emph{Super Mario World} \cite{sethbling} in a video viewed by over 11 million people, garnering significant press coverage \cite{Souppouris_2015} \cite{Gallagher_2015}. Hendrickson's model---named \tech{MarI/O}\footnote{Source code available at \cite{Hendrickson_2015}.}---is based on the NEAT method discussed above.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{mario.png}
+    \caption{\tech{MARI/O}. A model representation of the neural network is shown on the upper portion of the screen. The left side displays the simplified representation of game data provided to the model as input, while the right side shows the model's controller output decisions. Information about the state of reinforcement learning is shown in the top of the display \cite{Hendrickson_2015}.}
+    \label{fig:mario}
+\end{figure}
+
 
 
 What constitutes 'input,' 'output,' and 'reward' naturally differs significantly depending on the model. In the case of MarI/O, the model receives a simplified representation of the game-world (designed by Hendrickson) as input and produces a in-game command as output. The model's input consists of key data such as the location of Mario, enemies, and items, while the output is a simple button press on a controller such as \tech{UP} or \tech{A.} The reward function used for reinforcement is based on how far Mario progresses within the given level. This is an incredibly simple metric to measure---as most \emph{Super Mario World} stages move purely left-to-right. In other words, the further Mario 'moves to the right' within a level, the more rewarded the model is. 
@@ -359,6 +407,14 @@ We can now see how MARI/O achieved mastery of its task---by producing random out
 
 \subsubsection{Object Recognition and Classification}
 Most crucial for our research are the advances made in \tech{object recognition} and \tech{object classification}. One may imagine how the research discussed above empowers these tasks. Recognition models are usually trained on massive data sets featuring thousands of images. These images are \tech{annotated} with \tech{features} that the model is trained to recognize \cite{wang2016deep}. For example, a face detection model would likely train on images featuring human faces. Each face is manually labeled and perhaps includes  other key characteristics (age, gender, race, etc.) used in training and tuning the model. A small sub-set of training data is usually unused in training, instead being set aside to 'test' the model's post-training validity. The trained model is considered valid if it produces output matching known 'correct' output in the testing data \cite{zhao2019objectdetectiondeeplearning}. 
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{objectdetect.jpg}
+    \caption{Demonstration of object detection and classification using \tech{YOLO} \cite{objdetect}.}
+    \label{fig:objectdetect}
+\end{figure}
 
 We will explore these topics further in the following chapters. For now we turn our attention to other fields of relevant research. 
 
@@ -381,10 +437,29 @@ Where $a$ is the radius of the relevant sphere (i.e., the human head), $c$ is th
 
 \subsubsection{The Head-Related Transfer Function}
 
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{hrtf.png}
+    \caption{Visual demonstration of the Head-Related Transfer Function \cite{hrtfpic}}
+    \label{fig:hrtf}
+\end{figure}
+
+
 As one may imagine, the specific characteristics of localization depend on the physiology of the listener. Not all heads and ears are made alike, after all. The \tech{Head-related transfer function} (\tech{HRTF}) models this behavior \cite{li2020measurement}. The specific derivations of an HRTF are beyond the scope of this thesis, but we must note a few key observations. A high-quality HRTF is required for good spatial audio reproduction. However, a challenge lies in the fact that HRTFs are unique to the individual---and must be calculated per-person if precise results are desired. Consequently, spatial audio technologies supply 'average-case' HRTFs, which are sufficiently effective in general situations. HRTFs also presume an 'open-field' (that is, a room without any acoustic characteristics), meaning that additional acoustic information must be provided after-the-fact \cite{moller1995head}. 
 
 \subsubsection{Spatial Audio and the 3D Audio Effect}
 Recent advances in spatial audio technology have married these two details---precise, research derived HRTFs, and \textbf{room modeling} (the simulation of acoustics) \cite{roommodel}---to great success. As we described above, humans localize sound in \emph{three} dimensions---meaning \tech{hight channels} are necessary to accurately produce a \tech{3D audio} effect. We are, of course, referring to the \tech{channels} used in modeling \tech{surround sound} technology---the more common \tech{center} and \tech{surround} channels are also needed to produce 3D audio \cite{3daudio}. 
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{surroundheight.png}
+    \caption{Sample 3D sound environment \cite{heightPic}. Note the height channels labeled in blue.}
+    \label{fig:height}
+\end{figure}
+
 
 Contemporary research from laboratories such as Dolby have produced technologies such as \tech{Dolby Atmos}, which incorporates hight channels, room (i.e., acoustic) metadata, and a conceptualization of \tech{audio objects} to ease the generation of 3D audio \cite{Pfanzagl-Cardone2023}. Non-surround sound technology also makes use of Atmos and similar 3D audio branding. To achieve a similar effect, HRTFs are used to estimate and exaggerate spatiality, combined with room metadata and audio objects \cite{dewey2024practitioners}.  
 
@@ -484,23 +559,23 @@ As discussed in the previous chapter, there is a well-established and ever-growi
 Moreover, the generalization process requires zero knowledge of the game's actual codebase, meaning games can be modified in the after-market by dedicated enthusiasts. As a consequence, the fan-driven movement of retrofitting of older titles with modern accessibility features becomes easier---allowing visually impaired persons access to a wealth of classic titles while costing modern developers zero resources. This is becoming especially crucial in modern times, as some estimates show that over 85\% of games are functionally abandoned---with no publisher or developer entity maintaining ownership \cite{Lewin_2023}. This fact effectively renders the vast majority of published games, \emph{'abandonware'} with little hope of official improvements by original developers \cite{Costikyan_2000}.
 
 \subsubsection{\emph{How is \rs?}}
-\rs is made possible through modern machine learning, computer vision, and spatial audio technologies. Using the latest computer vision techniques through libraries like OpenCV\cite{opencv_library}, even novice developers can implement object detection algorithms---which analyze visual input and return semantic information about the its contents---with ease. 
+\rs is made possible through modern machine learning, computer vision, and spatial audio technologies. Using the latest computer vision techniques through libraries like OpenCV \cite{opencv_library}, even novice developers can implement object detection algorithms---which analyze visual input and return semantic information about the its contents---with ease. 
 
 \paragraph{The Modern AI Boom}
 
-On top of this, the recent 'boom' in AI technologies\cite{Knight_2023}\cite{Meredith_2023} has brought an equally intense focus to the development, improvement, and democratization of AI tools and systems\cite{Brynjolfsson_McAfee_2017}\cite{Heikkilä_2022}. Ecosystems like \emph{HuggingFace}\cite{Wiggers_2022} and projects like Google's \emph{TensorFlow}\cite{tensorflow2015-whitepaper} have dramatically changed the landscape of AI technology development---trivializing many tasks considered inaccessible to the common developer just a few years ago.
+On top of this, the recent 'boom' in AI technologies \cite{Knight_2023} \cite{Meredith_2023} has brought an equally intense focus to the development, improvement, and democratization of AI tools and systems \cite{Brynjolfsson_McAfee_2017} \cite{Heikkilä_2022}. Ecosystems like \emph{HuggingFace} \cite{Wiggers_2022} and projects like Google's \emph{TensorFlow} \cite{tensorflow2015-whitepaper} have dramatically changed the landscape of AI technology development---trivializing many tasks considered inaccessible to the common developer just a few years ago.
 
 \subparagraph{Agnostic Vision Requirements}
 
 Considering the ever-changing state of modern AI and computer vision technology, \rs does not specifically call for any one particular solution for its \textbf{Training} or \textbf{Execution} stages. Instead, \rs only requires the \emph{successful} real-time identification of in-game objects \textit{as defined by the implementor}. The means by which this goal is accomplished is left up to the implementor, and may be achieved by any available means. 
 
-Consequently, \rs does not technically demand the usage of AI \emph{at all.} Many well-proven pre-AI techniques---such as \emph{template matching}\cite{Brunelli2009-gh} and \emph{corner detection}\cite{Hildreth1980}---have proven to be successful in many simple use-cases. I will demonstrate this in a later chapter, creating one  implementation of \rs using the original corner detection algorithm---the \emph{Harris corner detector}\cite{Harris}, originally developed in 1986. 
+Consequently, \rs does not technically demand the usage of AI \emph{at all.} Many well-proven pre-AI techniques---such as \emph{template matching} \cite{Brunelli2009-gh} and \emph{corner detection} \cite{Hildreth1980}---have proven to be successful in many simple use-cases. I will demonstrate this in a later chapter, creating one  implementation of \rs using the original corner detection algorithm---the \emph{Harris corner detector} \cite{Harris}, originally developed in 1986. 
 
 \paragraph{Spatial Audio}
-Running alongside the AI boom has been a comparably smaller (yet not insignificant) boom of 3D and spatial audio technologies. As discussed in the previous chapter, many advances have been made in sonification, audification, and spatial audio techniques in recent years. This trend has given end-users an abundance of choice for low-cost, high quality audio playback devices with native spatial audio support--from in-ear monitors like the the Apple \emph{AirPods}\cite{ApplePods} to even computer display monitors from major manufacturers like Dell\cite{Campbell_2025}. Future patents promise even greater advancements through advanced techniques like automatic HRTF adjustments specific to the user's unique physiology\cite{Antti2024}.
+Running alongside the AI boom has been a comparably smaller (yet not insignificant) boom of 3D and spatial audio technologies. As discussed in the previous chapter, many advances have been made in sonification, audification, and spatial audio techniques in recent years. This trend has given end-users an abundance of choice for low-cost, high quality audio playback devices with native spatial audio support--from in-ear monitors like the the Apple \emph{AirPods} \cite{ApplePods} to even computer display monitors from major manufacturers like Dell \cite{Campbell_2025}. Future patents promise even greater advancements through advanced techniques like automatic HRTF adjustments specific to the user's unique physiology \cite{Antti2024}.
 
 
-Many new software development libraries been developed to address this boom in consumer demand. Fan driven efforts like the \emph{Spatial\_Audio\_Framework}\cite{McCormack2024} as well as company-produced projects such as Valve Software's Steam Audio\cite{Valve} have seen popular adoption. Legacy libraries with widespread adoption, such as the quarter-century old \emph{Qt} application development framework\cite{QTProgramming}, have also introduced support for modern spatial audio technologies in recent versions\cite{QTSpatial}. The implementations of \rs presented later in later sections utilize Qt as a backend framework---although numerous other libraries feature equivalent functionality. 
+Many new software development libraries been developed to address this boom in consumer demand. Fan driven efforts like the \emph{Spatial\_Audio\_Framework} \cite{McCormack2024} as well as company-produced projects such as Valve Software's Steam Audio \cite{Valve} have seen popular adoption. Legacy libraries with widespread adoption, such as the quarter-century old \emph{Qt} application development framework \cite{QTProgramming}, have also introduced support for modern spatial audio technologies in recent versions \cite{QTSpatial}. The implementations of \rs presented later in later sections utilize Qt as a backend framework---although numerous other libraries feature equivalent functionality. 
 
 \paragraph{Conclusion}
 In this section, I proposed \rs and provided justifications for its utility and novelty by considering contemporary technology innovations and emergent user trends. 
@@ -626,11 +701,11 @@ $$E = \{L, C, T\}$$
 
 
 \subsubsection{Limitations}
-While this construction is useful for our purposes here, I do not contend this definition as a end-all definition of games. It is already known that several games---both in physical and video formats---are Turing complete, which exists outside the definitions given here. Previous researchers however have likewise made attempts in formally defining games with similar bounds on their definitions---leaving titles like \emph{Magic: The Gathering}\cite{churchill2019magicgatheringturingcomplete} or \emph{Minecraft}\cite{Hildreth1980} out of scope\cite{Demaine}. Virtually any game can also be made Turning complete if methods of arbitrary code execution (ACE) are discovered, which has been demonstrated using \emph{Super Metroid}\cite{Mawhorter_Aytemiz_Karth_Smith_2021}, \emph{The Legend of Zelda: Ocarina of Time}\cite{OoT}, and numerous others. Despite this, we find that our definition of games covers a sufficiently useful scope to demonstrate \rs's utility.
+While this construction is useful for our purposes here, I do not contend this definition as a end-all definition of games. It is already known that several games---both in physical and video formats---are Turing complete, which exists outside the definitions given here. Previous researchers however have likewise made attempts in formally defining games with similar bounds on their definitions---leaving titles like \emph{Magic: The Gathering} \cite{churchill2019magicgatheringturingcomplete} or \emph{Minecraft} \cite{Hildreth1980} out of scope \cite{Demaine}. Virtually any game can also be made Turning complete if methods of arbitrary code execution (ACE) are discovered, which has been demonstrated using \emph{Super Metroid} \cite{Mawhorter_Aytemiz_Karth_Smith_2021}, \emph{The Legend of Zelda: Ocarina of Time} \cite{OoT}, and numerous others. Despite this, we find that our definition of games covers a sufficiently useful scope to demonstrate \rs's utility.
 
 
 \subsubsection{Conclusion}
-Here, I have provided a general outline of games in formal notation. I do not guarantee nor contend that these structures form a complete closure over the entire concept of video games---whose definition is still fiercely debated to this day\cite{Knoop_2021}---but these structures will serve as a useful framework for our following definitions and concepts.
+Here, I have provided a general outline of games in formal notation. I do not guarantee nor contend that these structures form a complete closure over the entire concept of video games---whose definition is still fiercely debated to this day \cite{Knoop_2021}---but these structures will serve as a useful framework for our following definitions and concepts.
 
 \subsection{State Models}
 
@@ -644,19 +719,28 @@ Automata are generally categorized into four major types as defined by the Choms
 
 \subsubsection{Finite State Automata}
 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{fsa.png}
+    \caption{An example Finite State Machine (FSM or FSA). This FSA models a turnstile, which takes a coin as input while \state{locked}. The coin \state{unlocks} the turnstile. A user then pushes through the turnstile, which once again \state{locks} the turnstile \cite{fsaPic}.}
+    \label{fig:fsa}
+\end{figure}
+
+
 \paragraph{Introduction and Concepts}
 
-Carroll defines (deterministic) finite automata as the "mathematical model of a machine that accepts a particular set of words over some alphabet $\Sigma$.\cite{FSM}" He conceptualizes FSMs as "black boxes" that combine an input tape (consisting of symbols in the alpha $\Sigma$), a \emph{'read head'} which processes this input tape of symbols, and an 'acceptance light' which indicates the acceptance/rejection of an input symbol, and whose activity is governed by the read head's reaction to the given input. In essence, the machine accepts input, makes decisions for the acceptance light based upon the input, and then moves to a new position to receive another input. The machine's acceptance/rejection of a symbol, as well as the position it moves to next, is contingent on its own internal logic---some rule that dictates \emph{"If symbol X is read, turn on (if accepted) or off (if rejected) the acceptance light, and move read head to position Y."} The machine may also read a symbol which finally halts its operation.
+Carroll defines (deterministic) finite automata as the "mathematical model of a machine that accepts a particular set of words over some alphabet $\Sigma$. \cite{FSM}" He conceptualizes FSMs as "black boxes" that combine an input tape (consisting of symbols in the alpha $\Sigma$), a \emph{'read head'} which processes this input tape of symbols, and an 'acceptance light' which indicates the acceptance/rejection of an input symbol, and whose activity is governed by the read head's reaction to the given input. In essence, the machine accepts input, makes decisions for the acceptance light based upon the input, and then moves to a new position to receive another input. The machine's acceptance/rejection of a symbol, as well as the position it moves to next, is contingent on its own internal logic---some rule that dictates \emph{"If symbol X is read, turn on (if accepted) or off (if rejected) the acceptance light, and move read head to position Y."} The machine may also read a symbol which finally halts its operation.
 
 \paragraph{Comparison with Turing Machines}
 
-This conceptual structure bares some resemblance to a Turning machine\cite{Turing}, although there are some distinct differences. A Turning machine has an infinite amount of memory and is capable of accepting languages with recursive qualities---as the turing machine is able to 'write' to tape--modifying a symbol after reading it. A Turing machine is well known to be capable of implementing and computing any possible computing algorithm\cite{Turing_2004}. It is consequently classified as a Type-0 (also known as a "recursively enumerable" or an "unrestricted") grammar.
+This conceptual structure bares some resemblance to a Turning machine \cite{Turing}, although there are some distinct differences. A Turning machine has an infinite amount of memory and is capable of accepting languages with recursive qualities---as the turing machine is able to 'write' to tape--modifying a symbol after reading it. A Turing machine is well known to be capable of implementing and computing any possible computing algorithm \cite{Turing_2004}. It is consequently classified as a Type-0 (also known as a "recursively enumerable" or an "unrestricted") grammar.
 
-An FSM, by contrast, is limited in several ways. As the name implies, FSM have a \emph{finite} set of states. More importantly, the system is incapable of storing memory---lacking the 'writing' mechanism of a Turning machine\cite{FSM}. 
+An FSM, by contrast, is limited in several ways. As the name implies, FSM have a \emph{finite} set of states. More importantly, the system is incapable of storing memory---lacking the 'writing' mechanism of a Turning machine \cite{FSM}. 
 
 \paragraph{Deterministic and Non-deterministic FSAs}
 
-The FSMs we detail here should also be distinguished as \emph{deterministic}, as opposed to \emph{non-deterministic} FSMs. Some FSMs are considered non-deterministic when their states are capable of transitioning to several possible outputs given the \emph{same input}---making their reaction to an input non-deterministic in nature\cite{NDFSA}. For our purposes, we define games as a type of deterministic FSM--where the same inputs always yield the same results. 
+The FSMs we detail here should also be distinguished as \emph{deterministic}, as opposed to \emph{non-deterministic} FSMs. Some FSMs are considered non-deterministic when their states are capable of transitioning to several possible outputs given the \emph{same input}---making their reaction to an input non-deterministic in nature \cite{NDFSA}. For our purposes, we define games as a type of deterministic FSM--where the same inputs always yield the same results. 
 
 \paragraph{Obstacles and Limitations}
 You may be wondering how the provided definition of games fit the category of FSM considering the inclusion of attributes $A$---which may persist as a game or entity transitions from state-to-state. This may appear like a kind of 'memory' on first glance, but is actually just a shorthand notation that simplifies our FSM conceptualization. In reality the proper FSM of a game has \emph{many} more states than we describe here. 
@@ -666,9 +750,9 @@ To provide some insight into this concept, imagine that for each state $G_S$, th
 
 \paragraph{Useful Adaptions}
 
-As you can see, this more-accurate representation of FSMs is considered unproductive in many domains where FSMs remain useful concepts\cite{state}. Thankfully, numerous alternative notations have arisen to address these shortcomings. 
+As you can see, this more-accurate representation of FSMs is considered unproductive in many domains where FSMs remain useful concepts \cite{state}. Thankfully, numerous alternative notations have arisen to address these shortcomings. 
 
-For example, FSMs which produce output contingent on a given input---often termed \emph{transducers}\cite{FSM}---are frequently conceptualized as \emph{Mealy machines}. The output of a Mealy machine state is also contingent on its input (\texttt{IF input(X) AND IN state(Y) THEN transition(Z)}). Later designs---such as the \emph{unified modeling language}---have extended this notation further to leverage the theoretical benefits of FSAs while avoiding their limiting notation schemes\cite{omg2011umls}. In a similar fashion, I make use of FSAs on a conceptual basis while abstracting away these notational hindrances through the usage of the attributes $A$ of each object. 
+For example, FSMs which produce output contingent on a given input---often termed \emph{transducers} \cite{FSM}---are frequently conceptualized as \emph{Mealy machines}. The output of a Mealy machine state is also contingent on its input (\texttt{IF input(X) AND IN state(Y) THEN transition(Z)}). Later designs---such as the \emph{unified modeling language}---have extended this notation further to leverage the theoretical benefits of FSAs while avoiding their limiting notation schemes \cite{omg2011umls}. In a similar fashion, I make use of FSAs on a conceptual basis while abstracting away these notational hindrances through the usage of the attributes $A$ of each object. 
 
 \subsubsection{Automata and Games}
 It is possible to define games more clearly through their relation to FSAs using our definitions. For example we can consider a game to be a collection of two principal state machines: 
@@ -800,7 +884,7 @@ Thankfully, the task of \textbf{1.} is simple enough. The current visual data of
 \subparagraph{Object Detection}
 Unfortunately, it is at step \textbf{2.} that we hit our first major roadblock. Or, to be more accurate, \emph{would} have hit a roadblock just a handful of years ago. 
 
-As discussed in section 2, the history of computer-automated object detection is as long and storied as the problem is complex and layered. Work in the field has generally focused on specific identification tasks with a well-known utility---such as the detection of human faces or cancer cells. Technologies and algorithms powering object detection were often bespoke and incredibly arcane, despite their limited use-cases. Only in recent years has the field matured into a respectable domain, owing mainly to modern AI and Machine Learning discoveries. Consequently, the identification of objects via visual input is now a fairly trivial task given some basic programming knowledge. Efficient cross-platform detection algorithms such as YOLO (\emph{You Only Look Once}) have popularized object detection in a wealth of fields thanks to their relative ease-of-use\cite{wang2022yolov7trainablebagoffreebiessets}. 
+As discussed in section 2, the history of computer-automated object detection is as long and storied as the problem is complex and layered. Work in the field has generally focused on specific identification tasks with a well-known utility---such as the detection of human faces or cancer cells. Technologies and algorithms powering object detection were often bespoke and incredibly arcane, despite their limited use-cases. Only in recent years has the field matured into a respectable domain, owing mainly to modern AI and Machine Learning discoveries. Consequently, the identification of objects via visual input is now a fairly trivial task given some basic programming knowledge. Efficient cross-platform detection algorithms such as YOLO (\emph{You Only Look Once}) have popularized object detection in a wealth of fields thanks to their relative ease-of-use \cite{wang2022yolov7trainablebagoffreebiessets}. 
 
 \subparagraph{Object Categorization: \emph{The Journey}}
 There is yet another problem, however. \textbf{3.} stipulates that we not only detect the \emph{existence} of objects, we must also \emph{categorize} these detected object into known entities. In other words, we must attach some sense of semantic meaning to these objects. In other words, the machine must not only recognize a collection of pixels as being identical from frame-to-frame, but must also recognize those pixels as 'Mario.' 
@@ -815,7 +899,7 @@ Consequently, \rs requires human intervention to overcome this problem. Even tho
 
 Of course, this process is not without its difficulties. For one thing, the act of providing image data to a machine learning algorithm is fairly laborious. Each image much be accurately annotated with labels describing the relevant objects contained within the image---requiring each picture to be manually edited and reviewed by a human being. On top of this, the exact number of annotated images required for good results is not consistent---with more complex games generally requiring larger datasets. Moreover, the \emph{quality} of the provided data is also crucial. Images of a low fidelity, as well as poorly annotated data, will often yield lackluster model behaviors.
 
-Despite all of these issues, the act of annotating training data has become commonplace in modern machine learning. There exist a wealth of tools---such as the open source \emph{Make Sense} project\cite{make-sense} or the corporate projects of companies such as \emph{RoboFlow}\cite{Roboflow_Supervision}---which streamline this process significantly. Moreover, the act of image acquisition is often trivial, merely demanding an implementor record a few minutes of active gameplay. The implementor could then simply pull a still frame from every few seconds of the video to use as data for annotation. 
+Despite all of these issues, the act of annotating training data has become commonplace in modern machine learning. There exist a wealth of tools---such as the open source \emph{Make Sense} project \cite{make-sense} or the corporate projects of companies such as \emph{RoboFlow} \cite{Roboflow_Supervision}---which streamline this process significantly. Moreover, the act of image acquisition is often trivial, merely demanding an implementor record a few minutes of active gameplay. The implementor could then simply pull a still frame from every few seconds of the video to use as data for annotation. 
 
 Given a few hours and some basic manual labor, a machine learning algorithm can be augmented with enough game-specific knowledge to enable the high-quality categorization of objects via computer vision---solving the hurdles of \textbf{3.} 
 
@@ -863,7 +947,7 @@ It is hopefully clear how these three layers interact---and how the \vision laye
 
 The \vision layer can be imagined as the starting point of \rs's execution loop. In it, the game's frame data (its visual information) is provided to a computer vision algorithm. The frame can be provided in a host of ways. 
 
-A programmer with direct access to the game's engine may choose to copy the framebuffer directly from its original in-engine source to \rs. Those without access to the game's internal logic may instead opt for a simple screen capture implementation, which essentially sends screenshots of the game window to the computer vision algorithm. This may seem inefficient at first glance, but all major operating systems have support for screen capture built-in at the kernel level, which makes this option a very feasible and attractive route for users with relatively modern computer hardware\footnote{See \texttt{PrintWindow} in the Windows API\cite{PrintWindow} and \texttt{XGetImage} in the X11 API\cite{XGetWindow} for modern examples.}. 
+A programmer with direct access to the game's engine may choose to copy the framebuffer directly from its original in-engine source to \rs. Those without access to the game's internal logic may instead opt for a simple screen capture implementation, which essentially sends screenshots of the game window to the computer vision algorithm. This may seem inefficient at first glance, but all major operating systems have support for screen capture built-in at the kernel level, which makes this option a very feasible and attractive route for users with relatively modern computer hardware\footnote{See \texttt{PrintWindow} in the Windows API \cite{PrintWindow} and \texttt{XGetImage} in the X11 API \cite{XGetWindow} for modern examples.}. 
 
 This algorithm is responsible for the detection and classification of game entities contained within the frame. The algorithm may achieve object detection by any means desired by the implementor (machine learning, corner detection, template matching, etc.). 
 
@@ -1132,7 +1216,7 @@ Of course, open questions like these have been debated since time immemorial, an
 \paragraph{Origin of Multisensory Game Design}
 Video games---as we know them today---ultimately derive from mid-century electro-mechanical amusements (EMAs) such as \emph{Skee-Ball}, shooting games, or the various 'test-of-strength' games that can still be seen at fairs to this day \cite{Newman2017Atari}. These EAMs often lined the walls of popular leisure spots---penny arcades, nickelodeons, amusement parks, etc \cite{nasaw1999going}. In order to maximize their novelty status (and to grab attention in loud, crowded venues), most EMAs employed a wide range of sensory experiences to attract customers. Flashing lights, explosive sounds, and electric jolts of vibration were just some of the many ways that EMAs amused their customers. 
 
-As the introduction of the transistor and integrated circuit made computer games a reality, many EAM designers transitioned into this new field of amusement---taking their years of industry experience with them. Tomohiro Nishikado---the designer of \emph{Space Invaders}---as well as Gunpei Yokoi---creator of the \emph{Game \& Watch} and \emph{Game Boy}---serve as examples of this phenomenon\cite{theycreateworlds}.
+As the introduction of the transistor and integrated circuit made computer games a reality, many EAM designers transitioned into this new field of amusement---taking their years of industry experience with them. Tomohiro Nishikado---the designer of \emph{Space Invaders}---as well as Gunpei Yokoi---creator of the \emph{Game \& Watch} and \emph{Game Boy}---serve as examples of this phenomenon \cite{theycreateworlds}.
 
 \paragraph{Games as Multisensory Design Experiences}
 
@@ -1211,7 +1295,7 @@ The final sample makes use of the entity \state{States} discussed in previous se
 One may wonder the purpose of \rs if the \imp is forced into programming lines upon lines of conditional statements. Although this may be monotonous work, it is no doubt simpler than the act of programming the entire game itself. There is no need to concern oneself with physics logic, graphics processing, data management etc. Instead, the \imp uses rudimentary logic that even a novice programmer could easily understand---more resembling textbook pseudocode than production-level programming. More importantly this has merely been the most rudimentary example of \design. We can easily conceive of higher-level implementations which abstract much of the boilerplate programming seen here. 
 
 \paragraph{Advanced Case: Domain Specific Language}
-An \imp could craft their own \emph{domain-specific language} (DSL), for instance. As opposed to general programming languages (GPL), DSLs are purpose-built for specific problem domains\cite{DSL}. Notable examples range from Wolfram's \emph{Mathematica} language---which is used in advanced mathematics---to even HTML, which is merely a method of annotating hypertext. DSLs are often known as \emph{'minilanguages'} because they are frequently used by developers to streamline workflows and internal tool usage\cite{UnixProg}. 
+An \imp could craft their own \emph{domain-specific language} (DSL), for instance. As opposed to general programming languages (GPL), DSLs are purpose-built for specific problem domains \cite{DSL}. Notable examples range from Wolfram's \emph{Mathematica} language---which is used in advanced mathematics---to even HTML, which is merely a method of annotating hypertext. DSLs are often known as \emph{'minilanguages'} because they are frequently used by developers to streamline workflows and internal tool usage \cite{UnixProg}. 
 
 \begin{figure}[h]
 
@@ -1325,7 +1409,7 @@ We will be honest in saying that this process may seem convoluted upon first gla
 These simple points obviously fail to capture the process fully, but work as a sufficient set of guidelines to summarize the implementation process. We hope this section has also successfully demystified the process for all readers.
 
 \section{The End User Experience}
-Lastly, it is pertinent to briefly discuss the experience of interacting \rs from the perspective of the end user. As the target user of \rs is visually impaired, significant care must be put towards delivering \rs in a fashion accessible to the visually impaired. General software development accessibility guidelines (such as those maintained by the W3C\cite{Spellman:24:WAG}) should be respected to ensure good ease-of-access. 
+Lastly, it is pertinent to briefly discuss the experience of interacting \rs from the perspective of the end user. As the target user of \rs is visually impaired, significant care must be put towards delivering \rs in a fashion accessible to the visually impaired. General software development accessibility guidelines (such as those maintained by the W3C \cite{Spellman:24:WAG}) should be respected to ensure good ease-of-access. 
 
 \rs software should, ideally, 'just work' out-of-the-box. Even in the case of an aftermarket fan project, the end user ideally executes a small application adored with the bare essential settings required to fine-tune the user experience. From there, \rs should be considered a 'plug-and-play' software by the end user---one that allows them to simply launch the application, launch the target game, sit back, and enjoy.
 
@@ -1442,7 +1526,7 @@ We must \tech{delegate} (to borrow the software engineering term) these responsi
 
 As in software architecture, we must consider the issues of \tech{moduliary} and \tech{encapsulation} when drafting our \state{plan}. We take heavy influence from the seminal \emph{Design Patterns} by the so-named \emph{Gang of Four} \cite{gamma1994design}. In general, we aim to keep behaviors closely associated with the relevant entities without seeking external knowledge. In the case of \state{goals}, it makes sense to delegate to the overarching state machine because the state affects all entities equally (the match is reset, the game's score must be recalculated, etc). The \state{hit} state, meanwhile, corresponds to the particular \pad which performed the hit---and has no bearing on other external entities. 
 
-There is no one correct answer to the problem of software design. The same is true of \plan for \rs. But it is true that maintaining good encapsulation of entity responsibilities leads to cleaner, simpler, and more reliable design. For instance, if the \ball, \pad, and overaching game FSA each had their own \state{goal} state, then the implementor runs the risk of state misalignments. Consider a situation where a \pad mistakenly reports a \state{goal}---producing a special sound effect---while the other entities correctly assessed there was no goal and continued without entering the \state{goal} state. This thorny problem crops up frequently in complex codebases. A common strategy to sidestep the issue is termed the \tech{single source of truth} principle---which states data should only be modified in 'one place' (i.e., by one entity)\footnote{Examples of this approach can be seen all over the industry---perhaps most curiously with google's monolithic code repository, which stores billions of lines of code making up the entire company's software ecosystem \cite{googleRepo}.}.
+There is no one correct answer to the problem of software design. The same is true of \plan for \rs. But it is true that maintaining good encapsulation of entity responsibilities leads to cleaner, simpler, and more reliable design. For instance, if the \ball, \pad, and overarching game FSA each had their own \state{goal} state, then the implementor runs the risk of state misalignments. Consider a situation where a \pad mistakenly reports a \state{goal}---producing a special sound effect---while the other entities correctly assessed there was no goal and continued without entering the \state{goal} state. This thorny problem crops up frequently in complex codebases. A common strategy to sidestep the issue is termed the \tech{single source of truth} principle---which states data should only be modified in 'one place' (i.e., by one entity)\footnote{Examples of this approach can be seen all over the industry---perhaps most curiously with google's monolithic code repository, which stores billions of lines of code making up the entire company's software ecosystem \cite{googleRepo}.}.
 
 \subsubsection{Synthesis}
 To summarize our \state{plan} for \emph{Pong}:
@@ -1450,10 +1534,10 @@ To summarize our \state{plan} for \emph{Pong}:
 \begin{description}
     \item[Game states] We divide the game into four game states:
     \begin{description}
-        \item[Attract] The infinite loop which ocurrs before players begin a set.
+        \item[Attract] The infinite loop which occurs before players begin a set.
         \item[Break] The short intermission between matches.
         \item[Match] The regular in-game loop.
-        \item[Win]   The 'end-state' of the game, occuring after one player scores ten goals. 
+        \item[Win]   The 'end-state' of the game, occurring after one player scores ten goals. 
     \end{description}
     \item[Game Entities] We recognize the existence of these entities and their respective states: 
     \begin{description}
@@ -1493,7 +1577,7 @@ Of course, our algorithm is only as good as the data it receives. And so, we mus
 The specific details of implementation are lengthy, but to summarize: we make use of the \texttt{PySide6.QtMultimedia.QScreenCapture} class and its related classes. We identify the relevant window using user input and copy that window's framebuffer into memory using a \texttt{map()} function. We then pass the copied buffer into \rs, where it is used as the input for the harris algorithm.  Those curious for more information may consult the relevant documentation at \cite{QT_Doc} as well as a sample implementation at \cite{QT_EX}. We will attach a 'window selection tool' to our final application, which allows users to quickly select the correct window that \rs will read for image data. 
 
 \paragraph{Testing on Video} 
-We also included functionality to read a video file as input data for testing purposes. For this, we recorded a short video of a full set of \emph{Pong}. Video playback allows for faster debugging and iteration of our tools, as we may test changes in code immedately without needing to play yet another game of \emph{Pong}. The underlying principles are identical to the process above---simply replacing the mapped framebuffer with a framebuffer recieved directly from the video file.
+We also included functionality to read a video file as input data for testing purposes. For this, we recorded a short video of a full set of \emph{Pong}. Video playback allows for faster debugging and iteration of our tools, as we may test changes in code immediately without needing to play yet another game of \emph{Pong}. The underlying principles are identical to the process above---simply replacing the mapped framebuffer with a framebuffer received directly from the video file.
 
 \subsubsection{Detecting Objects}
 Once the harris algorithm is handed the image data, it promptly returns a collection of points it asses as corners within the image. Of course, corners are only the start of our solution. We are searching for \emph{Objects} within those corners. In some cases, object detection would be a task better suited for machine learning. Luckily, the entities of \emph{Pong} are consistent in size and always maintain a basic, rectangular shape. This allowed us to implement our own bespoke method of detecting and classifying objects within a given frame.
@@ -1508,30 +1592,30 @@ The general logic goes like this:
         \end{enumerate}
 \end{description}
 
-The specific nature of 'perfect square' 'aspect ratio' are somewhat fuzzy for the \ball and \pad respectively. We allow for slight (one to three pixel) margins of error on shape calculations, We also consult the aspect ratio of the frame itself to calcualte the paddle and square's appropriate aspect ratio. 
+The specific nature of 'perfect square' and 'aspect ratio' are somewhat fuzzy for the \ball and \pad respectively. We allow for slight (one to three pixel) margins of error on shape calculations, We also consult the aspect ratio of the frame itself to calculate the paddle and square's appropriate aspect ratio. 
 
 
-The code for achieving these catagorizations is somewhat obtuse to the untrained eye. This is due to the nature of NumPy array notation, which requires some familiarization. As we strive for optimal performance (thirty or more frames calculated per second), we endeavored to make the most out of this notation. To address potential confusion, we have thouroughly documented our code, and provide snippets of the object dection and classification algorithms in \ref{} \ref{}.
+The code for achieving these categorizations is somewhat obtuse to the untrained eye. This is due to the nature of NumPy array notation, which requires some familiarization. As we strive for optimal performance (thirty or more frames calculated per second), we endeavored to make the most out of this notation. To address potential confusion, we have thoroughly documented our code, and provide snippets of the object detection and classification algorithms in \ref{} \ref{}.
 
 We find that these methods successfully identify objects classify entities roughly 99\% of the time. Using a video for testing, we saw that over the course of 1500 frames of testing, the algorithm misidentified only 5 frames---or an error rate of $0.3\%$. 
 
 \subsubsection{Handling Errors}
 
-Some of these errors are actually key points for our implementation. Take for example the moment a \ball strikes a \pad. When the two objects collide, their bounding boxes 'become one'---at least, from the perspective of the corner detection algorithm, which misidentifes objects on the frame of impact. This means we can use the algorithm's misidentification as marker of a \state{hit}! Of course, we also validate the result by comparing the locations of the impacted objects---if the objects are very close, then they likely struck eachother this frame.
+Some of these errors are actually key points for our implementation. Take for example the moment a \ball strikes a \pad. When the two objects collide, their bounding boxes 'become one'---at least, from the perspective of the corner detection algorithm, which misidentifies objects on the frame of impact. This means we can use the algorithm's misidentification as marker of a \state{hit}! Of course, we also validate the result by comparing the locations of the impacted objects---if the objects are very close, then they likely struck each other this frame.
 
 \paragraph{Continuity}
 
-here are, however, other errors that ocassional ocurr which are not beneficial to our implementation. These errors primarily occurr whenever an object is occlued by another. This usually ocurrs whenever the ball moves near the large score symbols at the top of the screen. Much like when striking the \pad, the \ball corners 'merge' with the score corners, creating a frame or two of bad data. 
+here are, however, other errors that occasionally occur which are not beneficial to our implementation. These errors primarily occur whenever an object is occluded by another. This usually happens whenever the ball moves near the large score symbols at the top of the screen. Much like when striking the \pad, the \ball corners 'merge' with the score corners, creating a frame or two of bad data. 
 
-Of course, we cannot allow this rare errors to hamper the playing experience. If a player were listening to the position of the ball, only to hear it suddenly jolt 'in-and-out of existence,' their ability to understand the game's state would be severely reduced. We can address these problems by implementing a basic sense of \tech{cross-frame persistence.} That is to say, we save the data from this frame and persist it into the next one. Using this data, we see if the changes in an objects state (like an object suddenly going from the position $(900, 540)$ to $(0, 0)$ in the blink of an eye) are sensible. If not, we simple re-use the previous frame's data until the object returns a sesible value in following frames. If the object continues to provide poor data, the system considers the object 'lost' and discounts it from calculations until it once again returns with resonable data. 
+Of course, we cannot allow this rare errors to hamper the playing experience. If a player were listening to the position of the ball, only to hear it suddenly jolt 'in-and-out of existence,' their ability to understand the game's state would be severely reduced. We can address these problems by implementing a basic sense of \tech{cross-frame persistence.} That is to say, we save the data from this frame and persist it into the next one. Using this data, we see if the changes in an objects state (like an object suddenly going from the position $(900, 540)$ to $(0, 0)$ in the blink of an eye) are sensible. If not, we simple re-use the previous frame's data until the object returns a sensible value in following frames. If the object continues to provide poor data, the system considers the object 'lost' and discounts it from calculations until it once again returns with reasonable data. 
 
-What exactly constitutes 'reasonable' or 'sensible' data is context specific. In the case of \emph{Pong} we demand that the \ball and \pad move with a sense of continuous motion. Sudden jumping around the screen (due to poor frame data) will not be tolerated. This may sound in theory like a significant drawback, but in practice has very little effect on the expereince. As we mentioned above, bad frame data is a rarity and usually occupies only a fraction of a second of play-time. Virtually no players will notice that audio data from 35 milliseconds ago is being repurposed once more while we await better data results. 
+What exactly constitutes 'reasonable' or 'sensible' data is context specific. In the case of \emph{Pong} we demand that the \ball and \pad move with a sense of continuous motion. Sudden jumping around the screen (due to poor frame data) will not be tolerated. This may sound in theory like a significant drawback, but in practice has very little effect on the experience. As we mentioned above, bad frame data is a rarity and usually occupies only a fraction of a second of play-time. Virtually no players will notice that audio data from 35 milliseconds ago is being repurposed once more while we await better data results. 
 
 \subsubsection{Summary}
 These choices---from OpenCV and the harris algorithm, to Qt and our own bespoke code---comprise the \vision layer. In order to discuss the \decision layer, we must first take a moment to consider matters of \design.
 
 \subsection{On Design and Decision}
-Up to this point, we successfully created a \plan which catagorized the entities within \emph{Pong}. Then we built the \vision layer of \rs using OpenCV, the harris corner detection algorithm, and our own bespoke code. Now,we must create a \design of \emph{Pong}'s rules and behaviors, which we will then use to create the \decision layer. 
+Up to this point, we successfully created a \plan which categorized the entities within \emph{Pong}. Then we built the \vision layer of \rs using OpenCV, the harris corner detection algorithm, and our own bespoke code. Now,we must create a \design of \emph{Pong}'s rules and behaviors, which we will then use to create the \decision layer. 
 
 \subsubsection{Decision Semantics for \emph{Pong}}
 \paragraph{Designing State}
@@ -1542,18 +1626,18 @@ In the case of \emph{Pong}, we may identify the current state using the presence
 
 Complications arise when we lack key semantic data not presented on-screen. Our current implementation does not consider the score tally at the top of the display as entities, for example. Because of this, \rs requires itself to be attached to the game \emph{before} the match starts in order to accurately keep track of score. If the player were to attach \rs halfway through the match, it would mistakenly begin counting score from zero. This problem could be solved if the scoring symbols were treated as entities---allowing them to be analyzed for their semantics per-frame. We omit this for the purpose of simplifying our demonstration here. And so, we presume the player attaches \rs to the game during the \state{attract} screen. 
 
-Another issue arises from per-frame contextual analysis. For example, if the \ball disappears for a single frame---perhaps because it is occluded by the score UI---then what seperates it from a \state{break} state (\texttt{if \pad AND NOT \ball})? To overcome this issue, we provide specific demands on object persistence---verifying that objects are missing for several consecutive frames before considering a state transition. This adds a slight theoretical delay to \rs, but is generally unoticable as it is in the magnitude of miliseconds.
+Another issue arises from per-frame contextual analysis. For example, if the \ball disappears for a single frame---perhaps because it is occluded by the score UI---then what separates it from a \state{break} state (\texttt{if \pad AND NOT \ball})? To overcome this issue, we provide specific demands on object persistence---verifying that objects are missing for several consecutive frames before considering a state transition. This adds a slight theoretical delay to \rs, but is generally unnoticeable as it is in the magnitude of milliseconds.
 
-We summarize our state semantic anlysis in \ref{}
+We summarize our state semantic analysis in \ref{} [TODO: ADD TABLE!]
 
 
 \subparagraph{State Transitions}
-Although \rs performs per-frame analysis, we must also provide transitional logic for moving between states. For example, when the \ball disappears off-screen for several consequtive frames, we transition to the \state{goal} state, which updates the \tech{points} attribute for the scoring player and plays a unique score sound effect. We then immedately transition to the \state{break} state, which will transition to \state{match} once it detects \pad and \ball entities on-screen together. We also consider the score when transitioning from \state{goal}. If a player's \state{points} attribute is equal to ten, then we move to the \state{win} state instead of the usual \state{match} state.
+Although \rs performs per-frame analysis, we must also provide transitional logic for moving between states. For example, when the \ball disappears off-screen for several consecutive frames, we transition to the \state{goal} state, which updates the \tech{points} attribute for the scoring player and plays a unique score sound effect. We then immediately transition to the \state{break} state, which will transition to \state{match} once it detects \pad and \ball entities on-screen together. We also consider the score when transitioning from \state{goal}. If a player's \state{points} attribute is equal to ten, then we move to the \state{win} state instead of the usual \state{match} state.
 
 \subparagraph{Entity States and transitions}
 Entity states are handled in a similar fashion. If a \pad for example is in the idle state but has performed a movement (i.e., its position has changed when compared to the previous frame), then it transitions to the \state{moving} state. If a \ball strike is detected this frame it transitions to \state{hit} for one frame before moving back to either \state{idle} or \state{moving}.
 
-Each of these conditions are simplistic, as we demonstrated with our psuedocode in previous chapters. For instance, consider the code used to detect a \state{goal}---which merely checks poitions against a set \texttt{GOAL\_PIXEL\_THRESH} value, which defines the invisible 'goalline' the ball must cross before a goal is registered:
+Each of these conditions are simplistic, as we demonstrated with our pseudocode in previous chapters. For instance, consider the code used to detect a \state{goal}---which merely checks positions against a set \texttt{GOAL\_PIXEL\_THRESH} value, which defines the invisible 'goal-line' the ball must cross before a goal is registered:
 
 
 
@@ -1561,12 +1645,12 @@ Each of these conditions are simplistic, as we demonstrated with our psuedocode 
 Using these conditions (and others omitted in the interest of time), we have successfully built the \decision layer using some of our \design principles. Before we move on to \audio, we must first consider the relevant \design elements. 
 
 \subsection{Designing an Audio Display}
-As with \plan, there is no one correct way to \design an audio display. Regardless of our choices, we must be sure to provide clear, reactive, and understandable audio that accurately maps the game's semantics. A naive approch to an audio display might translate many of \emph{Pong}'s elements direclty. Each \pad would produce a pitch in either the left or right audio channel depending on their on-screen position. The frequency of the pitch produced would vary depending on the height of the paddle on screen. The ball, meanwhile, would translate its on-screen position into a stereo panning effect while producing a similar pitch to the paddles. Although this \design accurately models the behaviors of \emph{Pong}, it is not easily understandable to the average user---who would be forced to contend with three active pitches all currently moving about. Let us now consider some improvements.
+As with \plan, there is no one correct way to \design an audio display. Regardless of our choices, we must be sure to provide clear, reactive, and understandable audio that accurately maps the game's semantics. A naive approach to an audio display might translate many of \emph{Pong}'s elements directly. Each \pad would produce a pitch in either the left or right audio channel depending on their on-screen position. The frequency of the pitch produced would vary depending on the height of the paddle on screen. The ball, meanwhile, would translate its on-screen position into a stereo panning effect while producing a similar pitch to the paddles. Although this \design accurately models the behaviors of \emph{Pong}, it is not easily understandable to the average user---who would be forced to contend with three active pitches all currently moving about. Let us now consider some improvements.
 
 \subsubsection{Understanding Player Uniqueness}
-The act of listening to audio with headphones is an inheriently isolating experience---unless a user performs the (fairly irregular) act of sharing their headphones with another user \emph{while} in a state of play. That being the case, we presume \rs is running for one player enjoying \emph{Pong} using headphones. We may use this assumption to improve our design. \emph{How?} By removing the second player form the equation entirely. 
+The act of listening to audio with headphones is an inherently isolating experience---unless a user performs the (fairly irregular) act of sharing their headphones with another user \emph{while} in a state of play. That being the case, we presume \rs is running for one player enjoying \emph{Pong} using headphones. We may use this assumption to improve our design. \emph{How?} By removing the second player form the equation entirely. 
 
-Although there is perhaps some semantic value to be gained in seeing exactly what your opponent is doing in \emph{Pong}, it is hard to deny---from a design perspective---that the game is functionally single-player. If a player's opponent (say, a perfect AI) is sufficiently good at the game---knocking back every ball the player sends their way---then the player is, for all intents and purposes, playing against \emph{a solid wall} instead of a real competitor. This observation was commonly put into practice by several 'solitare' variants of \emph{Pong} that were released in the pre-AI world of game development. By removing the other player from the equation, we can focus on providing high quality audio data for our two remaining entities the player \pad and the \ball. But we can go one step further in our reduction as well. 
+Although there is perhaps some semantic value to be gained in seeing exactly what your opponent is doing in \emph{Pong}, it is hard to deny---from a design perspective---that the game is functionally single-player. If a player's opponent (say, a perfect AI) is sufficiently good at the game---knocking back every ball the player sends their way---then the player is, for all intents and purposes, playing against \emph{a solid wall} instead of a real competitor. This observation was commonly put into practice by several 'solitaire' variants of \emph{Pong} that were released in the pre-AI world of game development. By removing the other player from the equation, we can focus on providing high quality audio data for our two remaining entities the player \pad and the \ball. But we can go one step further in our reduction as well. 
 
 
 \subsubsection{Understanding Player Relativity}
@@ -1580,7 +1664,7 @@ To which we answer:
 \emph{To accurately strike the \ball.}
 \end{quote}
 
-Our answer is, of course, a matter of subjective philosophy. And yet, the point still remains---skilled play of \exec{Pong} requires the return of a ball towards the opponent. We should notice something about our answer as well: \emph{it does not involve the player at all.} In fact, the answer revolves \emph{entirely} around the \ball. As the player is allowed only one axis of free movement (up-and-down the screen), understanding information about the comparatively complex 2D \ball movement is more valuable to the player. That being the case, we can perform yet another simplification of our design---designing our audio display \emph{from the player's point of reference.} 
+Our answer is, of course, a matter of subjective philosophy. And yet, the point still remains---skilled play of \emph{Pong} requires the return of a ball towards the opponent. We should notice something about our answer as well: \emph{it does not involve the player at all.} In fact, the answer revolves \emph{entirely} around the \ball. As the player is allowed only one axis of free movement (up-and-down the screen), understanding information about the comparatively complex 2D \ball movement is more valuable to the player. That being the case, we can perform yet another simplification of our design---designing our audio display \emph{from the player's point of reference.} 
 
 Imagine, if you will, that we were were the \state{paddles} in a real-world game of \emph{Pong}. Lets call this game, for the sake of imagination, \emph{Tennis}. Let us also pretend that the \ball emits a distinct sound. If the \ball were being served to us, we would first hear the sound \emph{at a distance}. As the \ball approaches us, the volume of the sound would increase---reaching its apex as it makes contact with us. The sound then diminishes in volume as the ball returns to the other player. This model of pong---reflecting intuitive, real-world behaviors---is an ideal for an audio display.
 
@@ -1589,35 +1673,27 @@ And so, we reach our final audification concept:
 
 \begin{enumerate}
     \item The \ball generates a repetitious sound when on-screen.
-    \item The sound's pitch equates to the distance between the \ball and the \pad on the Y-axis
-    \item The sound's volume, as well as how frequently it repeats equates to the \ball's distance from the \pad on the X-axis
+    \item The sound's pitch equates to the distance between the \ball and the \pad on the Y-axis.
+    \item The sound's volume, as well as how frequently it repeats equates to the \ball's distance from the \pad on the X-axis.
     \item The sound's panning is off-axis (i.e., played in both the hard-left and hard-right channels) when the ball is far away from the player. It approaches the center of the axis (i.e., played in center panning) as it approaches the player.
-    \item When a ball is hit, a special sound effect is generated in the channel corresponding to the player position (left for player one, right for player two)
+    \item When a ball is hit, a special sound effect is generated in the channel corresponding to the player position (left for player one, right for player two).
     \item When a point is scored, a unique sound effect is played depending on which player scored.
-    \item The current set score is read by a automated void during the \state{break}
-    \item When the game is at 'match point', a special sound is played during the \state{break}.
+    \item The current set score is read by a automated voice during the \state{break}.
+    \item When the game is at 'match point,' a special sound is played during the \state{break}.
     \item When a player \state{wins} the game, a unique sound effect is played depending on the winner of the match.
 \end{enumerate}
 
-These simple rules form the basis of our audio display \design. As you can clearly see, we have made a great number of reductions to \emph{Pong}'s original design. And yet, our audio display gives clear, comprehensible, and reactive stimuli. In essence, \emph{Pong} could be re-conceived as a one dimensional task---wherein a player is attempting to 'dial-in' a pitch's frequency by turning a knob before a temporal deadline approaches. If the pitch is high, the player must turn the knob one way to lower the pitch to an 'average' value. If the pitch is too low, the player must turn the knob the opposite direction to raise the pitch to the average value. The panning and speed of sound repititions indicates how much time the player has left before the deadline approaches.
+These simple rules form the basis of our audio display \design. As you can clearly see, we have made a great number of reductions to \emph{Pong}'s original design. And yet, our audio display gives clear, comprehensible, and reactive stimuli. In essence, \emph{Pong} could be re-conceived as a one dimensional task---wherein a player is attempting to 'dial-in' a pitch's frequency by turning a knob before a temporal deadline approaches. If the pitch is high, the player must turn the knob one way to lower the pitch to an 'average' value. If the pitch is too low, the player must turn the knob the opposite direction to raise the pitch to the average value. The panning and speed of sound's repetition indicates how much time the player has left before the deadline approaches.
 
 As we can see here, it is possible to significantly re-shape games via their translation from visual to audio displays. Finding good audio solutions often requires rethinking the entire game from the ground-up, which may be non-trivial for complex titles. In general, we believe this to be a matter of \design which is outside the scope of this paper. Although we shall mediate on it more during our conclusion.
 
 \subsubsection{On the Creation of Spatial Audio}
-As detailed in earlier chapters, the actual creation of spatial audio is a trivial task. We use basic algorithms to translate in-game coordinates to positions around the player (ranging from $-180$ to $180$ degrees) and use similar metrics of distance to set the distance of where spatial objects spawn around the listener. We use simple room metadata for our acoustic design---which is sufficient for our purposes but may require additional finetuning for other games. A sample generation of audio works like so:
+As detailed in earlier chapters, the actual creation of spatial audio is a trivial task. We use basic algorithms to translate in-game coordinates to positions around the player (ranging from $-180$ to $180$ degrees) and use similar metrics of distance to set the distance of where spatial objects spawn around the listener. We use simple room metadata for our acoustic design---which is sufficient for our purposes but may require additional finetuning for other games. A sample generation of audio can be seen in \ref{code:audio}. 
 
-\begin{lstlisting}[language=python, caption={A sample of spatial audio generation}]
-    def update_position(self):
-        az = self._azimuth.value() / 180.0 * math.pi # Horizontal position 
-        el = self._elevation.value() / 180.0 * math.pi #Vertical position 
-        d = self._distance.value() # Distance 
-
-        # Conversions to 3D Vector space
-        x = d * math.sin(az) * math.cos(el) 
-        y = d * math.sin(el)
-        z = -d * math.cos(az) * math.cos(el)
-        self.sound_ball_pos.setPosition(QVector3D(x, y, z)) # Generates sound position 
-\end{lstlisting}
+\begin{figure}
+    \label{code:audio}
+    \caption{\textbf{[Code to be inserted in final draft]}}
+\end{figure}
 
 With this, we have successfully built the \audio layer using our \design semantics. 
 
@@ -1646,7 +1722,7 @@ Experiments are currently underway and pending final review. Experimental result
 
 %%% CONCLUSION
 \chapter{Conclusions}
-In this thesis, we proposed \rs: the \rsfull. \rs solves well known problems in the areas of game development, accessibility, and cross-platform software design. By using recent advances in AI, spatial audio, and computer vision, \rs is able to generalize the process of creating accessibility features for the visually impaired---lowering the barriers of access to games. \rs's abstract and general purpose nature also allows a wide variety of implemtnation contexts---from in-house development to after-market fan modifications.
+In this thesis, we proposed \rs: the \rsfull. \rs solves well known problems in the areas of game development, accessibility, and cross-platform software design. By using recent advances in AI, spatial audio, and computer vision, \rs is able to generalize the process of creating accessibility features for the visually impaired---lowering the barriers of access to games. \rs's abstract and general purpose nature also allows a wide variety of implementation contexts---from in-house development to after-market fan modifications.
 
 We began our thesis in chapter one by providing an overview recent trends in world of technology and games. We highlighted growing trends towards accessible, platform agnostic design. We also considered the particular problems faced by the gaming industry---where bespoke and platform specific tools are commonplace. Then, we considered the state of accessibility in games, noting several 'problem areas' in need of further research. Using this background, we justified our proposal for \rs. 
 
@@ -1654,7 +1730,7 @@ In chapter two, we reviewed the relevant literature in the fields of computer vi
 
 In chapter three we finally proposed \rs in full. We first began by exploring relevant concepts---where we crafted our own semi-formal definition of video games and considered how games are analyzed by their players. We then explained the structure of \rs---its \vision, \decision, and \audio layers---in clear detail. Afterwards, we considered the process of implementing \rs via the \plan, \train, \design, and \exec pipeline. We finally considered \rs from the end user's perspective.
 
-In chapter four we demonstrated \rs using our own sample implemtnation built in \tech{python} using the common \tech{OpenCV} and \tech{Qt} libraries. Our implementation targeted the classic \emph{Pong} using the well-known Harris corner detection algorithm for image data analysis. We elaborated on the implmentation process in great detail---considering challenges and solutions for each step as we progressed. We also proposed alternative implementations to further illuminate our understanding.
+In chapter four we demonstrated \rs using our own sample implementation built in \tech{python} using the common \tech{OpenCV} and \tech{Qt} libraries. Our implementation targeted the classic \emph{Pong} using the well-known Harris corner detection algorithm for image data analysis. We elaborated on the implementation process in great detail---considering challenges and solutions for each step as we progressed. We also proposed alternative implementations to further illuminate our understanding.
 
 In chapter five, we performed some experiments using our sample \emph{Pong} implementation, and explored the consequences of our experimental results.
 
