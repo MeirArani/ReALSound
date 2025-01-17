@@ -1,8 +1,10 @@
-from realsound.core import FSM, State
 from realsound.cv import harris
 import enum
 import cv2
 import numpy as np
+from importlib import resources
+from realsound import config
+from itertools import takewhile
 
 
 class VisionLayer:
@@ -55,8 +57,8 @@ def process_frame(self, frame):
             show_circles = not show_circles
 
 
-def read_from_video(self, filename, start_frame=0):
-    cap = cv2.VideoCapture(self.video)
+def read_from_video(filename, start_frame=0):
+    cap = cv2.VideoCapture(filename)
     cap.set(cv2.CAP_PROP_POS_FRAMES, start_frame)
     if not cap.isOpened():
         print("File Error")
@@ -65,10 +67,10 @@ def read_from_video(self, filename, start_frame=0):
     while True:
         ret, frame = cap.read()
         if not ret:
-            self.cap.release()
-            print("Frame error!")
-            break
-        process_frame(frame)
+            cap.release()
+            print("Out of frames!")
+            yield None
+        yield frame
 
     # State logic
     def attract(data):
@@ -85,3 +87,12 @@ def read_from_video(self, filename, start_frame=0):
 
     def win(data):
         yield data
+
+
+if __name__ == "__main__":
+    print("hi!")
+    cap = read_from_video(resources.files(config).joinpath("Pong480.mp4"))
+    for frame in takewhile(lambda next_frame: next_frame is not None, cap):
+        ents = harris.detect(frame)
+        # cv2.imshow("Testin", frame)
+        # cv2.waitKey(30)
