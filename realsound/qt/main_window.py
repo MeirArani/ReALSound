@@ -22,7 +22,7 @@ from PySide6.QtCore import QCoreApplication, Slot
 import main
 from realsound import config
 from realsound.cv import NewPong, VisionLayer
-from realsound.cv.VisionLayer import GameState
+from realsound.cv.harris import GameState
 from realsound.qt.cv import CVSettingsListWidget
 
 from realsound.qt.capture import WindowCaptureWidget, WindowCaptureListWidget
@@ -121,6 +121,16 @@ class MainWindow(QWidget):
         # cv.imshow("CV Output", frame)
 
     def simulate_stream(self):
+        pass
+
+    def get_vision_settings(self):
+        return {key: value.slider.value for key, value in self.settings.settings}
+
+    def scratch(self):
+        # frame = Got a frame
+        # entities = vision.see(frame, settings)
+        # audio_objects = decision.decide(entities)
+        # audification.play(audio_objects)
         pass
 
 
