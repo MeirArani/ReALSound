@@ -6,7 +6,8 @@ class Entity(FSM):
     def __init__(self, corners):
         super().__init__(self)
         self.corners = corners
-        self.position = (self.corners[0] + self.corners[2]) / 2
+        self.position = (corners[0] + corners[2]) / 2
+        self.dimensions = (corners[3] - corners[0]) / 2
 
 
 class Paddle(Entity):

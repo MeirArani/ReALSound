@@ -24,10 +24,30 @@ class VisionLayer:
 
 class DecisionLayer:
     def __init__(self):
-        pass
+        self.current_state = self.attract
 
     def decide(self, entities):
-        pass
+        self.current_state = self.current_state(entities)
+
+    # State logic
+    def attract(self, data):
+        print("ATTRACT!")
+        return self.intermission if has_paddles(data) else self.attract
+
+    def intermission(self, data):  # Curse you break statement
+        print("INTERMISSION!")
+        return self.match if has_ball(data) else self.intermission
+
+    def match(self, data):
+        return self.goal if scored_goal(data) else self.match
+
+    def goal(self, data):
+        print("GOAL!")
+        return self.intermission
+
+    def win(self, data):
+        print("WIN!")
+        return self.attract
 
 
 class AudificationLayer:
@@ -72,27 +92,35 @@ def read_from_video(filename, start_frame=0):
             yield None
         yield frame
 
-    # State logic
-    def attract(data):
-        yield data
 
-    def intermission(data):  # Curse you break statement
-        yield data
+def has_paddles(entities):
+    return entities[0] is not None and entities[1] is not None
 
-    def match(data):
-        yield data
 
-    def goal(data):
-        yield data
+def has_ball(entities):
+    return entities[2] is not None
 
-    def win(data):
-        yield data
+
+def scored_goal(entities):
+    if has_paddles(entities) and has_ball(entities):
+        if entities[2].position[0] > entities[1].corners:
+            print("P2 GOAL!")
+            return True
+        elif entities[2].position[0] < entities[0].corners:
+            return True
+    return False
 
 
 if __name__ == "__main__":
     print("hi!")
+    gsm = DecisionLayer()
     cap = read_from_video(resources.files(config).joinpath("Pong480.mp4"))
     for frame in takewhile(lambda next_frame: next_frame is not None, cap):
-        ents = harris.detect(frame)
-        # cv2.imshow("Testin", frame)
-        # cv2.waitKey(30)
+        objects = harris.detect(frame)
+
+        entities = harris.classify(objects)
+
+        gsm.decide(entities)
+
+        cv2.imshow("Testin", frame)
+        cv2.waitKey(60)

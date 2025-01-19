@@ -46,7 +46,7 @@ def detect(frame, settings=default_settings):
     # Find corners using harris corner detector
     corners = cv2.goodFeaturesToTrack(
         gray, settings["points"], settings["thresh"] / 100, settings["distance"]
-    )
+    ).squeeze()
 
     candidates = corners  # Our candidates are *all* corners at first
     # Where we store our final results
@@ -65,21 +65,24 @@ def detect(frame, settings=default_settings):
         test_points = candidates[
             np.argwhere(
                 np.logical_xor(
-                    is_close(candidates, i).squeeze()[:, 0],
-                    is_close(candidates, i).squeeze()[:, 1],
+                    is_close(candidates, i)[:, 0],
+                    is_close(candidates, i)[:, 1],
                 )
-            ).squeeze()
+            )
         ].squeeze()
 
         # we got back two actual points,
         # they also don't share X/Y values
         # (Since they're opposite corners of the rect)
-        if test_points.shape[0] > 1 and not np.any(
-            is_close(test_points[:, 0], test_points[:, 1])
+        if (
+            test_points.shape[0] > 1
+            and len(test_points.shape) > 1
+            and not np.any(is_close(test_points[:, 0], test_points[:, 1]))
         ):
             if test_points.shape[0] > 2:
                 # test_points[np.argsort(
                 # np.sum(abs(test_points - i), axis=1))][:2]
+                # Find the points closest to i
                 test_points = test_points[np.argmin(abs(test_points - i), axis=0)]
 
             # append our new points to the resulting object
@@ -125,19 +128,12 @@ def detect(frame, settings=default_settings):
                 results[
                     np.argwhere(np.all(np.all(results == 0, axis=1), axis=1))[0]
                 ] = result
+                # Remove found points from candidate list
                 candidates = candidates[
-                    np.argwhere(
-                        np.all(
-                            np.any(
-                                np.logical_not(is_close(result[:, None], candidates)),
-                                axis=2,
-                            ),
-                            axis=0,
-                        )
+                    np.invert(
+                        is_close(result[:, None], candidates).all(axis=2).any(axis=0)
                     )
-                ][
-                    :, 0, :
-                ]  # Remove resultant points from candidate list
+                ]
     return results[np.argwhere(np.all(np.any(results != 0, axis=2), axis=1))][:, 0, :]
 
 
