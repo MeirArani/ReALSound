@@ -141,7 +141,7 @@ def classify(groups):
     # Returns a list of three objects: Paddle1 (left), Paddle2 (right), & ball
     # Objects are np arrays with their 4 corners.
     # Starts top left, winds CCW.
-    results = [None, None, None]
+    results = {"p1": None, "p2": None, "ball": None}
     if len(groups) == 0:
         return results
 
@@ -153,18 +153,18 @@ def classify(groups):
     # Check for ball
     ball = groups[np.argwhere(h / w < 2)].squeeze()
     if len(ball) == 4:
-        results[2] = Ball(ball)
+        results["ball"] = ball
 
     # Check for paddles
     paddles = groups[np.argwhere(h / w > 2)].squeeze()
     if len(paddles) == 2:
         # Order paddles by direction (left first)
         if paddles[0][0][0] < paddles[1][0][0]:
-            results[0] = Paddle(paddles[0])
-            results[1] = Paddle(paddles[1])
+            results["p1"] = paddles[0]
+            results["p2"] = paddles[1]
         else:
-            results[0] = Paddle(paddles[1])
-            results[1] = Paddle(paddles[0])
+            results["p1"] = paddles[1]
+            results["p2"] = paddles[0]
     return results
 
 

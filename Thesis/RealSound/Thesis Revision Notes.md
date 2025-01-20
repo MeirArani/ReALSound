@@ -1,0 +1,12 @@
+- Discuss required attributes 
+	- lost frames
+- Discuss difficulties of losing objects
+	- Collides with score card 
+	- Hit can make either object disappear 
+- Discuss difficulties of hit detection
+	- Distance isn't always a valid measure 
+		- Close misses on top or bottom
+	- Pong has irregular collision detection behavior 
+		- Balls that should miss might get caught 
+	- Assumes hit is captured in frame
+		- Frame drops or other visual issues might obscure a hit 
