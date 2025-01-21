@@ -3,16 +3,20 @@ from realsound.cv import harris
 from realsound.core import Ball, Paddle
 
 HIT_DIST = 75
+WALL_DIST = 25
+GOAL_BUFFER = 5
+WIN_SCORE = 11
 
 
 class DecisionLayer:
 
     def __init__(self):
         self.current_state = self.attract
-
-        self.entities = {"p1": Paddle(), "p2": Paddle(), "ball": Ball()}
+        self.frame_shape = (0, 0)
+        self.entities = {"p1": Paddle("p1"), "p2": Paddle("p2"), "ball": Ball("ball")}
 
     def decide(self, new_corners, frame):
+        self.frame_shape = frame.shape
         for entity, corners in new_corners.items():
             self.entities[entity].update(corners)
 
@@ -29,32 +33,52 @@ class DecisionLayer:
     def attract(self):
         return self.intermission if self.p1.active and self.p2.active else self.attract
 
-    def intermission(self):  # Curse you break statement
+    def intermission(self):
         return self.match if self.ball.active else self.intermission
 
     def match(self):
 
+        # If the ball's X velocity changes
+        # There must have been a hit
         if self.ball.velocity_changed[0]:
             if dist(self.p1.position, self.ball.position) < HIT_DIST:
-                print("P1 Hit!")
+                self.p1.hit()
             elif dist(self.p2.position, self.ball.position) < HIT_DIST:
-                print("P2 Hit!")
-        elif self.ball.lost_frames > 1:
-            if self.ball.x > self.p2.x:
+                self.p2.hit()
+        # If the ball's Y velocity changes
+        # There might have been a ricochet
+        # If it bounced off a top/bottom wall
+        elif self.ball.velocity_changed[1]:
+            if self.ball.y < WALL_DIST or self.frame_shape[0] - self.ball.y < WALL_DIST:
+                self.ball.ricochet()
+
+        # If the ball goes missing long enough
+        # There must have been a goal
+        if not self.ball.active:
+            if self.ball.x + GOAL_BUFFER > self.p2.x:
                 return self.goal(self.p1)
-            elif self.ball.x < self.p1.x:
+            elif self.ball.x + GOAL_BUFFER < self.p1.x:
                 return self.goal(self.p2)
+
+        # If the paddles go missing long enough
+        # AND the ball is on a certain side of the screen
+        # The other player has won
+        if not (self.p1.active and self.p2.active):
+            if self.ball.x > (self.frame_shape[1] // 2):
+                return self.win(self.p1)
+            else:
+                return self.win(self.p2)
 
         return self.match
 
     def goal(self, scorer):
         scorer.score += 1
-        self.ball.active = False
         print(f"{self.p1.score} - {self.p2.score}")
         return self.intermission
 
-    def win(self):
-        print("WIN!")
+    def win(self, winner):
+        winner.score += 1
+        print(f"{winner} WINS!")
         return self.attract
 
     def __getattr__(self, name):

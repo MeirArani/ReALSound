@@ -10,3 +10,6 @@
 		- Balls that should miss might get caught 
 	- Assumes hit is captured in frame
 		- Frame drops or other visual issues might obscure a hit 
+- Discuss Fan projects
+	- Ship of Harkinian etc
+- 

@@ -50,8 +50,9 @@ def read_from_video(filename, start_frame=0):
 
 if __name__ == "__main__":
     print("hi!")
+    frame_rate = 60
     gsm = DecisionLayer()
-    cap = read_from_video(resources.files(config).joinpath("Pong480.mp4"), 1200)
+    cap = read_from_video(resources.files(config).joinpath("Pong480.mp4"), 1400)
     for frame, frame_number in takewhile(
         lambda next_frame: next_frame is not None, cap
     ):
@@ -64,4 +65,4 @@ if __name__ == "__main__":
         gsm.decide(new_corners, frame)
 
         cv2.imshow("Testing", frame)
-        cv2.waitKey(60)
+        cv2.waitKey(1000 // frame_rate)
