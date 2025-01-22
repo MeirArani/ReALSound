@@ -1,6 +1,5 @@
-from math import sqrt
-from realsound.cv import harris
-import enum
+import sys
+from realsound.cv import harris, VideoReader, VideoWidget
 import cv2
 import numpy as np
 from importlib import resources
@@ -8,28 +7,26 @@ from realsound import config
 from itertools import takewhile
 from realsound.core import DecisionLayer
 
-
-class VisionLayer:
-    def __init__(self):
-        pass
-
-    def see(self, frame, settings):
-        # Get object corners using harris algorithm
-        corners = harris.get_corners(frame, settings)
-
-        # Identify object shapes using corners
-        shapes = harris.detect(np.reshape(corners, (-1, 2)), frame.shape)
-
-        # Classify Entities (i.e. ball & paddles) from shapes
-        return harris.classify(shapes)
-
-
-class AudificationLayer:
-    def __init__(self):
-        pass
-
-    def play(self, audio_objects):
-        pass
+from PySide6.QtMultimediaWidgets import QVideoWidget
+from PySide6.QtMultimedia import (
+    QCapturableWindow,
+    QMediaCaptureSession,
+    QScreenCapture,
+    QVideoFrame,
+    QWindowCapture,
+    QMediaRecorder,
+    QVideoFrameInput,
+)
+from PySide6.QtWidgets import (
+    QGridLayout,
+    QLabel,
+    QListView,
+    QMessageBox,
+    QPushButton,
+    QWidget,
+    QApplication,
+)
+from PySide6.QtCore import QCoreApplication, Slot
 
 
 def read_from_video(filename, start_frame=0):
@@ -49,7 +46,13 @@ def read_from_video(filename, start_frame=0):
 
 
 if __name__ == "__main__":
-    print("hi!")
+    app = QApplication(sys.argv)
+    widget = VideoWidget()
+    widget.start()
+    widget.show()
+    app.exec()
+
+    """print("hi!")
     frame_rate = 60
     gsm = DecisionLayer()
     cap = read_from_video(resources.files(config).joinpath("Pong480.mp4"), 1400)
@@ -65,4 +68,4 @@ if __name__ == "__main__":
         gsm.decide(new_corners, frame)
 
         cv2.imshow("Testing", frame)
-        cv2.waitKey(1000 // frame_rate)
+        cv2.waitKey(1000 // frame_rate)"""

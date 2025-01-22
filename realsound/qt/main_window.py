@@ -151,4 +151,4 @@ if __name__ == "__main__":
 
         main_window.vision.stop()
         main_window.screen_cap.stop()
-        sys.exit(0)
+        sys.exit(app.exec())
