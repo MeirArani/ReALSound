@@ -1,2 +1,2 @@
 from .NewPong import NewPong
-from .video import VideoReader, VideoWidget
+from .video import VideoWidget

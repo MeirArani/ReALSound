@@ -1,0 +1,12 @@
+- [ ] Make it work!
+	- [ ] Get audio going 
+	- [ ] Make it good
+		- [ ] Better Design
+		- [ ] Better SFXs
+- [ ] Clean up project
+- [ ] Switch to real-time footage 
+	- [ ] Fix bugs w/ harris 
+- [ ] Make UI that doesn't look like ass
+- [ ] Improve score tracking
+	- [ ] Like, actually track the scores on screen
+- [ ] Switch to ML

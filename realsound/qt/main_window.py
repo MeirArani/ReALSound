@@ -22,7 +22,6 @@ from PySide6.QtCore import QCoreApplication, Slot
 import main
 from realsound import config
 from realsound.cv import NewPong, VisionLayer
-from realsound.cv.harris import GameState
 from realsound.qt.cv import CVSettingsListWidget
 
 from realsound.qt.capture import WindowCaptureWidget, WindowCaptureListWidget

@@ -1,13 +1,16 @@
 import numpy as np
 from realsound.core import FSM
+from PySide6.QtCore import QObject, Signal
 
 MAX_LOST_FRAMES = 5
 VELOCITY_MAX = 100
+VELOCITY_MOE = 0.25
 
 
-class Entity(FSM):
-    def __init__(self, name):
-        super().__init__(self)
+class Entity(QObject):
+
+    def __init__(self, name, parent):
+        super().__init__(parent)
         self.name = name
         self.position = np.zeros((1, 2))
         self.velocity = np.zeros((1, 2))
@@ -37,14 +40,15 @@ class Entity(FSM):
                     self.lost_frame()
                     return
 
-                # If new velocity isn't zeros
+                # If new and old velocity aren't zeros
                 if np.any(new_velocity) and np.any(self.velocity):
+                    # If the velocity changed signs
+                    # And is beyond a basic MOE
                     self.velocity_changed = (
                         (np.sign(new_velocity) != np.sign(self.velocity))
-                        & (new_velocity != 0)
-                        & (abs(new_velocity) > 1)
+                        & (abs(new_velocity) > VELOCITY_MOE)
                     ).squeeze()
-                else:  # if it is, treat like no velocity change
+                else:  # if Zeros, treat like no velocity change
                     self.velocity_changed = np.full((2), False)
 
                 self.velocity = new_velocity
@@ -68,8 +72,11 @@ class Entity(FSM):
 
 
 class Paddle(Entity):
-    def __init__(self, name):
-        super().__init__(name)
+
+    on_hit = Signal(str)
+
+    def __init__(self, name, parent):
+        super().__init__(name, parent)
 
         self.score = 0
 
@@ -77,15 +84,18 @@ class Paddle(Entity):
         return super().update(new_corners)
 
     def hit(self):
-        print(f"{self.name} HIT!")
+        self.on_hit.emit(self.name)
 
 
 class Ball(Entity):
-    def __init__(self, name):
-        super().__init__(name)
+
+    on_ricochet = Signal()
+
+    def __init__(self, name, parent):
+        super().__init__(name, parent)
 
     def update(self, new_corners):
         return super().update(new_corners)
 
     def ricochet(self):
-        print("Ricochet!")
+        self.on_ricochet.emit()

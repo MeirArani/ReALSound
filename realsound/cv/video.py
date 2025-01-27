@@ -27,9 +27,13 @@ from importlib import resources
 from realsound import config
 from itertools import takewhile
 import time
+from numpy import ndarray
 
 
 class VideoWidget(QWidget):
+
+    frame_ready = Signal(QVideoFrame)
+
     def __init__(self, parent=None):
         super().__init__(parent)
         # Set up GUI Widgets
@@ -42,52 +46,35 @@ class VideoWidget(QWidget):
         )
         self.video_output = QVideoWidget()
 
-        self.generator = VideoReader(resources.files(config).joinpath("Pong480.mp4"), 0)
+        # self.generator = VideoReader(filename, start_frame)
 
         self.capture.setRecorder(self.recorder)
         self.capture.setVideoFrameInput(self.video_input)
         self.capture.setVideoOutput(self.video_output)
 
-        self.video_input.readyToSendVideoFrame.connect(self.generator.send)
-        self.generator.frame_ready.connect(self.video_input.sendVideoFrame)
+        # self.video_input.readyToSendVideoFrame.connect(self.generator.send)
+        # self.generator.frame_ready.connect(self.video_input.sendVideoFrame)
 
         grid_layout = QGridLayout(self)
 
         grid_layout.addWidget(self.video_output, 0, 0)
         grid_layout.setRowMinimumHeight(0, 300)
         grid_layout.setColumnMinimumWidth(0, 300)
-        self.video_input.sendVideoFrame(self.generator.read())
+        self.frame_ready.connect(self.video_input.sendVideoFrame)
 
-    def start(self):
         self.recorder.record()
 
-
-class VideoReader(QObject):
-
-    frame_ready = Signal(QVideoFrame)
-
-    def __init__(self, filename, start_frame=0, parent=None):
-        # Set up Video capture
-        super().__init__(parent)
-        self.cap = cv2.VideoCapture(filename)
-        self.cap.set(cv2.CAP_PROP_POS_FRAMES, start_frame)
-        if not self.cap.isOpened():
-            print("File error!")
-
-    @Slot()
     def send(self):
-        self.frame_ready.emit(self.read())
+        pass
 
-    @Slot()
-    def read(self):
-        ret, frame = self.cap.read()
-        if not ret:
-            self.cap.release()
-            print("Out of frames!")
-            return None
+    def read(self, frame, frame_pos=0):
+        pass
+
+    @Slot(ndarray)
+    def display(self, frame):
         height, width, _ = frame.shape
         bytes_per_line = frame.strides[0]
         q_img = QImage(
             frame.data, width, height, bytes_per_line, QImage.Format.Format_RGB888
         )
-        return QVideoFrame(q_img)
+        self.frame_ready.emit(QVideoFrame(q_img))
