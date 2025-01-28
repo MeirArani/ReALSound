@@ -42,76 +42,38 @@ from PySide6.QtCore import (
 
 from realsound.cv.NewPong import GameState
 
-"""PySide6 port of the spatialaudio/audiopanning example from Qt v6.x"""
+"""PySide6 port of the spatial audio/audio panning example from Qt v6.x"""
 
 
 class AudioWidget(QObject):
 
     def __init__(self, parent):
         super().__init__(parent)
-        self._file_dialog = None
-        self.setMinimumSize(400, 300)
-
-        form = QFormLayout()
-
-        file_layout = QHBoxLayout()
-        self._file_edit = QLineEdit()
-        self._file_edit.setPlaceholderText("Audio File")
-        file_layout.addWidget(self._file_edit)
-        self._file_dialog_button = QPushButton("Choose...")
-        file_layout.addWidget(self._file_dialog_button)
-        form.addRow(file_layout)
 
         self._azimuth = QSlider(Qt.Orientation.Horizontal)
         self._azimuth.setRange(-180, 180)
-        form.addRow("Azimuth (-180 - 180 degree):", self._azimuth)
 
         self._elevation = QSlider(Qt.Orientation.Horizontal)
         self._elevation.setRange(-90, 90)
-        form.addRow("Elevation (-90 - 90 degree)", self._elevation)
 
         self._distance = QSlider(Qt.Orientation.Horizontal)
         self._distance.setRange(0, 1000)
         self._distance.setValue(100)
-        form.addRow("Distance (0 - 10 meter):", self._distance)
 
         self._occlusion = QSlider(Qt.Orientation.Horizontal)
         self._occlusion.setRange(0, 400)
-        form.addRow("Occlusion (0 - 4):", self._occlusion)
 
         self._room_dimension = QSlider(Qt.Orientation.Horizontal)
         self._room_dimension.setRange(0, 10000)
         self._room_dimension.setValue(1000)
-        form.addRow("Room dimension (0 - 100 meter):", self._room_dimension)
 
         self._reverb_gain = QSlider(Qt.Orientation.Horizontal)
         self._reverb_gain.setRange(0, 500)
         self._reverb_gain.setValue(0)
-        form.addRow("Reverb gain (0-5):", self._reverb_gain)
 
         self._reflection_gain = QSlider(Qt.Orientation.Horizontal)
         self._reflection_gain.setRange(0, 500)
         self._reflection_gain.setValue(0)
-        form.addRow("Reflection gain (0-5):", self._reflection_gain)
-
-        self.main_layout = QGridLayout(self)
-
-        self.main_layout.addLayout(form, 1, 0)
-        self.main_layout.setRowStretch(0, 1)
-        self.main_layout.setRowStretch(2, 1)
-
-        self._mode = QComboBox()
-        self._mode.addItem("Surround", QAudioEngine.Surround)
-        self._mode.addItem("Stereo", QAudioEngine.Stereo)
-        self._mode.addItem("Headphone", QAudioEngine.Headphone)
-
-        form.addRow("Output mode:", self._mode)
-
-        self._animate_button = QCheckBox("Animate sound position")
-        form.addRow(self._animate_button)
-
-        self._file_edit.textChanged.connect(self.file_changed)
-        self._file_dialog_button.clicked.connect(self.open_file_dialog)
 
         self._azimuth.valueChanged.connect(self.update_position)
         self._elevation.valueChanged.connect(self.update_position)
@@ -179,13 +141,6 @@ class AudioWidget(QObject):
         self.sound_hit.setRotation(QQuaternion())
 
         self.update_position()
-
-        self._animation = QPropertyAnimation(self._azimuth, b"value")
-        self._animation.setDuration(10000)
-        self._animation.setStartValue(-180)
-        self._animation.setEndValue(180)
-        self._animation.setLoopCount(-1)
-        self._animate_button.toggled.connect(self.animate_changed)
 
     @Slot(float, float)
     def update_ball_sound_position(self, dx, dy):
