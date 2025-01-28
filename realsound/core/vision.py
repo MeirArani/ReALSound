@@ -4,7 +4,7 @@ import cv2
 import json
 from importlib import resources
 from PySide6.QtCore import Slot, Signal, QObject
-from realsound import config
+from realsound.resources import config
 
 # CV Functions
 
@@ -32,9 +32,9 @@ sound_event_ball_hit = Signal(bool)
 
 default_settings = {
     name: settings["value"]
-    for name, settings in json.loads(
-        resources.read_text(config, "cv_settings.json")
-    ).items()
+    for name, settings in json.loads(resources.read_text(config, "base.json"))[
+        "vision"
+    ]["cv"].items()
 }
 
 

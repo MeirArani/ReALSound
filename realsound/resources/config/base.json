@@ -1,0 +1,128 @@
+{
+    "vision": {
+        "cv": {
+            "thresh": 
+            {
+                "name": "Threshold",
+                "type": "Slider",
+                "min": 0,
+                "max": 100,
+                "value": 2,
+                "step": 1,
+                "tick": 20
+            },
+            "block": 
+            {
+                "name": "blocksize",
+                "min": 1,
+                "max": 5,
+                "value": 2
+            },
+            "k_size": 
+            {
+                "name": "k_size",
+                "min": 1,
+                "max": 4,
+                "value": 3
+            },
+            "k": 
+            {
+                "name": "k",
+                "min": 3,
+                "max": 6,
+                "value": 4
+            },
+            "points": 
+            {
+                "name": "Number of Points",
+                "min": 1,
+                "max": 25,
+                "value": 12,
+                "tick": 5
+            },
+            "distance": 
+            {
+                "name": "Minimum Distance",
+                "min": 1,
+                "max": 20,
+                "value": 3,
+                "tick": 5
+            }
+        }
+    },
+    "decision": 
+    {
+        "entities":
+        {
+            "player1":
+            {
+                "name": "Player 1",
+                "type": "Paddle",
+                "audio_objects":
+                {
+                    "hit": 
+                    {
+                        "name": "Hit",
+                        "path":"hit.wav"
+                    },
+                    "goal": 
+                    {
+                        "name": "Goal",
+                        "path": "goal.wav"
+                    },
+                    "win": 
+                    {
+                        "name": "Win",
+                        "path": "goal.wav"
+                    }
+                }
+            },
+            "player2":
+            {
+                "name": "Player 2",
+                "type": "Paddle",
+                "audio_objects":
+                {
+                    "hit": 
+                    {
+                        "name": "Hit",
+                        "path":"hit.wav"
+                    },
+                    "goal": 
+                    {
+                        "name": "Goal",
+                        "path": "goal.wav"
+                    },
+                    "win": 
+                    {
+                        "name": "Win",
+                        "path": "goal.wav"
+                    }
+                }
+            },
+            "ball":
+            {
+                "name": "Ball",
+                "type": "Ball",
+                "audio_objects":
+                {
+                    "bounce": 
+                    {
+                        "name": "Bounce",
+                        "path":"hit.wav"
+                    },
+                    "move": 
+                    {
+                        "name": "Move",
+                        "path": "ball440.wav",
+                        "loop": "True"
+                    }
+                }
+            }
+        }
+
+    },
+    "audification":
+    {
+    }
+}

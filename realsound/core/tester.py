@@ -4,7 +4,7 @@ from realsound.cv import VideoWidget
 import cv2
 import numpy as np
 from importlib import resources
-from realsound import config
+from realsound import resources
 from itertools import takewhile
 from realsound.core import DecisionLayer
 from PySide6.QtWidgets import QApplication, QWidget
@@ -42,7 +42,7 @@ def new_test():
     client = RealSound(START_FRAME)
 
     # Video Dummy
-    file = resources.files(config).joinpath("Pong480.mp4")
+    file = resources.files(resources).joinpath("Pong480.mp4")
     input = VideoSource(file, START_FRAME, FRAME_RATE)
 
     # Hook video dummy output to client

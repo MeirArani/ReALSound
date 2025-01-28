@@ -24,7 +24,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import QCoreApplication, Slot, QSize
 from importlib import resources
-from realsound import config
+from realsound import resources
 from itertools import takewhile
 import time
 from numpy import ndarray

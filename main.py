@@ -4,7 +4,7 @@ from realsound.cv import VisionLayer
 import sys
 from PySide6.QtWidgets import QApplication, QListView
 from importlib import resources
-from realsound import config
+from realsound import resources
 import json
 
 if __name__ == "__main__":

@@ -13,20 +13,20 @@ from PySide6.QtWidgets import (
 
 import json
 from importlib import resources
-from realsound import config
+from realsound.resources import config
 from PySide6.QtWidgets import QDialog, QVBoxLayout, QGridLayout
 
 import numpy as np
 
 
 class CVSettingsListWidget(QDialog):
-    def __init__(self, default_config="cv_settings.json", parent=None):
+    def __init__(self, default_config="base.json", parent=None):
         super().__init__(parent)
 
         # Load options
         self.defaults = json.loads(
             resources.read_text(config, default_config)
-        ) or json.loads(resources.read_text(config, "cv_settings.json").read_text())
+        ) or json.loads(resources.read_text(resources, "base.json").read_text())
 
         self.settings = {}
 
@@ -36,7 +36,7 @@ class CVSettingsListWidget(QDialog):
 
         self.main_layout.addWidget(self.settings_label, 1, 1)
 
-        for i, (control, settings) in enumerate(self.defaults.items()):
+        for i, (control, settings) in enumerate(self.defaults["vision"]["cv"].items()):
             slider = CVSliderWidget(settings)
             self.settings[control] = slider
             slider.slider.valueChanged.connect(

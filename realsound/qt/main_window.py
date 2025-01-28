@@ -20,7 +20,7 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import QCoreApplication, Slot
 
 import main
-from realsound import config
+from realsound.resources import config
 from realsound.cv import NewPong, VisionLayer
 from realsound.qt.cv import CVSettingsListWidget
 
@@ -40,7 +40,7 @@ class MainWindow(QWidget):
         super().__init__(parent)
         self.frame_counter = 0
 
-        self.settings = CVSettingsListWidget(default_config="cv_settings.json")
+        self.settings = CVSettingsListWidget(default_config="base.json")
 
         self.stats = CVStatsWidget()
 
@@ -94,7 +94,7 @@ class MainWindow(QWidget):
 
         # self.current_frame = None
 
-        self.video_file = resources.files(config).joinpath("Pong480.mp4")
+        self.video_file = resources.files(resources).joinpath("Pong480.mp4")
         self.vision = VisionLayer(
             self.settings,
         )
