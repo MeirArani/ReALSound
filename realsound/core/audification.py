@@ -1,9 +1,5 @@
-from PySide6.QtCore import QObject
-
-
-# Copyright (C) 2022 The Qt Company Ltd.
-# SPDX-License-Identifier: LicenseRef-Qt-Commercial OR BSD-3-Clause
 from __future__ import annotations
+from PySide6.QtCore import QObject
 
 import math
 import sys
@@ -45,46 +41,17 @@ from realsound.cv.NewPong import GameState
 """PySide6 port of the spatial audio/audio panning example from Qt v6.x"""
 
 
-class AudioWidget(QObject):
+class AudificationLayer(QObject):
 
     def __init__(self, parent):
         super().__init__(parent)
-
-        self._azimuth = QSlider(Qt.Orientation.Horizontal)
-        self._azimuth.setRange(-180, 180)
-
-        self._elevation = QSlider(Qt.Orientation.Horizontal)
-        self._elevation.setRange(-90, 90)
-
-        self._distance = QSlider(Qt.Orientation.Horizontal)
-        self._distance.setRange(0, 1000)
-        self._distance.setValue(100)
-
-        self._occlusion = QSlider(Qt.Orientation.Horizontal)
-        self._occlusion.setRange(0, 400)
-
-        self._room_dimension = QSlider(Qt.Orientation.Horizontal)
-        self._room_dimension.setRange(0, 10000)
-        self._room_dimension.setValue(1000)
-
-        self._reverb_gain = QSlider(Qt.Orientation.Horizontal)
-        self._reverb_gain.setRange(0, 500)
-        self._reverb_gain.setValue(0)
-
-        self._reflection_gain = QSlider(Qt.Orientation.Horizontal)
-        self._reflection_gain.setRange(0, 500)
-        self._reflection_gain.setValue(0)
-
-        self._azimuth.valueChanged.connect(self.update_position)
-        self._elevation.valueChanged.connect(self.update_position)
-        self._distance.valueChanged.connect(self.update_position)
-        self._occlusion.valueChanged.connect(self.new_occlusion)
-
-        self._room_dimension.valueChanged.connect(self.update_room)
-        self._reverb_gain.valueChanged.connect(self.update_room)
-        self._reflection_gain.valueChanged.connect(self.update_room)
-
-        self._mode.currentIndexChanged.connect(self.mode_changed)
+        self.client = parent
+        self._azimuth = 0
+        self._elevation = 0
+        self._distance = 0
+        self._room_dimension = 1000
+        self._reverb_gain = 0
+        self._reflection_gain = 0
 
         self._engine = QAudioEngine()
         self._engine.setOutputMode(QAudioEngine.Headphone)
@@ -100,7 +67,99 @@ class AudioWidget(QObject):
         self._listener = QAudioListener(self._engine)
         self._listener.setPosition(QVector3D())
         self._listener.setRotation(QQuaternion())
+
         self._engine.start()
+
+    @Slot()
+    def update_position(self):
+        az = 0 / 180.0 * math.pi
+        el = 0 / 180.0 * math.pi
+        d = 100
+
+        x = d * math.sin(az) * math.cos(el)
+        y = d * math.sin(el)
+        z = -d * math.cos(az) * math.cos(el)
+        self.sound_ball_pos.setPosition(QVector3D(x, y, z))
+
+    @Slot()
+    def update_room(self):
+        self._room.setDimensions(
+            QVector3D(self._room_dimension, self._room_dimension, 400)
+        )
+        self._room.setReflectionGain(float(self._reflection_gain) / 100)
+        self._room.setReverbGain(float(self._reverb_gain) / 100)
+
+    @Slot(int)
+    def update_room_dimension(self, size):
+        self._room_dimension = size
+        self.update_room()
+
+    @Slot(int)
+    def update_reverb_gain(self, amount):
+        self._reverb_gain = amount
+        self.update_room()
+
+    @Slot(int)
+    def update_reflection_gain(self, amount):
+        self._reflection_gain = amount
+        self.update_room()
+
+
+class AudioObject(QObject):
+
+    def __init__(self, parent, sound=None):
+        super().__init__(parent)
+        self._azimuth = 0
+
+        self._elevation = 180
+        self._distance = 100
+        self._occlusion = 2
+        self._room_dimension = 1000
+        self._reverb_gain = 0
+        self._reflection_gain = 0
+
+    def set_position(self, sound, dx, dy):
+        az = dx * math.pi - (math.pi / 2)
+        el = self._elevation.value() / 180.0 * math.pi
+        d = self._distance.value()
+
+        x = d * math.sin(az) * math.cos(el)
+        y = d * math.sin(el)
+        z = -d * math.cos(az) * math.cos(el)
+        sound.setPosition(QVector3D(x, y, z))
+
+
+class AudioWidget(QWidget):
+
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        form = QFormLayout()
+        file_layout = QHBoxLayout()
+
+        self._room_dimension = QSlider(Qt.Orientation.Horizontal)
+        self._room_dimension.setRange(0, 10000)
+        self._room_dimension.setValue(1000)
+        form.addRow("Room dimension (0 - 100 meter):", self._room_dimension)
+
+        self._reverb_gain = QSlider(Qt.Orientation.Horizontal)
+        self._reverb_gain.setRange(0, 500)
+        self._reverb_gain.setValue(0)
+        form.addRow("Reverb gain (0-5):", self._reverb_gain)
+
+        self._reflection_gain = QSlider(Qt.Orientation.Horizontal)
+        self._reflection_gain.setRange(0, 500)
+        self._reflection_gain.setValue(0)
+        form.addRow("Reflection gain (0-5):", self._reflection_gain)
+
+        self._room_dimension.valueChanged.connect(parent.update_room_dimension)
+        self._reverb_gain.valueChanged.connect(parent.update_reverb_gain)
+        self._reflection_gain.valueChanged.connect(parent.update_reflection_gain)
+
+        self.main_layout = QGridLayout(self)
+        self.main_layout.addLayout(form, 1, 0)
+        self.main_layout.setRowStretch(0, 1)
+        self.main_layout.setRowStretch(2, 1)
 
         # SOUNDS
         # BALL SOUND
@@ -142,101 +201,6 @@ class AudioWidget(QObject):
 
         self.update_position()
 
-    @Slot(float, float)
-    def update_ball_sound_position(self, dx, dy):
-        self.update_sound_position(self.sound_ball_pos, dx, dy)
-
-    def update_sound_position(self, sound, dx, dy):
-        az = dx * math.pi - (math.pi / 2)
-        el = self._elevation.value() / 180.0 * math.pi
-        d = self._distance.value()
-
-        x = d * math.sin(az) * math.cos(el)
-        y = d * math.sin(el)
-        z = -d * math.cos(az) * math.cos(el)
-        sound.setPosition(QVector3D(x, y, z))
-
-    @Slot(bool)
-    def toggle_ball_sound(self, toggle):
-        if toggle:
-            print("TOGGLING BALL SFX ON!")
-            self.sound_ball_pos.play()
-        else:
-            print("TOGGLING BALL SFX OFF!")
-            self.sound_ball_pos.pause()
-        pass
-
-    @Slot(GameState)
-    def play_goal(self, player):
-        print("PLAYING GOAL SFX!")
-        self.sound_goal.play()
-
-    @Slot(bool)
-    def play_hit(self, playerOneHit):
-        # self.update_sound_position(self.sound_hit, dx, dy)
-        self.sound_hit.play()
-        pass
-
-    def set_file(self, file):
-        self._file_edit.setText(file)
-
-    def update_position(self):
-        az = self._azimuth.value() / 180.0 * math.pi
-        el = self._elevation.value() / 180.0 * math.pi
-        d = self._distance.value()
-
-        x = d * math.sin(az) * math.cos(el)
-        y = d * math.sin(el)
-        z = -d * math.cos(az) * math.cos(el)
-        self.sound_ball_pos.setPosition(QVector3D(x, y, z))
-
-    @Slot()
-    def new_occlusion(self):
-        self.sound_ball_pos.setOcclusionIntensity(self._occlusion.value() / 100.0)
-
-    @Slot()
-    def mode_changed(self):
-        self._engine.setOutputMode(self._mode.currentData())
-
-    @Slot(str)
-    def file_changed(self, file):
-        self.sound_ball_pos.setSource(QUrl.fromLocalFile(file))
-        self.sound_ball_pos.setSize(5)
-        self.sound_ball_pos.setLoops(QSpatialSound.Infinite)
-
-    @Slot()
-    def open_file_dialog(self):
-        if not self._file_dialog:
-            directory = QStandardPaths.writableLocation(QStandardPaths.MusicLocation)
-            self._file_dialog = QFileDialog(self, "Open Audio File", directory)
-            self._file_dialog.setAcceptMode(QFileDialog.AcceptOpen)
-            mime_types = [
-                "audio/mpeg",
-                "audio/aac",
-                "audio/x-ms-wma",
-                "audio/x-flac+ogg",
-                "audio/x-wav",
-            ]
-            self._file_dialog.setMimeTypeFilters(mime_types)
-            self._file_dialog.selectMimeTypeFilter(mime_types[0])
-
-        if self._file_dialog.exec() == QDialog.Accepted:
-            self._file_edit.setText(self._file_dialog.selectedFiles()[0])
-
-    @Slot()
-    def update_room(self):
-        d = self._room_dimension.value()
-        self._room.setDimensions(QVector3D(d, d, 400))
-        self._room.setReflectionGain(float(self._reflection_gain.value()) / 100)
-        self._room.setReverbGain(float(self._reverb_gain.value()) / 100)
-
-    @Slot()
-    def animate_changed(self):
-        if self._animate_button.isChecked():
-            self._animation.start()
-        else:
-            self._animation.stop()
-
 
 if __name__ == "__main__":
 
@@ -246,16 +210,6 @@ if __name__ == "__main__":
     QCoreApplication.setApplicationVersion(qVersion())
     QGuiApplication.setApplicationDisplayName(name)
 
-    argument_parser = ArgumentParser(
-        description=name, formatter_class=RawTextHelpFormatter
-    )
-    argument_parser.add_argument("file", help="File", nargs="?", type=str)
-    options = argument_parser.parse_args()
-
-    w = AudioWidget()
+    w = AudioWidget(None)
     w.show()
-
-    if options.file:
-        w.set_file(options.file)
-
     sys.exit(app.exec())

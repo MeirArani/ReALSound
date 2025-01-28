@@ -12,6 +12,7 @@ class DecisionLayer(QObject):
 
     def __init__(self, parent):
         super().__init__(parent)
+        self.client = parent
         self.current_state = self.attract
         self.entities = {
             "p1": Paddle("p1", self),

@@ -42,6 +42,7 @@ default_settings = {
 class VisionLayer(QObject):
     def __init__(self, parent):
         super().__init__(parent)
+        self.client = parent
 
     def see(self, frame):
         # Identify object shapes using corners

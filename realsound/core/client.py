@@ -18,9 +18,9 @@ class RealSound(QWidget):
     def __init__(self, start_frame=0, parent=None):
         super().__init__(parent)
 
+        self.audification = AudificationLayer(self)
         self.vision = VisionLayer(self)
         self.decision = DecisionLayer(self)
-        self.audification = AudificationLayer(self)
 
         # Vars
         self._frame = None

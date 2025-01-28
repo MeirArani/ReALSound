@@ -2,5 +2,7 @@
 	- [ ] And general game 'state' logic
 - [ ] Explain early renditions (Harris Corner detection)
 	- [ ] Explain initial hangups
-- [ ] Explain ML/CV concepts 
+- [x] Explain ML/CV concepts ✅ 2025-01-28
+- [ ] Note relative nature of Spatial Audio
+	- [ ] How you can update either the object position or the LISTENER itself 
 - [ ] 

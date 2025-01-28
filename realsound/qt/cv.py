@@ -17,7 +17,6 @@ from realsound import config
 from PySide6.QtWidgets import QDialog, QVBoxLayout, QGridLayout
 
 import numpy as np
-from realsound.cv import GameState
 
 
 class CVSettingsListWidget(QDialog):
@@ -131,4 +130,4 @@ class CVStatsWidget(QWidget):
         self.paddle_l_pos.setText(f"({centers[0][0]}, {centers[0][1]})")
         self.paddle_r_pos.setText(f"({centers[1][0]}, {centers[1][1]})")
         self.ball_pos.setText(f"({centers[2][0]}, {centers[2][1]})")
-        self.state_info.setText(f"{GameState(state).name}")
+        # self.state_info.setText(f"{GameState(state).name}")

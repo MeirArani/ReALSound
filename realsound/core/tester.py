@@ -7,12 +7,30 @@ from importlib import resources
 from realsound import config
 from itertools import takewhile
 from realsound.core import DecisionLayer
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication, QWidget
 
 from realsound.core.client import RealSound
 from realsound.core.dummy import VideoSource
 
 import threading
+
+from realsound.qt.audio import AudioWidget
+
+
+class PitchTest(QWidget):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self._audio = AudioWidget()
+
+
+def spawn_pitch():
+
+    app = QApplication(sys.argv)
+    widget = AudioWidget()
+    widget.show()
+    sys.exit(app.exec())
 
 
 def new_test():
@@ -44,4 +62,5 @@ def new_test():
 
 
 if __name__ == "__main__":
+    # spawn_pitch()
     new_test()
