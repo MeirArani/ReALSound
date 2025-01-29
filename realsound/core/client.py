@@ -59,6 +59,14 @@ class RealSound(QWidget):
     def frame(self):
         return self._frame
 
+    @property
+    def frame_width(self):
+        return self._frame.shape[1]
+
+    @property
+    def frame_height(self):
+        return self._frame.shape[0]
+
     def add_text(self, text, pos, scale=1):
         self._frame = cv2.putText(
             self.frame,

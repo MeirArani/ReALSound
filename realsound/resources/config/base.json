@@ -60,6 +60,11 @@
                 "type": "Paddle",
                 "audio_objects":
                 {
+                    "move":
+                    {
+                        "name": "Move",
+                        "path": "440fast.wav"
+                    },
                     "hit": 
                     {
                         "name": "Hit",
@@ -83,6 +88,11 @@
                 "type": "Paddle",
                 "audio_objects":
                 {
+                    "move":
+                    {
+                        "name": "Move",
+                        "path": "a4.wav"
+                    },
                     "hit": 
                     {
                         "name": "Hit",

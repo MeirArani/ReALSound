@@ -28,8 +28,17 @@ class DecisionLayer(QObject):
             )(name, self)
 
     def decide(self, new_corners):
+        # Update entity positions
         for entity, corners in new_corners.items():
             self.entities[entity].update(corners)
+
+        # Update paddle beep speeds
+        self.p1.beep_speed = calc_beep_gap(
+            self.p1, self.ball, self.parent().frame_width
+        )
+        self.p2.beep_speed = calc_beep_gap(
+            self.p2, self.ball, self.parent().frame_width
+        )
 
         self.current_state = self.current_state()
 
@@ -110,6 +119,13 @@ class DecisionLayer(QObject):
             self.entities[name] = value
         else:
             super().__setattr__(name, value)
+
+
+def calc_beep_gap(ball, paddle, width):
+    dx = 80 - dist(paddle.x, ball.x)
+    return Paddle.MAX_BEEP_SPEED + (dx / (80 - width)) * (
+        Paddle.MIN_BEEP_SPEED - Paddle.MAX_BEEP_SPEED
+    )
 
 
 def dist(a, b):

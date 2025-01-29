@@ -1,3 +1,4 @@
+from enum import Enum
 from importlib import resources
 import math
 import numpy as np
@@ -8,6 +9,7 @@ from realsound.core.audification import AudioObject
 from realsound.resources import config, sounds
 import json
 from PySide6.QtGui import QVector3D, QQuaternion
+import time
 
 MAX_LOST_FRAMES = 5
 VELOCITY_MAX = 100
@@ -114,15 +116,27 @@ class Entity(QObject):
 
 class Paddle(Entity):
 
+    MIN_BEEP_SPEED = 0.75
+    MAX_BEEP_SPEED = 0.05
     on_hit = Signal(str)
 
     def __init__(self, name, parent):
         super().__init__(name, parent)
-
         self.score = 0
+        self.last_beep = time.time()
+        self.beep_speed = Paddle.MIN_BEEP_SPEED
 
     def update(self, new_corners):
-        return super().update(new_corners)
+        super().update(new_corners)
+        if self.active and self.parent().current_state == self.parent().match:
+            now = time.time()
+            if now - self.last_beep > self.beep_speed:
+                self.beep()
+
+    def beep(self):
+        if self.name == "p1":
+            self.audio_objects["move"].play()
+            self.last_beep = time.time()
 
     def hit(self):
         self.on_hit.emit(self.name)
@@ -135,6 +149,13 @@ class Paddle(Entity):
     def win(self):
         print("Playing Win SFX")
         self.audio_objects["win"].play()
+
+    class Pitch(Enum):
+        LOWEST = 1
+        LOW = 2
+        GOOD = 3
+        HIGH = 4
+        HIGHEST = 5
 
 
 class Ball(Entity):
@@ -157,10 +178,10 @@ class Ball(Entity):
 
     def activate(self):
         super().activate()
-        self.audio_objects["move_l"].play()
-        self.audio_objects["move_r"].play()
+        # self.audio_objects["move_l"].play()
+        # self.audio_objects["move_r"].play()
 
     def deactivate(self):
         super().deactivate()
-        self.audio_objects["move_l"].stop()
-        self.audio_objects["move_r"].stop()
+        # self.audio_objects["move_l"].stop()
+        # self.audio_objects["move_r"].stop()

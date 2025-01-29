@@ -36,7 +36,7 @@ def spawn_pitch():
 def new_test():
 
     START_FRAME = 1493
-    FRAME_RATE = 5
+    FRAME_RATE = 30
 
     app = QApplication(sys.argv)
     client = RealSound(START_FRAME)
