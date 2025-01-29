@@ -1,13 +1,19 @@
 from importlib import resources
+import math
 import numpy as np
 from realsound.core import FSM
 from PySide6.QtCore import QObject, Signal, QUrl
 from PySide6.QtSpatialAudio import QSpatialSound
-from realsound import sounds
+from realsound.core.audification import AudioObject
+from realsound.resources import config, sounds
+import json
+from PySide6.QtGui import QVector3D, QQuaternion
 
 MAX_LOST_FRAMES = 5
 VELOCITY_MAX = 100
 VELOCITY_MOE = 0.25
+
+configs = json.loads(resources.read_text(config, "base.json"))["decision"]["entities"]
 
 
 class Entity(QObject):
@@ -15,8 +21,24 @@ class Entity(QObject):
     def __init__(self, name, parent):
         super().__init__(parent)
 
-        self.audio_engine = parent.client.audification._engine
+        # Set up audio objects from config
         self.audio_objects = {}
+
+        for obj_name, config in configs[name]["audio_objects"].items():
+
+            sound = QSpatialSound(parent.client.audification._engine)
+            sound.setSource(
+                QUrl.fromLocalFile(resources.files(sounds).joinpath(config["path"]))
+            )
+
+            if config.get("loop", False):
+                sound.setLoops(QSpatialSound.Loops.Infinite)
+            sound.setAutoPlay(False)
+            sound.setSize(5)
+            sound.setPosition(QVector3D())
+            sound.setRotation(QQuaternion())
+
+            self.audio_objects[obj_name] = AudioObject(self, sound)
 
         self.name = name
         self.position = np.zeros((1, 2))
@@ -97,20 +119,6 @@ class Paddle(Entity):
     def __init__(self, name, parent):
         super().__init__(name, parent)
 
-        self.audio_objects_config = {
-            "hit": {
-                "name": "Hit",
-                "path": resources.files(sounds).joinpath("hit.wav"),
-            },
-            "goal": {
-                "name": "Goal",
-                "path": resources.files(sounds).joinpath("goal.wav"),
-            },
-            "win": {
-                "name": "Win",
-                "path": resources.files(sounds).joinpath("goal.wav"),
-            },
-        }
         self.score = 0
 
     def update(self, new_corners):
@@ -118,6 +126,15 @@ class Paddle(Entity):
 
     def hit(self):
         self.on_hit.emit(self.name)
+        self.audio_objects["hit"].play()
+
+    def goal(self):
+        print("Playing Goal SFX")
+        self.audio_objects["goal"].play()
+
+    def win(self):
+        print("Playing Win SFX")
+        self.audio_objects["win"].play()
 
 
 class Ball(Entity):
@@ -127,30 +144,23 @@ class Ball(Entity):
     def __init__(self, name, parent):
         super().__init__(name, parent)
 
-        self.audio_objects_config = {
-            "bounce": {
-                "name": "Bounce",
-                "path": resources.files(sounds).joinpath("hit.wav"),
-            },
-            "move": {
-                "name": "Move",
-                "path": resources.files(sounds).joinpath("ball440.wav"),
-                "loop": True,
-            },
-        }
-
-        for name, config in self.audio_objects_config.items():
-            obj = QSpatialSound(self.audio_engine)
-            obj.setSource(QUrl.fromLocalFile(config["path"]))
-            if config.get("loop", False):
-                obj.setLoops(QSpatialSound.Loops.Infinite)
-            obj.setAutoPlay(False)
-            obj.setSize(5)
-
-            self.audio_objects[name] = obj
-
     def update(self, new_corners):
-        return super().update(new_corners)
+        super().update(new_corners)
+        az_left = -((self.x - 100) * math.pi / 1000)
+        az_right = (self.x - 100) * math.pi / 1000
+        self.audio_objects["move_l"].set_position(az=az_left)
+        self.audio_objects["move_r"].set_position(az=az_right)
 
     def ricochet(self):
         self.on_ricochet.emit()
+        self.audio_objects["bounce"].play()
+
+    def activate(self):
+        super().activate()
+        self.audio_objects["move_l"].play()
+        self.audio_objects["move_r"].play()
+
+    def deactivate(self):
+        super().deactivate()
+        self.audio_objects["move_l"].stop()
+        self.audio_objects["move_r"].stop()

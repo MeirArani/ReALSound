@@ -47,7 +47,7 @@ class RealSound(QWidget):
 
         self._audio_objs = self.decision.decide(self._entities)
 
-        self.audification.playback(self._audio_objs)
+        # self.audification.playback(self._audio_objs)
 
         self.display_frame_count()
         self.display_state()

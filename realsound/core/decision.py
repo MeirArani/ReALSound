@@ -1,11 +1,17 @@
 import numpy as np
 from realsound.core import Ball, Paddle
 from PySide6.QtCore import QObject
+import json
+from importlib import resources
+from realsound.resources import config
+import sys
 
 HIT_DIST = 75
 WALL_DIST = 30
 GOAL_BUFFER = 5
 WIN_SCORE = 11
+
+configs = json.loads(resources.read_text(config, "base.json"))["decision"]["entities"]
 
 
 class DecisionLayer(QObject):
@@ -14,11 +20,12 @@ class DecisionLayer(QObject):
         super().__init__(parent)
         self.client = parent
         self.current_state = self.attract
-        self.entities = {
-            "p1": Paddle("p1", self),
-            "p2": Paddle("p2", self),
-            "ball": Ball("ball", self),
-        }
+        self.entities = {}
+
+        for name, config in configs.items():
+            self.entities[name] = getattr(
+                sys.modules["realsound.core.entity"], config["type"]
+            )(name, self)
 
     def decide(self, new_corners):
         for entity, corners in new_corners.items():
@@ -29,8 +36,11 @@ class DecisionLayer(QObject):
     # State logic
     def attract(self):
         if self.p1.active and self.p2.active:
-            self.ball.active = False
-            return self.intermission
+            if self.ball.lost_frames > 0:
+                self.ball.active = False
+                return self.intermission
+            else:
+                return self.match
         else:
             return self.attract
 
@@ -77,21 +87,23 @@ class DecisionLayer(QObject):
 
     def goal(self, scorer):
         scorer.score += 1
+        scorer.goal()
         print(f"{self.p1.score} - {self.p2.score}")
         return self.intermission
 
     def win(self, winner):
         winner.score += 1
+        winner.win()
         print(f"{winner} WINS!")
         return self.attract
 
     def __getattr__(self, name):
-        if name in ["p1", "p2", "ball"]:
+        if name in self.entities.keys():
             return self.entities[name]
         elif name == "state":
-            return self.current_state.__name__
+            self.current_state
         else:
-            raise AttributeError
+            self.__getattribute__(name)
 
     def __setattr__(self, name, value):
         if name in ["p1", "p2", "ball"]:

@@ -4,7 +4,7 @@ from realsound.cv import VideoWidget
 import cv2
 import numpy as np
 from importlib import resources
-from realsound import resources
+from realsound.resources import video
 from itertools import takewhile
 from realsound.core import DecisionLayer
 from PySide6.QtWidgets import QApplication, QWidget
@@ -35,14 +35,14 @@ def spawn_pitch():
 
 def new_test():
 
-    START_FRAME = 1398
-    FRAME_RATE = 20
+    START_FRAME = 1493
+    FRAME_RATE = 5
 
     app = QApplication(sys.argv)
     client = RealSound(START_FRAME)
 
     # Video Dummy
-    file = resources.files(resources).joinpath("Pong480.mp4")
+    file = resources.files(video).joinpath("Pong480.mp4")
     input = VideoSource(file, START_FRAME, FRAME_RATE)
 
     # Hook video dummy output to client

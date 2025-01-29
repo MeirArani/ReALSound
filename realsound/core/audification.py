@@ -1,4 +1,5 @@
 from __future__ import annotations
+import copy
 from PySide6.QtCore import QObject
 
 import math
@@ -36,8 +37,6 @@ from PySide6.QtCore import (
     Slot,
 )
 
-from realsound.cv.NewPong import GameState
-
 """PySide6 port of the spatial audio/audio panning example from Qt v6.x"""
 
 
@@ -53,7 +52,7 @@ class AudificationLayer(QObject):
         self._reverb_gain = 0
         self._reflection_gain = 0
 
-        self._engine = QAudioEngine()
+        self._engine = QAudioEngine(self)
         self._engine.setOutputMode(QAudioEngine.Headphone)
         self._room = QAudioRoom(self._engine)
         self._room.setWallMaterial(QAudioRoom.BackWall, QAudioRoom.BrickBare)
@@ -109,24 +108,56 @@ class AudioObject(QObject):
 
     def __init__(self, parent, sound=None):
         super().__init__(parent)
-        self._azimuth = 0
 
-        self._elevation = 180
+        self._azimuth = 0
+        self._elevation = 0
         self._distance = 100
         self._occlusion = 2
-        self._room_dimension = 1000
-        self._reverb_gain = 0
-        self._reflection_gain = 0
 
-    def set_position(self, sound, dx, dy):
-        az = dx * math.pi - (math.pi / 2)
-        el = self._elevation.value() / 180.0 * math.pi
-        d = self._distance.value()
+        self._sound = sound
+        self._sound.setDirectivity(1)
+        self._sound.setDirectivityOrder(1)
+
+    def set_position(self, az=0, el=0, dist=100):
+
+        x = dist * math.sin(az) * math.cos(el)
+        y = dist * math.sin(el)
+        z = -dist * math.cos(az) * math.cos(el)
+        self._sound.setPosition(QVector3D(x, y, z))
+
+    def set_position_simple(self, dx, dy):
+        az = (dx / 720) * math.pi - (math.pi / 2)
+        el = self._elevation / 180.0 * math.pi
+        el = 0
+        d = self._distance
 
         x = d * math.sin(az) * math.cos(el)
         y = d * math.sin(el)
         z = -d * math.cos(az) * math.cos(el)
-        sound.setPosition(QVector3D(x, y, z))
+        self._sound.setPosition(QVector3D(x, y, z))
+        self._sound.setRotation(QQuaternion(1, 0, 1 / 2 - dx / 720, 0))
+
+    def set_position_adjusted(self, dx, dy):
+        az = -((dx - 100) * math.pi / 1000)
+        el = self._elevation / 180.0 * math.pi
+        el = 0
+        d = self._distance
+        print(math.degrees(az))
+
+        x = d * math.sin(az) * math.cos(el)
+        y = d * math.sin(el)
+        z = -d * math.cos(az) * math.cos(el)
+        self._sound.setPosition(QVector3D(x, y, z))
+        # self._sound.setRotation(QQuaternion(1, 0, 1, 0))
+
+    def play(self):
+        self._sound.play()
+
+    def pause(self):
+        self._sound.pause()
+
+    def stop(self):
+        self._sound.stop()
 
 
 class AudioWidget(QWidget):
@@ -160,46 +191,6 @@ class AudioWidget(QWidget):
         self.main_layout.addLayout(form, 1, 0)
         self.main_layout.setRowStretch(0, 1)
         self.main_layout.setRowStretch(2, 1)
-
-        # SOUNDS
-        # BALL SOUND
-        self.sound_ball_pos = QSpatialSound(self._engine)
-        self.sound_ball_pos.setSource(
-            QUrl.fromLocalFile(
-                "C:\\Users\\cloud\\source\\repos\\ReALSound\\sounds\\ball440.wav"
-            )
-        )
-        self.sound_ball_pos.setAutoPlay(False)
-        self.sound_ball_pos.setSize(5)
-        self.sound_ball_pos.setLoops(QSpatialSound.Infinite)
-
-        # GOAL SOUND
-        self.sound_goal = QSpatialSound(self._engine)
-        self.sound_goal.setSource(
-            QUrl.fromLocalFile(
-                "C:\\Users\\cloud\\source\\repos\\ReALSound\\sounds\\goal.wav"
-            )
-        )
-        self.sound_goal.setAutoPlay(False)
-        self.sound_goal.setSize(5)
-        self.sound_goal.setLoops(QSpatialSound.Once)
-        self.sound_goal.setPosition(QVector3D())
-        self.sound_goal.setRotation(QQuaternion())
-
-        # HIT SOUND
-        self.sound_hit = QSpatialSound(self._engine)
-        self.sound_hit.setSource(
-            QUrl.fromLocalFile(
-                "C:\\Users\\cloud\\source\\repos\\ReALSound\\sounds\\hit.wav"
-            )
-        )
-        self.sound_hit.setAutoPlay(False)
-        self.sound_hit.setSize(5)
-        self.sound_hit.setLoops(QSpatialSound.Once)
-        self.sound_hit.setPosition(QVector3D())
-        self.sound_hit.setRotation(QQuaternion())
-
-        self.update_position()
 
 
 if __name__ == "__main__":
