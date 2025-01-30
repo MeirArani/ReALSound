@@ -6,12 +6,14 @@ import numpy as np
 from realsound.core import FSM
 from PySide6.QtCore import QObject, Signal, QUrl
 from PySide6.QtSpatialAudio import QSpatialSound
-from realsound.core.audification import AudioObject
+from realsound.core.audification import AudioObject, Pan
 from realsound.core.decision import dist
+from realsound.core.client import safe_ratio
 from realsound.resources import config, sounds
 import json
 from PySide6.QtGui import QVector3D, QQuaternion
 import time
+
 
 MAX_LOST_FRAMES = 5
 VELOCITY_MAX = 100
@@ -26,6 +28,7 @@ class Entity(QObject):
         super().__init__(parent)
 
         self.name = name
+        self.client = parent.parent()
 
         # Set up audio objects from config
         self.audio_objects = {}
@@ -42,7 +45,7 @@ class Entity(QObject):
 
     def load_audio_objects(self):
         for obj_name, config in configs[self.name]["audio_objects"].items():
-            sound = QSpatialSound(self.parent().client.audification._engine)
+            sound = QSpatialSound(self.client.audification._engine)
             obj = AudioObject(self, sound)
 
             if config.get("paths", False):
@@ -138,6 +141,8 @@ class Paddle(Entity):
     def __init__(self, name, parent):
         super().__init__(name, parent)
         self.score = 0
+        for obj in self.audio_objects.values():
+            obj.set_pan(Pan.LEFT) if self.name == "p1" else obj.set_pan(Pan.RIGHT)
 
     def update(self, new_corners):
         super().update(new_corners)
@@ -157,7 +162,7 @@ class Paddle(Entity):
 
 class Ball(Entity):
 
-    MIN_BEEP_SPEED = 0.75
+    MIN_BEEP_SPEED = 0.2
     MAX_BEEP_SPEED = 0.05
     on_ricochet = Signal()
 
@@ -173,12 +178,11 @@ class Ball(Entity):
         if self.parent().current_state == self.parent().match:
             # Find new beep speed
             self.beep_speed = calc_speed(
-                self.parent().p1, self, self.parent().parent().frame_width
+                self.parent().p1, self, self.client.frame_width
             )
+            print(self.beep_speed)
             # Update pitch value
-            pitch = calc_pitch(
-                self.parent().p1, self, self.parent().parent().frame_height
-            )
+            pitch = calc_pitch(self.parent().p1, self, self.client.frame_height)
             if pitch != self.pitch:
                 self.pitch = pitch
                 self.audio_objects["move"].switch_sound(pitch)
@@ -193,7 +197,6 @@ class Ball(Entity):
     def beep(self):
         self.audio_objects["move"].play()
         self.last_beep = time.time()
-        print(f"Beeping {self.pitch.name}")
 
     def ricochet(self):
         self.on_ricochet.emit()
@@ -213,8 +216,12 @@ class Ball(Entity):
 
 def calc_speed(paddle, ball, width):
     dx = dist(paddle.x, ball.x)
-    return Ball.MAX_BEEP_SPEED + (dist(paddle.x, ball.x) / width) * (
-        Ball.MIN_BEEP_SPEED - Ball.MAX_BEEP_SPEED
+    return min(
+        abs(
+            Ball.MAX_BEEP_SPEED
+            + safe_ratio(ball.x, width) * (Ball.MIN_BEEP_SPEED - Ball.MAX_BEEP_SPEED)
+        ),
+        Ball.MIN_BEEP_SPEED,
     )
 
 

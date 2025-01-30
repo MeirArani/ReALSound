@@ -1,5 +1,7 @@
 from __future__ import annotations
 import copy
+from re import L
+from tkinter import LEFT
 from PySide6.QtCore import QObject
 
 import math
@@ -36,6 +38,8 @@ from PySide6.QtCore import (
     qVersion,
     Slot,
 )
+
+from enum import IntEnum
 
 """PySide6 port of the spatial audio/audio panning example from Qt v6.x"""
 
@@ -105,23 +109,34 @@ class AudificationLayer(QObject):
 
 
 class AudioObject(QObject):
-
     def __init__(self, parent, sound=None):
         super().__init__(parent)
+        self.client = parent.parent().parent()
 
         self._azimuth = 0
         self._elevation = 0
-        self._distance = 100
+        self._distance = 10000
         self._occlusion = 2
 
         self._paths = []
 
         self._sound = sound
         self._sound.setDirectivity(1)
-        self._sound.setDirectivityOrder(1)
+        self._sound.setDirectivityOrder(1000)
+
+    def set_pan(self, pan):
+
+        if pan is Pan.LEFT:
+            self.set_position(az=-math.pi / 2)
+        elif pan is Pan.RIGHT:
+            self.set_position(az=math.pi / 2)
+        elif pan is Pan.CENTER:
+            self.set_position(az=0)
 
     def update_panning(self, dx):
-        az = -(dx * math.pi / 1000)
+        from realsound.core.client import safe_ratio
+
+        az = safe_ratio(dx, self.client.frame_width) * math.pi - math.pi / 2
         self.set_position(az=az)
 
     def set_position(self, az=0, el=0, dist=100):
@@ -129,6 +144,9 @@ class AudioObject(QObject):
         y = dist * math.sin(el)
         z = -dist * math.cos(az) * math.cos(el)
         self._sound.setPosition(QVector3D(x, y, z))
+        self._sound.setRotation(
+            QQuaternion.fromDirection(self._sound.position(), QVector3D(0, 1, 0))
+        )
 
     def set_position_simple(self, dx, dy):
         az = (dx / 720) * math.pi - (math.pi / 2)
@@ -199,6 +217,12 @@ class AudioWidget(QWidget):
         self.main_layout.addLayout(form, 1, 0)
         self.main_layout.setRowStretch(0, 1)
         self.main_layout.setRowStretch(2, 1)
+
+
+class Pan(IntEnum):
+    LEFT = 0
+    CENTER = 1
+    RIGHT = 2
 
 
 if __name__ == "__main__":

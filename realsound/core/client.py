@@ -1,3 +1,4 @@
+from turtle import width
 from PySide6.QtWidgets import QWidget, QGridLayout
 from PySide6.QtCore import Slot, Signal
 from numpy import ndarray
@@ -9,6 +10,8 @@ from realsound.cv import VideoWidget
 
 
 class RealSound(QWidget):
+
+    SAFE_AREA = 0.8
 
     # How many frames we display transient state info
     SHOW_TIME = 120
@@ -22,8 +25,10 @@ class RealSound(QWidget):
         self.vision = VisionLayer(self)
         self.decision = DecisionLayer(self)
 
-        # Vars
+        # Frame
         self._frame = None
+        self._frame_safe_width = None
+        self._frame_safe_start = None
         self._frame_count = start_frame
 
         # UI
@@ -42,6 +47,8 @@ class RealSound(QWidget):
     def on_new_frame(self, frame):
         self._frame_count += 1
         self._frame = frame
+        self._frame_safe_width = frame[1] * RealSound.SAFE_AREA
+        self._frame_safe_start = frame[1] - self._frame_safe_width
 
         self._entities = self.vision.see(self.frame)
 
@@ -82,7 +89,7 @@ class RealSound(QWidget):
         self.add_text("%r" % (self._frame_count), (450, 80))
 
     def display_state(self):
-        self.add_text("%r" % (self.decision.state), (290, 50), 0.8)
+        self.add_text("%r" % (self.decision.current_state.__name__), (290, 50), 0.8)
 
     def display_score(self):
         self.add_text(
@@ -101,3 +108,10 @@ class RealSound(QWidget):
         for i in corners:
             x, y = i.ravel()
             cv2.circle(frame, (x, y), 3, 255, -1)
+
+
+def safe_ratio(p, w):
+    end = w * RealSound.SAFE_AREA
+    start = (1 - RealSound.SAFE_AREA) * w
+    safe_w = 2 * end - w
+    return (p - start) / (safe_w)

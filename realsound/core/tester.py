@@ -35,7 +35,7 @@ def spawn_pitch():
 
 def new_test():
 
-    START_FRAME = 1493
+    START_FRAME = 1000
     FRAME_RATE = 30
 
     app = QApplication(sys.argv)

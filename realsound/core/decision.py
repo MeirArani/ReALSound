@@ -9,7 +9,6 @@ HIT_DIST = 75
 WALL_DIST = 30
 GOAL_BUFFER = 5
 WIN_SCORE = 11
-SAFE_AREA = 0.8
 
 configs = json.loads(resources.read_text(config, "base.json"))["decision"]["entities"]
 
