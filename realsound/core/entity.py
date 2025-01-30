@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import IntEnum
 from importlib import resources
 import math
 from turtle import width
@@ -7,7 +7,7 @@ from realsound.core import FSM
 from PySide6.QtCore import QObject, Signal, QUrl
 from PySide6.QtSpatialAudio import QSpatialSound
 from realsound.core.audification import AudioObject
-from realsound.core.decision import DecisionLayer, dist
+from realsound.core.decision import dist
 from realsound.resources import config, sounds
 import json
 from PySide6.QtGui import QVector3D, QQuaternion
@@ -164,42 +164,36 @@ class Ball(Entity):
     def __init__(self, name, parent):
         super().__init__(name, parent)
         self.last_beep = time.time()
-        self.beep_speed = Paddle.MIN_BEEP_SPEED
-        if self.parent().current_state == self.parent().match:
-            now = time.time()
-            if now - self.last_beep > self.beep_speed:
-                self.beep()
+        self.beep_speed = Ball.MIN_BEEP_SPEED
+        self.pitch = Pitch.GOOD
 
     def update(self, new_corners):
         super().update(new_corners)
 
-        self.update_speed()
-        self.update_pitch()
-        self.update_panning()
+        if self.parent().current_state == self.parent().match:
+            # Find new beep speed
+            self.beep_speed = calc_speed(
+                self.parent().p1, self, self.parent().parent().frame_width
+            )
+            # Update pitch value
+            pitch = calc_pitch(
+                self.parent().p1, self, self.parent().parent().frame_height
+            )
+            if pitch != self.pitch:
+                self.pitch = pitch
+                self.audio_objects["move"].switch_sound(pitch)
 
-    def update_speed(self):
-        dx = dist(self.x, self.parent().ball.x)
-        self.beep_speed = Ball.MAX_BEEP_SPEED + (dx / width) * (
-            Ball.MIN_BEEP_SPEED - Ball.MAX_BEEP_SPEED
-        )
-
-    def update_pitch(self):
-        p1 = self.parent().p1
-        if p1.top <= self.y <= p1.bottom:
-            self.switch_pitch(Pitch.GOOD)
-            return
-
-        dy = dist(p1.y, self.y, abs=False)
-        if dy < 0:
-            self.switch_pitch
-
-    def update_panning(self):
-        az = -((self.x - 100) * math.pi / 1000)
-        self.audio_objects["move"].set_position(az=az)
+            # Update panning
+            self.audio_objects["move"].update_panning(self.x)
+            # Check for beep
+            now = time.time()
+            if now - self.last_beep > self.beep_speed:
+                self.beep()
 
     def beep(self):
         self.audio_objects["move"].play()
         self.last_beep = time.time()
+        print(f"Beeping {self.pitch.name}")
 
     def ricochet(self):
         self.on_ricochet.emit()
@@ -207,7 +201,7 @@ class Ball(Entity):
 
     def activate(self):
         super().activate()
-        self.audio_objects["move"].play()
+        self.beep()
 
     def deactivate(self):
         super().deactivate()
@@ -217,7 +211,24 @@ class Ball(Entity):
         self.audio_objects["move"].switch_sound(Pitch)
 
 
-class Pitch(Enum):
+def calc_speed(paddle, ball, width):
+    dx = dist(paddle.x, ball.x)
+    return Ball.MAX_BEEP_SPEED + (dist(paddle.x, ball.x) / width) * (
+        Ball.MIN_BEEP_SPEED - Ball.MAX_BEEP_SPEED
+    )
+
+
+def calc_pitch(paddle, ball, height):
+    if paddle.top <= ball.y <= paddle.bottom:
+        return Pitch.GOOD
+    dy = ball.y - paddle.y
+    if dy < 0:
+        return Pitch.HIGH if dy < paddle.top / 2 else Pitch.HIGHEST
+    elif dy > 0:
+        return Pitch.LOW if dy < (height - paddle.bottom) / 2 else Pitch.LOWEST
+
+
+class Pitch(IntEnum):
     LOWEST = 0
     LOW = 1
     GOOD = 2

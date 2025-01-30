@@ -120,8 +120,11 @@ class AudioObject(QObject):
         self._sound.setDirectivity(1)
         self._sound.setDirectivityOrder(1)
 
-    def set_position(self, az=0, el=0, dist=100):
+    def update_panning(self, dx):
+        az = -(dx * math.pi / 1000)
+        self.set_position(az=az)
 
+    def set_position(self, az=0, el=0, dist=100):
         x = dist * math.sin(az) * math.cos(el)
         y = dist * math.sin(el)
         z = -dist * math.cos(az) * math.cos(el)
@@ -162,8 +165,7 @@ class AudioObject(QObject):
         self._sound.stop()
 
     def switch_sound(self, index):
-        self.stop()
-        self._sound.setSource(self._paths(index))
+        self._sound.setSource(self._paths[index])
 
 
 class AudioWidget(QWidget):

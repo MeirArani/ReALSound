@@ -1,5 +1,4 @@
 import numpy as np
-from realsound.core import Ball, Paddle, Pitch
 from PySide6.QtCore import QObject
 import json
 from importlib import resources
@@ -33,14 +32,6 @@ class DecisionLayer(QObject):
         for entity, corners in new_corners.items():
             self.entities[entity].update(corners)
 
-        # Update paddle beep speeds
-        self.p1.beep_speed = calc_beep_gap(
-            self.p1, self.ball, self.parent().frame_width
-        )
-        self.p2.beep_speed = calc_beep_gap(
-            self.p2, self.ball, self.parent().frame_width
-        )
-
         self.current_state = self.current_state()
 
     # State logic
@@ -58,9 +49,6 @@ class DecisionLayer(QObject):
         return self.match if self.ball.active else self.intermission
 
     def match(self):
-
-        self.p1.update_speed(self.ball.x, self.parent().frame_width)
-
         # If the ball's X velocity changes
         # There must have been a hit
         if self.ball.velocity_changed[0]:
@@ -125,23 +113,5 @@ class DecisionLayer(QObject):
             super().__setattr__(name, value)
 
 
-def calc_beep_gap(ball, paddle, width):
-    dx = 80 - dist(paddle.x, ball.x)
-    return Paddle.MAX_BEEP_SPEED + (dx / (80 - width)) * (
-        Paddle.MIN_BEEP_SPEED - Paddle.MAX_BEEP_SPEED
-    )
-
-
-def calc_beep_pitch(ball, paddle, height):
-    if paddle.top <= ball.y <= paddle.bottom:
-        return Pitch.GOOD
-
-    dy = dist(paddle.y, ball.y, abs=False)
-    if dy < 0:
-        return Pitch.HIGH if dy < paddle.top / 2 else Pitch.HIGHEST
-    else:
-        return Pitch.LOW if dy < (height - paddle.bottom) / 2 else Pitch.LOWEST
-
-
-def dist(a, b, abs=True):
-    return np.linalg.norm(abs(a - b)) if abs else np.linalg.norm(a - b)
+def dist(a, b, absolute=True):
+    return np.linalg.norm(abs(a - b)) if absolute else np.linalg.norm(a - b)

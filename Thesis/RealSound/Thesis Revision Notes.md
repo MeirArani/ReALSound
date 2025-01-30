@@ -15,4 +15,18 @@
 - Discuss dependency issues 
 	- Ball requires P1 information for calculation 
 		- Who should manage an audio object?
+## Implementation Difficulties 
+- Functionality of QT 
+	- No pitch manipulate for Spatial Audio 
+- Merging disparate software libraries 
+### Designing a good Audio Display
+- Many iterations and variations 
+	- All of them tend to lose some key data
+- Generic HRTFs 
+	- Demand generic solutions that lose out on some opportunities
+		- Elevation understanding
+		- Cone of Confusion 
+- Fast-paced nature of games
+	- Demands some clever design
+		- Need to understand the *trajectory* of actions, not just their current state 
 	- 
