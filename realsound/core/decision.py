@@ -1,5 +1,5 @@
 import numpy as np
-from realsound.core import Ball, Paddle
+from realsound.core import Ball, Paddle, Pitch
 from PySide6.QtCore import QObject
 import json
 from importlib import resources
@@ -10,6 +10,7 @@ HIT_DIST = 75
 WALL_DIST = 30
 GOAL_BUFFER = 5
 WIN_SCORE = 11
+SAFE_AREA = 0.8
 
 configs = json.loads(resources.read_text(config, "base.json"))["decision"]["entities"]
 
@@ -57,6 +58,9 @@ class DecisionLayer(QObject):
         return self.match if self.ball.active else self.intermission
 
     def match(self):
+
+        self.p1.update_speed(self.ball.x, self.parent().frame_width)
+
         # If the ball's X velocity changes
         # There must have been a hit
         if self.ball.velocity_changed[0]:
@@ -128,5 +132,16 @@ def calc_beep_gap(ball, paddle, width):
     )
 
 
-def dist(a, b):
-    return np.linalg.norm(abs(a - b))
+def calc_beep_pitch(ball, paddle, height):
+    if paddle.top <= ball.y <= paddle.bottom:
+        return Pitch.GOOD
+
+    dy = dist(paddle.y, ball.y, abs=False)
+    if dy < 0:
+        return Pitch.HIGH if dy < paddle.top / 2 else Pitch.HIGHEST
+    else:
+        return Pitch.LOW if dy < (height - paddle.bottom) / 2 else Pitch.LOWEST
+
+
+def dist(a, b, abs=True):
+    return np.linalg.norm(abs(a - b)) if abs else np.linalg.norm(a - b)

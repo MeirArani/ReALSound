@@ -1,11 +1,13 @@
 from enum import Enum
 from importlib import resources
 import math
+from turtle import width
 import numpy as np
 from realsound.core import FSM
 from PySide6.QtCore import QObject, Signal, QUrl
 from PySide6.QtSpatialAudio import QSpatialSound
 from realsound.core.audification import AudioObject
+from realsound.core.decision import DecisionLayer, dist
 from realsound.resources import config, sounds
 import json
 from PySide6.QtGui import QVector3D, QQuaternion
@@ -23,26 +25,12 @@ class Entity(QObject):
     def __init__(self, name, parent):
         super().__init__(parent)
 
+        self.name = name
+
         # Set up audio objects from config
         self.audio_objects = {}
+        self.load_audio_objects()
 
-        for obj_name, config in configs[name]["audio_objects"].items():
-
-            sound = QSpatialSound(parent.client.audification._engine)
-            sound.setSource(
-                QUrl.fromLocalFile(resources.files(sounds).joinpath(config["path"]))
-            )
-
-            if config.get("loop", False):
-                sound.setLoops(QSpatialSound.Loops.Infinite)
-            sound.setAutoPlay(False)
-            sound.setSize(5)
-            sound.setPosition(QVector3D())
-            sound.setRotation(QQuaternion())
-
-            self.audio_objects[obj_name] = AudioObject(self, sound)
-
-        self.name = name
         self.position = np.zeros((1, 2))
         self.velocity = np.zeros((1, 2))
 
@@ -51,6 +39,32 @@ class Entity(QObject):
         self.active = False
 
         self.lost_frames = 0
+
+    def load_audio_objects(self):
+        for obj_name, config in configs[self.name]["audio_objects"].items():
+            sound = QSpatialSound(self.parent().client.audification._engine)
+            obj = AudioObject(self, sound)
+
+            if config.get("paths", False):
+                for path in config["paths"].values():
+                    obj._paths.append(
+                        QUrl.fromLocalFile(resources.files(sounds).joinpath(path))
+                    )
+            else:
+                obj._paths.append(
+                    QUrl.fromLocalFile(resources.files(sounds).joinpath(config["path"]))
+                )
+
+            sound.setSource(obj._paths[0])
+
+            if config.get("loop", False):
+                sound.setLoops(QSpatialSound.Loops.Infinite)
+            sound.setAutoPlay(False)
+            sound.setSize(5)
+            sound.setPosition(QVector3D())
+            sound.setRotation(QQuaternion())
+
+            self.audio_objects[obj_name] = obj
 
     def update(self, new_corners):
         if new_corners is not None:
@@ -94,6 +108,9 @@ class Entity(QObject):
             self.y = self.position[1]
             self.w = self.dimensions[0]
             self.h = self.dimensions[1]
+            self.top = new_corners[0][1]
+            self.bottom = new_corners[1][1]
+
             self.lost_frames = 0
         else:
             self.lost_frame()
@@ -116,27 +133,14 @@ class Entity(QObject):
 
 class Paddle(Entity):
 
-    MIN_BEEP_SPEED = 0.75
-    MAX_BEEP_SPEED = 0.05
     on_hit = Signal(str)
 
     def __init__(self, name, parent):
         super().__init__(name, parent)
         self.score = 0
-        self.last_beep = time.time()
-        self.beep_speed = Paddle.MIN_BEEP_SPEED
 
     def update(self, new_corners):
         super().update(new_corners)
-        if self.active and self.parent().current_state == self.parent().match:
-            now = time.time()
-            if now - self.last_beep > self.beep_speed:
-                self.beep()
-
-    def beep(self):
-        if self.name == "p1":
-            self.audio_objects["move"].play()
-            self.last_beep = time.time()
 
     def hit(self):
         self.on_hit.emit(self.name)
@@ -150,27 +154,52 @@ class Paddle(Entity):
         print("Playing Win SFX")
         self.audio_objects["win"].play()
 
-    class Pitch(Enum):
-        LOWEST = 1
-        LOW = 2
-        GOOD = 3
-        HIGH = 4
-        HIGHEST = 5
-
 
 class Ball(Entity):
 
+    MIN_BEEP_SPEED = 0.75
+    MAX_BEEP_SPEED = 0.05
     on_ricochet = Signal()
 
     def __init__(self, name, parent):
         super().__init__(name, parent)
+        self.last_beep = time.time()
+        self.beep_speed = Paddle.MIN_BEEP_SPEED
+        if self.parent().current_state == self.parent().match:
+            now = time.time()
+            if now - self.last_beep > self.beep_speed:
+                self.beep()
 
     def update(self, new_corners):
         super().update(new_corners)
-        az_left = -((self.x - 100) * math.pi / 1000)
-        az_right = (self.x - 100) * math.pi / 1000
-        self.audio_objects["move_l"].set_position(az=az_left)
-        self.audio_objects["move_r"].set_position(az=az_right)
+
+        self.update_speed()
+        self.update_pitch()
+        self.update_panning()
+
+    def update_speed(self):
+        dx = dist(self.x, self.parent().ball.x)
+        self.beep_speed = Ball.MAX_BEEP_SPEED + (dx / width) * (
+            Ball.MIN_BEEP_SPEED - Ball.MAX_BEEP_SPEED
+        )
+
+    def update_pitch(self):
+        p1 = self.parent().p1
+        if p1.top <= self.y <= p1.bottom:
+            self.switch_pitch(Pitch.GOOD)
+            return
+
+        dy = dist(p1.y, self.y, abs=False)
+        if dy < 0:
+            self.switch_pitch
+
+    def update_panning(self):
+        az = -((self.x - 100) * math.pi / 1000)
+        self.audio_objects["move"].set_position(az=az)
+
+    def beep(self):
+        self.audio_objects["move"].play()
+        self.last_beep = time.time()
 
     def ricochet(self):
         self.on_ricochet.emit()
@@ -178,10 +207,19 @@ class Ball(Entity):
 
     def activate(self):
         super().activate()
-        # self.audio_objects["move_l"].play()
-        # self.audio_objects["move_r"].play()
+        self.audio_objects["move"].play()
 
     def deactivate(self):
         super().deactivate()
-        # self.audio_objects["move_l"].stop()
-        # self.audio_objects["move_r"].stop()
+        self.audio_objects["move"].stop()
+
+    def set_pitch(self, Pitch):
+        self.audio_objects["move"].switch_sound(Pitch)
+
+
+class Pitch(Enum):
+    LOWEST = 0
+    LOW = 1
+    GOOD = 2
+    HIGH = 3
+    HIGHEST = 4

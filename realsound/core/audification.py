@@ -114,6 +114,8 @@ class AudioObject(QObject):
         self._distance = 100
         self._occlusion = 2
 
+        self._paths = []
+
         self._sound = sound
         self._sound.setDirectivity(1)
         self._sound.setDirectivityOrder(1)
@@ -158,6 +160,10 @@ class AudioObject(QObject):
 
     def stop(self):
         self._sound.stop()
+
+    def switch_sound(self, index):
+        self.stop()
+        self._sound.setSource(self._paths(index))
 
 
 class AudioWidget(QWidget):

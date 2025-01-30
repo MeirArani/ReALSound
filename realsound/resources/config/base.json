@@ -60,11 +60,6 @@
                 "type": "Paddle",
                 "audio_objects":
                 {
-                    "move":
-                    {
-                        "name": "Move",
-                        "path": "440fast.wav"
-                    },
                     "hit": 
                     {
                         "name": "Hit",
@@ -88,11 +83,6 @@
                 "type": "Paddle",
                 "audio_objects":
                 {
-                    "move":
-                    {
-                        "name": "Move",
-                        "path": "a4.wav"
-                    },
                     "hit": 
                     {
                         "name": "Hit",
@@ -116,23 +106,23 @@
                 "type": "Ball",
                 "audio_objects":
                 {
+                    "move":
+                    {
+                        "name": "Move",
+                        "paths": 
+                        {
+                            "LOWEST": "a2.wav",
+                            "LOW": "a3.wav",
+                            "GOOD": "a4.wav",
+                            "HIGH": "a5.wav",
+                            "HIGHEST": "a6.wav"
+                        }
+                    },
                     "bounce": 
                     {
                         "name": "Bounce",
                         "path":"hit.wav"
-                    },
-                    "move_l": 
-                    {
-                        "name": "MoveL",
-                        "path": "ball440.wav",
-                        "loop": "True"
-                    },
-                    "move_r": 
-                    {
-                        "name": "MoveR",
-                        "path": "ball440.wav",
-                        "loop": "True"
-                    }
+                    }          
                 }
             }
         }

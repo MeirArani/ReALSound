@@ -12,4 +12,7 @@
 		- Frame drops or other visual issues might obscure a hit 
 - Discuss Fan projects
 	- Ship of Harkinian etc
-- 
+- Discuss dependency issues 
+	- Ball requires P1 information for calculation 
+		- Who should manage an audio object?
+	- 
