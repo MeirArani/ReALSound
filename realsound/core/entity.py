@@ -180,7 +180,7 @@ class Ball(Entity):
             self.beep_speed = calc_speed(
                 self.parent().p1, self, self.client.frame_width
             )
-            print(self.beep_speed)
+            # print(self.beep_speed)
             # Update pitch value
             pitch = calc_pitch(self.parent().p1, self, self.client.frame_height)
             if pitch != self.pitch:
@@ -200,6 +200,7 @@ class Ball(Entity):
 
     def ricochet(self):
         self.on_ricochet.emit()
+        self.audio_objects["bounce"].update_panning(self.x)
         self.audio_objects["bounce"].play()
 
     def activate(self):

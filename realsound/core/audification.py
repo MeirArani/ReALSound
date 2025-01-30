@@ -59,12 +59,12 @@ class AudificationLayer(QObject):
         self._engine = QAudioEngine(self)
         self._engine.setOutputMode(QAudioEngine.Headphone)
         self._room = QAudioRoom(self._engine)
-        self._room.setWallMaterial(QAudioRoom.BackWall, QAudioRoom.BrickBare)
-        self._room.setWallMaterial(QAudioRoom.FrontWall, QAudioRoom.BrickBare)
-        self._room.setWallMaterial(QAudioRoom.LeftWall, QAudioRoom.BrickBare)
-        self._room.setWallMaterial(QAudioRoom.RightWall, QAudioRoom.BrickBare)
-        self._room.setWallMaterial(QAudioRoom.Floor, QAudioRoom.Marble)
-        self._room.setWallMaterial(QAudioRoom.Ceiling, QAudioRoom.WoodCeiling)
+        self._room.setWallMaterial(QAudioRoom.BackWall, QAudioRoom.Transparent)
+        self._room.setWallMaterial(QAudioRoom.FrontWall, QAudioRoom.Transparent)
+        self._room.setWallMaterial(QAudioRoom.LeftWall, QAudioRoom.Transparent)
+        self._room.setWallMaterial(QAudioRoom.RightWall, QAudioRoom.Transparent)
+        self._room.setWallMaterial(QAudioRoom.Floor, QAudioRoom.Transparent)
+        self._room.setWallMaterial(QAudioRoom.Ceiling, QAudioRoom.Transparent)
         self.update_room()
 
         self._listener = QAudioListener(self._engine)
@@ -115,14 +115,15 @@ class AudioObject(QObject):
 
         self._azimuth = 0
         self._elevation = 0
-        self._distance = 10000
-        self._occlusion = 2
+        self._distance = 8000
+        self._occlusion = 0
 
         self._paths = []
 
         self._sound = sound
         self._sound.setDirectivity(1)
-        self._sound.setDirectivityOrder(1000)
+        self._sound.setDirectivityOrder(100000000000000)
+        self._sound.setSize(1)
 
     def set_pan(self, pan):
 
