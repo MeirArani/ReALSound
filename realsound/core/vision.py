@@ -38,7 +38,6 @@ default_settings = {
 }
 
 
-# Basic wrapper object for vision functions
 class VisionLayer(QObject):
     def __init__(self, parent):
         super().__init__(parent)
