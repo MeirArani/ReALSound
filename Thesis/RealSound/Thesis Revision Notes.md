@@ -1,3 +1,43 @@
+- [ ] Lit Review
+	- [ ] Universal design focus
+		- [ ] Inamura sensei notes:
+		- [ ] Inclusive Design
+		- [ ] Computation Design
+		- [ ] Meta Design
+	- [ ] Other fan attempts
+		- [ ] Ship of Harkinian 
+- [ ] Proposal
+	- [ ] Implementing RS
+		- [ ] Be more concrete about process/guidelines
+			- [ ] Might go after Implementation section
+- [ ] Implementation
+	- [ ] Overview
+	- [ ] Structure
+	- [ ] Samples
+		- [ ] Designing a good audio display
+	- [ ] Issues
+- [ ] Graphics!
+	- [ ] Intro
+	- [ ] Lit review
+	- [ ] Structure
+	- [ ] Implementation
+
+## Main issues
+- Doesn't address universal/computational/meta design in lit review
+- Doesn't do enough audification review 
+- Doesn't show enough "similarish" work
+- Doesn't clarify the process of general implementation 
+	- Use other games to demonstrate
+- Doesn't have implementation section!
+## Principal Additions
+## Implementation
+- Software used 
+- Structural overview
+- Samples of decisions and audio
+- Issues 
+- Limitations 
+- MAKE GRAPHICS
+ 
 - Discuss required attributes 
 	- lost frames
 - Discuss difficulties of losing objects
@@ -29,4 +69,15 @@
 - Fast-paced nature of games
 	- Demands some clever design
 		- Need to understand the *trajectory* of actions, not just their current state 
-	- 
+
+## Presentation notes
+- Needs updates
+- Limited game scope
+	- Discuss and acknowledge 
+- Further explain implementation process
+	- guidelines for future researchers
+	- Clearly and visually explain how RS is added to a gain
+- Cover general computing accessibility and universal/inclusive design in Lit Review
+- Considerations
+	- How would you involve actual users (visually impaired ones) in the process 
+-

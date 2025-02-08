@@ -162,7 +162,7 @@ class Paddle(Entity):
 
 class Ball(Entity):
 
-    MIN_BEEP_SPEED = 0.2
+    MIN_BEEP_SPEED = 0.4
     MAX_BEEP_SPEED = 0.05
     on_ricochet = Signal()
 
