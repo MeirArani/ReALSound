@@ -23,6 +23,7 @@
 \usepackage{makecell}
 \usepackage{adjustbox}
 \usepackage{environ}
+\usepackage{cellspace}
 \usepackage{caption}
 \usepackage{tabularx}
 \usepackage{color} 
@@ -116,6 +117,11 @@
     \endminipage
     \vspace{2mm}
 }
+
+\setlength{\cellspacetoplimit}{3pt}
+\setlength{\cellspacebottomlimit}{3pt}
+\addparagraphcolumntypes{X}
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
 
 % ---
 %
@@ -1544,62 +1550,93 @@ There is no one correct answer to the problem of software design. The same is tr
 \subsubsection{Synthesis}
 To summarize our \state{plan} for \emph{Pong}:
 
+\todo{Organize figures}
+
 \begin{figure}
-    \begin{tabularx}{\linewidth}{|l|X|l|l|X|}
+    \renewcommand{\tabularxcolumn}[1]{m{#1}}
+    \begin{tabularx}{\linewidth}{|l|S{X}|l|l|S{X}|}
         \hline
-        State & Description & \makecell{Transitions\\ (From)} & \makecell{Transitions \\(To)} & Example \\ \hline
+        \makecell[t]{\textbf{State}} 
+        & \makecell[t]{\textbf{Description}} 
+        & \makecell[t]{\textbf{Transitions} \\ \textbf{(From)}} 
+        & \makecell[t]{\textbf{Transitions} \\ \textbf{(To)}} 
+        & \makecell[t]{\textbf{Example}} 
+        \\ \hline
+
         \state{Attract} 
         & Pre-game attract screen
-        &\makecell{\state{Start} \trans \\ \state{Win} \trans}
-        &\makecell{\trans \state{Pause}} 
-        & \\ \hline
+        &\makecell[l]{\state{Start} \trans \\ \state{Win} \trans}
+        &\makecell[l]{\trans \state{Pause}} 
+        & \makecell{\includegraphics[width=\linewidth]{attract.jpg}}
+        \\ \hline
     
         \state{Pause} 
         & Short break between matches
-        &\makecell{\state{Attract} \trans \\ \state{Goal} \trans}
-        &\makecell{\trans \state{Match}}
-        & \\ \hline
+        &\makecell[l]{\state{Attract} \trans \\ \state{Goal} \trans}
+        &\makecell[l]{\trans \state{Match}}
+        & \makecell{\includegraphics[width=\linewidth]{break.jpg}} 
+        \\ \hline
     
         \state{Match} 
         & A match of \emph{Pong} 
-        &\makecell{\state{Pause} \trans}
-        &\makecell{\trans \state{Goal}}
-        & \\ \hline
+        &\makecell[l]{\state{Pause} \trans}
+        &\makecell[l]{\trans \state{Goal}}
+        & \makecell{\includegraphics[width=\linewidth]{match.jpg}} 
+        \\ \hline
     
         Goal 
         & Player scores a point 
-        &\makecell{\state{Match} \trans}
-        &\makecell{\trans \state{Pause} \\ \trans \state{Win}} 
-        & \\ \hline
+        &\makecell[l]{\state{Match} \trans}
+        &\makecell[l]{\trans \state{Pause} \\ \trans \state{Win}} 
+        & \makecell{\includegraphics[width=\linewidth]{goal.jpg}}  
+        \\ \hline
     
         Win 
         & Player wins game 
-        & \makecell{\state{Goal} \trans}  
-        & \makecell{\trans \state{Attract}}
-        & \\ \hline
+        & \makecell[l]{\state{Goal} \trans}  
+        & \makecell[l]{\trans \state{Attract}}
+        & \makecell{\includegraphics[width=\linewidth]{win.jpg}}  
+        \\ \hline
     \end{tabularx}
     \caption{Table Summary of Game \state{states}}
     \label{tab:gameStates}
 \end{figure}
 
 \begin{figure}
-    \begin{tabularx}{\linewidth}{|l|X|}
-        \hline \\
-        Attribute & Description \\ \hline
-        \texttt{position} & Position of entity on-screen \\ \hline
-        \texttt{velocity} & Velocity of entity \\ \hline
-        \texttt{velocity\_changed} & Flag set if entity changed directions this frame \\ \hline
-        \texttt{active} & Flag set if entity is considered visible on-screen \\ \hline
+    \renewcommand{\tabularxcolumn}[1]{m{#1}}
+    \begin{tabularx}{\linewidth}{|l|X|l|}
+        \hline
+        \makecell{\textbf{Attribute}} & \makecell{\textbf{Description}} & \makecell{\textbf{Example}} \\ \hline
+        \texttt{position} & Position of entity on-screen & $(250, 467)$ \\ \hline
+        \texttt{velocity} & Velocity of entity & $(2.62, -4.61)$ \\ \hline
+        \texttt{velocity\_changed} & Flag set if entity changed directions this frame on a given axis & \texttt{(True, False)} \\ \hline
+        \texttt{active} & Flag set if entity is considered visible on-screen & \texttt{True} \\ \hline
     \end{tabularx}
     \caption{Table summary of general \state{Entity} Attributes}
     \label{tab:entAttr}
 \end{figure}
 
 \begin{figure}
-    \begin{tabularx}{\linewidth}{|l|X|l|X|}
-        \hline \\
-        Name & Attributes & States & Visual \\ \hline
-    \end{tabularx}
+    \renewcommand{\tabularxcolumn}[1]{m{#1}}
+    \begin{center}
+        \begin{tabularx}{0.8\textwidth}{|l|c|c|S{X}|}
+            \hline 
+            \makecell[b]{\textbf{Name}} & \makecell[b]{\textbf{Attributes}} & \makecell[b]{\textbf{States}} & \makecell[b]{\textbf{Visual}} 
+            \\ \hline
+
+            \makecell{\ball}
+            & \makecell{\textbf{N/A}} 
+            & \makecell{\textbf{bounce}} 
+            & \makecell[b]{\includegraphics[scale=0.5]{ball.png}}
+            \\ \hline
+
+            \pad  
+            & \makecell{\texttt{score}} 
+            & \makecell{\state{hit} \\ \state{goal} \\ \state{win}} 
+            & \makecell[b]{\includegraphics[scale=0.5]{paddle.png}} 
+            \\ \hline
+        \end{tabularx}
+    \end{center}
     \caption{Table summary of \emph{Pong}'s \state{entities}: the \pad and \ball}
     \label{tab:paddle}
 \end{figure}
@@ -1678,9 +1715,21 @@ We should also note that a litany of free sound effects were taken from \texttt{
 
 \section{Structural Overview }
 
-\todo{Detail dependency graph etc.}
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{deps.png}
+    \caption{An overview of \rs's object structure}
+    \label{fig:deps}
+\end{figure}
 
-Our implementation is structured as a simple python module named \texttt{realsound}. With this approach, we are able to easily update, modify, package, and share our implementation with other developers. We organize our module into a few submodules: \texttt{config}, which stores configuration settings, \texttt{core}, which contains core objects and models such as the definitions of \state{states} and entities, \texttt{cv}, which contains our computer vision algorithms, and finally \texttt{qt}, which stores all of our application data---the GUI implementation, screen-capture technology, and spatial audio generation tools included. 
+Our implementation is structured as a simple python module named \texttt{realsound}. With this approach, we are able to easily update, modify, package, and share our implementation with other developers. We organize our module into a few submodules: \texttt{resources}, which stores configuration settings, \texttt{core}, which contains core objects and models such as the definitions of \state{states} and entities, \texttt{cv}, which contains our computer vision algorithms, and finally \texttt{qt}, which stores all of our application data---the GUI implementation, screen-capture technology, and spatial audio generation tools included. 
+
+The \texttt{core} files include: \texttt{vision.py}, which defines our computer vision functions; \texttt{decision.py}, which includes our game state machine; \texttt{audification.py}, which manages the spatial audio engine as well as \texttt{AudioObjects}; and \texttt{entity.py}, which defines the general \state{entity} concept as well as the specific \ball and \pad entities. 
+
+All of these classes are tied together by an overarching \texttt{Client} class found in the \texttt{client.py} file. The client is responsible for all high-level functions of \rs---\textbf{I/O}, managing the GUI application, and facilitating communication between the layers when necessary. In other words, the client can be considered the main 'entrypoint' of \rs. 
+
+Finally, various testing code is found within the \texttt{tester.py} and \texttt{dummy.py} classes. The total object dependency structure is described visually in \ref{fig:deps}.  
+
+\subsubsection{}
 
 \section{Planning \& The Vision Layer}
 \todo{Add photos and code. Some code explainations}
@@ -1701,6 +1750,13 @@ The specific details of implementation are lengthy, but to summarize: we make us
 We also included functionality to read a video file as input data for testing purposes. For this, we recorded a short video of a full set of \emph{Pong}. Video playback allows for faster debugging and iteration of our tools, as we may test changes in code immediately without needing to play yet another game of \emph{Pong}. The underlying principles are identical to the process above---simply replacing the mapped framebuffer with a framebuffer received directly from the video file.
 
 \subsubsection{Detecting Objects}
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{pongCorners.jpg}
+    \caption{An example of Harris corner detection output. Note how numerous non-entity corners are flagged by the algorithm}
+    \label{fig:pongCorners}
+\end{figure}
+
 Once the harris algorithm is handed the image data, it promptly returns a collection of points it asses to be the corners within the image. Of course, corners are only the start of our solution. We are searching for \emph{Objects} within those corners. In some cases, object detection would be a task better suited for machine learning. Luckily, the entities of \emph{Pong} are consistent in size and always maintain a basic, rectangular shape. This allowed us to implement our own bespoke method of detecting and classifying objects within a given frame.
 
 The general logic goes like this:
@@ -1727,6 +1783,55 @@ Some of these errors are actually key points for our implementation. Take for ex
 \paragraph{Continuity}
 
 There are, however, other errors that are not so beneficial. These errors primarily occur whenever an object is occluded by another---which usually happens when the ball moves near the large score symbols at the top of the screen. Much like when striking the \pad, the \ball corners 'merge' with the score corners, creating a frame or two of bad data. 
+
+\begin{figure}
+        \begin{subfigure}{\linewidth}
+            \centering
+            \includegraphics[height=0.3\textheight]{loseBef.png}
+            \subcaption{A}
+        \end{subfigure}
+        \\[1.5em]
+        \begin{subfigure}{\linewidth}
+            \centering
+            \includegraphics[height=0.3\textheight]{loseDur.png}
+            \subcaption{B}
+        \end{subfigure}
+        \\[1.5em]
+        \begin{subfigure}{\linewidth}
+            \centering
+            \includegraphics[height=0.3\textheight]{loseAft.png}
+            \subcaption{C}
+        \end{subfigure}  
+    \label{fig:cont}
+\end{figure}
+
+\begin{figure}
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[height=0.3\textheight]{tempLow.png}
+        \subcaption{A}
+    \end{subfigure}
+    \\[2em]
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[height=0.3\textheight]{tempMed.png}
+        \subcaption{B}
+    \end{subfigure}
+    \\[2em]
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[height=0.3\textheight]{tempHigh.png}
+        \subcaption{C}
+    \end{subfigure}
+    \label{fig:template}    
+\end{figure}
+
+\begin{figure}
+    \includegraphics[width=\linewidth]{tempData.png}
+    \caption{Caption}
+    \label{fig:tempData}
+\end{figure}
+
 
 Of course, we cannot allow this rare errors to hamper the playing experience. If a player were listening to the position of the ball, only to hear it suddenly jolt 'in-and-out of existence,' their ability to understand the game's state would be severely reduced. We can address these problems by implementing a basic sense of \tech{cross-frame persistence.} That is to say, we save the data from this frame and persist it into the next one. Using this data, we see if the changes in an objects state are sensible. For example, if an object suddenly goes from the position $(900, 540)$ to $(0, 0)$ in one frame---its almost certain that an error has occurred. If so, we re-use the previous frame's data until the object returns to sensible values in following frames. If the object continues to provide poor data, the system considers the object 'lost' and discounts it from calculations until it once again returns with reasonable data. 
 
