@@ -180,7 +180,7 @@ class Ball(Entity):
             self.beep_speed = calc_speed(
                 self.parent().p1, self, self.client.frame_width
             )
-            # print(self.beep_speed)
+
             # Update pitch value
             pitch = calc_pitch(self.parent().p1, self, self.client.frame_height)
             if pitch != self.pitch:
@@ -189,6 +189,7 @@ class Ball(Entity):
 
             # Update panning
             self.audio_objects["move"].update_panning(self.x)
+
             # Check for beep
             now = time.time()
             if now - self.last_beep > self.beep_speed:

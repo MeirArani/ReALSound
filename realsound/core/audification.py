@@ -126,7 +126,6 @@ class AudioObject(QObject):
         self._sound.setSize(1)
 
     def set_pan(self, pan):
-
         if pan is Pan.LEFT:
             self.set_position(az=-math.pi / 2)
         elif pan is Pan.RIGHT:
