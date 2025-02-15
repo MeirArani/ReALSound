@@ -63,7 +63,7 @@ def detect(frame, settings=default_settings):
     candidates = corners  # Our candidates are *all* corners at first
     # Where we store our final results
     results = np.zeros((3, 4, 2), dtype=np.int64)
-    for index, i in enumerate(corners):  # For each point in our original array
+    for index, i in enumerate(corners):  # For each corner
 
         # If we've already found this point, move on
         if np.argwhere(np.any(results == i, axis=2)).size > 0:
