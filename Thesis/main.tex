@@ -10,8 +10,10 @@
 \usepackage{listings} % Source code formatting and highlighting
 \usepackage[nottoc,numbib]{tocbibind}
 \usepackage{xspace}
+\usepackage[section]{placeins}
 \usepackage{biblatex}
 \usepackage{amsthm}
+\usepackage{ragged2e}
 \usepackage[]{algorithm2e}
 \usepackage{microtype}
 \usepackage{epigraph}
@@ -19,8 +21,17 @@
 \usepackage{listings}    
 \usepackage{graphicx}
 \usepackage{subcaption}
-
+\usepackage{todonotes}
+\usepackage{makecell}
+\usepackage{adjustbox}
+\usepackage{environ}
+\usepackage{newfloat}
+\usepackage{cellspace}
 \usepackage{caption}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{tabularx}
+\usepackage{color} 
 
 
 \graphicspath{{./figures/}}
@@ -46,10 +57,22 @@
 \makeatother
 
 
+
 \addbibresource{references.bib}
+
+\newcolumntype{R}{>{\RaggedRight\arraybackslash}X}
+\newcolumntype{C}{>{\Centering\bfseries\arraybackslash}X}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+
+\DeclareFloatingEnvironment[name=Code Sample]{code}
+\DeclareFloatingEnvironment[name=Pseudocode]{pseudo}
+\crefname{code}{Code Sample}{Code Samples}  
+\crefname{pseudo}{Pseudocode}{Pseudocodes}
 
 
 \newcommand{\rs}{ReAL Sound\xspace}
+\newcommand{\trans}{$\rightarrow$\xspace}
 \newcommand{\rsfull}{\textbf{Re}-usable \textbf{A}udification \textbf{L}ibrary\xspace}
 \newcommand{\plan}{\textbf{Planning}\xspace}
 \newcommand{\train}{\textbf{Training}\xspace}
@@ -67,37 +90,56 @@
 \newcommand{\conclusion}{\subsubsection{Conclusion}}
 
 \newcommand{\tech}[1]{\textbf{#1}}
-
-
 \newcommand{\imp}{implementor\xspace}
 
-\newenvironment{absolutelynopagebreak}
-  {\par\nobreak\vfil\penalty0\vfilneg
-   \vtop\bgroup}
-  {\par\xdef\tpd{\the\prevdepth}\egroup
-   \prevdepth=\tpd}
-
-
-
-\lstdefinestyle{mystyle}{
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.6,0.2,0.9}
+\definecolor{codered}{rgb}{0.9,0,0.1}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{brightblue}{rgb}{0,0.75,0.75}
+\lstset{
     backgroundcolor=\color{backcolour},   
     commentstyle=\color{codegreen},
     keywordstyle=\color{magenta},
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
+    basicstyle=\ttfamily\small,
     breakatwhitespace=false,         
     breaklines=true,                 
     captionpos=b,                    
     keepspaces=true,                 
     numbers=left,                    
     numbersep=5pt,                  
-    showspaces=false,                
+    showspaces=false,  
+    language=Python,   
+    frame=single,           
     showstringspaces=false,
-    showtabs=false,                  
+    showtabs=false,
+    escapechar={$}, 
+    otherkeywords={touches, VERB, play, close to, warn, dies, lower},
+    morekeywords={touches, VERB, play, close, to, warn, dies, lower},
+    keywordstyle=\color{codepurple},                  
     tabsize=2
 }
 
+
+\lstnewenvironment{codeblock}
+{
+    \vspace{4mm}
+    \noindent
+    \minipage{\linewidth}
+}
+{
+    \endminipage
+}
+
+
+
+\setlength{\cellspacetoplimit}{3pt}
+\setlength{\cellspacebottomlimit}{3pt}
+\addparagraphcolumntypes{X}
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
 
 % ---
 %
@@ -113,19 +155,15 @@
 %%% ABSTRACT
 
 \begin{abstract}
-    In a world of ever-increasing software complexity, there has been a growing demand for interoperable, reusable technologies that function in many problem domains. This is especially true in the world of game development, where tools, structures, and architectures often change from title to title. At the same time, the complexity and specificity of the needs of end-users has also grown immensely, bringing an increased demand for advanced accessibility features with it. To address these trends, we propose \rs: the \rsfull, which abstracts the creation of accessibility features for visually impaired persons in the realm of game design using computer vision spatial audio techniques. Through our proposal, we demonstrate the efficacy of \rs as a general-purpose tool for implementing accessibility features in a wide-variety of games.  
+    In a world of ever-increasing software complexity, there has been a growing demand for interoperable, reusable technologies usable in many problem domains. This is especially true in the world of game development, where tools and architectures change from title to title. At the same time, the complexity and specificity of end-users has also grown immensely, bringing an increased demand for advanced accessibility features. To address these trends, we propose \rs: the \rsfull, which abstracts the creation of accessibility features for visually impaired persons in games via computer vision and spatial audio techniques. Through our proposal, we demonstrate the efficacy of \rs as a general-purpose tool for implementing accessibility features in games.  
 \end{abstract}
 
 \newpage{} % Pagebreak
 
 %%% TABLE OF CONTENTS
 
-\chapter*{Notes on the First Draft}
-The prose found within this first draft is mainly complete, although no doubt riddled with errata and typos which demand fixing. 
-
-We note that a few sections of this draft are incomplete. Later sections of chapter 4---where I provide samples of my own implementation of \rs---are in the final stages of development, which will hopefully conclude in the coming days. Consequently, those sections are unfinished. The same is true of chapter 5, where I perform some basic experiments using my sample implementations. As this thesis has already reached a massive scope, these experiments will be brief in nature. I estimate their results will be fairly inconsequential to the thesis's validity and novelty as whole. 
-
-On top of this, there is some inconsistency in my notations which will fixed in the final version. This draft is also lacking in figures, explanatory visuals, and code snippets, also to be included in the next version. Any citations or references to figures that appear as \textbf{[??]} indicate content to be added.
+\chapter*{Notes on the Final Draft}
+This final draft sees the overhaul of the 4th chapter---which now features an in-depth look at our implememtation. We hope this detailed exploration provides more clarity towards \rs's motivation, structure, and ultimate aims. We also made enhancements to our proposal chapter with new visual aids. The introduction section now also addresses topics in inclusive and meta design. Finally, the conclusion sports a more developed future work section---specifically detailing later research plans. 
 
 \begin{flushright}
 \vspace{5mm}
@@ -180,6 +218,9 @@ But despite the trend towards universal design, numerous real-world applications
 
 These platform-specific incongruities have often the target of user anger \cite{Paquin_2010}, as most users expect the features and quality of their experience to be preserved when they change usage contexts. This ever-present sense of user ire has become another key motivator behind the generalization of computer software. Instagram, to continue with the previous example, lacked a method of accessing the platform on windows devices until overwhelming user demand necessitated its creation \cite{Warren2013}. In a similar (and more humorous) vein, the iPad's omission of a standard calculator app became such a fixation of user frustration as to be headline news \cite{Weinstein_2024} when Apple finally debuted a native app in 2024. These emerging behaviors clearly demonstrate the need for universal design---not only for developers of software, but also their end-users. 
 
+\paragraph{Inclusive Development}
+These trends extend even into software development, where there has been a growing call for accessible tools \cite{maeda2021cx}. Although the image of a 'software user' usually evokes a sense of novice-to-moderate tech-saviness, software development also requires tools (software) that developers (users) employ in their work. Advocates for \tech{inclusive development} emphasize the importance of new and diverse software \emph{metaphors, objects,} and \emph{interfaces} that empower more users in creating accessible software \cite{savidis2006inclusive}. Similar sentiments are echoed in the popularization of \tech{meta-design}---creating design \emph{for} designers \cite{fischer2000meta}. In this sense, we can see that the next generation of software should de-emphasize the role of users as simple 'consumers' of static software---and should instead empower them to easily create, design, and express themselves via their media environments. 
+
 \subsubsection{The AI Boom}
 Overlapping the trend towards universal design has been the sudden explosion of AI technologies in recent years \cite{Knight_2023}. Of course, there are many reasons to be skeptical of AI's sudden explosion in popularity, as AI research has been notorious for its seasonal relevance in the past. The term \emph{AI Winter}---which describes the long droughts of public attention and spending towards AI between milestone research achievements---has been in the technical lexicon for decades now \cite{AIWinter}. Despite this, it is hard to deny the widespread changes this most recent \emph{AI Summer} has brought with it. And so, we shall introduce some relevant topics from the boom---namely through advances in machine learning. 
 
@@ -230,14 +271,14 @@ This shift towards accessibility in games has percolated all the way up to block
 \section{\emph{\rs}: Towards a More Universal Accessibility Design}
 If we unite the trends of previous sections, a harmonic theme begins to manifest: the need for universal, accessible design in not only game software, but also game development. This has remained a complex problem even into the current era, but the swift maturation of AI, computer vision, machine learning, and spatial audio technologies has provided us a clear set of tools to address this shortcoming in the medium of video games. 
 
-And so, we aim to contribute to the fields of games accessibility and universal design in this thesis with our own novel contribution---\rs: the \rsfull. \rs is a framework for streamlining and generalizing the process of developing game accessibility features for the visually impaired. To accomplish this, we make use of cutting-edge computer vision and spatial audio techniques. Through this thesis, we endeavor to explain \rs's theoretical basis, application value, and implementation process. We then consider a implementation of \rs and examine experimental results to demonstrate its real-world utility.
+And so, we aim to contribute to the fields of games accessibility and inclusive design in this thesis with our own novel contribution---\rs: the \rsfull. \rs is a framework for streamlining and generalizing the process of developing game accessibility features for the visually impaired. To accomplish this, we make use of cutting-edge computer vision and spatial audio techniques. Through this thesis, we endeavor to explain \rs's theoretical basis, application value, and implementation process. We then consider a implementation of \rs and examine its real-world utility.
 
 
 \section{Conclusion}
 In this chapter, we examined recent trends around numerous fields of software. We began with a look at the general software trends in universal design before moving to a mediation of the modern AI boom. Following this, we examined the primarily orthogonal trends in contemporary spatial audio technology before transitioning to a discussion of the current state of game development, highlighting how it echoes themes from earlier sections. Finally, we synthesized these trends into a clear problem statement: the need for improved universal design in games accessibility software. To address this perceived shortcoming, we proposed \emph{\rs}: the \rsfull library, which combines recent advances in computer vision and spatial audio to streamline and generalize the development of accessibility features for the visually impaired. 
 
 \subsubsection{The Following Chapters}
-In the following chapter, we conduct a brief review of relevant theory and research in connected fields. We then propose \rs in the following chapter. Afterwards, we demonstrate \rs through a sample implementation in chapter four before examining some experimental data about the prototype's efficacy in chapter five. Finally, we conclude our thesis in chapter six.
+In the following chapter, we conduct a brief review of relevant theory and research in connected fields. We then propose \rs in the following chapter. Afterwards, we demonstrate \rs through a sample implementation in chapter four before concluding our thesis in chapter five.
 
 %%% LITERATURE REVIEW
 
@@ -537,6 +578,23 @@ In this chapter, I propose and outline the \textbf{\emph{\rs}} system: a \rsfull
 In this section, I propose \rs and justify its novelty and utility based on the literature review performed in the previous chapter.
 
 \subsubsection{\emph{What is \rs?}}
+
+\begin{figure}
+    \begin{adjustbox}
+        {
+            addcode={\begin{minipage}{\width}
+        }
+        {
+            \caption{A simple graphical overview of \rs}
+            \label{fig:rsOver}
+            \end{minipage}
+        }, 
+        rotate=270, center
+        }
+        \includegraphics[scale=0.85]{rsOverview.png}
+    \end{adjustbox}
+\end{figure}
+
 \rs (\rsfull) is a software framework concept that generalizes the creation of visual accessibility features for games. Using computer vision techniques and modern spatial audio technology, \rs aims to abstract the process of moment-to-moment analysis of a game's state as well as the generation of 3D spatial audio objects. Through this abstraction, implementors of \rs (as distinguished from \emph{users} of \rs---the visually impaired persons benefitting from the features) can sidestep many of the language, platform, and architecture specific headaches involved in the creation of game accessibility features, especially in the case of after-market games. 
 
 In essence, \rs seeks to convert a game's visual information (the things a player sees on-screen) into audio information (the things a player hears). This is done so that visually impaired persons can better understand a game without having to 'look' at it directly. Moreover, \rs aims to abstract this process, making a simple implementation possible for a plethora of games. \rs achieves this generalization by abstracting feature development process into a few core steps for any given target game:
@@ -933,6 +991,23 @@ In this section, I provide an overview of the three 'layers'---\vision, and \dec
 
 \subsubsection{Turning Theory into Practice}
 
+
+\begin{figure}
+    \begin{adjustbox}
+        {
+            addcode={\begin{minipage}{\width}
+        }
+        {
+            \caption{An extention of \cref{fig:rsOver} including \state{Layers}}
+            \label{fig:rsExt}
+            \end{minipage}
+        }, 
+        rotate=270, center
+        }
+        \includegraphics[scale=0.77]{rsExtend.png}
+    \end{adjustbox}
+\end{figure}
+
 Now that we have explored the concepts needed for understanding \rs, it has come time to finally explain the structure of the framework in detail. It should be clear by now that \rs reaches into several areas of study for its theoretical basis---performing tasks in numerous domains to achieve our goals. This multi-modal approach makes explaining \rs's internal workings difficult. In order to ease this process, I will subdivide \rs into three key 'layers.' Each layer is tasked with solving problems in different domains and consequently has its own distinct traits and behaviors. The layers are:
 
 \begin{description}
@@ -1050,13 +1125,26 @@ To summarize:
 
 
 
+\begin{figure}
+    \begin{adjustbox}
+        {
+            addcode={\begin{minipage}{\width}
+        }
+        {
+            \caption{An full overview of \rs}
+            \label{fig:rsViz}
+            \end{minipage}
+        }, 
+        rotate=270, center
+        }
+        \includegraphics[scale=0.7]{rsVisual.png}
+    \end{adjustbox}
+\end{figure}
+
 
 \subsection{Summary}
 
-In this section, I provided a in-depth analysis of \rs's structure. I subdivided the system into three core layers which have unique behaviors spread across different problem domains. These layers---\vision, \decision, and \audio---ultimately work as a pipeline: taking a game's visual information, converting it into semantic data about the game's state (\vision), converting those semantics into actionable imperatives (\decision), and finally converting some of those imperatives into spatial audio objects (\audio). Figure X [TODO: ADD!] summarizes the entire structure of \rs.
-
-
-
+In this section, I provided a in-depth analysis of \rs's structure. I subdivided the system into three core layers which have unique behaviors spread across different problem domains. These layers---\vision, \decision, and \audio---ultimately work as a pipeline: taking a game's visual information, converting it into semantic data about the game's state (\vision), converting those semantics into actionable imperatives (\decision), and finally converting some of those imperatives into spatial audio objects (\audio). \Cref{fig:rsViz} summarizes the entire structure of \rs.
 
 
 \section{Implementation Process}
@@ -1261,30 +1349,41 @@ In a low level sense, implementing \design involves programming rudimentary logi
 
 \paragraph{Simple Case: Custom Code}
 
-To put things into programming terms, we could imagine the simplest \design implementation being a series of \texttt{if-else} statements which compare the provided entity data against relevant conditions. Figure \ref{fig:design_code_examples} demonstrates three simple examples using the \texttt{python} language. The first example echoes one used in describing the \decision layer---playing a sound effect when Mario collides with a mushroom. 
+To put things into programming terms, we could imagine the simplest \design implementation being a series of \texttt{if-else} statements which compare the provided entity data against relevant conditions. \cref{pseudo:design_code_examples} demonstrates three simple examples using the \texttt{python} language. The first example echoes one used in describing the \decision layer---playing a sound effect when Mario collides with a mushroom. 
 
 \begin{figure}[h]
 
-    \lstset{language=Python}
-    \begin{lstlisting}[frame=single]
-    if(mario is not None and mushroom is not None):
-        if(dist(mario, mushroom) < COLLISION_DIST):
-            play_powerup_sfx()
-    \end{lstlisting}
-    
-\begin{lstlisting}[frame=single]
-    if(mario is not None and pitfall is not None):
-        if(dist(mario, pitfall < WARN_DIST)):
-            play_pitfall_warning_sfx(dist(mario, pitfall))
-    \end{lstlisting}
-    
-    \begin{lstlisting}[frame=single]
-    if(mario is not None and mario.state is STATE_DEATH):
-        play_lives_remaining_sfx(--mario.lives)
-    \end{lstlisting}
-    
-    \caption{Three samples of rudimentary \design logic.}
-    \label{fig:design_code_examples}
+    \begin{subfigure}{\textwidth}
+        \centering
+\begin{codeblock}
+if(mario is not None and mushroom is not None):
+    if(dist(mario, mushroom) < COLLISION_DIST):
+        play_powerup_sfx()
+\end{codeblock}
+    \subcaption{On Powerup}
+    \end{subfigure}
+
+    \begin{subfigure}{\textwidth}
+        \centering
+\begin{codeblock}
+if(mario is not None and pitfall is not None):
+    if(dist(mario, pitfall < WARN_DIST)):
+        play_pitfall_warning_sfx(dist(mario, pitfall))
+\end{codeblock}
+    \subcaption{Approaching Pitfall}
+    \end{subfigure}
+
+    \begin{subfigure}{\textwidth}
+        \centering
+\begin{codeblock}
+if(mario is not None and mario.state is STATE_DEATH):
+    play_lives_remaining_sfx(--mario.lives)
+\end{codeblock}
+    \subcaption{On Death}
+    \end{subfigure}
+
+    \captionof{pseudo}{Three samples of rudimentary \design logic.}
+    \label{pseudo:design_code_examples}
 \end{figure}
 
 The second example is more complex, generating a special 'warning' sound cue when mario approaches an on-screen pitfall. To avoid cluttering audio-space, we have opted to only warn the player if they come dangerously close to a pitfall, a metric defined by the \texttt{WARN\_DIST} attribute. We can also presume the function used to trigger the sound effect, \texttt{play\_pitfall\_warning\_sfx()} is dynamically generating audio based on Mario's current distance from the pit---as the function takes the distance between the two entities (\texttt{dist(mario, pitfall)}) as input. The function may use this distance value metric to vary the pitch, volume, or frequency of the sound effect---more clearly explaining when and where danger awaits the player.
@@ -1299,40 +1398,58 @@ An \imp could craft their own \emph{domain-specific language} (DSL), for instanc
 
 \begin{figure}[h]
 
-\lstset{language=Python}
-\begin{lstlisting}[frame=single]
-    mario touches mushroom: play mushroom touch;
-\end{lstlisting}
-    
-\begin{lstlisting}[frame=single]
-    mario close to pitfall: warn pitfall;
-\end{lstlisting}
+    \begin{subfigure}{\textwidth}
+        \centering
+        \begin{codeblock}
+$\color{codegreen}mario$ touches $\color{codegreen}mushroom$: play $\color{codegreen}mushroom$ $\color{codered}touch$;
+\end{codeblock}
+        \subcaption{On Powerup}
+    \end{subfigure}
 
-\begin{lstlisting}[frame=single]
-    mario dies: lower lives;
-\end{lstlisting}
+    \begin{subfigure}{\textwidth}
+        \centering
+        \begin{codeblock}
+mario close to pitfall: warn pitfall;            
+\end{codeblock}
+        \subcaption{Approaching Pitfall}
+    \end{subfigure}
 
-    \caption{Three samples of a hypothetical DSL used to \design a \emph{Super Mario Brothers} implementation}
-    \label{fig:dsl_examples}
+    \begin{subfigure}{\textwidth}
+        \centering
+        \begin{codeblock}
+mario dies: lower lives;    
+\end{codeblock}
+        \subcaption{On Death}
+    \end{subfigure}
+
+    \captionof{pseudo}{Three samples of a hypothetical DSL used to \design a \emph{Super Mario Brothers} implementation. Entities are highlighted in {\color{codegreen}green}, DSL keywords are {\color{codepurple}} purple, and SFXs are rendered in {\color{codered} red.}}
+    \label{pseudo:marioDSL}
 \end{figure}
 
 
-We can plainly see the utility of DSLs when combined with \rs's \design process. An \imp interested in a wide variety of target games could build a generalized DSL, while a different \imp could just as easily build a specific DSL to streamline \design for a particularly large and complex game. Figure \ref{fig:dsl_examples} provides some examples of a hypothetical DSL specifically written for \emph{Super Mario Brothers}. Much of the previous code has been reduced into far friendlier (both for reader and coder) format. 
+We can plainly see the utility of DSLs when combined with \rs's \design process. An \imp interested in a wide variety of target games could build a generalized DSL, while a different \imp could just as easily build a specific DSL to streamline \design for a particularly large and complex game. \cref{pseudo:marioDSL} provides some examples of a hypothetical DSL specifically written for \emph{Super Mario Brothers}. Much of the previous code has been reduced into far friendlier (both for reader and coder) format. 
 
-The DSL has a grammar accepting two command stings:
+\begin{figure}
+    \centering
+    \begin{subfigure}{\textwidth}
+        \centering
+\begin{codeblock}
+$\color{codegreen}ENTITY$ VERB $\color{codegreen}ENTITY$: VERB [$\color{codegreen}ENTITY$ | $\color{blue}ATTRIBUTE$] [$\color{codered}SFX$];
+\end{codeblock}
+        \subcaption{Grammar 1}
+    \end{subfigure}
+    \begin{subfigure}{\textwidth}
+        \centering
+\begin{codeblock}
+$\color{codegreen}ENTITY$ VERB: VERB ($\color{codegreen}ENTITY$ | $\color{blue}ATTRIBUTE$);
+\end{codeblock}        
+        \subcaption{Grammar 2}
+    \end{subfigure}
+    \captionof{pseudo}{Sample DSL grammar}
+    \label{pseudo:dslEx}
+\end{figure}
 
-\vspace{8pt}
-
-\begin{lstlisting}[frame=single, basicstyle=\small]
-    ENTITY VERB ENTITY: VERB [ENTITY | ATTRIBUTE] [SFX_NAME];
-\end{lstlisting}
-
-\begin{lstlisting}[frame=single]
-    ENTITY VERB: VERB (ENTITY | ATTRIBUTE);
-\end{lstlisting}
-
-\vspace{8pt}
-Those unfamiliar with formal language theory or metacompilers may struggle with the syntax. Suffice it to say that this DSL streamlines the \design process significantly---replacing lengthy code segments with basic \texttt{noun verb noun} phrases that are as easy to write as they are to parse.
+\cref{pseudo:dslEx} showcases DSL with grammar accepting two command stings. Those unfamiliar with formal language theory or metacompilers may struggle with the syntax, but suffice it to say that this DSL streamlines the \design process significantly---replacing lengthy code segments with basic \texttt{noun verb noun} phrases that are as easy to write as they are to parse.
 
 \paragraph{Advanced Case: GUI}
 Of course, we could go one step further and create an entire graphical user application to aid the \rs implementation process. In this case, a DSL would likely be supplemented with simple graphical tools that visualized the \design process---allowing even a novice user to efficiently create \design logic. We will table this idea for now and discuss the concept further in the following chapter.  
@@ -1436,9 +1553,237 @@ In this chapter we present a sample implementation of \rs using common off-the-s
 
 We begin first by discussing implementation specifics before outlining considerations in choosing a target game. We then discuss our design plan for \emph{Pong}, followed by a detailed examination of the code specifics of our implementation. 
 
-We explore experimental results of this prototype in the following chapter.
+We explore guidelines for future implementations in the next chapter.
 
-\section{Languages, Tools, and Frameworks}
+\section{Background}
+\subsection{Choosing a Target Game}
+Although \rs is devised to be used in many games, it is true that certain games are better candidates for for implementation than others. We particularly recognize the challenges and complexity in implementing \rs into a 3D game---where the added layer of spatial depth complexifies sound localization. Moreover, 3D games often feature intricate graphical styles, which presents challenges for the \train process and \vision layer. None of this means that 3D games are unfit for \rs, but instead provide additional challenges that are outside the scope of an introductory work. And so, we will limit our choice to 2D games.
+
+But even limiting ourselves to two dimensions, we still have many other considerations to make. For one thing, how many entities and game \state{States} will we need to account for in our \plan and \design? A game like \emph{Super Mario Bros.}, for example, features a litany of enemy and types and stage contexts. Consequently, we will also avoid complex games in the interest of brevity---although we have interest targeting more complex 2D games in our future work. We will consider future implementations in a later section.
+
+\subsubsection{New Challenges in Translating Design}
+
+A major question we must consider when choosing a target game is how feasible the translation of the game's visual display is into a comprehensible audio display. A game like \emph{Pac-Man} may have few entity types, but it still demands a nuanced understanding of multiple entities and spatial relationships. When the game begins, for example, how will the existence of hundreds of yet-undevoured pellets be represented to the user? How will the twists and turns which characterize \emph{Pac-Man}'s maze? How will the player understand the exact location of that \emph{one} remaining pellet---located halfway across the stage---which is needed for a stage completion? These questions are certainly solvable, but they provide significant \design challenges. 
+
+All of this brings us to a key point---that \rs provides new and interesting design challenges in the realm of games accessibility. Particularly, the challenge of translating visual displays into audio displays on a scale spanning the entire medium. \emph{Just as game design has evolved through the development of the games industry, so too must we evolve audio game design}. For now, however, we leave this as an exercise for future work.
+
+In the absence of a well-developed audio game design language, we will demonstrate our prototype using one of the simplest (yet most iconic) games available to us---the 1972 Atari game \emph{Pong}. We shall build our own audio rendition that we call \emph{Audio Arena: Pong Reloaded}.
+
+\subsection{\emph{Pong}: A Brief Overview}
+\emph{Pong} was developed by Allan Alcorn and released by Atari 1972 for arcades \cite{o2015pillars}. The game's spartan design and early position in gaming history have lead it to be erroneously considered by many to be the 'first' video game ever released\footnote{Despite the relatively recent introduction of video games, much of its history---including what the definitive 'first' video game is, is still a matter of open debate. Candidates include 1958's pong-like \emph{Tennis for Two} \cite{de2015tennis} and 1952's \emph{Draughts}, produced by noted computer science pioneer Christopher Strachey. For further information, see the excellent documentary \emph{The First Video Game}, available at \cite{Ahoy_2019}.} \cite{raessens2011handbook}. 
+
+Pong is a primitive simulation of Tennis in computer gaming format. In it, two players---represented by rectangular entities referred to as a \tech{paddle}---are positioned on opposing sides of the screen. The paddles are locked to a one-dimensional axis, moving only upwards or downwards. A \tech{ball} also appears during regular play. The ball begins at the center of the screen before moving in a random direction at a constant speed. The ball is capable of two-dimensional movement---ricocheting off of the top and bottom 'walls' (i.e., the screen-space) when struck. The ball's velocity may change upon striking a player or wall, but it never has a meaningful acceleration.
+
+If a paddle makes contact with the ball, it is reflected in the opposite direction. When the ball moves behind a player---going 'off-screen' on either the left or right side---the opposing player receives a goal point---which is indicated by a score displayed at the top of the screen. Upon scoring, the stage is reset and a new match follows. The first player to receive ten points is declared the winner---returning the game to an infinitely looping \state{attract} sequence, which awaits player input (i.e., a coin to be inserted into the arcade machine).
+
+With these two paragraphs, we have accurately described \emph{Pong}'s entire operation in reasonable detail. We shall now consider how to translate the rules of \emph{Pong} into a sensible audio display. This process resembles the \plan and \design phases.
+
+\subsection{Translating \emph{Pong}}
+
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{pongFSA.png}
+    \caption{A \tech{FSA} describing \emph{Pong}}
+    \label{fig:pongFSA}
+\end{figure}
+
+\subsubsection{Planning}
+We start, then, with \plan. First, let us consider the entities, \state{States}, and \rules of \emph{Pong.}
+
+\paragraph{Entities}
+
+As described above, \emph{Pong} comprises two key entities---the player \pad and the \ball.
+The scoring system, which is prominently displayed on-screen during matches, may also be considered an entity. However, our \design does not count the score signs as entities, so we will omit them from our discussion. This simplifies our implementation (arguably introducing weaknesses which we discuss in later sections), but other implementations may have use for them. 
+
+Each entity--no matter the type--has a \state{position} and \state{active} attribute. The first describes the entity's on-screen position as a 2D cartesian coordinate, while the second attribute indicates whether or not the entity is currently extant on-screen. An entity may disappear from the screen (or, at least, from the algorithm's analysis) for several consecutive frames, which renders the entity \state{inactive}, as we will discuss later.
+
+\subparagraph{Paddles}
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{PaddleFSA.png}
+    \caption{\pad FSA}
+    \label{fig:PaddleFSA}
+\end{figure}
+
+
+Each player controls a \pad entity, which has a few key behaviors. The \pad is able to \state{move} up and down, and is capable of \state{hitting} the \ball. Depending on the implementation, it may be worth noting that the paddle may also remain \state{idle} on-screen. Taking things a step further, some implementations may also wish to account for the fact that a \pad is capable of \state{scoring} a point. 
+
+Speaking of \state{attributes}, each \pad has an on-screen \state{position}, which we may measure in cartesian coordinate $(x,y)$ relative to screen-space. Depending on the implementation, we may also want to note the \state{player numer} (i.e., player one or player two), as well as the player's current \state{score} value. 
+
+\subparagraph{Ball} 
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{BallFSA.png}
+    \caption{\ball FSA}
+    \label{fig:ballFSA}
+\end{figure}
+
+The ball may also \state{move} around the screen. When it when it strikes the top or bottom of the screen, it may \state{ricochet}. When a ball advances past the left or right sides of the screen, it becomes \state{inactive} and triggers a \state{goal} event.
+A \ball, like all entities, has an on-screen position attribute. Other attributes could be included as-needed---such as ones describing the ball's speed or direction.
+
+\paragraph{States} 
+
+\emph{Pong}, like many classic arcade games, can be easily understood as a finite state automaton. When the game launches, it continuously loops an \state{attract} screen---performing an automatic demonstration of the game (to \emph{attract} spectators) until a player inserts a coin and presses the \emph{start} button. \state{Attract} then transitions to what we will call the \state{pause} state---a brief pause that plays between each round of the match. After a few seconds, the normal \state{match} state begins. When a \state{goal} is scored, we return to the \state{pause} state for a few moments before starting another \state{match}. When enough points are scored, the set finally enters a \state{win} state, before transitioning back to the \state{attract} screen---waiting for the user to input more coins. 
+
+\subparagraph{Entity States}
+As hinted at above, entities have their own states, such as \state{move} and \state{goal}. These comparatively primitive state machines describe simplistic behaviors. A \pad, for example, may transition between any of the  \state{moving}, \state{hitting}, and \state{idling} states at almost any time. The same is true for the \ball.
+
+One may arguably subdivide behaviors even further, but we find these description to be sufficiently detailed for our purposes. But despite the simplicity, there are still some semantic knots we must untangle before achieving competent \plan. 
+
+\subsubsection{Delgating Responsibilities}
+
+Several key game semantics---such as the \state{hitting} of a ball or the \state{scoring} of a point---are behaviors shared between several entities. This leads to a question of semantic \emph{responsibility}. Take, for instance, the act of scoring a \state{goal}. Who is responsible for handling this event? Is it the \ball---which physically moved off-screen, causing the \state{goal}? Or is it the \pad---who was responsible for scoring the \state{goal}? A similar problem arises when a \ball \state{hits} a \pad. Will the \ball transition into a \state{hit} state? Or will the \pad? 
+
+We must \emph{delegate} (to borrow the software engineering term) these responsibilities to the entities we see fit. There is no single correct answer in delegating, but there are still intelligent decisions to be made. For example, if we delate the \state{hit} state to the \pad, we can provide unique sound cues for each player's hit---providing useful information for our audio display. On a similar note, we could delegate the responsibility of \state{goals} to the overarching game state machine, who can use this information to keep tally of the game's score. We could also delegate \state{goal} logic to the paddle entities---which could trigger a unique sound for each player's score.
+
+As in software architecture, we must consider the issues of \emph{modularity} and \emph{encapsulation} when drafting our \state{plan}. We take heavy influence from the seminal \emph{Design Patterns} by the so-named \emph{Gang of Four} \cite{gamma1994design}. In general, we aim to keep behaviors closely associated with the relevant entities without seeking external knowledge. In the case of \state{goals}, it makes sense to delegate to both the game state machine and the individual entities. The \ball's absence from the screen indicates to the game that it must transition from \state{match} to \state{goal}---wherein it triggers the \state{goal} state of the scoring \pad. From there, the game's \state{goal} state transitions immediately to either \state{win} or \state{match} depending on if a score criteria has been met.  \pad could trigger a special sound effect and increment their score---which has no bearing on the other entities. When the game's \state{match} detects a \state{goal}, it could trigger the \state{goal} state on the relevant player. 
+
+Unlike scoring, \state{winning} the game does have consequences that affect other entities. When the game concludes, the state machine needs to effectively 'reset' itself back to the \state{attract} mode, meaning information like player scores must also be reset back to zero. Consequently, the \state{win} must be delegated to game FSM and not to the entities.   
+
+\begin{figure}[h]
+
+\begin{codeblock}
+if(ball.active is False):
+    if(ball.x < screen.width/2):
+        p2.goal()
+    else:
+        p1.goal()
+    if(p1.score > WIN_SCORE or p2.score > WIN_SCORE):
+        self.state = win # ends game
+    else: 
+        self.state = pause # next match
+\end{codeblock}
+    
+    \captionof{code}{\state{Goal} and \state{Win} logic}
+    \label{code:goal_win_ex}
+\end{figure}
+
+
+There is no one correct answer to the problem of software design. The same is true of \plan for \rs. But it is true that maintaining good encapsulation of entity responsibilities leads to cleaner, simpler, and more reliable design. For instance, if the \ball, \pad, and overarching game FSA each had their own \state{goal} state, then the implementor runs the risk of state misalignments. Consider a situation where a \pad mistakenly reports a \state{goal}---producing a special sound effect---while the other entities correctly assessed there was no goal and continued without ever transitioning to the \state{goal} state. This thorny problem crops up frequently in complex codebases. A common strategy to sidestep the issue is termed the \tech{single source of truth} principle---which states data should only be modified in 'one place' (i.e., by one entity)\footnote{Examples of this approach can be seen all over the industry---perhaps most curiously with google's monolithic code repository, which stores billions of lines of code making up the entire company's software ecosystem \cite{googleRepo}.}.
+
+\subsubsection{Synthesis}
+
+\begin{figure}
+    \renewcommand{\tabularxcolumn}[1]{m{#1}}
+    \begin{tabularx}{\linewidth}{|l|R|l|l|S{X}|}
+        \hline
+        \makecell[t]{\textbf{State}} 
+        & \makecell[t]{\textbf{Description}} 
+        & \makecell[t]{\textbf{Transitions} \\ \textbf{(From)}} 
+        & \makecell[t]{\textbf{Transitions} \\ \textbf{(To)}} 
+        & \makecell[t]{\textbf{Example}} 
+        \\ \hline
+
+        \state{Attract} 
+        & Pre-game attract screen
+        &\makecell[l]{\state{Start} \trans \\ \state{Win} \trans}
+        &\makecell[l]{\trans \state{Pause}} 
+        & \makecell{\includegraphics[width=\linewidth]{attract.jpg}}
+        \\ \hline
+    
+        \state{Pause} 
+        & Short break between matches
+        &\makecell[l]{\state{Attract} \trans \\ \state{Goal} \trans}
+        &\makecell[l]{\trans \state{Match}}
+        & \makecell{\includegraphics[width=\linewidth]{break.jpg}} 
+        \\ \hline
+    
+        \state{Match} 
+        & A match of \emph{Pong} 
+        &\makecell[l]{\state{Pause} \trans}
+        &\makecell[l]{\trans \state{Goal}}
+        & \makecell{\includegraphics[width=\linewidth]{match.jpg}} 
+        \\ \hline
+    
+        Goal 
+        & Player scores a point 
+        &\makecell[l]{\state{Match} \trans}
+        &\makecell[l]{\trans \state{Pause} \\ \trans \state{Win}} 
+        & \makecell{\includegraphics[width=\linewidth]{goal.jpg}}  
+        \\ \hline
+    
+        Win 
+        & Player wins game 
+        & \makecell[l]{\state{Goal} \trans}  
+        & \makecell[l]{\trans \state{Attract}}
+        & \makecell{\includegraphics[width=\linewidth]{win.jpg}}  
+        \\ \hline
+    \end{tabularx}
+    \captionof{table}{Summary of Game \state{states}}
+    \label{tab:gameStates}
+\end{figure}
+
+To summarize our \state{plan} for \emph{Pong}:
+
+\begin{description}
+    \item[Game states] We divide the game into four game states:
+    \begin{description}
+        \item[Attract] The infinite loop which occurs before players begin a game.
+        \item[Pause] The short pause between matches.
+        \item[Match] The regular in-game loop.
+        \item[Goal] Trigger's paddle SFX and chooses transition to either \state{match} or \state{win}. 
+        \item[Win]   The 'end-state' of the game, occurring after one player scores ten goals.
+    \end{description}
+    \item[Game Entities] We recognize the existence of these entities and their respective states: 
+    \begin{description}
+        \item[Paddle] The player-controlled paddles which are constrained to one axis of vertical movement on the left and right sides of the screen. Capable of hitting the \ball and scoring goals.
+        \begin{description}
+            \item[Moving] Paddle is moving in an upward or downward direction.
+            \item[Hitting] Paddle is striking the \ball.  
+            \item[Idle] Paddle is unmoving.
+            \item[Goal] Paddle has scored a point. Plays audio cue uniquely indicating this player scored.
+        \end{description} 
+        \item[Ball] Non-player controlled. Moves around the screen both horizontally and vertically. Ricochets if it strikes the top or bottom sides of the screen. Also ricochets if it strikes a player paddle. If it moves off the left or right sides of the screen, a goal is scored. 
+        \begin{description}
+            \item[Moving] Ball is moving across the screen.
+        \end{description}
+            \item[Bouncing] Ball is bouncing off the top or bottom walls of the screen. 
+    \end{description}
+\end{description}
+
+We will continue to expand upon this \state{plan} in later sections. For now, we move to our discussion of implementation structure.
+
+
+\begin{figure}
+    \renewcommand{\tabularxcolumn}[1]{m{#1}}
+    \begin{tabularx}{\linewidth}{|l|X|l|}
+        \hline
+        \makecell{\textbf{Attribute}} & \makecell{\textbf{Description}} & \makecell{\textbf{Example}} \\ \hline
+        \texttt{position} & Position of entity on-screen & $(250, 467)$ \\ \hline
+        \texttt{velocity} & Velocity of entity & $(2.62, -4.61)$ \\ \hline
+        \texttt{velocity\_changed} & Flag set if entity changed directions this frame on a given axis & \texttt{(True, False)} \\ \hline
+        \texttt{active} & Flag set if entity is considered visible on-screen & \texttt{True} \\ \hline
+    \end{tabularx}
+    \captionof{table}{Summary of general \state{Entity} Attributes}
+    \label{tab:entAttr}
+\end{figure}
+
+\begin{figure}
+    \renewcommand{\tabularxcolumn}[1]{m{#1}}
+    \begin{center}
+        \begin{tabularx}{0.8\textwidth}{|l|c|c|S{X}|}
+            \hline 
+            \makecell[b]{\textbf{Name}} & \makecell[b]{\textbf{Attributes}} & \makecell[b]{\textbf{States}} & \makecell[b]{\textbf{Visual}} 
+            \\ \hline
+
+            \makecell{\ball}
+            & \makecell{\textbf{N/A}} 
+            & \makecell{\textbf{bounce}} 
+            & \makecell[b]{\includegraphics[scale=0.5]{ball.png}}
+            \\ \hline
+
+            \pad  
+            & \makecell{\texttt{score}} 
+            & \makecell{\state{hit} \\ \state{goal} \\ \state{win}} 
+            & \makecell[b]{\includegraphics[scale=0.5]{paddle.png}} 
+            \\ \hline
+        \end{tabularx}
+    \end{center}
+    \captionof{table}{Summary of \emph{Pong}'s \state{entities}: the \pad and \ball}
+    \label{tab:paddle}
+\end{figure}
+
+\subsection{Languages, Tools, and Frameworks}
 
 A key aspect of \rs's design is its portable and cross platform nature. Although this spirit of universality is not strictly enforced, we have decided to target cross-platform tools in our own implementation of \rs. Let us start by reviewing our software choices. 
 \subsubsection{Python}
@@ -1448,139 +1793,165 @@ The \tech{python} programming language is renowned for its legible, high-level w
 \subsubsection{OpenCV}
 As referenced in previous chapters, \tech{OpenCV} has become the \emph{de facto} standard for computer vision implementations. The library comes bundled with hundreds of useful machine learning and computer vision algorithms that are deployable using only a handful of lines of code.
 
-OpenCV is also extremely cross platform. The primary C++ libraries would present some complications---but, as luck would have it, a python port of OpenCV is available via the \texttt{opencv-python} and \texttt{opencv-contrib-python} modules. Using this port, we can write simple python software that can execute most of the common computer vision algorithms on virtually any modern machine. 
+OpenCV is also extremely cross platform. The primary C++ libraries would present some complications---but, as luck would have it, a python port of OpenCV is available via the \texttt{opencv-python} and \texttt{opencv-contrib-python} modules---allowing for simple python implementation of computer vision algorithms on virtually any modern machine. 
 
 \subsubsection{NumPy}
-We also require the equally popular \tech{NumPy} python package---which will serve as our stand-in for OpenCV's C++ native \texttt{Mat} (i.e., \texttt{Matrix}) construct. Numpy extends python with a rich collection of high-level math functions as well as extremely high-performant multi-dimensional arrays. These arrays will be our primary method of manipulating image data, making NumPy key for our implementation. It is also cross-platform and installable with a single execution of the \texttt{pip install numpy} command.
+We also require the equally popular \tech{NumPy} python package---which will serve as our stand-in for OpenCV's C++ native \texttt{Mat} (i.e., \texttt{Matrix}) construct. Numpy extends python with a rich collection of high-level math functions as well as high-performant multi-dimensional arrays. These arrays will be our primary method of manipulating image data, making NumPy key for our implementation. It is also cross-platform and installable with a single execution of the \texttt{pip install numpy} command.
 
 \subsubsection{Qt}
 We also require tools for building and packaging a proper application. We have opted to use the ever-popular \tech{Qt} suite of software libraries and tools. Qt's functionality is extremely diverse, and we will make use of it to create everything from graphical user interfaces, to video I/O, to even spatial audio.
 
-Although originally written for C++, Qt also has extensive python support via its \tech{PySide6} library. This package is once again cross platform, and is installable via \texttt{pip install PySide6}.
+Although originally written for C++, Qt also has extensive python support via its \tech{PySide6} library. This package is once again cross platform, and is installable via \texttt{pip install PySide6}. We make specific use of the \tech{QtMultimedia} library's spatial audio engine.
 
 \subsubsection{Miscelanious Software}
-Although not required for implementation, we also make use of \tech{git} and \tech{GitHub} for version control, as well as \tech{Visual Studio Code} for code editing. There are, of course, other dependencies which were used during development---but these packages all solve minor problems not worth detailing in our work here. Regardless, we ensured that all utilized packages were cross-platform and sufficiently open sourced for our purposes. 
+Although not required for implementation, we also make use of \tech{git} and \tech{GitHub} for version control, as well as \tech{Visual Studio Code} for code editing. There are, of course, other dependencies which were used during development---but these packages solve minor problems not worth detailing here. Regardless, we ensured that all utilized packages were cross-platform and sufficiently open sourced for our purposes. 
 
 We should also note that a litany of free sound effects were taken from \texttt{freesound.com}, with relevant attributions being placed in the source code.
 
-\subsubsection{Summary}
-Using these few off-the-shelf libraries, we now have everything we need to implement \rs. Well, \emph{almost} everything. We are still lacking a target game to use for implementation, whose choice we shall now mediate on.
+\section{Structural Overview }
 
-\section{Choosing a Target Game}
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{deps.png}
+    \caption{An overview of \rs's object structure}
+    \label{fig:deps}
+\end{figure}
 
-Although \rs is devised to be used in many games, it is true that certain games are better candidates for for implementation than others. We particularly recognize the challenges and complexity in implementing \rs into a 3D game, whose added layer of depth makes sound localization increasingly difficult using headphones. Moreover, 3D games often feature complex graphical styles, which presents challenges for the \train process and \vision layer. None of this means that 3D games are unfit for \rs, but instead provide additional challenges that are outside the scope of an introductory work. And so, we will limit our choice to 2D games.
+Our implementation is structured as a simple python module named \texttt{realsound}. With this approach, we are able to easily update, modify, package, and share our implementation with other developers. We organize our module into a few submodules: \texttt{resources}, which stores configuration settings, \texttt{core}, which contains core objects and models such as the definitions of \state{states} and entities, \texttt{cv}, which contains our computer vision algorithms, and finally \texttt{qt}, which stores all of our application data---the GUI implementation, screen-capture technology, and spatial audio generation tools included. 
 
-But even limiting ourselves to two dimensions, we still have many other considerations to make. For one thing, how many entities and game \state{States} will we need to account for in our \plan and \design? A game like \emph{Super Mario Bros.} features a litany of enemy and types and stage contexts, for example. We will also be avoiding complex games in the interest of brevity---although we have interest in targeting more complex 2D games in our future work.
+The \texttt{core} files include: \texttt{vision.py}, which defines our computer vision functions; \texttt{decision.py}, which includes our game state machine; \texttt{audification.py}, which manages the spatial audio engine as well as \texttt{AudioObjects}; and \texttt{entity.py}, which defines the general \state{entity} concept as well as the specific \ball and \pad entities. 
 
-\subsubsection{New Challenges in Translating Design}
+All of these classes are tied together by an overarching \texttt{Client} class found in the \texttt{client.py} file. The client is responsible for all high-level functions of \rs---\textbf{I/O}, managing the GUI application, and facilitating communication between the layers when necessary. In other words, the client can be considered the main 'entrypoint' of \rs. 
 
-A major question we must consider when choosing a target game is how feasible the translation of the game's visual information is into a easily comprehensible audio display. A game like \emph{Pac-Man} may have few entity types, but it still demands a nuanced understanding of multiple entities and spatial relationships. When the game begins, for example, how will the existence of hundreds of yet-undevoured pellets be represented to the user? How will the twists and turns which characterize \emph{Pac-Man}'s maze? How will the player understand the exact location of that \emph{one} remaining pellet---located halfway across the stage---which is needed for a stage completion? These questions are certainly solvable, but they provide significant \design challenges that are outside the scope of our research. 
+Finally, various testing code is found within the \texttt{tester.py} and \texttt{dummy.py} classes. The total object dependency structure is described visually in \cref{fig:deps}.  
 
-All of this brings us to a key point---that \rs provides new and interesting design challenges in the realm of games accessibility. Particularly, the challenge of translating visual displays into audio displays on a massive medium-level scale. \emph{Just as game design has evolved through the development of the industry, so too must we evolve audio game design}. For now, however, we leave this as an exercise for future work.
+\subsubsection{}
 
-In the absence of a well-developed audio game design language, we will demonstrate our prototype using one of the simplest (yet most iconic) games available to us---the 1972 Atari game \emph{Pong}. We shall build our own audio rendition that we call \emph{Audio Arena: Pong Reloaded}.
-
-\section{\emph{Audio Arena: Pong Reloaded}: A Worked Demonstration}
-\subsection{A Brief Overview}
-\emph{Pong} was developed by Allan Alcorn and released by Atari 1972 for arcades \cite{o2015pillars}. Its early release and spartan design have lead it to be erroneously considered by many to be the 'first' video game ever released\footnote{Despite the relatively recent introduction of video games, much of its history---including what the definitive 'first' video game was, is still a matter of open debate. Candidates include 1958's pong-like \emph{Tennis for Two} \cite{de2015tennis} and 1952's \emph{Draughts}, produced by noted computer science pioneer Christopher Strachey. For further information, see the excellent documentary \emph{The First Video Game}, available at \cite{Ahoy_2019}.} \cite{raessens2011handbook}. 
-
-Pong is a primitive replication of Tennis in gaming format. In it, two players---represented by rectangular entities referred to as a \tech{paddle}---are positioned on opposing sides of the screen. The paddles are locked to a one-dimensional axis, moving only upwards or downwards. A \tech{ball} also appears during regular play. The ball begins at the center of the screen before moving in a random direction at a constant speed. The ball is capable of two-dimensional movement---ricocheting off of the top and bottom 'walls' (i.e., the screen-space) when struck. 
-
-If a paddle makes contact with the ball, it is reflected in the opposite direction. When the ball reaches behind a player---going 'off-screen' on either the left or right side---the opposing player receives a goal point---which is indicated by a score displayed at the top of the screen. The stage is reset and a new match follows after a player scores a point. The first player to receive ten points is declared the winner---returning the game to an infinitely looping \state{attract} sequence, which awaits player input (i.e., a coin to be inserted into the arcade machine).
-
-With these two paragraphs, we have accurately described \emph{Pong}'s entire operation in meticulous detail. We shall now consider how to translate the rules of \emph{Pong} into a sensible audio display. This process resembles the \plan and \design phases.
-
-\subsection{Translating \emph{Pong}}
-\subsubsection{Planning}
-We start, then, with \plan. First, let us consider the entities, \state{States}, and \rules of \emph{Pong.}
-
-\paragraph{Entities}
-
-As described above, \emph{Pong} comprises two key entities---the player \pad and the \ball.
-The scoring system, which is prominently displayed on-screen during matches, may also be considered an entity. However, our \design does not require these entities, so we will omit them from our discussion. Other implementations may have use for them, however.
-
-\subparagraph{Paddles}
-
-Each player controls a \pad entity, which has a few key behaviors. The \pad is able to \state{move} up and down, and is capable of \state{hitting} the \ball. Depending on the implementation, it may be worth noting that it may also remain \state{idle} on-screen. Taking things a step further, some implementations may also wish to account for the fact that a \pad is capable of \state{scoring} a point. 
-
-Speaking of \state{attributes}, each \pad has an on-screen \state{position}, which we may measure in cartesian coordinate $(x,y)$ relative to screen-space. Depending on the implementation, we may also want to note the \state{player numer} (i.e., player one or player two), as well as the player's current \state{score} value. 
-
-\subparagraph{Ball} The ball may also \state{move} around the screen. When it when it strikes the top or bottom of the screen, it may \state{ricochet}. When a ball advances past the left or right sides of the screen, it \state{scores} a goal. 
-A \ball, like all entities, has an on-screen position attribute. Other attributes could be included as-needed---such as ones describing the ball's speed (which is monotonic in Atari's original \emph{Pong}) or direction.
-
-
-\paragraph{States} 
-
-\emph{Pong}, like many classic arcade games, is easily defined in terms of finite state automata. When the game launches, it continuously loops an \state{attract} screen---performing a automatic demonstration of the game until a player inserts a coin and presses the 'start' button. \state{Attract} then transitions to what we will call the \state{break} state---a brief intermission that plays between each round of the match. After a few seconds, the normal \state{match} state begins. When a \state{goal} is scored, we return to the \state{break} state for a few moments before starting another \state{match}. When enough points are scored, the set finally enters a \state{win} state, before transitioning back to the \state{attract} screen---waiting for the user to input more coins. 
-
-\subparagraph{Entity States}
-As hinted at above, entities have their own states, such as \state{move} and \state{idle}. These comparatively primitive state machines form simplistic behaviors. A \pad, for example, may transition between any of the  \state{moving}, \state{hitting}, and \state{idling} states at almost any time. The same is true for the \ball. 
-
-One may arguably subdivide behaviors even further, but we find these description to be sufficiently detailed for our purposes. But despite the simplicity, there are still some semantic messes that we must untangle before achieving competent \plan. 
-
-\subsubsection{Delgating Responsibilities}
-
-Several key game semantics---such as the \state{hitting} of a ball or the \state{scoring} of a point---are behaviors shared between several entities. This leads to a question of semantic \emph{responsibility}. Take, for instance, the act of scoring a \state{goal}. Who is responsible for handling this event? Is it the \ball---which physically moved off-screen, causing the \state{goal}? Or is it the \pad---who was responsible for scoring the \state{goal}? A similar problem arises when a \ball \state{hits} a \pad. Will the \ball transition into a \state{hit} state? Or will the \pad? 
-
-We must \tech{delegate} (to borrow the software engineering term) these responsibilities to the entities we see fit. There is no single correct answer in delegating, but there are intelligent decisions to be made. For example, if we delate the \state{hit} state to the \pad, we can provide unique sound cues for each player's hit---providing useful information for our audio display. On a similar note, we could delegate the responsibility of \state{goals} to the overarching game state machine, who can use this information to keep tally of the game's score. 
-
-As in software architecture, we must consider the issues of \tech{moduliary} and \tech{encapsulation} when drafting our \state{plan}. We take heavy influence from the seminal \emph{Design Patterns} by the so-named \emph{Gang of Four} \cite{gamma1994design}. In general, we aim to keep behaviors closely associated with the relevant entities without seeking external knowledge. In the case of \state{goals}, it makes sense to delegate to the overarching state machine because the state affects all entities equally (the match is reset, the game's score must be recalculated, etc). The \state{hit} state, meanwhile, corresponds to the particular \pad which performed the hit---and has no bearing on other external entities. 
-
-There is no one correct answer to the problem of software design. The same is true of \plan for \rs. But it is true that maintaining good encapsulation of entity responsibilities leads to cleaner, simpler, and more reliable design. For instance, if the \ball, \pad, and overarching game FSA each had their own \state{goal} state, then the implementor runs the risk of state misalignments. Consider a situation where a \pad mistakenly reports a \state{goal}---producing a special sound effect---while the other entities correctly assessed there was no goal and continued without entering the \state{goal} state. This thorny problem crops up frequently in complex codebases. A common strategy to sidestep the issue is termed the \tech{single source of truth} principle---which states data should only be modified in 'one place' (i.e., by one entity)\footnote{Examples of this approach can be seen all over the industry---perhaps most curiously with google's monolithic code repository, which stores billions of lines of code making up the entire company's software ecosystem \cite{googleRepo}.}.
-
-\subsubsection{Synthesis}
-To summarize our \state{plan} for \emph{Pong}:
-
-\begin{description}
-    \item[Game states] We divide the game into four game states:
-    \begin{description}
-        \item[Attract] The infinite loop which occurs before players begin a set.
-        \item[Break] The short intermission between matches.
-        \item[Match] The regular in-game loop.
-        \item[Win]   The 'end-state' of the game, occurring after one player scores ten goals. 
-    \end{description}
-    \item[Game Entities] We recognize the existence of these entities and their respective states: 
-    \begin{description}
-        \item[Paddle] The player-controlled paddles which are constrained to one axis of vertical movement on the left and right sides of the screen. Capable of hitting the \ball and scoring goals.
-        \begin{description}
-            \item[Moving] Paddle is moving in an upward or downward direction.
-            \item[Hitting] Paddle is striking the \ball.  
-            \item[Idle] Paddle is unmoving. 
-        \end{description} 
-        \item[Ball] Non-player controlled. Moves around the screen both horizontally and vertically. Ricochets if it strikes the top or bottom sides of the screen. Also ricochets if it strikes a player paddle. If it moves off the left or right sides of the screen, a goal is scored. 
-        \begin{description}
-            \item[Moving] Ball is moving across the screen.
-        \end{description}
-    \end{description}
-    \item[] 
-\end{description}
-
-We will continue to expand upon this \state{plan} in later sections. For now, we move to our discussion of implementation structure.
-
-\section{Examining our Implementation}
-
-\subsection{Structure}
-
-Our implementation is structured as a simple python module named \texttt{realsound}. With this approach, we are able to easily update, modify, package, and share our implementation with other developers. We organize our module into a few submodules: \texttt{realsound.config}, which stores configuration settings, \texttt{realsound.core}, which contains core objects and models such as the definitions of \state{states} and entities, \texttt{cv}, which contains our computer vision algorithms, and finally \texttt{qt}, which stores all of our application data---the GUI implementation, screen-capture technology, and spatial audio generation tools included. 
-
-\subsection{Computer Vision: Realizing the Vision Layer}
-As described in our proposal, we must create the layers of \rs. We begin with the \vision layer. 
+\section{Planning \& The Vision Layer}
+We begin our implementation with the \vision layer. 
 
 \subsubsection{Algorithm of Choice}
 
 We choose to employ the Harris method of corner detection, which we have detailed in the previous chapters. We do so using the \texttt{cv.cornerHarris()} function found within the OpenCV library \cite{OpenCV}. The function takes several inputs---a data source (provided as an 8-bit grayscale image), as well as several algorithm specific parameters\footnote{Being the \tech{blockSize, ksize, k, } and \tech{borderType} parameters. Whose specific details are irrelevant to our work.}---and outputs an array of detected corner points within the image. We chose the Harris corner detector for its ease-of-use, ubiquity, and relevance to our target game (as \emph{Pong} entities all have sharp and distinct corners).
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{tempData.png}
+    \caption{Sample of a well-tuned \tech{template matching} 'heat-map.' Notice how the scores are flagged as matching the template}
+    \label{fig:tempData}
+\end{figure}
+
+We experimented with other common algorithms, such as \tech{template matching}---which compares regions of screen data with image \tech{templates} provided by the user. This system works well for many 2D scenarios with a constant perspective---requiring only one template image per item. Unfortunately, \emph{Pong} is an edge case where the algorithm struggles on account of the game's graphical simplicity, as seen in \cref{fig:template} and \cref{fig:tempData}. All shapes in the game are white and rectangular, which easily confuses template matching systems. After all, how is anyone---player included---supposed to distinguish a \pad from a score of 'one,' which have virtually identical representations.   
+
+\begin{figure}
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[height=0.26\textheight]{tempLow.png}
+        \subcaption{Under-tuned}
+    \end{subfigure}
+    \\[1em]
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[height=0.26\textheight]{tempMed.png}
+        \subcaption{Well-Tuned}
+    \end{subfigure}
+    \\[1em]
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[height=0.26\textheight]{tempHigh.png}
+        \subcaption{Over-Tuned}
+    \end{subfigure}
+    \caption{Samples of \tech{template matching} with different parameter tunings. Notice how even the 'well-tuned' algorithm misidentifies the score objects as \state{entities}}
+    \label{fig:template}    
+\end{figure}
+
 
 \subsubsection{Providing Input}
-Of course, our algorithm is only as good as the data it receives. And so, we must conceive of a method for sending the game's frame data into the Harris corner detector. Numerous methods exist, but many are operating system dependant, which would violate our design principles. Luckily for us, Qt has recently implemented cross-platform screen and window capture support\footnote{We should note that these features are, in truth, as cross-platform as \emph{possible}. There exist hardware configurations left unsupported, but these tools will work for the vast majority of end users.}---which we shall make use of.
+Of course, our algorithm is only as good as the data it receives. And so, we must conceive of a method for sending the game's frame data into the Harris corner detector. Numerous methods exist, but many are operating system dependant, which would violate our design principles. Luckily for us, Qt has recently implemented cross-platform screen and window capture support\footnote{We should note that these features are, in truth, as cross-platform as \emph{possible}. There exist hardware configurations left unsupported, but these tools will work for the vast majority of end users.}---which we make use of.
  
-The specific details of implementation are lengthy, but to summarize: we make use of the \texttt{PySide6.QtMultimedia.QScreenCapture} class and its related classes. We identify the relevant window using user input and copy that window's framebuffer into memory using a \texttt{map()} function. We then pass the copied buffer into \rs, where it is used as the input for the harris algorithm.  Those curious for more information may consult the relevant documentation at \cite{QT_Doc} as well as a sample implementation at \cite{QT_EX}. We will attach a 'window selection tool' to our final application, which allows users to quickly select the correct window that \rs will read for image data. 
+The specific details of implementation are lengthy, but to summarize: we make use of the \texttt{PySide6.QtMultimedia.QScreenCapture} class and its related classes. We identify the relevant window using user input and copy that window's framebuffer into memory using a \texttt{map()} function. We then pass the copied buffer into \rs, where it is used as the input for the harris algorithm.  Those curious for more information may consult the relevant documentation at \cite{QT_Doc} as well as a sample implementation at \cite{QT_EX}. We attach a 'window selection tool' to our final application, which allows users to quickly select the correct window that \rs will read for image data. 
 
 \paragraph{Testing on Video} 
 We also included functionality to read a video file as input data for testing purposes. For this, we recorded a short video of a full set of \emph{Pong}. Video playback allows for faster debugging and iteration of our tools, as we may test changes in code immediately without needing to play yet another game of \emph{Pong}. The underlying principles are identical to the process above---simply replacing the mapped framebuffer with a framebuffer received directly from the video file.
 
 \subsubsection{Detecting Objects}
-Once the harris algorithm is handed the image data, it promptly returns a collection of points it asses as corners within the image. Of course, corners are only the start of our solution. We are searching for \emph{Objects} within those corners. In some cases, object detection would be a task better suited for machine learning. Luckily, the entities of \emph{Pong} are consistent in size and always maintain a basic, rectangular shape. This allowed us to implement our own bespoke method of detecting and classifying objects within a given frame.
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{pongCorners.jpg}
+    \caption{An example of Harris corner detection output. Note how numerous non-entity corners are flagged by the algorithm}
+    \label{fig:pongCorners}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+\begin{codeblock}
+# Find similar rect points 
+test_points = candidates[
+    np.argwhere(
+        np.logical_xor(
+            is_close(candidates, i)[:, 0],
+            is_close(candidates, i)[:, 1],
+        )
+    )
+].squeeze()
+
+# Find two that match our rect
+if (
+    test_points.shape[0] > 1
+    and len(test_points.shape) > 1
+    and not np.any(is_close(test_points[:, 0], test_points[:, 1]))
+):
+    if test_points.shape[0] > 2:
+        # Find the points closest to i
+        test_points = test_points[np.argmin(abs(test_points - i), axis=0)]
+
+    # append our new points to the resulting object
+    result[1:3] = test_points
+
+# Fourth point by induction
+p4 = test_points[np.where(is_close(test_points, i) != True)]
+result[3] = p4
+
+return result
+\end{codeblock}
+        \captionof{code}{Abbreviated \texttt{detect} algorithm}
+        \label{code:detect}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \begin{codeblock}
+results = {"p1": None, "p2": None, "ball": None}
+if len(groups) == 0:
+    return results
+
+# Get widths/heights to distinguish each object
+w = groups[:, 2, 0] - groups[:, 0, 0]
+h = groups[:, 1, 1] - groups[:, 0, 1]
+
+# Check for ball
+# height / width < 2 (square)
+ball = groups[np.argwhere(h / w < 2)].squeeze()
+if len(ball) == 4:
+    results["ball"] = ball
+
+# Check for paddles
+# height / width > 2 (rectangle) 
+paddles = groups[np.argwhere(h / w > 2)].squeeze()
+if len(paddles) == 2:
+    # Order paddles by direction (left first)
+    if paddles[0][0][0] < paddles[1][0][0]:
+        results["p1"] = paddles[0]
+        results["p2"] = paddles[1]
+    else:
+        results["p1"] = paddles[1]
+        results["p2"] = paddles[0]
+return results
+\end{codeblock}
+        \captionof{code}{Abbreviated \texttt{classify} algorithm}
+        \label{code:classify}
+\end{figure}
+
+Once the harris algorithm is handed the image data, it promptly returns a collection of points it asses to be the corners within the image. Of course, corners are only the start of our solution. We are searching for \emph{Objects} within those corners. In some cases, object detection would be a task better suited for machine learning. Luckily, the entities of \emph{Pong} are consistent in size and always maintain a basic, rectangular shape. This allowed us to implement our own bespoke method of detecting and classifying objects within a given frame.
 
 The general logic goes like this:
 
@@ -1588,75 +1959,202 @@ The general logic goes like this:
     \item[Ball] If a collection of four corners resemble a perfect square shape, then a \ball is detected.  
     \item[Paddle] If a collection of four corners resemble a rectangle with a specific aspect ratio, then a \pad is detected
         \begin{enumerate}
-            \item If the \pad is near the left side of the screen, it is the 'left' (i.e., player one) \pad. If the \pad is near the right side of the screen, it is the 'right' (i.e., player two) \pad
+            \item If the \pad is near the left side of the screen, it is the 'left' (player one) \pad. If the \pad is near the right side of the screen, it is the 'right' (player two) \pad
         \end{enumerate}
 \end{description}
 
 The specific nature of 'perfect square' and 'aspect ratio' are somewhat fuzzy for the \ball and \pad respectively. We allow for slight (one to three pixel) margins of error on shape calculations, We also consult the aspect ratio of the frame itself to calculate the paddle and square's appropriate aspect ratio. 
 
 
-The code for achieving these categorizations is somewhat obtuse to the untrained eye. This is due to the nature of NumPy array notation, which requires some familiarization. As we strive for optimal performance (thirty or more frames calculated per second), we endeavored to make the most out of this notation. To address potential confusion, we have thoroughly documented our code, and provide snippets of the object detection and classification algorithms in \ref{} \ref{}.
+The code for achieving these categorizations is somewhat obtuse to the untrained eye. This is due to the nature of NumPy array notation, which requires some familiarization. As we strive for optimal performance (thirty or more frames calculated per second), we endeavored to make the most out of this notation. To address potential confusion, we have thoroughly documented our code, and provide snippets of the object detection and classification algorithms in \cref{code:detect,code:classify}.
 
-We find that these methods successfully identify objects classify entities roughly 99\% of the time. Using a video for testing, we saw that over the course of 1500 frames of testing, the algorithm misidentified only 5 frames---or an error rate of $0.3\%$. 
+
+We find that these methods successfully identify objects and classify entities roughly 99\% of the time. Our testing of 1500 frames saw only 15 go misidentified---an error rate of $1\%$. 
 
 \subsubsection{Handling Errors}
 
-Some of these errors are actually key points for our implementation. Take for example the moment a \ball strikes a \pad. When the two objects collide, their bounding boxes 'become one'---at least, from the perspective of the corner detection algorithm, which misidentifies objects on the frame of impact. This means we can use the algorithm's misidentification as marker of a \state{hit}! Of course, we also validate the result by comparing the locations of the impacted objects---if the objects are very close, then they likely struck each other this frame.
+Some of these errors are actually key points for our implementation. Take for example the moment a \ball strikes a \pad. When the two objects collide, their bounding boxes 'become one'---at least, from the perspective of the corner detection algorithm, which will 'lose track' of the objects on the frame of impact. The consistency of this misidentification is used as a trace for detecting \state{hits} (\cref{fig:hitDect})!  Of course, we also validate the result by comparing the locations of the impacted objects---if the objects are very close, then they likely struck each other this frame.
 
 \paragraph{Continuity}
 
-here are, however, other errors that occasionally occur which are not beneficial to our implementation. These errors primarily occur whenever an object is occluded by another. This usually happens whenever the ball moves near the large score symbols at the top of the screen. Much like when striking the \pad, the \ball corners 'merge' with the score corners, creating a frame or two of bad data. 
+\begin{figure}[hb]
+    \centering
+\begin{codeblock}
+new_velocity = new_position - position
 
-Of course, we cannot allow this rare errors to hamper the playing experience. If a player were listening to the position of the ball, only to hear it suddenly jolt 'in-and-out of existence,' their ability to understand the game's state would be severely reduced. We can address these problems by implementing a basic sense of \tech{cross-frame persistence.} That is to say, we save the data from this frame and persist it into the next one. Using this data, we see if the changes in an objects state (like an object suddenly going from the position $(900, 540)$ to $(0, 0)$ in the blink of an eye) are sensible. If not, we simple re-use the previous frame's data until the object returns a sensible value in following frames. If the object continues to provide poor data, the system considers the object 'lost' and discounts it from calculations until it once again returns with reasonable data. 
+# If new velocity isn't impossible
+# i.e., an incorrect object
+# was accidentally flagged as this entity
+if np.any(abs(new_velocity) > VELOCITY_MAX):
+    lost_frame()
+    return
+\end{codeblock}
+    \captionof{code}{Continuity detection}
+    \label{code:contDect}
+\end{figure}
 
-What exactly constitutes 'reasonable' or 'sensible' data is context specific. In the case of \emph{Pong} we demand that the \ball and \pad move with a sense of continuous motion. Sudden jumping around the screen (due to poor frame data) will not be tolerated. This may sound in theory like a significant drawback, but in practice has very little effect on the experience. As we mentioned above, bad frame data is a rarity and usually occupies only a fraction of a second of play-time. Virtually no players will notice that audio data from 35 milliseconds ago is being repurposed once more while we await better data results. 
+\begin{figure}
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[height=0.4\textheight]{hitPrev.png}
+        \subcaption{Frame before Player 2's \pad hits the \ball}
+    \end{subfigure}
+    \\[1.5em]
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[height=0.4\textheight]{hit.png}
+        \subcaption{Frame of impact. Notice how object tracking for both Player 2's \pad and the \ball is lost this frame (as their corners overlap)}
+    \end{subfigure}
+    \caption{Example of sudden continuity loss during a \state{hit}---which may be used to detect the event}  
+\label{fig:hitDect}
+\end{figure}
+
+
+There are, however, other errors that are not so beneficial. These errors primarily occur whenever an object is occluded by another---which usually happens when the ball moves near the large score symbols at the top of the screen, as seen in \cref{fig:cont}. Much like when striking the \pad, the \ball corners 'merge' with the score corners, creating a frame or two of bad data. 
+
+Of course, we cannot allow this rare errors to hamper the playing experience. If a player were listening to the position of the ball, only to hear it suddenly jolt 'in-and-out of existence,' their ability to understand the game's state would be severely reduced. We can address these problems by implementing a basic sense of \tech{cross-frame persistence.} That is to say, we save the data from this frame and persist it into the next one. Using this data, we see if the changes in an objects state are sensible. For example, if an object suddenly goes from the position $(900, 540)$ to $(0, 0)$ in one frame---its almost certain that an error has occurred. If so, we re-use the previous frame's data until the object returns to sensible values in following frames. If the object continues to provide poor data, the system considers the object 'lost' and discounts it from calculations until it once again returns with reasonable data. A sample of this logic is seen in \cref{code:contDect} 
+
+\begin{figure}
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[height=0.4\textheight]{loseBef.png}
+        \subcaption{Frame before losing \ball tracking (Normal operation)}
+    \end{subfigure}
+    \\[1.5em]
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[height=0.4\textheight]{loseDur.png}
+        \subcaption{Frame of lost \ball continuity. Notice how the \ball overlaps corners with the score---confusing the CV algorithm}
+    \end{subfigure}
+    \caption{Example of tracking continuity issues with the Harris algorithm. The ball is highlighted in red for emphasis }  
+\label{fig:cont}
+\end{figure}
+
+What exactly constitutes 'reasonable' or 'sensible' data is context specific. In the case of \emph{Pong} we demand that the \ball and \pad move with a sense of continuous motion. Sudden jumping around the screen (due to poor frame data) will not be tolerated. This may sound in theory like a significant drawback, but in practice has very little effect on the experience. As we mentioned above, bad frame data is a rarity and usually occupies only a fraction of a second of play-time. Virtually no players will notice that audio data from 35 milliseconds ago is being reused while we await better results. 
 
 \subsubsection{Summary}
 These choices---from OpenCV and the harris algorithm, to Qt and our own bespoke code---comprise the \vision layer. In order to discuss the \decision layer, we must first take a moment to consider matters of \design.
 
-\subsection{On Design and Decision}
-Up to this point, we successfully created a \plan which categorized the entities within \emph{Pong}. Then we built the \vision layer of \rs using OpenCV, the harris corner detection algorithm, and our own bespoke code. Now,we must create a \design of \emph{Pong}'s rules and behaviors, which we will then use to create the \decision layer. 
+\section{Design \& The Decision Layer}
+Up to this point, we successfully created \plan which categorized the entities within \emph{Pong}. Then we built the \vision layer of \rs using OpenCV, the harris corner detection algorithm, and our own bespoke code. Now, we must create a \design of \emph{Pong}'s rules and behaviors, which we will then use to create the \decision layer. 
 
 \subsubsection{Decision Semantics for \emph{Pong}}
 \paragraph{Designing State}
 
 First, let us begin by considering the \state{states} we defined in our \plan. More specifically, we must devise how we \emph{distinguish} between each state. Ideally, \rs runs from \emph{Pong's} launch, meaning it is able to follow along with the state machine from \state{attract} all the way to an eventual \state{win}. However, there are also cases where \rs may be attached to a game already in progress, necessitating the need for context-invariant state identification.
 
-In the case of \emph{Pong}, we may identify the current state using the presence (or lack) of entities on-screen. When the game is in \state{attract} mode, for example, only the \ball is present on screen. We can easily detect this using our algorithm: \texttt{if \ball AND NOT \pad}. A similar logic is true for the \state{match} state (\texttt{if \ball AND \pad}) as well as \state{break} (\texttt{if \pad AND NOT \ball}). 
+In the case of \emph{Pong}, we may identify the current state using the presence (or lack) of entities on-screen. When the game is in \state{attract} mode, for example, only the \ball is present on screen. \cref{code:decSem} provides some examples of detecting \state{state} using our semantics.
 
-Complications arise when we lack key semantic data not presented on-screen. Our current implementation does not consider the score tally at the top of the display as entities, for example. Because of this, \rs requires itself to be attached to the game \emph{before} the match starts in order to accurately keep track of score. If the player were to attach \rs halfway through the match, it would mistakenly begin counting score from zero. This problem could be solved if the scoring symbols were treated as entities---allowing them to be analyzed for their semantics per-frame. We omit this for the purpose of simplifying our demonstration here. And so, we presume the player attaches \rs to the game during the \state{attract} screen. 
 
-Another issue arises from per-frame contextual analysis. For example, if the \ball disappears for a single frame---perhaps because it is occluded by the score UI---then what separates it from a \state{break} state (\texttt{if \pad AND NOT \ball})? To overcome this issue, we provide specific demands on object persistence---verifying that objects are missing for several consecutive frames before considering a state transition. This adds a slight theoretical delay to \rs, but is generally unnoticeable as it is in the magnitude of milliseconds.
+\begin{figure}[ht]
 
-We summarize our state semantic analysis in \ref{} [TODO: ADD TABLE!]
+    \centering
+    \begin{subfigure}{\textwidth}
+        \begin{codeblock}
+if ball.active and not (p1.active and p2.active) 
+\end{codeblock}
+        \subcaption{\state{Attract}}
+    \end{subfigure}
 
+    \begin{subfigure}{\textwidth}
+        \begin{codeblock}
+if ball.active and (p1.active and p2.active)
+\end{codeblock}
+        \subcaption{\state{Match}}
+    \end{subfigure}
+
+    \begin{subfigure}{\textwidth}
+        \begin{codeblock}
+if (p1.active and p2.active) and not ball.active
+\end{codeblock}
+        \subcaption{\state{Pause}}
+    \end{subfigure}
+    \captionof{code}{Decision Semantics}
+    \label{code:decSem}
+\end{figure}
+
+Complications arise when we lack key semantic data not currently shown on-screen. Our current implementation does not consider the score tally at the top of the display as entities, for example. Because of this, \rs requires itself to be attached to the game \emph{before} the game begins to accurately keep score. If the player were to attach \rs halfway through the match, it would mistakenly begin counting score from zero, even if players had already scored points. This could be solved if scoring symbols were treated as entities---allowing them to be analyzed for their semantics per-frame. We omit this for the purpose of simplifying our demonstration here. And so, we presume the player attaches \rs to the game during the \state{attract} screen. 
+
+\begin{figure}
+    \begin{codeblock}
+def lost_frame():
+    lost_frames += 1
+    if lost_frames > MAX_LOST_FRAMES:
+        deactivate()
+\end{codeblock}
+    \captionof{code}{Sample of object persistence code}
+    \label{code:objPers}
+\end{figure}
+
+Another issue arises from per-frame contextual analysis. For example, if the \ball disappears for a single frame---perhaps because it is occluded by the score UI---then what separates it from an \state{pause} state (\texttt{if \pad and not \ball})? To overcome this issue, we provide specific demands on object persistence---verifying that objects are missing for several consecutive frames before considering a state transition. In otherwords, an object may be allowed to 'disappear' for, say, six frames. As long as the object 'returns' to view before being missing for seven consecutive frames, then the algorithm will simply update the object as-normal---without counting it as being a 'newly' appearing \state{entity}. This adds a slight theoretical delay to \rs (since we must objects are truly lost over the course of several frames), but the lag is in the magnitude of miliseconds and is generally unnoticeable.
+
+
+\begin{figure}[ht]
+    \centering
+    \renewcommand{\tabularxcolumn}[1]{m{#1}}
+    \begin{tabularx}{\linewidth}{|M{1.3cm}|M{1cm}|S{X}|}
+        \hline
+        \makecell{\textbf{State}} 
+        & \makecell{\textbf{Trace}}
+        & \makecell{\textbf{Transition Logic}}
+        \\ \hline
+
+        \makecell{\textbf{Attract}} 
+        & \makecell{\ball}
+        & \makecell{\state{p1} \texttt{and} \state{p2} \trans \state{Pause}}
+        \\ \hline
+
+        \makecell{\textbf{Pause}}  
+        & \makecell{\state{p1} \\ \state{p2}}
+        & \makecell{\ball \texttt{and} (\state{p1} \texttt{and} \state{p2}) \trans \state{Match}}
+        \\ \hline
+
+        \makecell{\textbf{Match}}  
+        & \makecell{\state{p1} \\ \state{p2} \\ \ball}
+        & \makecell{\state{p1} \trans \state{p2.hit} 
+        \\ \state{p2} \trans \state{p1.hit} 
+        \\ \state{p1} \texttt{and} \state{p2} \trans \state{Goal} 
+        \\ \ball \trans \state{Win}}
+        \\ \hline
+
+        \makecell{\textbf{Goal}}  
+        & \makecell{\state{p1} \\ \state{p2}}
+        & \makecell{
+            \state{p1}.\texttt{score} $<$ 10 \texttt{and} \state{p2}.\texttt{score} $<$ 10 \trans \state{Pause} \\
+            \state{p1}.\texttt{score} $>$ 10 \texttt{or} \state{p2}.\texttt{score} $>$ 10 \trans \state{Win}
+            }
+        \\ \hline
+
+        \makecell[t]{\textbf{Win}}  
+        & \makecell[t]{\ball}
+        & \makecell[t]{\trans \state{Attract}}
+        \\ \hline
+    \end{tabularx}
+    \captionof{table}{Summary of \state{Design} semantics}
+    \label{tab:design}
+\end{figure}
+
+
+We summarize our state semantic analysis in \cref{tab:design}. The \state{Trace} column indicates which \state{entities} comprise the given \state{state}. For instance, \state{Attract} is only detected when there is a \ball and \emph{only} a \ball on screen. If the \ball were to disappear, and both player 1 and player 2\footnote{Frequently shortened to \state{p1} and \state{p2}} \state{paddles} appear, then we must transition to the \state{Pause} state. The \state{Match} state also does some special handling of the \pad's \state{hit} state. As discussed in the previous section, a \state{hit} occurs whenever a \ball and \pad collide. This collision confuses the detection algorithm, which fails to detect the colliding objects---leaving only the \emph{non-colliding} object on screen, which we use to detect hits (if only \state{p1} is visible, then \state{p2} must have registered da hit).  
 
 \subparagraph{State Transitions}
-Although \rs performs per-frame analysis, we must also provide transitional logic for moving between states. For example, when the \ball disappears off-screen for several consecutive frames, we transition to the \state{goal} state, which updates the \tech{points} attribute for the scoring player and plays a unique score sound effect. We then immediately transition to the \state{break} state, which will transition to \state{match} once it detects \pad and \ball entities on-screen together. We also consider the score when transitioning from \state{goal}. If a player's \state{points} attribute is equal to ten, then we move to the \state{win} state instead of the usual \state{match} state.
+Although \rs performs per-frame analysis, we must also provide transitional logic for moving between states. For example, when the \ball disappears off-screen for several consecutive frames, we transition to the \state{goal} state, which updates the \tech{points} attribute for the scoring player and plays a unique score sound effect. We then immediately transition to the \state{break} state, which will transition to \state{match} once it detects \pad and \ball entities on-screen together. We also consider the score when transitioning from \state{match}. If a player's \state{points} attribute is equal to eleven, then we move to the \state{win} state instead of returning to a \state{match}.
 
 \subparagraph{Entity States and transitions}
-Entity states are handled in a similar fashion. If a \pad for example is in the idle state but has performed a movement (i.e., its position has changed when compared to the previous frame), then it transitions to the \state{moving} state. If a \ball strike is detected this frame it transitions to \state{hit} for one frame before moving back to either \state{idle} or \state{moving}.
-
-Each of these conditions are simplistic, as we demonstrated with our pseudocode in previous chapters. For instance, consider the code used to detect a \state{goal}---which merely checks positions against a set \texttt{GOAL\_PIXEL\_THRESH} value, which defines the invisible 'goal-line' the ball must cross before a goal is registered:
+Entity states are handled in a similar fashion. If a \pad for example is in the idle state but has performed a movement (i.e., its position has changed when compared to the previous frame), then it transitions to the \state{moving} state. If a \state{hit} is detected this frame, it transitions to \state{hit} for one frame before moving back to either \state{idle} or \state{moving}.
 
 
+\subsubsection{Designing an Audio Display}
+As with \plan, there is no one correct way to \design an audio display. Regardless of our choices, we must be sure to provide clear, reactive, and understandable audio that accurately maps the game's semantics. A naive approach to an audio display might translate many of \emph{Pong}'s elements directly. Each \pad would produce a pitch in either the left or right audio channel depending on their on-screen position. The frequency of the pitch produced would vary depending on the height of the paddle on screen. The ball, meanwhile, would translate its on-screen position into a stereo panning effect while producing a similar pitch to the paddles. Although this \design accurately models the behaviors of \emph{Pong}, it is not easily understandable to the average user---who would be forced to contend with three active pitches simultaneously moving about them. Let us now consider some improvements.
 
+\paragraph{Player Uniqueness \& Relativity}
+The act of using headphones is an inherently isolating experience---unless a user performs the (fairly irregular) act of sharing their headphones with another user \emph{while} in a state of play. That being the case, we presume \rs is for one player enjoying \emph{Pong} using headphones. We use this assumption to improve design. \emph{How?} By removing the second player from the equation entirely. 
 
-Using these conditions (and others omitted in the interest of time), we have successfully built the \decision layer using some of our \design principles. Before we move on to \audio, we must first consider the relevant \design elements. 
+Although there is perhaps some semantic value gained in seeing what the opponent is doing, it is hard to deny---at least from a design perspective---that the game is, functionally, a single-player experience. If a player's opponent (say, a perfect AI) is sufficiently good at the game---knocking back every ball the player sends their way---then the player is, for all intents and purposes, playing against \emph{a solid wall} instead of a real competitor. This observation was commonly put into practice by several 'solitaire' variants of \emph{Pong} that were released in the pre-AI world of game development. By removing the other player from the equation, we can focus on providing high quality audio data for our two remaining entities: the player \pad and the \ball. But we can go one step further in our reduction as well. 
 
-\subsection{Designing an Audio Display}
-As with \plan, there is no one correct way to \design an audio display. Regardless of our choices, we must be sure to provide clear, reactive, and understandable audio that accurately maps the game's semantics. A naive approach to an audio display might translate many of \emph{Pong}'s elements directly. Each \pad would produce a pitch in either the left or right audio channel depending on their on-screen position. The frequency of the pitch produced would vary depending on the height of the paddle on screen. The ball, meanwhile, would translate its on-screen position into a stereo panning effect while producing a similar pitch to the paddles. Although this \design accurately models the behaviors of \emph{Pong}, it is not easily understandable to the average user---who would be forced to contend with three active pitches all currently moving about. Let us now consider some improvements.
-
-\subsubsection{Understanding Player Uniqueness}
-The act of listening to audio with headphones is an inherently isolating experience---unless a user performs the (fairly irregular) act of sharing their headphones with another user \emph{while} in a state of play. That being the case, we presume \rs is running for one player enjoying \emph{Pong} using headphones. We may use this assumption to improve our design. \emph{How?} By removing the second player form the equation entirely. 
-
-Although there is perhaps some semantic value to be gained in seeing exactly what your opponent is doing in \emph{Pong}, it is hard to deny---from a design perspective---that the game is functionally single-player. If a player's opponent (say, a perfect AI) is sufficiently good at the game---knocking back every ball the player sends their way---then the player is, for all intents and purposes, playing against \emph{a solid wall} instead of a real competitor. This observation was commonly put into practice by several 'solitaire' variants of \emph{Pong} that were released in the pre-AI world of game development. By removing the other player from the equation, we can focus on providing high quality audio data for our two remaining entities the player \pad and the \ball. But we can go one step further in our reduction as well. 
-
-
-\subsubsection{Understanding Player Relativity}
 We must now consider a question: 
 \begin{quote}
-\emph{What is the \textbf{point} of Pong?}     
+\emph{What is the point of Pong?}     
 \end{quote}
 
 To which we answer:
@@ -1664,61 +2162,561 @@ To which we answer:
 \emph{To accurately strike the \ball.}
 \end{quote}
 
-Our answer is, of course, a matter of subjective philosophy. And yet, the point still remains---skilled play of \emph{Pong} requires the return of a ball towards the opponent. We should notice something about our answer as well: \emph{it does not involve the player at all.} In fact, the answer revolves \emph{entirely} around the \ball. As the player is allowed only one axis of free movement (up-and-down the screen), understanding information about the comparatively complex 2D \ball movement is more valuable to the player. That being the case, we can perform yet another simplification of our design---designing our audio display \emph{from the player's point of reference.} 
+Our answer is, of course, a matter of subjective philosophy. And yet, the point still remains---skilled play of \emph{Pong} requires the return of a ball towards the opponent. We should notice something about our answer: \emph{it does not involve the player at all.} In fact, the answer revolves \emph{entirely} around the \ball. As the player is allowed only one axis of free movement (up-and-down the screen), understanding information about the comparatively complex 2D \ball movement is more valuable to the player. And so, we perform yet another simplification of our design---crafting a display \emph{from the player's point of reference.} 
 
-Imagine, if you will, that we were were the \state{paddles} in a real-world game of \emph{Pong}. Lets call this game, for the sake of imagination, \emph{Tennis}. Let us also pretend that the \ball emits a distinct sound. If the \ball were being served to us, we would first hear the sound \emph{at a distance}. As the \ball approaches us, the volume of the sound would increase---reaching its apex as it makes contact with us. The sound then diminishes in volume as the ball returns to the other player. This model of pong---reflecting intuitive, real-world behaviors---is an ideal for an audio display.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{distCalc.png}
+    \caption{Example of key metrics for our player-relative audio display: the distance between player one's \pad and the \ball.}
+    \label{fig:distCalc}
+\end{figure}
 
-\subsection{Audification}
-And so, we reach our final audification concept:
+Imagine, if you will, that we were were the \state{paddles} in a real-world game of \emph{Pong}. Lets call this game, for the sake of imagination, \emph{Tennis}. Let us also pretend that the \ball emits a distinct sound. If the \ball were being served to us, we would first hear the sound \emph{at a distance}. As the \ball approaches us, the volume of the sound would increase---reaching its apex as it makes contact with us. The sound then diminishes as the ball returns to the other player. This model of pong---reflecting intuitive, real-world behaviors---is an ideal for an audio display.
+
+
+\subsection{Code Samples}
+Each state condition is fairly simplistic, as we demonstrated with our pseudocode in previous chapters. For the sake of thoroughness, we present all of the state machine's real logic.\footnote{Well, \emph{mostly} real logic. Slight edits have been made for readability and in order to fit the margins of the page---particularly through the removal of python's pesky \texttt{self} keyword. The \state{pause} state is really named \state{intermission} in code. This is because \texttt{pause} is unused to avoid confusion with audio processes, and the more ubiquitous word \texttt{break} is a reserved word in python---meaning we cannot use it on our code.}
+
+To begin, the corner data calculated by the \vision layer (\texttt{new\_corners}) is passed to the \decision layer via the \texttt{decide} function, which uses this data to update entity information and calculate the next state---as seen in \cref{code:decide}.
+
+\begin{figure}[ht]
+    \centering
+    \begin{codeblock}
+# Runs every frame
+# Takes corner data as input from Vision Layer
+def decide(new_corners):
+    # Update entity positions
+    for entity, corners in new_corners.items():
+        entities[entity].update(corners)
+
+current_state = current_state()  
+\end{codeblock}
+    \captionof{code}{\decision header}
+    \label{code:decide}
+\end{figure}
+
+The logic for each \state{state} (represented as unique functions) follows below \texttt{decide}. Each function returns a \state{state} function, which will execute next frame. The returned function essentially acts as the state we 'transition to' for the next frame. Take, for example, the \texttt{attract} state seen in \cref{code:attract}.
+
+
+\begin{figure}
+    \centering
+    \begin{codeblock}
+def attract():
+    if p1.active and p2.active:
+        if ball.lost_frames > 0:
+            ball.active = False
+            return pause
+        else:
+            return match
+    else:
+        return attract        
+\end{codeblock}
+    \captionof{code}{\state{Attract} logic}
+    \label{code:attract}
+\end{figure}
+
+As we can see here, our \state{states} resemble the pseudocode described in previous sections. In essence, the algorithm checks for the presence of certain entities (via the \texttt{.active} variable) and makes corresponding transitions. Similar examples are seen in \cref{code:pause,code:win}.
+
+
+\begin{figure}
+    \centering
+    \begin{codeblock}
+def pause():
+    return match if ball.active else pause        
+\end{codeblock}
+    \captionof{code}{\state{Pause} logic}
+    \label{code:pause}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{codeblock}
+def win(winner):
+    winner.score += 1
+    winner.win() # win SFX
+    return attract
+\end{codeblock}
+    \captionof{code}{\state{Win} logic}
+    \label{code:win}
+\end{figure}
+
+
+The \texttt{match} function seen in \cref{code:match} is comparatively complex, as most of the game' logic is located here. This function must check for 'interesting' events---such as a \state{goals}, \state{hits}, and \state{bounces}. If nothing of note happens this frame (i.e., the game is running normally), then the function simply returns a reference to itself---indicating no transition this frame. A few constants defined outside the function (\texttt{HIT\_DIST, GOAL\_BUFFER, WALL\_DIST})---which define margins of error (how close the ball needs to be to players, walls, or the edges of screens)---are used. The utility function \texttt{dist()}---which measures the distance between entities---is also used. 
+
+\begin{figure}
+    \centering
+    \begin{codeblock}
+def match():
+    # If the ball's X velocity changes
+    # There must have been a hit
+    if ball.velocity_changed.x:
+        if dist(p1.position, ball.position) < HIT_DIST:
+            p1.hit()
+        elif dist(p2.position, ball.position) < HIT_DIST:
+            p2.hit()
+
+    # If the ball's Y velocity changes
+    # There might have been a bounce
+    # If it bounced off a top/bottom wall
+    elif ball.velocity_changed.y:
+        # If near a wall
+        if (
+            ball.y < WALL_DIST
+            or 
+            parent().frame.shape.x - ball.y < WALL_DIST
+        ):
+            ball.bounce()
+
+    # If the ball goes missing long enough
+    # There must have been a goal
+    if not ball.active:
+        if ball.x + GOAL_BUFFER > p2.x:
+            p1.goal()
+        elif ball.x + GOAL_BUFFER < p1.x:
+            p2.goal()
+        return pause
+
+    # If the paddles go missing long enough
+    # AND the ball is on a certain side of the screen
+    # The other player has won
+    if not (p1.active and p2.active):
+        if ball.x > (parent().frame.shape[1] // 2):
+            return win(p1)
+        else:
+            return win(p2)
+
+    return match
+
+\end{codeblock}
+    \captionof{code}{\state{Match} logic}
+    \label{code:match}
+\end{figure}
+
+As you can see, game states are used to update \state{entity} states---as seen via the invocation of \texttt{ball.bounce()} or \texttt{p2.goal()} 
+
+A similar logic is used for entity updates in \cref{code:entUpdate}. Here, we input the corner data for each entity, which we use to update attributes such as position and velocity:
+
+\begin{figure}[!htb]
+    \centering
+    \begin{codeblock}
+def update(new_corners):
+    if new_corners is None:
+        return lost_frame()
+    
+    new_position = (new_corners[0] + new_corners[3]) / 2
+
+    # Special Case when spawning or first discovered
+    # No velocity or other similar data this frame
+    if not active:
+        activate()
+    else: # Otherwise, calculate new velocity 
+        update_velocity(new_position)
+
+    corners = new_corners
+    position = new_position
+    # Convenience accessors
+    dimensions = new_corners[3] - new_corners[0]
+    x = position[0]
+    y = position[1]
+    w = dimensions[0]
+    h = dimensions[1]
+    top = new_corners[0][1]
+    bottom = new_corners[1][1]
+
+    lost_frames = 0
+\end{codeblock}
+    \captionof{code}{The generic \state{entity} \texttt{update} logic}
+    \label{code:entUpdate}
+\end{figure}
+
+We also require logic to handle frames where the entity is considered 'active' but is not found in data---as seen in \cref{code:entAux}. Finally, we require code for updating the object's velocity data, as seen in \cref{code:updateVelocity}.
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{\textwidth}
+        \centering
+        \begin{codeblock}
+def lost_frame():
+    lost_frames += 1
+    velocity_changed = np.full((2), False)
+    if lost_frames > MAX_LOST_FRAMES:
+        deactivate()    
+\end{codeblock}
+        \subcaption{\texttt{lost\_frame} function}
+    \end{subfigure}
+    \begin{subfigure}{\textwidth}
+    \centering       
+    \begin{codeblock}
+ def activate():
+    active = True
+    velocity = np.zeros((2))
+    # No velocity changes
+    velocity_changed = np.full((2), False)
+    
+def deactivate():
+    active = False
+    moving = False 
+\end{codeblock}
+    \subcaption{\texttt{activate} and \texttt{deactivate} logic}
+\end{subfigure}
+
+    \label{code:entAux}
+\end{figure}
+
+
+
+
+\begin{figure}[!htb]
+    \centering
+    \begin{codeblock}
+def update_velocity(new_position):
+    new_velocity = new_position - position
+
+    # If new velocity isn't impossible
+    # i.e., an incorrect object across the screen
+    # was accidentally flagged as this entity
+    if np.any(abs(new_velocity) > VELOCITY_MAX):
+        lost_frame()
+        return
+
+    # If new and old velocity aren't zeros
+    if np.any(new_velocity) and np.any(velocity):
+
+        # If we're moving this frame
+        moving = np.any(abs(new_velocity) > VELOCITY_MOE)
+
+        # If the velocity changed signs
+        # And is beyond a basic MOE
+        velocity_changed = (
+            (np.sign(new_velocity) != np.sign(velocity))
+            & (abs(new_velocity) > VELOCITY_MOE)
+        ).squeeze()
+    else:  # if Zeros, treat like no velocity change
+        velocity_changed = np.full((2), False)
+
+    velocity = new_velocity
+\end{codeblock}
+    \captionof{code}{Generic \state{Entity} \texttt{update\_velocity} function}
+    \label{code:updateVelocity}
+\end{figure}
+
+\subsection{Special Entity Logic}
+The \pad and \ball naturally have their own unique behaviors which requires additional code. Most behaviors are simple one or two-line functions that represent our entity states, as evidenced in \cref{code:padInit}.
+
+\cref{code:ballInit} meanwhile reveals that the \ball has more complex behaviors which require additional attributes:
+
+\begin{figure}[!htb]
+    \centering
+    \begin{codeblock}
+class Ball(Entity):
+
+    MIN_BEEP_SPEED = 0.4
+    MAX_BEEP_SPEED = 0.05
+    on_ricochet = Signal() # Bounce event
+
+    def __init__(name, parent):
+        super().__init__(name, parent)
+        last_beep = time.time() # Last sound timestamp
+        beep_speed = Ball.MIN_BEEP_SPEED 
+        pitch = Pitch.GOOD
+\end{codeblock}
+    \captionof{code}{\ball \texttt{init} logic}
+    \label{code:ballInit}
+\end{figure}
+
+As our design orients around the \ball, we must keep track of a few metrics---the time between audio playback (\texttt{beep\_speed}), the time when the last sound was generated (\texttt{last\_beep}), and which pitch should be generated (\texttt{pitch}). 
+
+The \tech{update} function requires similar attention---as seen in \cref{code:ballUpdate} and supplementary code found in \cref{code:ballUpdateSup} 
+
+\begin{figure}[!htb]
+    \centering
+    \begin{codeblock}
+def update(new_corners):
+    super().update(new_corners)
+
+    # If not in a match, exit!
+    if parent().current_state != parent().match:
+        return 
+
+    # Calculate new beep speed
+    beep_speed = calc_speed(
+        parent().p1,  client.frame_width
+    )
+
+    # Update pitch value
+    pitch = calc_pitch(parent().p1,  client.frame_height)
+    if pitch != pitch:
+        pitch = pitch
+        audio_objects["move"].switch_sound(pitch)
+
+    # Update panning
+    audio_objects["move"].update_panning(x)
+
+    # Check if we should beep
+    now = time.time()
+    if now - last_beep > beep_speed:
+        beep()
+\end{codeblock}
+    \captionof{code}{The \ball's special \texttt{update} logic}
+    \label{code:ballUpdate}
+\end{figure}
+
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{\textwidth}
+        \begin{codeblock}
+def calc_speed(paddle, ball, width):
+    dx = dist(paddle.x, ball.x)
+    # Return value between MIN and MAX speeds
+    return min(
+        abs(
+            Ball.MAX_BEEP_SPEED
+            + safe_ratio(ball.x, width) 
+            * (Ball.MIN_BEEP_SPEED - Ball.MAX_BEEP_SPEED)
+        ),
+        Ball.MIN_BEEP_SPEED,
+    )        
+\end{codeblock}
+        \subcaption{Calculate's the \ball's current speed}
+    
+    \end{subfigure}
+
+    \begin{subfigure}{\textwidth}
+    \begin{codeblock}
+def calc_pitch(paddle, ball, height):
+    # Ball is 'hittable' by player
+    if paddle.top <= ball.y <= paddle.bottom: 
+        return Pitch.GOOD
+    dy = ball.y - paddle.y
+    if dy < 0: # Ball above player
+        return Pitch.HIGH 
+        if dy < paddle.top / 2 
+        else Pitch.HIGHEST
+    elif dy > 0: # Ball below player
+        return Pitch.LOW 
+        if dy < (height - paddle.bottom) / 2 
+        else Pitch.LOWEST
+\end{codeblock}
+            
+        \subcaption{Calculate the \ball's current pitch}
+    
+    \end{subfigure}
+
+    \begin{subfigure}{\textwidth}
+        \begin{codeblock}
+# Possible pitch values 
+class Pitch(IntEnum):
+    LOWEST = 0
+    LOW = 1
+    GOOD = 2
+    HIGH = 3
+    HIGHEST = 4
+\end{codeblock}
+        \subcaption{Defines pitch values}
+    
+    \end{subfigure}
+
+    \captionof{code}{Supplementary code for updating the \ball}
+    \label{code:ballUpdateSup}
+\end{figure}
+
+
+Using these conditions, we have successfully built the \decision layer using our \design principles. The code may be far from perfect, but it is no doubt brief, readable, and generally easy to follow, even as a non-coder.
+
+\section{The Audification Layer}
+To begin, let us discuss our final audification concept:
 
 \begin{enumerate}
-    \item The \ball generates a repetitious sound when on-screen.
-    \item The sound's pitch equates to the distance between the \ball and the \pad on the Y-axis.
-    \item The sound's volume, as well as how frequently it repeats equates to the \ball's distance from the \pad on the X-axis.
-    \item The sound's panning is off-axis (i.e., played in both the hard-left and hard-right channels) when the ball is far away from the player. It approaches the center of the axis (i.e., played in center panning) as it approaches the player.
-    \item When a ball is hit, a special sound effect is generated in the channel corresponding to the player position (left for player one, right for player two).
-    \item When a point is scored, a unique sound effect is played depending on which player scored.
-    \item The current set score is read by a automated voice during the \state{break}.
-    \item When the game is at 'match point,' a special sound is played during the \state{break}.
+    \item The \ball generates a repetitious beeping sound when on-screen.
+    \item The sound's pitch represents the distance between the \ball and the \pad on the Y-axis.
+    \item The sound's volume, (as well as the speed between beeps) is proportional to the \ball's distance from the \pad on the X-axis.
+    \item The sound's spatial panning (its location 'around' the listener in 3D space) is defined by the ball's on-screen position. If the ball is near the left side of the screen, beeping sounds are heard on the player's left side in real-world space. If the ball is center-field, it is heard 'in front' of the player. If the ball is on the right side of the screen (near their opponent), it is heard on their right side.  
+    \item When a ball is hit, a distinct sound effect is generated depending on which player hit the ball. The sound's spatial location is also dependent on the hitting player---left for player 1, and right for player 2.
+    \item In a similar vein, goals generate a unique sound for each player.
+    \item When the game is at 'match point,' a special sound is played during the \state{pause}.
     \item When a player \state{wins} the game, a unique sound effect is played depending on the winner of the match.
 \end{enumerate}
 
-These simple rules form the basis of our audio display \design. As you can clearly see, we have made a great number of reductions to \emph{Pong}'s original design. And yet, our audio display gives clear, comprehensible, and reactive stimuli. In essence, \emph{Pong} could be re-conceived as a one dimensional task---wherein a player is attempting to 'dial-in' a pitch's frequency by turning a knob before a temporal deadline approaches. If the pitch is high, the player must turn the knob one way to lower the pitch to an 'average' value. If the pitch is too low, the player must turn the knob the opposite direction to raise the pitch to the average value. The panning and speed of sound's repetition indicates how much time the player has left before the deadline approaches.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{soundExp.png}
+    \caption{Visual of how the display's pitch calculation is made. Pitch regions are calculated relative to player one's current position on the $Y$ axis---indicated by the {\color{brightblue} blue} speaker output. The speed of the sound is proportional to the \ball's horizontal distance from the \pad---indicated here by the {\color{red}red} line and speaker symbol. }
+    \label{fig:soundExp}
+\end{figure}
 
-As we can see here, it is possible to significantly re-shape games via their translation from visual to audio displays. Finding good audio solutions often requires rethinking the entire game from the ground-up, which may be non-trivial for complex titles. In general, we believe this to be a matter of \design which is outside the scope of this paper. Although we shall mediate on it more during our conclusion.
 
-\subsubsection{On the Creation of Spatial Audio}
-As detailed in earlier chapters, the actual creation of spatial audio is a trivial task. We use basic algorithms to translate in-game coordinates to positions around the player (ranging from $-180$ to $180$ degrees) and use similar metrics of distance to set the distance of where spatial objects spawn around the listener. We use simple room metadata for our acoustic design---which is sufficient for our purposes but may require additional finetuning for other games. A sample generation of audio can be seen in \ref{code:audio}. 
+These simple rules form the basis of our audio display. As you can clearly see, we have made a great number of reductions to \emph{Pong}'s original design. And yet, our audio display gives clear, comprehensible, and reactive stimuli. 
+
+\paragraph{Rethinking \emph{Pong}}
+
+In essence, \emph{Pong} could be re-conceived as a one dimensional task---wherein a player is attempting to 'dial-in' a pitch's frequency by turning a knob before a given deadline. If the pitch is high, the player must turn the knob to lower the pitch to an 'average' value. If the pitch is too low, the player must turn the knob the opposite direction to raise the pitch to the average value. The panning and speed of sound's repetition indicates how much time the player has left before their deadline approaches.
+
+We can consequently conclude that is possible to significantly re-shape games via their translation from visual to audio displays. Finding good audio solutions often requires rethinking the entire game from the ground-up, which may be non-trivial for complex titles. In general, we believe this to be a matter of \design which is outside the scope of this paper. Although we shall mediate on it more during our conclusion.
+
+\subsection{Code Samples}
+The \audio layer is defined via a class of the same name in \cref{code:audEng} which manages the audio engine's configuration.
 
 \begin{figure}
-    \label{code:audio}
-    \caption{\textbf{[Code to be inserted in final draft]}}
+    \centering
+    \begin{codeblock}
+class AudificationLayer(QObject):
+
+    def __init__(parent):
+        super().__init__(parent)
+        client = parent
+        # Basic properties
+        _azimuth = 0
+        _elevation = 0
+        _distance = 0
+        _room_dimension = 1000
+        _reverb_gain = 0
+        _reflection_gain = 0
+
+        # Engine/Room Properties
+        _engine = QAudioEngine(self)
+        _engine.setOutputMode(QAudioEngine.Headphone)
+        _room = QAudioRoom(self._engine)
+        _room.setWallMaterial(QAudioRoom.BackWall, QAudioRoom.Transparent)
+        _room.setWallMaterial(QAudioRoom.FrontWall, QAudioRoom.Transparent)
+        _room.setWallMaterial(QAudioRoom.LeftWall, QAudioRoom.Transparent)
+        _room.setWallMaterial(QAudioRoom.RightWall, QAudioRoom.Transparent)
+        _room.setWallMaterial(QAudioRoom.Floor, QAudioRoom.Transparent)
+        _room.setWallMaterial(QAudioRoom.Ceiling, QAudioRoom.Transparent)
+        update_room()
+
+        _listener = QAudioListener(self._engine)
+        _listener.setPosition(QVector3D())
+        _listener.setRotation(QQuaternion())
+
+        _engine.start()
+
+\end{codeblock}
+    \captionof{code}{The \audio engine}
+    \label{code:audEng}
 \end{figure}
+
+Using the engine, we playback spatial audio in the form of \texttt{AudioObjects}, which store audio and spatial location data. \texttt{AudioObjects} are spawned by \state{entities} in the \decision layer. Their spatial properties can be modified via function calls, as seen in \cref{code:audObjFun}.
+
+\begin{figure}
+    \centering
+    \begin{codeblock}
+class AudioObject(QObject):
+    def __init__(parent, sound=None):
+        super().__init__(parent)
+        # Need to cut across the dependency graph
+        # The curse of OOP
+        client = parent.parent().parent()
+
+        # Default location values
+        _azimuth = 0
+        _elevation = 0
+        _distance = 8000
+        _occlusion = 0
+
+        # Audio file paths
+        _paths = []
+        
+        _sound = sound
+        
+        # Force hard spatial directions
+        _sound.setDirectivity(1)
+        _sound.setDirectivityOrder(1000)
+        
+        # set volume
+        _sound.setSize(1)
+\end{codeblock}
+    \captionof{code}{Definition of the \texttt{AudioObject}}
+    \label{code:audObj}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{\textwidth}
+        \begin{codeblock}
+def set_position(az=0, el=0, dist=100):
+    x = dist * math.sin(az) * math.cos(el)
+    y = dist * math.sin(el)
+    z = -dist * math.cos(az) * math.cos(el)
+    _sound.setPosition(QVector3D(x, y, z))
+    _sound.setRotation(
+        QQuaternion.fromDirection(_sound.position(), QVector3D(0, 1, 0))
+    )
+\end{codeblock}
+        \subcaption{Set object position using 3D spherical data}
+    
+    \end{subfigure}
+
+    \begin{subfigure}{\textwidth}
+        \begin{codeblock}
+def set_position_simple(dx, dy):
+    az = (dx / 720) * math.pi - (math.pi / 2)
+    el = _elevation / 180.0 * math.pi
+    el = 0
+    d = _distance
+
+    x = d * math.sin(az) * math.cos(el)
+    y = d * math.sin(el)
+    z = -d * math.cos(az) * math.cos(el)
+    _sound.setPosition(QVector3D(x, y, z))
+    _sound.setRotation(
+        QQuaternion.fromDirection(_sound.position(), QVector3D(0, 1, 0))
+    )
+\end{codeblock}
+        \subcaption{Set object position using screen-space coordinates}
+    
+    \end{subfigure}
+
+    
+    \begin{subfigure}{\textwidth}
+        \begin{codeblock}
+def set_pan(pan):
+    if pan is Pan.LEFT:
+        set_position(az=-math.pi / 2)
+    elif pan is Pan.RIGHT:
+        set_position(az=math.pi / 2)
+    elif pan is Pan.CENTER:
+        set_position(az=0)
+\end{codeblock}
+        \subcaption{Set hard stereo panning}
+    
+    \end{subfigure}
+    \captionof{code}{Some \texttt{AudioObject} functions}
+    \label{code:audObjFun}
+\end{figure}
+
+The \texttt{set\_position} function can modify the \tech{azimuth} or \texttt{az} (\emph{around} the listener), \tech{elevation} or \texttt{el} (\emph{above} or \emph{below} the listener), as well as the \tech{distance} or \texttt{d} from the listener. These three parameters position the object spherically around the listener---which we describe via a \tech{Quaternion} value. To emphasize spatiality, we must also \emph{point} (i.e., orient or rotate) the object at the listener. This is because the object's sounds are extremely localized---meaning they are only audible within a small 'cone' originating at the object's 'center.' In other words, the listener will not be able to hear the object unless that object is pointed right at them. 
+
+To illustrate this phenomenon, imagine that our audio objects emitted light instead of sound. If the object operates like a flood light, it would diffuse light over a large span of space. A flashlight, meanwhile, provides moderate coverage over a circular area, while a laser pointer would only illuminate a tiny and focused spot. Returning to sound, we can imagine our spatial objects as \emph{sonic lasers}---ones which direct sound at one specific point in space. 
+
+Of course, we can adjust the \tech{directivity} and \tech{directivity order} of our audio objects as we please. In the example above, we tuned our object to act like a laser with high directivity\footnote{We use an arbitrarily high value of \texttt{1000} for our directivity order, but any sufficiently large number will do.}:
+
+\begin{codeblock}
+    _sound.setDirectivity(1) # MIN = 0, MAX = 1
+    _sound.setDirectivityOrder(1000) # MIN = 0, MAX = INF
+\end{codeblock}
+
+This summarizes the AudificationLayer implementation. We use simple room metadata for our acoustic design---which is sufficient for our purposes, but may require additional fine-tuning for other games. 
+
+\paragraph{Limitations}
+There are, however, a few limitations to our approach. The \texttt{QtMultimedia} we make use of is unfortunately still fairly nascent in development---meaning numerous key functions are yet-unimplemented. For example, the \texttt{QSpatialAudioEngine} is only capable of static file playback (pre-recorded files such as \texttt{.mp3} or \texttt{.wav}). While this is sufficient for most cases, we have no means of performing real-time audio manipulating. In other words, we cannot modify a sound's pitch dynamically. 
+
+To sidestep this hurdle, we make use of several pre-recorded sounds---each of a different frequency. When it comes time to generate a sound, we decide which recording (i.e., frequency) to use based on the distance between the player and the ball. This can be seen in the \ball's \texttt{update} function in \cref{code:ballUpdate}. 
+
+This solution limits our frequency resolution (only five pitches as opposed to thousands), but serves as a fine starting-point for future implementations. We will likely re-write sections of the \texttt{QtMultimedia} module's audio engine, provided the package doesn't receive these features in a later update.
+
+
 
 With this, we have successfully built the \audio layer using our \design semantics. 
 
-\subsection{Execution: Building an Application}
-Finally, we must package everything into a useable application. In our case, we have created a user-facing GUI with Qt that features relevant options. The options most relevant to the player are the window settings---which selects which window is sent to the \vision layer. There are also some basic audio settings as well as a preview window to verify the window capture is working correctly. We also included debug features for development purposes---such as the computer vision data and some sliders for modifying the corner detection algorithm's parameters.
+\section {Execution: Building an Application}
+Finally, we must package everything into a useable application. Using Qt, we created a GUI with configurable options such as window settings---which selects which software window's data is sent to the \vision layer. There are also some basic audio settings and a preview window used to verify window capture is working correctly. We also included debug features for development purposes---such as the computer vision algorithm's data and some sliders for modifying the corner detection algorithm's parameters.
 
 This application is incredibly bare-bones, but still demonstrates the \exec stage clearly. We mediate on more advanced designs in later sections.
 
-\section{A Machine Learning Implementation}
-[To be completed in the final draft.]
-
-\section{A Proposal for a General Purpose Implementation}
-[To be completed in the final draft.]
-%%% EXPERIMENTS
-
-\chapter{Experiments} 
-
-\section{A Note on Experiments}
-Experiments are currently underway and pending final review. Experimental results will be included in the final draft of this thesis. 
-
-\section{Pong Demonstration}
-[To be completed in the final draft.]
-
-\subsection{Results}
-[To be completed in the final draft.]
+\section{Conclusion}
+In this chapter, we provided a in-depth look at a sample implementation of \rs. We began by considering the implementation process before deciding on a target game---\emph{Pong.} We then constructed each \state{layer} of \rs and provided code samples to illustrate our process before finally considering some limitations of our current prototype. 
 
 %%% CONCLUSION
 \chapter{Conclusions}
@@ -1732,18 +2730,55 @@ In chapter three we finally proposed \rs in full. We first began by exploring re
 
 In chapter four we demonstrated \rs using our own sample implementation built in \tech{python} using the common \tech{OpenCV} and \tech{Qt} libraries. Our implementation targeted the classic \emph{Pong} using the well-known Harris corner detection algorithm for image data analysis. We elaborated on the implementation process in great detail---considering challenges and solutions for each step as we progressed. We also proposed alternative implementations to further illuminate our understanding.
 
-In chapter five, we performed some experiments using our sample \emph{Pong} implementation, and explored the consequences of our experimental results.
-
 \section{Limitations}
 Of course, the sweeping nature of a proposal such as \rs is far beyond what may be contained in a singular graduate thesis. Much work is needed to polish and refine the concepts presented within this work.
 
 Although \rs could be added to most games, there are no doubt limits to the translation of visual stimuli into auditory displays. In reality, \rs would likely target simple games---generally 'retro' titles with simple rulesets equally primitive visuals. Despite this, we believe that \rs could still find utility as one of many tools used in aiding visually impaired players in more complex games---providing certain 'hints' that enhance their understanding of a given game. 
 
 \section{Future Work}
+\subsubsection{Prototype Improvement}
+Although our prototype functions on \emph{Pong}, it is far from a fully featured, user-friendly software. Beyond improving the built-in audio display, we believe it would be wise to re-tool and generalize our process further in order to allow users the chance to customize their \emph{own} audio displays. We believe this is where \rs will show its true strength via future work.
+
+It would also be wise to experiment with other computer vision (particularly ML-based) algorithms. We considered a few other algorithms in chapter 4, but we unfortunately did not find the time to fit a full exploration of machine learning and AI within this thesis---although we believe the same process applies for creating the \vision layer.
+
+\subsubsection{Other Target Games}
+
+\begin{figure}
+    \begin{adjustbox}
+        {
+            addcode={\begin{minipage}{\width}
+        }
+        {
+            \caption{Conceptualizing the \rs implementation process for \emph{Space Invaders}}
+            \label{fig:impOut}
+            \end{minipage}
+        }, 
+        rotate=270, center
+        }
+        \includegraphics[scale=0.45]{impOut.png}
+    \end{adjustbox}
+\end{figure}
+
+
+\emph{Pong}'s simplicity is helpful for illustration purposes, but one could also argue that the same simplicity also undermines our intents. In order to showcase \rs's versatility, we could be interested in seeing further implementations of \rs into other target games. We concede our system is likely unfitting for complex modern triple-A games, but we would still like to see exactly how far \rs could go before running into serious implementation hurdles. Regardless, we imagine \rs is suitable for many classic 70s and 80s games still lacking accessibility support. A sample of this concept is present int \cref{fig:impOut} using \emph{Space Invaders}.
+
+\subsubsection{Further Generalization}
+
+\begin{figure}
+
+    \centering
+    \includegraphics[width=0.75\textwidth]{ruleEX.png}
+
+    \caption{A sample UI for designing \decision rules.}
+    \label{fig:ruleEX}
+\end{figure}
+
+As we hinted to in previous sections, we also believe that \rs could benefit from further generalization in order to improve inclusive design capabilities. Much like a game's level creator allows ordinary players the ability to 'develop' their own games and levels, we believe that a well-constructed DSL and user-friendly software could further simplify the implementation process. A simple GUI as imagined in \cref{fig:ruleEX} could greatly simplify the development and customization process. Combined with tools that automatically train ML models given simplified user input, it may be possible to turn \rs itself into an accessible development platform. We consider this concept to be a promising foundation for future doctoral work.  
+
 As the fields of machine learning and computer vision are changing constantly, it is easy to imagine a litany of future projects. Improving the \vision layer via high quality machine learning algorithms is one such example. Moreover, the creation of a general application with graphical tools that streamline the \design and \plan phases is also of interest to the author. On top of this, additional experimentation with more target games could provide reliable data on \rs efficacy. Finally, implementing \rs into 3D games could produce interesting results---allowing a better understanding on \rs's limitations.
 
 \section{Thanks}
-[To be completed in the final draft.]
+I must extend a gracious thanks to my thesis advisor Hiroyuki Matsuguma for their constant support. I also would like to thank my supplemental advisors Tokushu Inamura and Dr. Yuki Morimoto, as well as Dr. Ho Hsin-Ni for their priceless feedback. Of course, I would be remiss if I didn't explicitly dedicate this work to the late Kenji Eno---whose works \emph{D}, \emph{Real Sound}, and \emph{Enemy Zero} directly inspired this research, as well as my long and complex journey from a humble Oklahoma City to the great Kyushu University. 
 
 % \bibliographystyle{IEEEtran}
 \printbibliography

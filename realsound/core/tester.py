@@ -16,6 +16,9 @@ import threading
 
 from realsound.qt.audio import AudioWidget
 
+P1_START = 8
+P2_START = 3
+
 
 class PitchTest(QWidget):
 
@@ -35,7 +38,7 @@ def spawn_pitch():
 
 def new_test():
 
-    START_FRAME = 900
+    START_FRAME = 1170
     FRAME_RATE = 25
 
     app = QApplication(sys.argv)
@@ -50,6 +53,9 @@ def new_test():
 
     # Spawn a new thread to read the video frames
     frame_generator = threading.Thread(target=input.start)
+
+    client.decision.p1.score = P1_START
+    client.decision.p2.score = P2_START
 
     # Hack-y code needed to make video playback happy
     # Sends initial frame to kickstart event loop
