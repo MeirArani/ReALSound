@@ -1,2 +1,2 @@
 ﻿# ReALSound
-Source and documents related tol my thesis work for Kyushu University
+Source and documents related to my thesis work for Kyushu University
